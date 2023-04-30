@@ -1,0 +1,90 @@
+{
+  "project_info": {
+    "project_number": "666824645054",
+    "project_id": "nocodeforest-664bc",
+    "storage_bucket": "nocodeforest-664bc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:666824645054:android:1f91a8a1827bf3ba8e81ef",
+        "android_client_info": {
+          "package_name": "com.mycompany.dashboard"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "666824645054-jemtfgv9dibe7stb0mn94j7ft2f3b61b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZkcUXpnwsUN6LbR_RyUgJKeEtYT3gXEA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "666824645054-jemtfgv9dibe7stb0mn94j7ft2f3b61b.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "666824645054-7mf00c2n2r53sh773vmljbto89oflde9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mycompany.nocodeforest2"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:666824645054:android:82aa5286e5113f1a8e81ef",
+        "android_client_info": {
+          "package_name": "com.mycompany.nocodeforest2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "666824645054-7al3cm2si83qvqrtqqhcrlum58cepek4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mycompany.nocodeforest2",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "666824645054-jemtfgv9dibe7stb0mn94j7ft2f3b61b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZkcUXpnwsUN6LbR_RyUgJKeEtYT3gXEA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "666824645054-jemtfgv9dibe7stb0mn94j7ft2f3b61b.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "666824645054-7mf00c2n2r53sh773vmljbto89oflde9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mycompany.nocodeforest2"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
