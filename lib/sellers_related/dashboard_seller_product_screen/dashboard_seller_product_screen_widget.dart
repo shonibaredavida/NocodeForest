@@ -1,5 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/components/empty_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/main_components/header/header_widget.dart';
@@ -99,6 +100,9 @@ class _DashboardSellerProductScreenWidgetState
                           iconFourColor:
                               FlutterFlowTheme.of(context).primaryText,
                           bGColor4: FlutterFlowTheme.of(context).primary,
+                          p1State: false,
+                          p2State: false,
+                          p4State: true,
                         ),
                       ),
                       Expanded(
@@ -463,10 +467,14 @@ class _DashboardSellerProductScreenWidgetState
                                     height: 1000.0,
                                     decoration: BoxDecoration(),
                                     child: StreamBuilder<List<ProductsRecord>>(
-                                      stream: queryProductsRecord(
-                                        queryBuilder: (productsRecord) =>
-                                            productsRecord.where('seller_id',
-                                                isEqualTo: currentUserUid),
+                                      stream: _model.productUploaded(
+                                        uniqueQueryKey:
+                                            '${currentUserUid}products',
+                                        requestFn: () => queryProductsRecord(
+                                          queryBuilder: (productsRecord) =>
+                                              productsRecord.where('seller_id',
+                                                  isEqualTo: currentUserUid),
+                                        ),
                                       ),
                                       builder: (context, snapshot) {
                                         // Customize what your widget looks like when it's loading.
@@ -487,6 +495,25 @@ class _DashboardSellerProductScreenWidgetState
                                         List<ProductsRecord>
                                             listViewProductsRecordList =
                                             snapshot.data!;
+                                        if (listViewProductsRecordList
+                                            .isEmpty) {
+                                          return Center(
+                                            child: EmptyWidget(
+                                              title: 'No Product Added',
+                                              icon: Icon(
+                                                Icons.dangerous,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .accent1,
+                                                size: 82.0,
+                                              ),
+                                              titleColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryBackground,
+                                              subtitleColor: Color(0x00000000),
+                                            ),
+                                          );
+                                        }
                                         return ListView.builder(
                                           padding: EdgeInsets.zero,
                                           scrollDirection: Axis.vertical,
@@ -533,73 +560,73 @@ class _DashboardSellerProductScreenWidgetState
                                                               .start,
                                                       children: [
                                                         Expanded(
-                                                          child: Container(
-                                                            decoration:
-                                                                BoxDecoration(),
-                                                            child: Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          6.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                              child: Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceBetween,
-                                                                children: [
-                                                                  Container(
-                                                                    decoration:
-                                                                        BoxDecoration(),
-                                                                    child: Row(
-                                                                      mainAxisSize:
-                                                                          MainAxisSize
-                                                                              .max,
-                                                                      children: [
-                                                                        Padding(
-                                                                          padding: EdgeInsetsDirectional.fromSTEB(
-                                                                              8.0,
-                                                                              8.0,
-                                                                              8.0,
-                                                                              8.0),
-                                                                          child:
-                                                                              ClipRRect(
-                                                                            borderRadius:
-                                                                                BorderRadius.circular(4.0),
+                                                          child: ClipRRect(
+                                                            child: Container(
+                                                              decoration:
+                                                                  BoxDecoration(),
+                                                              child: Padding(
+                                                                padding:
+                                                                    EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            6.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                child: Row(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceBetween,
+                                                                  children: [
+                                                                    Container(
+                                                                      decoration:
+                                                                          BoxDecoration(),
+                                                                      child:
+                                                                          Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        children: [
+                                                                          Padding(
+                                                                            padding: EdgeInsetsDirectional.fromSTEB(
+                                                                                8.0,
+                                                                                8.0,
+                                                                                8.0,
+                                                                                8.0),
                                                                             child:
-                                                                                Image.network(
-                                                                              listViewProductsRecord.image!,
-                                                                              width: 48.0,
-                                                                              height: 40.0,
-                                                                              fit: BoxFit.cover,
+                                                                                ClipRRect(
+                                                                              borderRadius: BorderRadius.circular(4.0),
+                                                                              child: Image.network(
+                                                                                listViewProductsRecord.image!,
+                                                                                width: 48.0,
+                                                                                height: 40.0,
+                                                                                fit: BoxFit.cover,
+                                                                              ),
                                                                             ),
                                                                           ),
-                                                                        ),
-                                                                        Padding(
-                                                                          padding: EdgeInsetsDirectional.fromSTEB(
-                                                                              16.0,
-                                                                              0.0,
-                                                                              0.0,
-                                                                              0.0),
-                                                                          child:
-                                                                              Text(
-                                                                            listViewProductsRecord.name!,
-                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                  fontFamily: 'Roboto Condensed',
-                                                                                  color: FlutterFlowTheme.of(context).primaryBackground,
-                                                                                  fontSize: 16.0,
-                                                                                  lineHeight: 1.5,
-                                                                                ),
+                                                                          Padding(
+                                                                            padding: EdgeInsetsDirectional.fromSTEB(
+                                                                                16.0,
+                                                                                0.0,
+                                                                                0.0,
+                                                                                0.0),
+                                                                            child:
+                                                                                Text(
+                                                                              listViewProductsRecord.name!,
+                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                    fontFamily: 'Roboto Condensed',
+                                                                                    color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                                    fontSize: 16.0,
+                                                                                    lineHeight: 1.5,
+                                                                                  ),
+                                                                            ),
                                                                           ),
-                                                                        ),
-                                                                      ],
+                                                                        ],
+                                                                      ),
                                                                     ),
-                                                                  ),
-                                                                ],
+                                                                  ],
+                                                                ),
                                                               ),
                                                             ),
                                                           ),

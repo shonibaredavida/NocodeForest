@@ -1,10 +1,13 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/components/empty_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/main_components/header/header_widget.dart';
 import '/sellers_related/componnents/sidebar_seller/sidebar_seller_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
+import '/flutter_flow/request_manager.dart';
+
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -23,6 +26,23 @@ class DashboardSellerProductScreenModel extends FlutterFlowModel {
   TextEditingController? textController;
   String? Function(BuildContext, String?)? textControllerValidator;
 
+  /// Query cache managers for this widget.
+
+  final _productUploadedManager = StreamRequestManager<List<ProductsRecord>>();
+  Stream<List<ProductsRecord>> productUploaded({
+    String? uniqueQueryKey,
+    bool? overrideCache,
+    required Stream<List<ProductsRecord>> Function() requestFn,
+  }) =>
+      _productUploadedManager.performRequest(
+        uniqueQueryKey: uniqueQueryKey,
+        overrideCache: overrideCache,
+        requestFn: requestFn,
+      );
+  void clearProductUploadedCache() => _productUploadedManager.clear();
+  void clearProductUploadedCacheKey(String? uniqueKey) =>
+      _productUploadedManager.clearRequest(uniqueKey);
+
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
@@ -34,6 +54,10 @@ class DashboardSellerProductScreenModel extends FlutterFlowModel {
     headerModel.dispose();
     sidebarSellerModel.dispose();
     textController?.dispose();
+
+    /// Dispose query cache managers for this widget.
+
+    clearProductUploadedCache();
   }
 
   /// Additional helper methods are added here.

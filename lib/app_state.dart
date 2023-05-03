@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'flutter_flow/request_manager.dart';
 import 'backend/backend.dart';
 import 'backend/api_requests/api_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -17,7 +18,6 @@ class FFAppState extends ChangeNotifier {
 
   Future initializePersistedState() async {
     prefs = await SharedPreferences.getInstance();
-    _cart = prefs.getStringList('ff_cart') ?? _cart;
   }
 
   void update(VoidCallback callback) {
@@ -26,28 +26,6 @@ class FFAppState extends ChangeNotifier {
   }
 
   late SharedPreferences prefs;
-
-  List<String> _cart = [];
-  List<String> get cart => _cart;
-  set cart(List<String> _value) {
-    _cart = _value;
-    prefs.setStringList('ff_cart', _value);
-  }
-
-  void addToCart(String _value) {
-    _cart.add(_value);
-    prefs.setStringList('ff_cart', _cart);
-  }
-
-  void removeFromCart(String _value) {
-    _cart.remove(_value);
-    prefs.setStringList('ff_cart', _cart);
-  }
-
-  void removeAtIndexFromCart(int _index) {
-    _cart.removeAt(_index);
-    prefs.setStringList('ff_cart', _cart);
-  }
 
   bool _searchactive = false;
   bool get searchactive => _searchactive;
@@ -60,6 +38,45 @@ class FFAppState extends ChangeNotifier {
   set searchactive2(bool _value) {
     _searchactive2 = _value;
   }
+
+  List<DocumentReference> _cart = [];
+  List<DocumentReference> get cart => _cart;
+  set cart(List<DocumentReference> _value) {
+    _cart = _value;
+  }
+
+  void addToCart(DocumentReference _value) {
+    _cart.add(_value);
+  }
+
+  void removeFromCart(DocumentReference _value) {
+    _cart.remove(_value);
+  }
+
+  void removeAtIndexFromCart(int _index) {
+    _cart.removeAt(_index);
+  }
+
+  double _sum = 0.0;
+  double get sum => _sum;
+  set sum(double _value) {
+    _sum = _value;
+  }
+
+  final _allProductQueryManager = StreamRequestManager<List<ProductsRecord>>();
+  Stream<List<ProductsRecord>> allProductQuery({
+    String? uniqueQueryKey,
+    bool? overrideCache,
+    required Stream<List<ProductsRecord>> Function() requestFn,
+  }) =>
+      _allProductQueryManager.performRequest(
+        uniqueQueryKey: uniqueQueryKey,
+        overrideCache: overrideCache,
+        requestFn: requestFn,
+      );
+  void clearAllProductQueryCache() => _allProductQueryManager.clear();
+  void clearAllProductQueryCacheKey(String? uniqueKey) =>
+      _allProductQueryManager.clearRequest(uniqueKey);
 }
 
 LatLng? _latLngFromString(String? val) {

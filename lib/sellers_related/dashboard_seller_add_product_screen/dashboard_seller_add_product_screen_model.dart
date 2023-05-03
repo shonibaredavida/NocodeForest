@@ -1,10 +1,12 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/backend/firebase_storage/storage.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/flutter_flow/upload_data.dart';
 import '/main_components/header/header_widget.dart';
 import '/sellers_related/componnents/sidebar_seller/sidebar_seller_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
@@ -23,6 +25,11 @@ class DashboardSellerAddProductScreenModel extends FlutterFlowModel {
   late HeaderModel headerModel;
   // Model for sidebar_seller component.
   late SidebarSellerModel sidebarSellerModel;
+  bool isDataUploading1 = false;
+  FFUploadedFile uploadedLocalFile1 =
+      FFUploadedFile(bytes: Uint8List.fromList([]));
+  String uploadedFileUrl1 = '';
+
   // State field(s) for ProductNameField widget.
   TextEditingController? productNameFieldController;
   String? Function(BuildContext, String?)? productNameFieldControllerValidator;
@@ -99,12 +106,12 @@ class DashboardSellerAddProductScreenModel extends FlutterFlowModel {
   bool? wellDocSwitchValue;
   // State field(s) for ResponsiveSwitch widget.
   bool? responsiveSwitchValue;
-  // State field(s) for Switch widget.
-  bool? switchValue1;
-  // State field(s) for Switch widget.
-  bool? switchValue2;
-  // State field(s) for Switch widget.
-  bool? switchValue3;
+  // State field(s) for UpdatesSwitch widget.
+  bool? updatesSwitchValue;
+  // State field(s) for CustomCodeSwitch widget.
+  bool? customCodeSwitchValue;
+  // State field(s) for OngoingSupportSwitch widget.
+  bool? ongoingSupportSwitchValue;
   // State field(s) for TextField widget.
   TextEditingController? textController7;
   String? Function(BuildContext, String?)? textController7Validator;
@@ -114,6 +121,14 @@ class DashboardSellerAddProductScreenModel extends FlutterFlowModel {
   // State field(s) for TagsField widget.
   TextEditingController? tagsFieldController;
   String? Function(BuildContext, String?)? tagsFieldControllerValidator;
+  bool isDataUploading2 = false;
+  List<FFUploadedFile> uploadedLocalFiles2 = [];
+  List<String> uploadedFileUrls2 = [];
+
+  bool isDataUploading3 = false;
+  FFUploadedFile uploadedLocalFile3 =
+      FFUploadedFile(bytes: Uint8List.fromList([]));
+  String uploadedFileUrl3 = '';
 
   /// Initialization and disposal methods.
 

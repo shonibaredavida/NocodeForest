@@ -388,8 +388,8 @@ class _SigninModalWidgetState extends State<SigninModalWidget> {
                                     return;
                                   }
 
-                                  context.pushNamedAuth(
-                                      'landingPageBuyers', mounted);
+                                  context.goNamedAuth(
+                                      'dashboardBuyer', mounted);
                                 },
                                 child: Container(
                                   width: 364.0,

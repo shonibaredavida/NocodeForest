@@ -83,14 +83,6 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
             specifiedType:
                 const FullType(BuiltList, const [const FullType(String)])));
     }
-    value = object.cart;
-    if (value != null) {
-      result
-        ..add('cart')
-        ..add(serializers.serialize(value,
-            specifiedType:
-                const FullType(BuiltList, const [const FullType(String)])));
-    }
     value = object.profession;
     if (value != null) {
       result
@@ -139,6 +131,16 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
         ..add('bio')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
+    }
+    value = object.cart;
+    if (value != null) {
+      result
+        ..add('cart')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(BuiltList, const [
+              const FullType(
+                  DocumentReference, const [const FullType.nullable(Object)])
+            ])));
     }
     value = object.ffRef;
     if (value != null) {
@@ -200,12 +202,6 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
                       BuiltList, const [const FullType(String)]))!
               as BuiltList<Object?>);
           break;
-        case 'cart':
-          result.cart.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      BuiltList, const [const FullType(String)]))!
-              as BuiltList<Object?>);
-          break;
         case 'profession':
           result.profession = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
@@ -233,6 +229,13 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
         case 'bio':
           result.bio = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
+          break;
+        case 'cart':
+          result.cart.replace(serializers.deserialize(value,
+              specifiedType: const FullType(BuiltList, const [
+                const FullType(
+                    DocumentReference, const [const FullType.nullable(Object)])
+              ]))! as BuiltList<Object?>);
           break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
@@ -267,8 +270,6 @@ class _$UsersRecord extends UsersRecord {
   @override
   final BuiltList<String>? wishlist;
   @override
-  final BuiltList<String>? cart;
-  @override
   final String? profession;
   @override
   final String? username;
@@ -282,6 +283,8 @@ class _$UsersRecord extends UsersRecord {
   final String? location;
   @override
   final String? bio;
+  @override
+  final BuiltList<DocumentReference<Object?>>? cart;
   @override
   final DocumentReference<Object?>? ffRef;
 
@@ -298,7 +301,6 @@ class _$UsersRecord extends UsersRecord {
       this.becomeASeller,
       this.status,
       this.wishlist,
-      this.cart,
       this.profession,
       this.username,
       this.interest,
@@ -306,6 +308,7 @@ class _$UsersRecord extends UsersRecord {
       this.firstName,
       this.location,
       this.bio,
+      this.cart,
       this.ffRef})
       : super._();
 
@@ -329,7 +332,6 @@ class _$UsersRecord extends UsersRecord {
         becomeASeller == other.becomeASeller &&
         status == other.status &&
         wishlist == other.wishlist &&
-        cart == other.cart &&
         profession == other.profession &&
         username == other.username &&
         interest == other.interest &&
@@ -337,6 +339,7 @@ class _$UsersRecord extends UsersRecord {
         firstName == other.firstName &&
         location == other.location &&
         bio == other.bio &&
+        cart == other.cart &&
         ffRef == other.ffRef;
   }
 
@@ -352,7 +355,6 @@ class _$UsersRecord extends UsersRecord {
     _$hash = $jc(_$hash, becomeASeller.hashCode);
     _$hash = $jc(_$hash, status.hashCode);
     _$hash = $jc(_$hash, wishlist.hashCode);
-    _$hash = $jc(_$hash, cart.hashCode);
     _$hash = $jc(_$hash, profession.hashCode);
     _$hash = $jc(_$hash, username.hashCode);
     _$hash = $jc(_$hash, interest.hashCode);
@@ -360,6 +362,7 @@ class _$UsersRecord extends UsersRecord {
     _$hash = $jc(_$hash, firstName.hashCode);
     _$hash = $jc(_$hash, location.hashCode);
     _$hash = $jc(_$hash, bio.hashCode);
+    _$hash = $jc(_$hash, cart.hashCode);
     _$hash = $jc(_$hash, ffRef.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -377,7 +380,6 @@ class _$UsersRecord extends UsersRecord {
           ..add('becomeASeller', becomeASeller)
           ..add('status', status)
           ..add('wishlist', wishlist)
-          ..add('cart', cart)
           ..add('profession', profession)
           ..add('username', username)
           ..add('interest', interest)
@@ -385,6 +387,7 @@ class _$UsersRecord extends UsersRecord {
           ..add('firstName', firstName)
           ..add('location', location)
           ..add('bio', bio)
+          ..add('cart', cart)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -431,10 +434,6 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
       _$this._wishlist ??= new ListBuilder<String>();
   set wishlist(ListBuilder<String>? wishlist) => _$this._wishlist = wishlist;
 
-  ListBuilder<String>? _cart;
-  ListBuilder<String> get cart => _$this._cart ??= new ListBuilder<String>();
-  set cart(ListBuilder<String>? cart) => _$this._cart = cart;
-
   String? _profession;
   String? get profession => _$this._profession;
   set profession(String? profession) => _$this._profession = profession;
@@ -463,6 +462,12 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
   String? get bio => _$this._bio;
   set bio(String? bio) => _$this._bio = bio;
 
+  ListBuilder<DocumentReference<Object?>>? _cart;
+  ListBuilder<DocumentReference<Object?>> get cart =>
+      _$this._cart ??= new ListBuilder<DocumentReference<Object?>>();
+  set cart(ListBuilder<DocumentReference<Object?>>? cart) =>
+      _$this._cart = cart;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -483,7 +488,6 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
       _becomeASeller = $v.becomeASeller;
       _status = $v.status;
       _wishlist = $v.wishlist?.toBuilder();
-      _cart = $v.cart?.toBuilder();
       _profession = $v.profession;
       _username = $v.username;
       _interest = $v.interest;
@@ -491,6 +495,7 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
       _firstName = $v.firstName;
       _location = $v.location;
       _bio = $v.bio;
+      _cart = $v.cart?.toBuilder();
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -525,7 +530,6 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
               becomeASeller: becomeASeller,
               status: status,
               wishlist: _wishlist?.build(),
-              cart: _cart?.build(),
               profession: profession,
               username: username,
               interest: interest,
@@ -533,12 +537,14 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
               firstName: firstName,
               location: location,
               bio: bio,
+              cart: _cart?.build(),
               ffRef: ffRef);
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'wishlist';
         _wishlist?.build();
+
         _$failedField = 'cart';
         _cart?.build();
       } catch (e) {

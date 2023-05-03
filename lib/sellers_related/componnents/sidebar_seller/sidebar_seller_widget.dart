@@ -34,6 +34,9 @@ class SidebarSellerWidget extends StatefulWidget {
     Color? bGProfile,
     Color? bGSetting,
     Color? iconSettingColor,
+    bool? p1State,
+    bool? p2State,
+    this.p4State,
   })  : this.iconOneColor = iconOneColor ?? const Color(0xFF99969E),
         this.iconTwoColor = iconTwoColor ?? const Color(0xFF99969E),
         this.iconThreeColor = iconThreeColor ?? const Color(0xFF99969E),
@@ -54,6 +57,8 @@ class SidebarSellerWidget extends StatefulWidget {
         this.bGProfile = bGProfile ?? const Color(0xFFFAFAFA),
         this.bGSetting = bGSetting ?? const Color(0xFFFAFAFA),
         this.iconSettingColor = iconSettingColor ?? const Color(0xFF99969E),
+        this.p1State = p1State ?? false,
+        this.p2State = p2State ?? false,
         super(key: key);
 
   final Color iconOneColor;
@@ -76,6 +81,9 @@ class SidebarSellerWidget extends StatefulWidget {
   final Color bGProfile;
   final Color bGSetting;
   final Color iconSettingColor;
+  final bool p1State;
+  final bool p2State;
+  final bool? p4State;
 
   @override
   _SidebarSellerWidgetState createState() => _SidebarSellerWidgetState();
@@ -362,7 +370,9 @@ class _SidebarSellerWidgetState extends State<SidebarSellerWidget>
                   hoverColor: Colors.transparent,
                   highlightColor: Colors.transparent,
                   onTap: () async {
-                    context.pushNamed('dashboardSeller');
+                    if (!widget.p1State) {
+                      context.pushNamed('dashboardSeller');
+                    }
                   },
                   child: Container(
                     width: double.infinity,
@@ -411,16 +421,18 @@ class _SidebarSellerWidgetState extends State<SidebarSellerWidget>
                   hoverColor: Colors.transparent,
                   highlightColor: Colors.transparent,
                   onTap: () async {
-                    context.pushNamed(
-                      'dashboardSellerAnalyticsScreen',
-                      extra: <String, dynamic>{
-                        kTransitionInfoKey: TransitionInfo(
-                          hasTransition: true,
-                          transitionType: PageTransitionType.fade,
-                          duration: Duration(milliseconds: 0),
-                        ),
-                      },
-                    );
+                    if (!widget.p2State) {
+                      context.pushNamed(
+                        'dashboardSellerAnalyticsScreen',
+                        extra: <String, dynamic>{
+                          kTransitionInfoKey: TransitionInfo(
+                            hasTransition: true,
+                            transitionType: PageTransitionType.fade,
+                            duration: Duration(milliseconds: 0),
+                          ),
+                        },
+                      );
+                    }
                   },
                   child: Container(
                     width: double.infinity,
@@ -467,7 +479,7 @@ class _SidebarSellerWidgetState extends State<SidebarSellerWidget>
                   width: double.infinity,
                   height: 40.0,
                   decoration: BoxDecoration(
-                    color: widget.bGColor1,
+                    color: widget.bGColor3,
                     borderRadius: BorderRadius.circular(4.0),
                   ),
                   child: Padding(
@@ -490,7 +502,7 @@ class _SidebarSellerWidgetState extends State<SidebarSellerWidget>
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
                                     fontFamily: 'Roboto Condensed',
-                                    color: widget.iconOneColor,
+                                    color: widget.iconThreeColor,
                                   ),
                         ),
                       ],
@@ -507,16 +519,18 @@ class _SidebarSellerWidgetState extends State<SidebarSellerWidget>
                   hoverColor: Colors.transparent,
                   highlightColor: Colors.transparent,
                   onTap: () async {
-                    context.pushNamed(
-                      'dashboardSellerProductScreen',
-                      extra: <String, dynamic>{
-                        kTransitionInfoKey: TransitionInfo(
-                          hasTransition: true,
-                          transitionType: PageTransitionType.fade,
-                          duration: Duration(milliseconds: 0),
-                        ),
-                      },
-                    );
+                    if (!widget.p4State!) {
+                      context.pushNamed(
+                        'dashboardSellerProductScreen',
+                        extra: <String, dynamic>{
+                          kTransitionInfoKey: TransitionInfo(
+                            hasTransition: true,
+                            transitionType: PageTransitionType.fade,
+                            duration: Duration(milliseconds: 0),
+                          ),
+                        },
+                      );
+                    }
                   },
                   child: Container(
                     width: double.infinity,
@@ -712,7 +726,7 @@ class _SidebarSellerWidgetState extends State<SidebarSellerWidget>
                   highlightColor: Colors.transparent,
                   onTap: () async {
                     context.pushNamed(
-                      'dashboardBuyerProfileScreen',
+                      'dashboardSellerProfileScreen',
                       extra: <String, dynamic>{
                         kTransitionInfoKey: TransitionInfo(
                           hasTransition: true,
@@ -763,56 +777,36 @@ class _SidebarSellerWidgetState extends State<SidebarSellerWidget>
               ),
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
-                child: InkWell(
-                  splashColor: Colors.transparent,
-                  focusColor: Colors.transparent,
-                  hoverColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  onTap: () async {
-                    context.pushNamed(
-                      'dashboardBuyerProfileScreen',
-                      extra: <String, dynamic>{
-                        kTransitionInfoKey: TransitionInfo(
-                          hasTransition: true,
-                          transitionType: PageTransitionType.fade,
-                          duration: Duration(milliseconds: 0),
+                child: Container(
+                  width: double.infinity,
+                  height: 40.0,
+                  decoration: BoxDecoration(
+                    color: widget.bGSetting,
+                    borderRadius: BorderRadius.circular(4.0),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(8.0, 4.0, 4.0, 4.0),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 12.0, 0.0),
+                          child: Icon(
+                            Icons.settings_outlined,
+                            color: widget.iconSettingColor,
+                            size: 24.0,
+                          ),
                         ),
-                      },
-                    );
-                  },
-                  child: Container(
-                    width: double.infinity,
-                    height: 40.0,
-                    decoration: BoxDecoration(
-                      color: widget.bGSetting,
-                      borderRadius: BorderRadius.circular(4.0),
-                    ),
-                    child: Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(8.0, 4.0, 4.0, 4.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 12.0, 0.0),
-                            child: Icon(
-                              Icons.settings_outlined,
-                              color: widget.iconSettingColor,
-                              size: 24.0,
-                            ),
-                          ),
-                          Text(
-                            'Settings',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Roboto Condensed',
-                                  color: widget.iconSettingColor,
-                                ),
-                          ),
-                        ],
-                      ),
+                        Text(
+                          'Settings',
+                          style:
+                              FlutterFlowTheme.of(context).bodyMedium.override(
+                                    fontFamily: 'Roboto Condensed',
+                                    color: widget.iconSettingColor,
+                                  ),
+                        ),
+                      ],
                     ),
                   ),
                 ).animateOnPageLoad(

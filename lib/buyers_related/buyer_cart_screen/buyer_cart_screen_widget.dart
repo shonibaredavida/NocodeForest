@@ -8,7 +8,6 @@ import '/main_components/header/header_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'buyer_cart_screen_model.dart';
@@ -231,7 +230,7 @@ class _BuyerCartScreenWidgetState extends State<BuyerCartScreenWidget> {
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     24.0, 24.0, 0.0, 20.0),
                                 child: Text(
-                                  'Total : 3 items',
+                                  'Total : ${FFAppState().cart.length.toString()} item(s)',
                                   style:
                                       FlutterFlowTheme.of(context).bodyMedium,
                                 ),
@@ -239,106 +238,67 @@ class _BuyerCartScreenWidgetState extends State<BuyerCartScreenWidget> {
                               Container(
                                 width: 848.0,
                                 decoration: BoxDecoration(),
-                                child: StreamBuilder<List<CartRecord>>(
-                                  stream: queryCartRecord(
-                                    queryBuilder: (cartRecord) =>
-                                        cartRecord.where('user_id',
-                                            isEqualTo: currentUserUid),
-                                  ),
-                                  builder: (context, snapshot) {
-                                    // Customize what your widget looks like when it's loading.
-                                    if (!snapshot.hasData) {
-                                      return Center(
-                                        child: SizedBox(
-                                          width: 50.0,
-                                          height: 50.0,
-                                          child: SpinKitFoldingCube(
-                                            color: FlutterFlowTheme.of(context)
-                                                .primary,
-                                            size: 50.0,
-                                          ),
-                                        ),
-                                      );
-                                    }
-                                    List<CartRecord> listViewCartRecordList =
-                                        snapshot.data!;
+                                child: Builder(
+                                  builder: (context) {
+                                    final cartItems = FFAppState()
+                                        .cart
+                                        .map((e) => e)
+                                        .toList();
                                     return ListView.builder(
                                       padding: EdgeInsets.zero,
                                       shrinkWrap: true,
                                       scrollDirection: Axis.vertical,
-                                      itemCount: listViewCartRecordList.length,
-                                      itemBuilder: (context, listViewIndex) {
-                                        final listViewCartRecord =
-                                            listViewCartRecordList[
-                                                listViewIndex];
-                                        return Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      24.0, 40.0, 24.0, 40.0),
-                                              child: Container(
-                                                width: 800.0,
-                                                height: 204.0,
-                                                decoration: BoxDecoration(),
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Row(
+                                      itemCount: cartItems.length,
+                                      itemBuilder: (context, cartItemsIndex) {
+                                        final cartItemsItem =
+                                            cartItems[cartItemsIndex];
+                                        return FutureBuilder<ProductsRecord>(
+                                          future: _model.cartItems(
+                                            uniqueQueryKey:
+                                                '${currentUserUid}cartItems',
+                                            requestFn: () =>
+                                                ProductsRecord.getDocumentOnce(
+                                                    cartItemsItem),
+                                          ),
+                                          builder: (context, snapshot) {
+                                            // Customize what your widget looks like when it's loading.
+                                            if (!snapshot.hasData) {
+                                              return Center(
+                                                child: SizedBox(
+                                                  width: 50.0,
+                                                  height: 50.0,
+                                                  child: SpinKitFoldingCube(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primary,
+                                                    size: 50.0,
+                                                  ),
+                                                ),
+                                              );
+                                            }
+                                            final columnProductsRecord =
+                                                snapshot.data!;
+                                            return Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(24.0, 40.0,
+                                                          24.0, 40.0),
+                                                  child: Container(
+                                                    width: 800.0,
+                                                    height: 204.0,
+                                                    decoration: BoxDecoration(),
+                                                    child: Row(
                                                       mainAxisSize:
                                                           MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
                                                       children: [
-                                                        Padding(
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      0.0,
-                                                                      0.0,
-                                                                      36.0,
-                                                                      0.0),
-                                                          child: ClipRRect(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        16.0),
-                                                            child: Container(
-                                                              width: 314.0,
-                                                              height: 196.0,
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            16.0),
-                                                              ),
-                                                              child: ClipRRect(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            16.0),
-                                                                child: Image
-                                                                    .network(
-                                                                  'https://picsum.photos/seed/48/600',
-                                                                  width: 100.0,
-                                                                  height: 100.0,
-                                                                  fit: BoxFit
-                                                                      .cover,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        Column(
+                                                        Row(
                                                           mainAxisSize:
                                                               MainAxisSize.max,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
                                                           children: [
                                                             Padding(
                                                               padding:
@@ -346,289 +306,252 @@ class _BuyerCartScreenWidgetState extends State<BuyerCartScreenWidget> {
                                                                       .fromSTEB(
                                                                           0.0,
                                                                           0.0,
-                                                                          0.0,
-                                                                          12.0),
-                                                              child: Container(
-                                                                width: 300.0,
-                                                                height: 84.0,
-                                                                decoration:
-                                                                    BoxDecoration(),
-                                                                child: Text(
-                                                                  'Vristo | E-commerce Web App made with Flutterflow with Multipurpose Admin Dashboard Template',
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMedium
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'Roboto Condensed',
-                                                                        fontSize:
-                                                                            20.0,
-                                                                        lineHeight:
-                                                                            1.4,
-                                                                      ),
+                                                                          36.0,
+                                                                          0.0),
+                                                              child: ClipRRect(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            16.0),
+                                                                child:
+                                                                    Container(
+                                                                  width: 314.0,
+                                                                  height: 196.0,
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            16.0),
+                                                                  ),
+                                                                  child:
+                                                                      ClipRRect(
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            16.0),
+                                                                    child: Image
+                                                                        .network(
+                                                                      'https://picsum.photos/seed/48/600',
+                                                                      width:
+                                                                          100.0,
+                                                                      height:
+                                                                          100.0,
+                                                                      fit: BoxFit
+                                                                          .cover,
+                                                                    ),
+                                                                  ),
                                                                 ),
                                                               ),
                                                             ),
-                                                            Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
+                                                            Column(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                Padding(
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          12.0),
+                                                                  child:
+                                                                      Container(
+                                                                    width:
+                                                                        300.0,
+                                                                    height:
+                                                                        84.0,
+                                                                    decoration:
+                                                                        BoxDecoration(),
+                                                                    child: Text(
+                                                                      'Vristo | E-commerce Web App made with Flutterflow with Multipurpose Admin Dashboard Template',
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                'Roboto Condensed',
+                                                                            fontSize:
+                                                                                20.0,
+                                                                            lineHeight:
+                                                                                1.4,
+                                                                          ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                Padding(
+                                                                  padding: EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           0.0,
                                                                           0.0,
                                                                           0.0,
                                                                           32.0),
-                                                              child: Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                children: [
-                                                                  Padding(
-                                                                    padding: EdgeInsetsDirectional
-                                                                        .fromSTEB(
+                                                                  child: Row(
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .max,
+                                                                    children: [
+                                                                      Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
                                                                             0.0,
                                                                             0.0,
                                                                             4.0,
                                                                             0.0),
-                                                                    child: Text(
-                                                                      'by',
-                                                                      style: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyMedium
-                                                                          .override(
-                                                                            fontFamily:
-                                                                                'Roboto Condensed',
-                                                                            fontSize:
-                                                                                16.0,
-                                                                            lineHeight:
-                                                                                1.5,
-                                                                          ),
-                                                                    ),
-                                                                  ),
-                                                                  Padding(
-                                                                    padding: EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0.0,
-                                                                            0.0,
-                                                                            4.0,
-                                                                            0.0),
-                                                                    child: Text(
-                                                                      'Bamifemi',
-                                                                      style: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyMedium
-                                                                          .override(
-                                                                            fontFamily:
-                                                                                'Roboto Condensed',
-                                                                            color:
-                                                                                FlutterFlowTheme.of(context).primary,
-                                                                            fontSize:
-                                                                                16.0,
-                                                                            fontWeight:
-                                                                                FontWeight.bold,
-                                                                            lineHeight:
-                                                                                1.5,
-                                                                          ),
-                                                                    ),
-                                                                  ),
-                                                                  Padding(
-                                                                    padding: EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0.0,
-                                                                            0.0,
-                                                                            4.0,
-                                                                            0.0),
-                                                                    child: Text(
-                                                                      'in',
-                                                                      style: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyMedium
-                                                                          .override(
-                                                                            fontFamily:
-                                                                                'Roboto Condensed',
-                                                                            fontSize:
-                                                                                16.0,
-                                                                            lineHeight:
-                                                                                1.5,
-                                                                          ),
-                                                                    ),
-                                                                  ),
-                                                                  Text(
-                                                                    'E-Commerce',
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'Roboto Condensed',
-                                                                          fontSize:
-                                                                              16.0,
-                                                                          fontWeight:
-                                                                              FontWeight.bold,
-                                                                          lineHeight:
-                                                                              1.5,
+                                                                        child:
+                                                                            Text(
+                                                                          'by',
+                                                                          style: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .override(
+                                                                                fontFamily: 'Roboto Condensed',
+                                                                                fontSize: 16.0,
+                                                                                lineHeight: 1.5,
+                                                                              ),
                                                                         ),
+                                                                      ),
+                                                                      Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            0.0,
+                                                                            0.0,
+                                                                            4.0,
+                                                                            0.0),
+                                                                        child:
+                                                                            Text(
+                                                                          'Bamifemi',
+                                                                          style: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .override(
+                                                                                fontFamily: 'Roboto Condensed',
+                                                                                color: FlutterFlowTheme.of(context).primary,
+                                                                                fontSize: 16.0,
+                                                                                fontWeight: FontWeight.bold,
+                                                                                lineHeight: 1.5,
+                                                                              ),
+                                                                        ),
+                                                                      ),
+                                                                      Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            0.0,
+                                                                            0.0,
+                                                                            4.0,
+                                                                            0.0),
+                                                                        child:
+                                                                            Text(
+                                                                          'in',
+                                                                          style: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .override(
+                                                                                fontFamily: 'Roboto Condensed',
+                                                                                fontSize: 16.0,
+                                                                                lineHeight: 1.5,
+                                                                              ),
+                                                                        ),
+                                                                      ),
+                                                                      Text(
+                                                                        'E-Commerce',
+                                                                        style: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .override(
+                                                                              fontFamily: 'Roboto Condensed',
+                                                                              fontSize: 16.0,
+                                                                              fontWeight: FontWeight.bold,
+                                                                              lineHeight: 1.5,
+                                                                            ),
+                                                                      ),
+                                                                    ],
                                                                   ),
-                                                                ],
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        Column(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceBetween,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .end,
+                                                          children: [
+                                                            Container(
+                                                              width: 76.0,
+                                                              height: 33.0,
+                                                              decoration:
+                                                                  BoxDecoration(),
+                                                              child: Text(
+                                                                '\$200',
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .end,
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Roboto Condensed',
+                                                                      fontSize:
+                                                                          20.0,
+                                                                      lineHeight:
+                                                                          1.5,
+                                                                    ),
                                                               ),
                                                             ),
                                                             Container(
-                                                              width: 154.0,
-                                                              height: 44.0,
+                                                              width: 76.0,
+                                                              height: 33.0,
                                                               decoration:
-                                                                  BoxDecoration(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            5.0),
-                                                                border:
-                                                                    Border.all(
-                                                                  color: Color(
-                                                                      0xFF1FFF35),
-                                                                ),
-                                                              ),
-                                                              child: Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceBetween,
-                                                                children: [
-                                                                  Padding(
-                                                                    padding: EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            7.2,
-                                                                            10.8,
-                                                                            0.0,
-                                                                            10.8),
-                                                                    child:
-                                                                        FaIcon(
-                                                                      FontAwesomeIcons
-                                                                          .minus,
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .primaryText,
-                                                                      size:
-                                                                          15.0,
+                                                                  BoxDecoration(),
+                                                              child: Text(
+                                                                'Remove',
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .end,
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Roboto Condensed',
+                                                                      color: Color(
+                                                                          0xFFF34335),
+                                                                      fontSize:
+                                                                          20.0,
+                                                                      lineHeight:
+                                                                          1.5,
                                                                     ),
-                                                                  ),
-                                                                  Text(
-                                                                    '1',
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'Roboto Condensed',
-                                                                          fontSize:
-                                                                              20.0,
-                                                                          lineHeight:
-                                                                              1.5,
-                                                                        ),
-                                                                  ),
-                                                                  Padding(
-                                                                    padding: EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            7.2,
-                                                                            7.2,
-                                                                            7.2,
-                                                                            7.2),
-                                                                    child: Icon(
-                                                                      Icons.add,
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .primaryText,
-                                                                      size:
-                                                                          18.0,
-                                                                    ),
-                                                                  ),
-                                                                ],
                                                               ),
                                                             ),
                                                           ],
                                                         ),
                                                       ],
                                                     ),
-                                                    Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .end,
-                                                      children: [
-                                                        Container(
-                                                          width: 76.0,
-                                                          height: 33.0,
-                                                          decoration:
-                                                              BoxDecoration(),
-                                                          child: Text(
-                                                            '\$200',
-                                                            textAlign:
-                                                                TextAlign.end,
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Roboto Condensed',
-                                                                  fontSize:
-                                                                      20.0,
-                                                                  lineHeight:
-                                                                      1.5,
-                                                                ),
-                                                          ),
-                                                        ),
-                                                        Container(
-                                                          width: 76.0,
-                                                          height: 33.0,
-                                                          decoration:
-                                                              BoxDecoration(),
-                                                          child: Text(
-                                                            'Remove',
-                                                            textAlign:
-                                                                TextAlign.end,
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Roboto Condensed',
-                                                                  color: Color(
-                                                                      0xFFF34335),
-                                                                  fontSize:
-                                                                      20.0,
-                                                                  lineHeight:
-                                                                      1.5,
-                                                                ),
-                                                          ),
-                                                        ),
+                                                  ),
+                                                ),
+                                                Container(
+                                                  width: double.infinity,
+                                                  height: 1.0,
+                                                  decoration: BoxDecoration(
+                                                    gradient: LinearGradient(
+                                                      colors: [
+                                                        Color(0x13FFFFFF),
+                                                        Color(0x47FFFFFF)
                                                       ],
+                                                      stops: [0.0, 1.0],
+                                                      begin:
+                                                          AlignmentDirectional(
+                                                              1.0, 0.0),
+                                                      end: AlignmentDirectional(
+                                                          -1.0, 0),
                                                     ),
-                                                  ],
+                                                  ),
                                                 ),
-                                              ),
-                                            ),
-                                            Container(
-                                              width: double.infinity,
-                                              height: 1.0,
-                                              decoration: BoxDecoration(
-                                                gradient: LinearGradient(
-                                                  colors: [
-                                                    Color(0x13FFFFFF),
-                                                    Color(0x47FFFFFF)
-                                                  ],
-                                                  stops: [0.0, 1.0],
-                                                  begin: AlignmentDirectional(
-                                                      1.0, 0.0),
-                                                  end: AlignmentDirectional(
-                                                      -1.0, 0),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
+                                              ],
+                                            );
+                                          },
                                         );
                                       },
                                     );

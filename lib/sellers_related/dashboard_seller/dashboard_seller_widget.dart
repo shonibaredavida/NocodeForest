@@ -89,8 +89,11 @@ class _DashboardSellerWidgetState extends State<DashboardSellerWidget> {
                         model: _model.sidebarSellerModel,
                         updateCallback: () => setState(() {}),
                         child: SidebarSellerWidget(
-                          iconTwoColor: Colors.white,
-                          bGColor2: FlutterFlowTheme.of(context).primary,
+                          iconOneColor: Colors.white,
+                          bGColor1: FlutterFlowTheme.of(context).primary,
+                          p1State: true,
+                          p2State: false,
+                          p4State: false,
                         ),
                       ),
                       Expanded(
