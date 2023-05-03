@@ -1,5 +1,7 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_toggle_icon.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/main_components/footer_component/footer_component_widget.dart';
@@ -4450,7 +4452,12 @@ class _LandingPageBuyersWidgetState extends State<LandingPageBuyersWidget> {
                                       decoration: BoxDecoration(),
                                       child:
                                           StreamBuilder<List<ProductsRecord>>(
-                                        stream: queryProductsRecord(),
+                                        stream: FFAppState().allProductQuery(
+                                          uniqueQueryKey:
+                                              '${currentUserUid}all_products',
+                                          requestFn: () =>
+                                              queryProductsRecord(),
+                                        ),
                                         builder: (context, snapshot) {
                                           // Customize what your widget looks like when it's loading.
                                           if (!snapshot.hasData) {
@@ -4686,7 +4693,7 @@ class _LandingPageBuyersWidgetState extends State<LandingPageBuyersWidget> {
                                                                             'Bamifemi',
                                                                             style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                   fontFamily: 'Roboto Condensed',
-                                                                                  color: FlutterFlowTheme.of(context).accent3,
+                                                                                  color: FlutterFlowTheme.of(context).error,
                                                                                   fontSize: 16.0,
                                                                                   fontWeight: FontWeight.bold,
                                                                                   lineHeight: 1.5,
@@ -4875,37 +4882,55 @@ class _LandingPageBuyersWidgetState extends State<LandingPageBuyersWidget> {
                                                                                   width: 1.0,
                                                                                 ),
                                                                               ),
-                                                                              child: Padding(
-                                                                                padding: EdgeInsetsDirectional.fromSTEB(2.63, 3.13, 2.63, 3.13),
-                                                                                child: Row(
-                                                                                  mainAxisSize: MainAxisSize.max,
-                                                                                  mainAxisAlignment: MainAxisAlignment.center,
-                                                                                  children: [
-                                                                                    SvgPicture.asset(
-                                                                                      'assets/images/Icon.svg',
-                                                                                      width: 15.8,
-                                                                                      height: 18.8,
-                                                                                      fit: BoxFit.contain,
+                                                                              child: Row(
+                                                                                mainAxisSize: MainAxisSize.max,
+                                                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                                                children: [
+                                                                                  ToggleIcon(
+                                                                                    onPressed: () async {
+                                                                                      setState(
+                                                                                        () => FFAppState().cart.contains(gridViewProductsRecord.reference) ? FFAppState().removeFromCart(gridViewProductsRecord.reference) : FFAppState().addToCart(gridViewProductsRecord.reference),
+                                                                                      );
+                                                                                    },
+                                                                                    value: FFAppState().cart.contains(gridViewProductsRecord.reference),
+                                                                                    onIcon: Icon(
+                                                                                      Icons.shopping_cart,
+                                                                                      color: Color(0xFF1FFF35),
+                                                                                      size: 24.0,
                                                                                     ),
-                                                                                  ],
-                                                                                ),
+                                                                                    offIcon: Icon(
+                                                                                      Icons.shopping_cart_outlined,
+                                                                                      color: FlutterFlowTheme.of(context).accent2,
+                                                                                      size: 22.0,
+                                                                                    ),
+                                                                                  ),
+                                                                                ],
                                                                               ),
                                                                             ),
                                                                             Padding(
                                                                               padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 0.0, 0.0),
-                                                                              child: Container(
-                                                                                height: 40.0,
-                                                                                decoration: BoxDecoration(
-                                                                                  border: Border.all(
-                                                                                    color: FlutterFlowTheme.of(context).accent3,
-                                                                                    width: 1.0,
+                                                                              child: InkWell(
+                                                                                splashColor: Colors.transparent,
+                                                                                focusColor: Colors.transparent,
+                                                                                hoverColor: Colors.transparent,
+                                                                                highlightColor: Colors.transparent,
+                                                                                onTap: () async {
+                                                                                  await launchURL(gridViewProductsRecord.liveLink!);
+                                                                                },
+                                                                                child: Container(
+                                                                                  height: 40.0,
+                                                                                  decoration: BoxDecoration(
+                                                                                    border: Border.all(
+                                                                                      color: FlutterFlowTheme.of(context).accent3,
+                                                                                      width: 1.0,
+                                                                                    ),
                                                                                   ),
-                                                                                ),
-                                                                                child: Padding(
-                                                                                  padding: EdgeInsetsDirectional.fromSTEB(20.0, 8.0, 20.0, 8.0),
-                                                                                  child: Text(
-                                                                                    'Live Preview',
-                                                                                    style: FlutterFlowTheme.of(context).bodyMedium,
+                                                                                  child: Padding(
+                                                                                    padding: EdgeInsetsDirectional.fromSTEB(20.0, 8.0, 20.0, 8.0),
+                                                                                    child: Text(
+                                                                                      'Live Preview',
+                                                                                      style: FlutterFlowTheme.of(context).bodyMedium,
+                                                                                    ),
                                                                                   ),
                                                                                 ),
                                                                               ),

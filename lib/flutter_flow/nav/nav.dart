@@ -70,14 +70,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       errorBuilder: (context, _) => appStateNotifier.loggedIn
-          ? DashboardSellerWidget()
+          ? DashboardBuyerWidget()
           : LandingPageBuyersWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) => appStateNotifier.loggedIn
-              ? DashboardSellerWidget()
+              ? DashboardBuyerWidget()
               : LandingPageBuyersWidget(),
         ),
         FFRoute(

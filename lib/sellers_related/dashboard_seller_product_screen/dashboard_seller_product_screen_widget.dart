@@ -1,5 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/components/empty_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/main_components/header/header_widget.dart';
@@ -99,6 +100,9 @@ class _DashboardSellerProductScreenWidgetState
                           iconFourColor:
                               FlutterFlowTheme.of(context).primaryText,
                           bGColor4: FlutterFlowTheme.of(context).primary,
+                          p1State: false,
+                          p2State: false,
+                          p4State: true,
                         ),
                       ),
                       Expanded(
@@ -463,10 +467,14 @@ class _DashboardSellerProductScreenWidgetState
                                     height: 1000.0,
                                     decoration: BoxDecoration(),
                                     child: StreamBuilder<List<ProductsRecord>>(
-                                      stream: queryProductsRecord(
-                                        queryBuilder: (productsRecord) =>
-                                            productsRecord.where('seller_id',
-                                                isEqualTo: currentUserUid),
+                                      stream: _model.productUploaded(
+                                        uniqueQueryKey:
+                                            '${currentUserUid}products',
+                                        requestFn: () => queryProductsRecord(
+                                          queryBuilder: (productsRecord) =>
+                                              productsRecord.where('seller_id',
+                                                  isEqualTo: currentUserUid),
+                                        ),
                                       ),
                                       builder: (context, snapshot) {
                                         // Customize what your widget looks like when it's loading.
@@ -487,6 +495,25 @@ class _DashboardSellerProductScreenWidgetState
                                         List<ProductsRecord>
                                             listViewProductsRecordList =
                                             snapshot.data!;
+                                        if (listViewProductsRecordList
+                                            .isEmpty) {
+                                          return Center(
+                                            child: EmptyWidget(
+                                              title: 'No Product Added',
+                                              icon: Icon(
+                                                Icons.dangerous,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .accent1,
+                                                size: 82.0,
+                                              ),
+                                              titleColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryBackground,
+                                              subtitleColor: Color(0x00000000),
+                                            ),
+                                          );
+                                        }
                                         return ListView.builder(
                                           padding: EdgeInsets.zero,
                                           scrollDirection: Axis.vertical,

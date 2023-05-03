@@ -632,6 +632,9 @@ class _DashboardSellerAnalyticsScreenWidgetState
                         child: SidebarSellerWidget(
                           iconTwoColor: Colors.white,
                           bGColor2: FlutterFlowTheme.of(context).primary,
+                          p1State: false,
+                          p2State: true,
+                          p4State: false,
                         ),
                       ),
                       Expanded(

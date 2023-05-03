@@ -11,12 +11,9 @@ import '/main_components/header/header_widget.dart';
 import '/sellers_related/componnents/sidebar_seller/sidebar_seller_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'dashboard_seller_add_product_screen_model.dart';
@@ -41,61 +38,6 @@ class _DashboardSellerAddProductScreenWidgetState
   void initState() {
     super.initState();
     _model = createModel(context, () => DashboardSellerAddProductScreenModel());
-
-    // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      final selectedMedia = await selectMedia(
-        mediaSource: MediaSource.photoGallery,
-        multiImage: true,
-      );
-      if (selectedMedia != null &&
-          selectedMedia
-              .every((m) => validateFileFormat(m.storagePath, context))) {
-        setState(() => _model.isDataUploading1 = true);
-        var selectedUploadedFiles = <FFUploadedFile>[];
-        var downloadUrls = <String>[];
-        try {
-          showUploadMessage(
-            context,
-            'Uploading file...',
-            showLoading: true,
-          );
-          selectedUploadedFiles = selectedMedia
-              .map((m) => FFUploadedFile(
-                    name: m.storagePath.split('/').last,
-                    bytes: m.bytes,
-                    height: m.dimensions?.height,
-                    width: m.dimensions?.width,
-                    blurHash: m.blurHash,
-                  ))
-              .toList();
-
-          downloadUrls = (await Future.wait(
-            selectedMedia.map(
-              (m) async => await uploadData(m.storagePath, m.bytes),
-            ),
-          ))
-              .where((u) => u != null)
-              .map((u) => u!)
-              .toList();
-        } finally {
-          ScaffoldMessenger.of(context).hideCurrentSnackBar();
-          _model.isDataUploading1 = false;
-        }
-        if (selectedUploadedFiles.length == selectedMedia.length &&
-            downloadUrls.length == selectedMedia.length) {
-          setState(() {
-            _model.uploadedLocalFiles1 = selectedUploadedFiles;
-            _model.uploadedFileUrls1 = downloadUrls;
-          });
-          showUploadMessage(context, 'Success!');
-        } else {
-          setState(() {});
-          showUploadMessage(context, 'Failed to upload data');
-          return;
-        }
-      }
-    });
 
     _model.productNameFieldController ??= TextEditingController();
     _model.priceFieldController ??= TextEditingController();
@@ -176,7 +118,7 @@ class _DashboardSellerAddProductScreenWidgetState
                             if (selectedMedia != null &&
                                 selectedMedia.every((m) => validateFileFormat(
                                     m.storagePath, context))) {
-                              setState(() => _model.isDataUploading2 = true);
+                              setState(() => _model.isDataUploading1 = true);
                               var selectedUploadedFiles = <FFUploadedFile>[];
                               var downloadUrls = <String>[];
                               try {
@@ -200,15 +142,15 @@ class _DashboardSellerAddProductScreenWidgetState
                                     .map((u) => u!)
                                     .toList();
                               } finally {
-                                _model.isDataUploading2 = false;
+                                _model.isDataUploading1 = false;
                               }
                               if (selectedUploadedFiles.length ==
                                       selectedMedia.length &&
                                   downloadUrls.length == selectedMedia.length) {
                                 setState(() {
-                                  _model.uploadedLocalFile2 =
+                                  _model.uploadedLocalFile1 =
                                       selectedUploadedFiles.first;
-                                  _model.uploadedFileUrl2 = downloadUrls.first;
+                                  _model.uploadedFileUrl1 = downloadUrls.first;
                                 });
                               } else {
                                 setState(() {});
@@ -223,6 +165,9 @@ class _DashboardSellerAddProductScreenWidgetState
                               iconFourColor:
                                   FlutterFlowTheme.of(context).primaryText,
                               bGColor4: FlutterFlowTheme.of(context).primary,
+                              p1State: false,
+                              p2State: false,
+                              p4State: false,
                             ),
                           ),
                         ),
@@ -983,7 +928,11 @@ class _DashboardSellerAddProductScreenWidgetState
                                                                           String>(
                                                                       null),
                                                               options: [
-                                                                'Option 1'
+                                                                'E-commerce ',
+                                                                'Portfolio',
+                                                                'Social media platform',
+                                                                'Blog or personal ',
+                                                                'Health and fitness '
                                                               ],
                                                               onChanged: (val) =>
                                                                   setState(() =>
@@ -1353,9 +1302,8 @@ class _DashboardSellerAddProductScreenWidgetState
                                                                     .override(
                                                                       fontFamily:
                                                                           'Roboto Condensed',
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .secondaryText,
+                                                                      color: Color(
+                                                                          0xFF4F4A4A),
                                                                       fontSize:
                                                                           16.0,
                                                                       lineHeight:
@@ -1498,28 +1446,34 @@ class _DashboardSellerAddProductScreenWidgetState
                                                                         children: [
                                                                           Switch(
                                                                             value: _model.hDSwitchValue ??=
-                                                                                true,
+                                                                                false,
                                                                             onChanged:
                                                                                 (newValue) async {
                                                                               setState(() => _model.hDSwitchValue = newValue!);
                                                                             },
                                                                             activeColor:
-                                                                                FlutterFlowTheme.of(context).primaryText,
+                                                                                FlutterFlowTheme.of(context).primary,
                                                                             activeTrackColor:
                                                                                 Color(0xFF1FFF35),
-                                                                            inactiveThumbColor:
-                                                                                Color(0xFF1FFF35),
                                                                           ),
-                                                                          Text(
-                                                                            _model.hDSwitchValue!
-                                                                                ? 'Yes'
-                                                                                : 'No',
-                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                  fontFamily: 'Roboto Condensed',
-                                                                                  color: Color(0xFF0F1C10),
-                                                                                  fontSize: 16.0,
-                                                                                  lineHeight: 1.5,
-                                                                                ),
+                                                                          ClipRRect(
+                                                                            child:
+                                                                                Container(
+                                                                              constraints: BoxConstraints(
+                                                                                maxWidth: 40.0,
+                                                                                maxHeight: 25.0,
+                                                                              ),
+                                                                              decoration: BoxDecoration(),
+                                                                              child: Text(
+                                                                                _model.hDSwitchValue! ? 'Yes' : 'No',
+                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                      fontFamily: 'Roboto Condensed',
+                                                                                      color: Color(0xFF0F1C10),
+                                                                                      fontSize: 16.0,
+                                                                                      lineHeight: 1.5,
+                                                                                    ),
+                                                                              ),
+                                                                            ),
                                                                           ),
                                                                         ],
                                                                       ),
@@ -1563,17 +1517,29 @@ class _DashboardSellerAddProductScreenWidgetState
                                                                                 (newValue) async {
                                                                               setState(() => _model.wellDocSwitchValue = newValue!);
                                                                             },
+                                                                            activeColor:
+                                                                                FlutterFlowTheme.of(context).primary,
+                                                                            activeTrackColor:
+                                                                                Color(0xFF1FFF35),
                                                                           ),
-                                                                          Text(
-                                                                            _model.wellDocSwitchValue!
-                                                                                ? 'Yes'
-                                                                                : 'No',
-                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                  fontFamily: 'Roboto Condensed',
-                                                                                  color: Color(0xFF0F1C10),
-                                                                                  fontSize: 16.0,
-                                                                                  lineHeight: 1.5,
-                                                                                ),
+                                                                          ClipRRect(
+                                                                            child:
+                                                                                Container(
+                                                                              constraints: BoxConstraints(
+                                                                                maxWidth: 40.0,
+                                                                                maxHeight: 25.0,
+                                                                              ),
+                                                                              decoration: BoxDecoration(),
+                                                                              child: Text(
+                                                                                _model.wellDocSwitchValue! ? 'Yes' : 'No',
+                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                      fontFamily: 'Roboto Condensed',
+                                                                                      color: Color(0xFF0F1C10),
+                                                                                      fontSize: 16.0,
+                                                                                      lineHeight: 1.5,
+                                                                                    ),
+                                                                              ),
+                                                                            ),
                                                                           ),
                                                                         ],
                                                                       ),
@@ -1617,17 +1583,29 @@ class _DashboardSellerAddProductScreenWidgetState
                                                                                 (newValue) async {
                                                                               setState(() => _model.responsiveSwitchValue = newValue!);
                                                                             },
+                                                                            activeColor:
+                                                                                FlutterFlowTheme.of(context).primary,
+                                                                            activeTrackColor:
+                                                                                Color(0xFF1FFF35),
                                                                           ),
-                                                                          Text(
-                                                                            _model.responsiveSwitchValue!
-                                                                                ? 'Yes'
-                                                                                : 'No',
-                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                  fontFamily: 'Roboto Condensed',
-                                                                                  color: Color(0xFF0F1C10),
-                                                                                  fontSize: 16.0,
-                                                                                  lineHeight: 1.5,
-                                                                                ),
+                                                                          ClipRRect(
+                                                                            child:
+                                                                                Container(
+                                                                              constraints: BoxConstraints(
+                                                                                maxWidth: 40.0,
+                                                                                maxHeight: 25.0,
+                                                                              ),
+                                                                              decoration: BoxDecoration(),
+                                                                              child: Text(
+                                                                                _model.responsiveSwitchValue! ? 'Yes' : 'No',
+                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                      fontFamily: 'Roboto Condensed',
+                                                                                      color: Color(0xFF0F1C10),
+                                                                                      fontSize: 16.0,
+                                                                                      lineHeight: 1.5,
+                                                                                    ),
+                                                                              ),
+                                                                            ),
                                                                           ),
                                                                         ],
                                                                       ),
@@ -1668,7 +1646,7 @@ class _DashboardSellerAddProductScreenWidgetState
                                                                             10.0),
                                                                         child:
                                                                             Text(
-                                                                          'Future Update',
+                                                                          'Future Updates',
                                                                           style: FlutterFlowTheme.of(context)
                                                                               .bodyMedium
                                                                               .override(
@@ -1684,73 +1662,35 @@ class _DashboardSellerAddProductScreenWidgetState
                                                                             MainAxisSize.max,
                                                                         children: [
                                                                           Switch(
-                                                                            value: _model.switchValue1 ??=
+                                                                            value: _model.updatesSwitchValue ??=
                                                                                 false,
                                                                             onChanged:
                                                                                 (newValue) async {
-                                                                              setState(() => _model.switchValue1 = newValue!);
+                                                                              setState(() => _model.updatesSwitchValue = newValue!);
                                                                             },
+                                                                            activeColor:
+                                                                                FlutterFlowTheme.of(context).primary,
+                                                                            activeTrackColor:
+                                                                                Color(0xFF1FFF35),
                                                                           ),
-                                                                          Text(
-                                                                            'Off',
-                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                  fontFamily: 'Roboto Condensed',
-                                                                                  color: Color(0xFF0F1C10),
-                                                                                  fontSize: 16.0,
-                                                                                  lineHeight: 1.5,
-                                                                                ),
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                  Column(
-                                                                    mainAxisSize:
-                                                                        MainAxisSize
-                                                                            .max,
-                                                                    crossAxisAlignment:
-                                                                        CrossAxisAlignment
-                                                                            .start,
-                                                                    children: [
-                                                                      Padding(
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            10.0),
-                                                                        child:
-                                                                            Text(
-                                                                          'Ongoing Support',
-                                                                          style: FlutterFlowTheme.of(context)
-                                                                              .bodyMedium
-                                                                              .override(
-                                                                                fontFamily: 'Roboto Condensed',
-                                                                                color: Color(0xFF0F1C10),
-                                                                                fontSize: 16.0,
-                                                                                lineHeight: 1.5,
+                                                                          ClipRRect(
+                                                                            child:
+                                                                                Container(
+                                                                              constraints: BoxConstraints(
+                                                                                maxWidth: 40.0,
+                                                                                maxHeight: 25.0,
                                                                               ),
-                                                                        ),
-                                                                      ),
-                                                                      Row(
-                                                                        mainAxisSize:
-                                                                            MainAxisSize.max,
-                                                                        children: [
-                                                                          Switch(
-                                                                            value: _model.switchValue2 ??=
-                                                                                false,
-                                                                            onChanged:
-                                                                                (newValue) async {
-                                                                              setState(() => _model.switchValue2 = newValue!);
-                                                                            },
-                                                                          ),
-                                                                          Text(
-                                                                            'Off',
-                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                  fontFamily: 'Roboto Condensed',
-                                                                                  color: Color(0xFF0F1C10),
-                                                                                  fontSize: 16.0,
-                                                                                  lineHeight: 1.5,
-                                                                                ),
+                                                                              decoration: BoxDecoration(),
+                                                                              child: Text(
+                                                                                _model.updatesSwitchValue! ? 'Yes' : 'No',
+                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                      fontFamily: 'Roboto Condensed',
+                                                                                      color: Color(0xFF0F1C10),
+                                                                                      fontSize: 16.0,
+                                                                                      lineHeight: 1.5,
+                                                                                    ),
+                                                                              ),
+                                                                            ),
                                                                           ),
                                                                         ],
                                                                       ),
@@ -1777,7 +1717,7 @@ class _DashboardSellerAddProductScreenWidgetState
                                                                               .bodyMedium
                                                                               .override(
                                                                                 fontFamily: 'Roboto Condensed',
-                                                                                color: Colors.black,
+                                                                                color: Color(0xFF0F1C10),
                                                                                 fontSize: 16.0,
                                                                                 lineHeight: 1.5,
                                                                               ),
@@ -1788,21 +1728,101 @@ class _DashboardSellerAddProductScreenWidgetState
                                                                             MainAxisSize.max,
                                                                         children: [
                                                                           Switch(
-                                                                            value: _model.switchValue3 ??=
+                                                                            value: _model.customCodeSwitchValue ??=
                                                                                 false,
                                                                             onChanged:
                                                                                 (newValue) async {
-                                                                              setState(() => _model.switchValue3 = newValue!);
+                                                                              setState(() => _model.customCodeSwitchValue = newValue!);
                                                                             },
+                                                                            activeColor:
+                                                                                FlutterFlowTheme.of(context).primary,
+                                                                            activeTrackColor:
+                                                                                Color(0xFF1FFF35),
                                                                           ),
-                                                                          Text(
-                                                                            'Off',
-                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                  fontFamily: 'Roboto Condensed',
-                                                                                  color: Color(0xFF0F1C10),
-                                                                                  fontSize: 16.0,
-                                                                                  lineHeight: 1.5,
-                                                                                ),
+                                                                          ClipRRect(
+                                                                            child:
+                                                                                Container(
+                                                                              constraints: BoxConstraints(
+                                                                                maxWidth: 50.0,
+                                                                                maxHeight: 25.0,
+                                                                              ),
+                                                                              decoration: BoxDecoration(),
+                                                                              child: Text(
+                                                                                _model.customCodeSwitchValue! ? 'Yes' : 'No',
+                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                      fontFamily: 'Roboto Condensed',
+                                                                                      color: Color(0xFF0F1C10),
+                                                                                      fontSize: 16.0,
+                                                                                      lineHeight: 1.5,
+                                                                                    ),
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                  Column(
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .max,
+                                                                    crossAxisAlignment:
+                                                                        CrossAxisAlignment
+                                                                            .start,
+                                                                    children: [
+                                                                      Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            10.0),
+                                                                        child:
+                                                                            Text(
+                                                                          'Ongoing Supports',
+                                                                          style: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .override(
+                                                                                fontFamily: 'Roboto Condensed',
+                                                                                color: Color(0xFF0F1C10),
+                                                                                fontSize: 16.0,
+                                                                                lineHeight: 1.5,
+                                                                              ),
+                                                                        ),
+                                                                      ),
+                                                                      Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        children: [
+                                                                          Switch(
+                                                                            value: _model.ongoingSupportSwitchValue ??=
+                                                                                false,
+                                                                            onChanged:
+                                                                                (newValue) async {
+                                                                              setState(() => _model.ongoingSupportSwitchValue = newValue!);
+                                                                            },
+                                                                            activeColor:
+                                                                                FlutterFlowTheme.of(context).primary,
+                                                                            activeTrackColor:
+                                                                                Color(0xFF1FFF35),
+                                                                          ),
+                                                                          ClipRRect(
+                                                                            child:
+                                                                                Container(
+                                                                              constraints: BoxConstraints(
+                                                                                maxWidth: 40.0,
+                                                                                maxHeight: 25.0,
+                                                                              ),
+                                                                              decoration: BoxDecoration(),
+                                                                              child: Text(
+                                                                                _model.ongoingSupportSwitchValue! ? 'Yes' : 'No',
+                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                      fontFamily: 'Roboto Condensed',
+                                                                                      color: Color(0xFF0F1C10),
+                                                                                      fontSize: 16.0,
+                                                                                      lineHeight: 1.5,
+                                                                                    ),
+                                                                              ),
+                                                                            ),
                                                                           ),
                                                                         ],
                                                                       ),
@@ -2105,40 +2125,6 @@ class _DashboardSellerAddProductScreenWidgetState
                                                           ),
                                                         ],
                                                       ),
-                                                      Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        children: [
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0.0,
-                                                                        0.0,
-                                                                        13.0,
-                                                                        0.0),
-                                                            child: Icon(
-                                                              Icons.add,
-                                                              color: Color(
-                                                                  0xFF009946),
-                                                              size: 17.0,
-                                                            ),
-                                                          ),
-                                                          Text(
-                                                            'Add more options',
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Roboto Condensed',
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primary,
-                                                                ),
-                                                          ),
-                                                        ],
-                                                      ),
                                                       Column(
                                                         mainAxisSize:
                                                             MainAxisSize.max,
@@ -2375,7 +2361,7 @@ class _DashboardSellerAddProductScreenWidgetState
                                                                           .max,
                                                                   children: [
                                                                     if (_model
-                                                                            .uploadedFileUrls3
+                                                                            .uploadedFileUrls2
                                                                             .length ==
                                                                         5)
                                                                       FFButtonWidget(
@@ -2424,7 +2410,7 @@ class _DashboardSellerAddProductScreenWidgetState
                                                                         ),
                                                                       ),
                                                                     if (_model
-                                                                            .uploadedFileUrls3
+                                                                            .uploadedFileUrls2
                                                                             .length <
                                                                         5)
                                                                       FFButtonWidget(
@@ -2442,7 +2428,7 @@ class _DashboardSellerAddProductScreenWidgetState
                                                                           if (selectedMedia != null &&
                                                                               selectedMedia.every((m) => validateFileFormat(m.storagePath, context))) {
                                                                             setState(() =>
-                                                                                _model.isDataUploading3 = true);
+                                                                                _model.isDataUploading2 = true);
                                                                             var selectedUploadedFiles =
                                                                                 <FFUploadedFile>[];
                                                                             var downloadUrls =
@@ -2467,13 +2453,13 @@ class _DashboardSellerAddProductScreenWidgetState
                                                                                   .map((u) => u!)
                                                                                   .toList();
                                                                             } finally {
-                                                                              _model.isDataUploading3 = false;
+                                                                              _model.isDataUploading2 = false;
                                                                             }
                                                                             if (selectedUploadedFiles.length == selectedMedia.length &&
                                                                                 downloadUrls.length == selectedMedia.length) {
                                                                               setState(() {
-                                                                                _model.uploadedLocalFiles3 = selectedUploadedFiles;
-                                                                                _model.uploadedFileUrls3 = downloadUrls;
+                                                                                _model.uploadedLocalFiles2 = selectedUploadedFiles;
+                                                                                _model.uploadedFileUrls2 = downloadUrls;
                                                                               });
                                                                             } else {
                                                                               setState(() {});
@@ -2500,7 +2486,7 @@ class _DashboardSellerAddProductScreenWidgetState
                                                                               0.0,
                                                                               0.0),
                                                                           color:
-                                                                              Color(0x00009946),
+                                                                              Color(0x00FFFFFF),
                                                                           textStyle: FlutterFlowTheme.of(context)
                                                                               .titleSmall
                                                                               .override(
@@ -2549,128 +2535,120 @@ class _DashboardSellerAddProductScreenWidgetState
                                                                       ),
                                                                     ),
                                                                     TextSpan(
+                                                                      text: '',
+                                                                      style:
+                                                                          TextStyle(
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .primaryBackground,
+                                                                        fontSize: _model.uploadedFileUrls2.length ==
+                                                                                5
+                                                                            ? 16.0
+                                                                            : 14.0,
+                                                                      ),
+                                                                    ),
+                                                                    TextSpan(
                                                                       text:
                                                                           'Maximum of 5 images. Make sure they are clear.',
                                                                       style:
                                                                           TextStyle(
-                                                                        color: Color(
-                                                                            0xFF858585),
+                                                                        color: valueOrDefault<
+                                                                            Color>(
+                                                                          _model.uploadedFileUrls2.length == 5
+                                                                              ? Color(0xFFE21C3D)
+                                                                              : FlutterFlowTheme.of(context).primaryBackground,
+                                                                          FlutterFlowTheme.of(context)
+                                                                              .primaryBackground,
+                                                                        ),
+                                                                        fontSize: _model.uploadedFileUrls2.length ==
+                                                                                5
+                                                                            ? 16.0
+                                                                            : 14.0,
                                                                       ),
                                                                     )
                                                                   ],
                                                                   style: FlutterFlowTheme.of(
                                                                           context)
-                                                                      .bodyMedium,
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Roboto Condensed',
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .primaryBackground,
+                                                                      ),
                                                                 ),
                                                               ),
                                                             ),
-                                                            Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          20.0),
-                                                              child: Builder(
-                                                                builder:
-                                                                    (context) {
-                                                                  final uploadedPix = _model
-                                                                      .uploadedFileUrls1
-                                                                      .map(
-                                                                          (e) =>
-                                                                              e)
-                                                                      .toList()
-                                                                      .take(5)
-                                                                      .toList();
-                                                                  return Column(
-                                                                    mainAxisSize:
-                                                                        MainAxisSize
-                                                                            .max,
-                                                                    children: List.generate(
-                                                                        uploadedPix
-                                                                            .length,
-                                                                        (uploadedPixIndex) {
-                                                                      final uploadedPixItem =
-                                                                          uploadedPix[
-                                                                              uploadedPixIndex];
-                                                                      return Padding(
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                            ClipRRect(
+                                                              child: Container(
+                                                                width: double
+                                                                    .infinity,
+                                                                decoration:
+                                                                    BoxDecoration(),
+                                                                child:
+                                                                    Visibility(
+                                                                  visible: _model
+                                                                          .uploadedFileUrls2
+                                                                          .length >
+                                                                      1,
+                                                                  child:
+                                                                      Padding(
+                                                                    padding: EdgeInsetsDirectional
+                                                                        .fromSTEB(
                                                                             0.0,
                                                                             0.0,
                                                                             0.0,
-                                                                            10.0),
-                                                                        child:
-                                                                            Container(
-                                                                          width:
-                                                                              double.infinity,
-                                                                          height:
-                                                                              40.0,
-                                                                          decoration:
-                                                                              BoxDecoration(
-                                                                            color:
-                                                                                FlutterFlowTheme.of(context).secondaryBackground,
-                                                                            borderRadius:
-                                                                                BorderRadius.circular(12.0),
-                                                                            border:
-                                                                                Border.all(
-                                                                              color: Color(0xFF1FFF35),
-                                                                              width: 2.0,
-                                                                            ),
-                                                                          ),
+                                                                            20.0),
+                                                                    child:
+                                                                        Builder(
+                                                                      builder:
+                                                                          (context) {
+                                                                        final uploadedPix = _model
+                                                                            .uploadedFileUrls2
+                                                                            .toList()
+                                                                            .take(5)
+                                                                            .toList();
+                                                                        return SingleChildScrollView(
+                                                                          scrollDirection:
+                                                                              Axis.horizontal,
                                                                           child:
                                                                               Row(
                                                                             mainAxisSize:
                                                                                 MainAxisSize.max,
-                                                                            mainAxisAlignment:
-                                                                                MainAxisAlignment.spaceBetween,
-                                                                            children: [
-                                                                              ClipRRect(
-                                                                                child: Container(
-                                                                                  constraints: BoxConstraints(
-                                                                                    maxWidth: 300.0,
-                                                                                  ),
-                                                                                  decoration: BoxDecoration(),
-                                                                                  child: Padding(
-                                                                                    padding: EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 0.0, 0.0),
-                                                                                    child: Text(
-                                                                                      valueOrDefault<String>(
-                                                                                        uploadedPixIndex.toString(),
-                                                                                        'productImage',
+                                                                            children:
+                                                                                List.generate(uploadedPix.length, (uploadedPixIndex) {
+                                                                              final uploadedPixItem = uploadedPix[uploadedPixIndex];
+                                                                              return Visibility(
+                                                                                visible: _model.uploadedFileUrls2.length > 1,
+                                                                                child: ClipRRect(
+                                                                                  borderRadius: BorderRadius.circular(30.0),
+                                                                                  child: Container(
+                                                                                    width: 200.0,
+                                                                                    height: 200.0,
+                                                                                    decoration: BoxDecoration(
+                                                                                      borderRadius: BorderRadius.circular(30.0),
+                                                                                    ),
+                                                                                    child: Padding(
+                                                                                      padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
+                                                                                      child: ClipRRect(
+                                                                                        borderRadius: BorderRadius.circular(20.0),
+                                                                                        child: Image.network(
+                                                                                          uploadedPixItem,
+                                                                                          width: 100.0,
+                                                                                          height: 100.0,
+                                                                                          fit: BoxFit.cover,
+                                                                                        ),
                                                                                       ),
-                                                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                            fontFamily: 'Roboto Condensed',
-                                                                                            lineHeight: 1.6,
-                                                                                          ),
                                                                                     ),
                                                                                   ),
                                                                                 ),
-                                                                              ),
-                                                                              Padding(
-                                                                                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 30.0, 0.0),
-                                                                                child: InkWell(
-                                                                                  splashColor: Colors.transparent,
-                                                                                  focusColor: Colors.transparent,
-                                                                                  hoverColor: Colors.transparent,
-                                                                                  highlightColor: Colors.transparent,
-                                                                                  onTap: () async {
-                                                                                    await FirebaseStorage.instance.refFromURL(uploadedPixIndex.toString()).delete();
-                                                                                  },
-                                                                                  child: SvgPicture.asset(
-                                                                                    'assets/images/Vector.svg',
-                                                                                    width: 15.0,
-                                                                                    height: 15.0,
-                                                                                    fit: BoxFit.cover,
-                                                                                  ),
-                                                                                ),
-                                                                              ),
-                                                                            ],
+                                                                              );
+                                                                            }),
                                                                           ),
-                                                                        ),
-                                                                      );
-                                                                    }),
-                                                                  );
-                                                                },
+                                                                        );
+                                                                      },
+                                                                    ),
+                                                                  ),
+                                                                ),
                                                               ),
                                                             ),
                                                           ],
@@ -2688,15 +2666,12 @@ class _DashboardSellerAddProductScreenWidgetState
                                                                 MainAxisSize
                                                                     .max,
                                                             children: [
-                                                              if ((_model.uploadedFileUrls1
-                                                                          .length <
-                                                                      5) &&
-                                                                  (_model.uploadedFileUrls1
-                                                                          .length >
-                                                                      1))
-                                                                FFButtonWidget(
-                                                                  onPressed:
-                                                                      () async {
+                                                              FFButtonWidget(
+                                                                onPressed:
+                                                                    () async {
+                                                                  if (_model
+                                                                          .uploadedFileUrl3 !=
+                                                                      '1') {
                                                                     final selectedMedia =
                                                                         await selectMedia(
                                                                       mediaSource:
@@ -2711,7 +2686,7 @@ class _DashboardSellerAddProductScreenWidgetState
                                                                             m.storagePath,
                                                                             context))) {
                                                                       setState(() =>
-                                                                          _model.isDataUploading4 =
+                                                                          _model.isDataUploading3 =
                                                                               true);
                                                                       var selectedUploadedFiles =
                                                                           <FFUploadedFile>[];
@@ -2743,7 +2718,7 @@ class _DashboardSellerAddProductScreenWidgetState
                                                                                 u!)
                                                                             .toList();
                                                                       } finally {
-                                                                        _model.isDataUploading4 =
+                                                                        _model.isDataUploading3 =
                                                                             false;
                                                                       }
                                                                       if (selectedUploadedFiles.length ==
@@ -2753,9 +2728,9 @@ class _DashboardSellerAddProductScreenWidgetState
                                                                               selectedMedia.length) {
                                                                         setState(
                                                                             () {
-                                                                          _model.uploadedLocalFile4 =
+                                                                          _model.uploadedLocalFile3 =
                                                                               selectedUploadedFiles.first;
-                                                                          _model.uploadedFileUrl4 =
+                                                                          _model.uploadedFileUrl3 =
                                                                               downloadUrls.first;
                                                                         });
                                                                       } else {
@@ -2764,55 +2739,55 @@ class _DashboardSellerAddProductScreenWidgetState
                                                                         return;
                                                                       }
                                                                     }
-                                                                  },
-                                                                  text:
-                                                                      'Click to Browse',
-                                                                  options:
-                                                                      FFButtonOptions(
-                                                                    width: double
-                                                                        .infinity,
-                                                                    height:
-                                                                        80.0,
-                                                                    padding: EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                    iconPadding:
-                                                                        EdgeInsetsDirectional.fromSTEB(
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                    color: Color(
-                                                                        0x00009946),
-                                                                    textStyle: FlutterFlowTheme.of(
+                                                                  }
+                                                                },
+                                                                text:
+                                                                    'Click to Browse',
+                                                                options:
+                                                                    FFButtonOptions(
+                                                                  width: double
+                                                                      .infinity,
+                                                                  height: 80.0,
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                                  iconPadding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                                  color: Colors
+                                                                      .white,
+                                                                  textStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .titleSmall
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Roboto Condensed',
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .primaryBackground,
+                                                                        fontSize:
+                                                                            16.0,
+                                                                        lineHeight:
+                                                                            1.5,
+                                                                      ),
+                                                                  borderSide:
+                                                                      BorderSide(
+                                                                    color: FlutterFlowTheme.of(
                                                                             context)
-                                                                        .titleSmall
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'Roboto Condensed',
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).primaryBackground,
-                                                                          fontSize:
-                                                                              16.0,
-                                                                          lineHeight:
-                                                                              1.5,
-                                                                        ),
-                                                                    borderSide:
-                                                                        BorderSide(
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .primary,
-                                                                      width:
-                                                                          1.0,
-                                                                    ),
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            8.0),
+                                                                        .primary,
+                                                                    width: 1.0,
                                                                   ),
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              8.0),
                                                                 ),
+                                                              ),
                                                               Padding(
                                                                 padding: EdgeInsetsDirectional
                                                                     .fromSTEB(
@@ -2853,102 +2828,41 @@ class _DashboardSellerAddProductScreenWidgetState
                                                                   ),
                                                                 ),
                                                               ),
-                                                              if (_model
-                                                                      .uploadedFileUrl4 ==
-                                                                  '1')
-                                                                Padding(
-                                                                  padding: EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          10.0),
-                                                                  child:
-                                                                      Container(
-                                                                    width: double
-                                                                        .infinity,
-                                                                    height:
-                                                                        40.0,
-                                                                    decoration:
-                                                                        BoxDecoration(
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .secondaryBackground,
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              12.0),
-                                                                      border:
-                                                                          Border
-                                                                              .all(
-                                                                        color: Color(
-                                                                            0xFF1FFF35),
-                                                                        width:
-                                                                            2.0,
+                                                              Row(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .center,
+                                                                children: [
+                                                                  if (_model.uploadedFileUrl3 !=
+                                                                          null &&
+                                                                      _model.uploadedFileUrl3 !=
+                                                                          '')
+                                                                    Container(
+                                                                      height:
+                                                                          200.0,
+                                                                      decoration:
+                                                                          BoxDecoration(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(0.0),
+                                                                      ),
+                                                                      child:
+                                                                          ClipRRect(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(20.0),
+                                                                        child: Image
+                                                                            .network(
+                                                                          _model
+                                                                              .uploadedFileUrl3,
+                                                                          fit: BoxFit
+                                                                              .fitHeight,
+                                                                        ),
                                                                       ),
                                                                     ),
-                                                                    child: Row(
-                                                                      mainAxisSize:
-                                                                          MainAxisSize
-                                                                              .max,
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .spaceBetween,
-                                                                      children: [
-                                                                        ClipRRect(
-                                                                          child:
-                                                                              Container(
-                                                                            constraints:
-                                                                                BoxConstraints(
-                                                                              maxWidth: 300.0,
-                                                                            ),
-                                                                            decoration:
-                                                                                BoxDecoration(),
-                                                                            child:
-                                                                                Padding(
-                                                                              padding: EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 0.0, 0.0),
-                                                                              child: Text(
-                                                                                _model.uploadedFileUrl4,
-                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                      fontFamily: 'Roboto Condensed',
-                                                                                      lineHeight: 1.6,
-                                                                                    ),
-                                                                              ),
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                        Padding(
-                                                                          padding: EdgeInsetsDirectional.fromSTEB(
-                                                                              0.0,
-                                                                              0.0,
-                                                                              30.0,
-                                                                              0.0),
-                                                                          child:
-                                                                              InkWell(
-                                                                            splashColor:
-                                                                                Colors.transparent,
-                                                                            focusColor:
-                                                                                Colors.transparent,
-                                                                            hoverColor:
-                                                                                Colors.transparent,
-                                                                            highlightColor:
-                                                                                Colors.transparent,
-                                                                            onTap:
-                                                                                () async {
-                                                                              await FirebaseStorage.instance.refFromURL(_model.uploadedFileUrl4).delete();
-                                                                            },
-                                                                            child:
-                                                                                SvgPicture.asset(
-                                                                              'assets/images/Vector.svg',
-                                                                              width: 15.0,
-                                                                              height: 15.0,
-                                                                              fit: BoxFit.cover,
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                ),
+                                                                ],
+                                                              ),
                                                             ],
                                                           ),
                                                         ),
@@ -2980,14 +2894,13 @@ class _DashboardSellerAddProductScreenWidgetState
                                                     price: double.tryParse(_model
                                                         .priceFieldController
                                                         .text),
-                                                    status: 'not approved',
+                                                    status: 'approved',
                                                     sellerId: currentUserUid,
                                                     category: _model
                                                         .catergoryDropDownValue,
                                                     description: _model
                                                         .descriptionFieldController
                                                         .text,
-                                                    productId: '',
                                                     nocodeSoftware: _model
                                                         .nocodeSoftwareFieldController
                                                         .text,
@@ -2997,7 +2910,26 @@ class _DashboardSellerAddProductScreenWidgetState
                                                     cloneLink: _model
                                                         .cloneLinkFieldController
                                                         .text,
-                                                    image: '',
+                                                    image:
+                                                        _model.uploadedFileUrl3,
+                                                    platform: 'web',
+                                                    numOfClicks: 0,
+                                                    numOfSales: 0,
+                                                    productId: 'NA',
+                                                    sellerInfo:
+                                                        currentUserReference,
+                                                    highResolution:
+                                                        _model.hDSwitchValue,
+                                                    updates: _model
+                                                        .updatesSwitchValue,
+                                                    documentation: _model
+                                                        .wellDocSwitchValue,
+                                                    responsiveLayout: _model
+                                                        .responsiveSwitchValue,
+                                                    support: _model
+                                                        .ongoingSupportSwitchValue,
+                                                    customCode: _model
+                                                        .customCodeSwitchValue,
                                                   ),
                                                   'tags': functions
                                                       .sentenceToList(_model
@@ -3006,7 +2938,13 @@ class _DashboardSellerAddProductScreenWidgetState
                                                   'date_created': FieldValue
                                                       .serverTimestamp(),
                                                   'product_images':
-                                                      _model.uploadedFileUrls1,
+                                                      _model.uploadedFileUrls2,
+                                                  'compartible_browsers': [
+                                                    'NA'
+                                                  ],
+                                                  'include_files': ['NA'],
+                                                  'date_modified': FieldValue
+                                                      .serverTimestamp(),
                                                 };
                                                 await ProductsRecord.collection
                                                     .doc()

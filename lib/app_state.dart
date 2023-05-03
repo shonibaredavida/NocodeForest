@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'flutter_flow/request_manager.dart';
 import 'backend/backend.dart';
 import 'backend/api_requests/api_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -61,6 +62,21 @@ class FFAppState extends ChangeNotifier {
   set sum(double _value) {
     _sum = _value;
   }
+
+  final _allProductQueryManager = StreamRequestManager<List<ProductsRecord>>();
+  Stream<List<ProductsRecord>> allProductQuery({
+    String? uniqueQueryKey,
+    bool? overrideCache,
+    required Stream<List<ProductsRecord>> Function() requestFn,
+  }) =>
+      _allProductQueryManager.performRequest(
+        uniqueQueryKey: uniqueQueryKey,
+        overrideCache: overrideCache,
+        requestFn: requestFn,
+      );
+  void clearAllProductQueryCache() => _allProductQueryManager.clear();
+  void clearAllProductQueryCacheKey(String? uniqueKey) =>
+      _allProductQueryManager.clearRequest(uniqueKey);
 }
 
 LatLng? _latLngFromString(String? val) {

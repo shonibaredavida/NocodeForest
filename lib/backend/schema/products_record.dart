@@ -41,8 +41,6 @@ abstract class ProductsRecord
   @BuiltValueField(wireName: 'include_files')
   BuiltList<String>? get includeFiles;
 
-  String? get layout;
-
   String? get description;
 
   @BuiltValueField(wireName: 'product_id')
@@ -67,6 +65,24 @@ abstract class ProductsRecord
 
   DocumentReference? get sellerInfo;
 
+  @BuiltValueField(wireName: 'high_resolution')
+  bool? get highResolution;
+
+  bool? get updates;
+
+  bool? get documentation;
+
+  @BuiltValueField(wireName: 'responsive_layout')
+  bool? get responsiveLayout;
+
+  bool? get support;
+
+  @BuiltValueField(wireName: 'custom_code')
+  bool? get customCode;
+
+  @BuiltValueField(wireName: 'liked_by')
+  BuiltList<DocumentReference>? get likedBy;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -84,13 +100,19 @@ abstract class ProductsRecord
     ..numOfSales = 0
     ..compartibleBrowsers = ListBuilder()
     ..includeFiles = ListBuilder()
-    ..layout = ''
     ..description = ''
     ..productId = ''
     ..liveLink = ''
     ..cloneLink = ''
     ..image = ''
-    ..productImages = ListBuilder();
+    ..productImages = ListBuilder()
+    ..highResolution = false
+    ..updates = false
+    ..documentation = false
+    ..responsiveLayout = false
+    ..support = false
+    ..customCode = false
+    ..likedBy = ListBuilder();
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('products');
@@ -123,7 +145,6 @@ Map<String, dynamic> createProductsRecordData({
   String? category,
   int? numOfClicks,
   int? numOfSales,
-  String? layout,
   String? description,
   String? productId,
   String? liveLink,
@@ -132,6 +153,12 @@ Map<String, dynamic> createProductsRecordData({
   DateTime? dateModified,
   String? image,
   DocumentReference? sellerInfo,
+  bool? highResolution,
+  bool? updates,
+  bool? documentation,
+  bool? responsiveLayout,
+  bool? support,
+  bool? customCode,
 }) {
   final firestoreData = serializers.toFirestore(
     ProductsRecord.serializer,
@@ -149,7 +176,6 @@ Map<String, dynamic> createProductsRecordData({
         ..numOfSales = numOfSales
         ..compartibleBrowsers = null
         ..includeFiles = null
-        ..layout = layout
         ..description = description
         ..productId = productId
         ..liveLink = liveLink
@@ -158,7 +184,14 @@ Map<String, dynamic> createProductsRecordData({
         ..dateModified = dateModified
         ..image = image
         ..productImages = null
-        ..sellerInfo = sellerInfo,
+        ..sellerInfo = sellerInfo
+        ..highResolution = highResolution
+        ..updates = updates
+        ..documentation = documentation
+        ..responsiveLayout = responsiveLayout
+        ..support = support
+        ..customCode = customCode
+        ..likedBy = null,
     ),
   );
 

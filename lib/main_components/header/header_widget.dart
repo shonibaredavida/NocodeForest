@@ -48,50 +48,82 @@ class _HeaderWidgetState extends State<HeaderWidget> {
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
 
-    return Visibility(
-      visible: !valueOrDefault<bool>(currentUserDocument?.becomeASeller, false),
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(),
       child: Padding(
         padding: EdgeInsetsDirectional.fromSTEB(0.0, 36.0, 0.0, 36.0),
-        child: AuthUserStreamWidget(
-          builder: (context) => Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              InkWell(
-                splashColor: Colors.transparent,
-                focusColor: Colors.transparent,
-                hoverColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                onTap: () async {
-                  if (loggedIn) {
-                    if (valueOrDefault<bool>(
-                        currentUserDocument?.becomeASeller, false)) {
-                      context.pushNamed('dashboardSeller');
-                    } else {
-                      context.pushNamed('landingPageBuyers');
-                    }
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            InkWell(
+              splashColor: Colors.transparent,
+              focusColor: Colors.transparent,
+              hoverColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              onTap: () async {
+                if (loggedIn) {
+                  if (valueOrDefault<bool>(
+                      currentUserDocument?.becomeASeller, false)) {
+                    context.pushNamed('dashboardSeller');
                   } else {
                     context.pushNamed('landingPageBuyers');
                   }
-                },
-                child: SvgPicture.asset(
-                  'assets/images/NF_Logo.svg',
-                  width: 132.0,
-                  height: 51.1,
-                  fit: BoxFit.cover,
-                ),
+                } else {
+                  context.pushNamed('landingPageBuyers');
+                }
+              },
+              child: SvgPicture.asset(
+                'assets/images/NF_Logo.svg',
+                width: 132.0,
+                height: 51.1,
+                fit: BoxFit.cover,
               ),
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      if (loggedIn &&
-                          !valueOrDefault<bool>(
-                              currentUserDocument?.becomeASeller, false))
-                        FFButtonWidget(
+            ),
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                if (loggedIn &&
+                    valueOrDefault<bool>(
+                        currentUserDocument?.becomeASeller, false))
+                  AuthUserStreamWidget(
+                    builder: (context) => FFButtonWidget(
+                      onPressed: () {
+                        print('Button pressed ...');
+                      },
+                      text: 'Market Place',
+                      options: FFButtonOptions(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            48.0, 24.0, 48.0, 24.0),
+                        iconPadding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        color: Color(0x00009946),
+                        textStyle:
+                            FlutterFlowTheme.of(context).titleSmall.override(
+                                  fontFamily: 'Roboto Condensed',
+                                  color: Colors.white,
+                                  fontSize: 16.0,
+                                  lineHeight: 1.5,
+                                ),
+                        borderSide: BorderSide(
+                          color: Colors.transparent,
+                        ),
+                        borderRadius: BorderRadius.circular(4.0),
+                        hoverColor: FlutterFlowTheme.of(context).primaryText,
+                        hoverTextColor: FlutterFlowTheme.of(context).primary,
+                      ),
+                    ),
+                  ),
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    if (loggedIn &&
+                        !valueOrDefault<bool>(
+                            currentUserDocument?.becomeASeller, false))
+                      AuthUserStreamWidget(
+                        builder: (context) => FFButtonWidget(
                           onPressed: () {
                             print('Button pressed ...');
                           },
@@ -120,44 +152,14 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                                 FlutterFlowTheme.of(context).primary,
                           ),
                         ),
-                      if (loggedIn &&
-                          valueOrDefault<bool>(
-                              currentUserDocument?.becomeASeller, false))
-                        FFButtonWidget(
-                          onPressed: () {
-                            print('Button pressed ...');
-                          },
-                          text: 'Market Place',
-                          options: FFButtonOptions(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                48.0, 24.0, 48.0, 24.0),
-                            iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 0.0),
-                            color: Color(0x00009946),
-                            textStyle: FlutterFlowTheme.of(context)
-                                .titleSmall
-                                .override(
-                                  fontFamily: 'Roboto Condensed',
-                                  color: Colors.white,
-                                  fontSize: 16.0,
-                                  lineHeight: 1.5,
-                                ),
-                            borderSide: BorderSide(
-                              color: Colors.transparent,
-                            ),
-                            borderRadius: BorderRadius.circular(4.0),
-                            hoverColor:
-                                FlutterFlowTheme.of(context).primaryText,
-                            hoverTextColor:
-                                FlutterFlowTheme.of(context).primary,
-                          ),
-                        ),
-                    ],
-                  ),
-                  if (!valueOrDefault<bool>(
-                          currentUserDocument?.becomeASeller, false) &&
-                      loggedIn)
-                    FFButtonWidget(
+                      ),
+                  ],
+                ),
+                if (!valueOrDefault<bool>(
+                        currentUserDocument?.becomeASeller, false) &&
+                    loggedIn)
+                  AuthUserStreamWidget(
+                    builder: (context) => FFButtonWidget(
                       onPressed: () async {
                         context.pushNamed('testing1');
                       },
@@ -183,10 +185,12 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                         hoverTextColor: FlutterFlowTheme.of(context).primary,
                       ),
                     ),
-                  if (loggedIn &&
-                      !valueOrDefault<bool>(
-                          currentUserDocument?.becomeASeller, false))
-                    FFButtonWidget(
+                  ),
+                if (loggedIn &&
+                    !valueOrDefault<bool>(
+                        currentUserDocument?.becomeASeller, false))
+                  AuthUserStreamWidget(
+                    builder: (context) => FFButtonWidget(
                       onPressed: () async {
                         context.pushNamed('landingPageSellers');
                       },
@@ -212,182 +216,182 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                         hoverTextColor: FlutterFlowTheme.of(context).primary,
                       ),
                     ),
-                ],
-              ),
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  if (!loggedIn)
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 4.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 24.0, 0.0),
-                            child: FFButtonWidget(
-                              onPressed: () async {
-                                await showModalBottomSheet(
-                                  isScrollControlled: true,
-                                  backgroundColor: Colors.transparent,
-                                  context: context,
-                                  builder: (bottomSheetContext) {
-                                    return Padding(
-                                      padding: MediaQuery.of(bottomSheetContext)
-                                          .viewInsets,
-                                      child: SigninModalWidget(),
-                                    );
-                                  },
-                                ).then((value) => setState(() {}));
-                              },
-                              text: 'Sign In',
-                              options: FFButtonOptions(
-                                height: 48.0,
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    48.0, 0.0, 48.0, 0.0),
-                                iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 0.0),
-                                color: Color(0x00009946),
-                                textStyle: FlutterFlowTheme.of(context)
-                                    .titleSmall
-                                    .override(
-                                      fontFamily: 'Roboto Condensed',
-                                      color: Colors.white,
-                                      fontSize: 16.0,
-                                      lineHeight: 1.5,
-                                    ),
-                                borderSide: BorderSide(
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryText,
-                                  width: 1.0,
-                                ),
-                                borderRadius: BorderRadius.circular(5.0),
-                                hoverColor: Color(0xFF99969E),
-                                hoverBorderSide: BorderSide(
-                                  color: Color(0xFF99969E),
-                                  width: 1.0,
-                                ),
-                                hoverTextColor:
-                                    FlutterFlowTheme.of(context).accent4,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 22.0, 0.0),
-                            child: FFButtonWidget(
-                              onPressed: () async {
-                                await showModalBottomSheet(
-                                  isScrollControlled: true,
-                                  backgroundColor: Colors.transparent,
-                                  enableDrag: false,
-                                  context: context,
-                                  builder: (bottomSheetContext) {
-                                    return Padding(
-                                      padding: MediaQuery.of(bottomSheetContext)
-                                          .viewInsets,
-                                      child: CreateAccountModalWidget(),
-                                    );
-                                  },
-                                ).then((value) => setState(() {}));
-                              },
-                              text: 'Create Account',
-                              options: FFButtonOptions(
-                                width: 194.0,
-                                height: 48.0,
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 0.0),
-                                iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 0.0),
-                                color: FlutterFlowTheme.of(context).primary,
-                                textStyle: FlutterFlowTheme.of(context)
-                                    .titleSmall
-                                    .override(
-                                      fontFamily: 'Roboto Condensed',
-                                      color: Colors.white,
-                                      fontSize: 16.0,
-                                      lineHeight: 1.5,
-                                    ),
-                                borderSide: BorderSide(
-                                  color: Colors.transparent,
-                                  width: 1.0,
-                                ),
-                                borderRadius: BorderRadius.circular(5.0),
-                                hoverColor:
-                                    FlutterFlowTheme.of(context).primaryText,
-                                hoverTextColor:
-                                    FlutterFlowTheme.of(context).primary,
-                              ),
-                            ),
-                          ),
-                          InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              if (loggedIn) {
-                                context.pushNamed('buyerCartScreen');
-                              } else {
-                                await showModalBottomSheet(
-                                  isScrollControlled: true,
-                                  backgroundColor: Colors.transparent,
-                                  enableDrag: false,
-                                  context: context,
-                                  builder: (bottomSheetContext) {
-                                    return Padding(
-                                      padding: MediaQuery.of(bottomSheetContext)
-                                          .viewInsets,
-                                      child: SigninModalWidget(),
-                                    );
-                                  },
-                                ).then((value) => setState(() {}));
-                              }
-                            },
-                            child: Container(
-                              width: 48.0,
-                              height: 48.0,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(4.0),
-                                border: Border.all(
-                                  color: Color(0x47FFFFFF),
-                                ),
-                              ),
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    16.1, 14.62, 14.62, 14.62),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    SvgPicture.asset(
-                                      'assets/images/Icon.svg',
-                                      width: 16.0,
-                                      height: 19.0,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  if (loggedIn)
-                    Row(
+                  ),
+              ],
+            ),
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                if (!loggedIn)
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 4.0),
+                    child: Row(
                       mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        if (loggedIn &&
-                            valueOrDefault<bool>(
-                                currentUserDocument?.becomeASeller, false))
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 22.0, 0.0),
-                            child: FFButtonWidget(
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 24.0, 0.0),
+                          child: FFButtonWidget(
+                            onPressed: () async {
+                              await showModalBottomSheet(
+                                isScrollControlled: true,
+                                backgroundColor: Colors.transparent,
+                                context: context,
+                                builder: (bottomSheetContext) {
+                                  return Padding(
+                                    padding: MediaQuery.of(bottomSheetContext)
+                                        .viewInsets,
+                                    child: SigninModalWidget(),
+                                  );
+                                },
+                              ).then((value) => setState(() {}));
+                            },
+                            text: 'Sign In',
+                            options: FFButtonOptions(
+                              height: 48.0,
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  48.0, 0.0, 48.0, 0.0),
+                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 0.0),
+                              color: Color(0x00009946),
+                              textStyle: FlutterFlowTheme.of(context)
+                                  .titleSmall
+                                  .override(
+                                    fontFamily: 'Roboto Condensed',
+                                    color: Colors.white,
+                                    fontSize: 16.0,
+                                    lineHeight: 1.5,
+                                  ),
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).primaryText,
+                                width: 1.0,
+                              ),
+                              borderRadius: BorderRadius.circular(5.0),
+                              hoverColor: Color(0xFF99969E),
+                              hoverBorderSide: BorderSide(
+                                color: Color(0xFF99969E),
+                                width: 1.0,
+                              ),
+                              hoverTextColor:
+                                  FlutterFlowTheme.of(context).accent4,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 22.0, 0.0),
+                          child: FFButtonWidget(
+                            onPressed: () async {
+                              await showModalBottomSheet(
+                                isScrollControlled: true,
+                                backgroundColor: Colors.transparent,
+                                enableDrag: false,
+                                context: context,
+                                builder: (bottomSheetContext) {
+                                  return Padding(
+                                    padding: MediaQuery.of(bottomSheetContext)
+                                        .viewInsets,
+                                    child: CreateAccountModalWidget(),
+                                  );
+                                },
+                              ).then((value) => setState(() {}));
+                            },
+                            text: 'Create Account',
+                            options: FFButtonOptions(
+                              width: 194.0,
+                              height: 48.0,
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 0.0),
+                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 0.0),
+                              color: FlutterFlowTheme.of(context).primary,
+                              textStyle: FlutterFlowTheme.of(context)
+                                  .titleSmall
+                                  .override(
+                                    fontFamily: 'Roboto Condensed',
+                                    color: Colors.white,
+                                    fontSize: 16.0,
+                                    lineHeight: 1.5,
+                                  ),
+                              borderSide: BorderSide(
+                                color: Colors.transparent,
+                                width: 1.0,
+                              ),
+                              borderRadius: BorderRadius.circular(5.0),
+                              hoverColor:
+                                  FlutterFlowTheme.of(context).primaryText,
+                              hoverTextColor:
+                                  FlutterFlowTheme.of(context).primary,
+                            ),
+                          ),
+                        ),
+                        InkWell(
+                          splashColor: Colors.transparent,
+                          focusColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onTap: () async {
+                            if (loggedIn) {
+                              context.pushNamed('buyerCartScreen');
+                            } else {
+                              await showModalBottomSheet(
+                                isScrollControlled: true,
+                                backgroundColor: Colors.transparent,
+                                enableDrag: false,
+                                context: context,
+                                builder: (bottomSheetContext) {
+                                  return Padding(
+                                    padding: MediaQuery.of(bottomSheetContext)
+                                        .viewInsets,
+                                    child: SigninModalWidget(),
+                                  );
+                                },
+                              ).then((value) => setState(() {}));
+                            }
+                          },
+                          child: Container(
+                            width: 48.0,
+                            height: 48.0,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(4.0),
+                              border: Border.all(
+                                color: Color(0x47FFFFFF),
+                              ),
+                            ),
+                            child: Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  16.1, 14.62, 14.62, 14.62),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  SvgPicture.asset(
+                                    'assets/images/Icon.svg',
+                                    width: 16.0,
+                                    height: 19.0,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                if (loggedIn)
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      if (loggedIn &&
+                          valueOrDefault<bool>(
+                              currentUserDocument?.becomeASeller, false))
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 22.0, 0.0),
+                          child: AuthUserStreamWidget(
+                            builder: (context) => FFButtonWidget(
                               onPressed: () async {
                                 context.pushNamed(
                                   'dashboardSellerAddProductScreen',
@@ -433,37 +437,39 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                               ),
                             ),
                           ),
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 3.0, 12.0, 0.0),
-                          child: Icon(
-                            Icons.notifications_none,
-                            color: Color(0xFFBABDB9),
-                            size: 27.0,
-                          ),
                         ),
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 27.0, 0.0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 14.0, 0.0),
-                                child: ClipOval(
-                                  child: Container(
-                                    width: 40.0,
-                                    height: 40.0,
-                                    decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
-                                      shape: BoxShape.circle,
-                                      border: Border.all(
-                                        color: Color(0x44FFFFFF),
-                                      ),
+                      Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 3.0, 12.0, 0.0),
+                        child: Icon(
+                          Icons.notifications_none,
+                          color: Color(0xFFBABDB9),
+                          size: 27.0,
+                        ),
+                      ),
+                      Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 27.0, 0.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 14.0, 0.0),
+                              child: ClipOval(
+                                child: Container(
+                                  width: 40.0,
+                                  height: 40.0,
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                    shape: BoxShape.circle,
+                                    border: Border.all(
+                                      color: Color(0x44FFFFFF),
                                     ),
-                                    child: InkWell(
+                                  ),
+                                  child: AuthUserStreamWidget(
+                                    builder: (context) => InkWell(
                                       splashColor: Colors.transparent,
                                       focusColor: Colors.transparent,
                                       hoverColor: Colors.transparent,
@@ -487,93 +493,92 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                                   ),
                                 ),
                               ),
-                              Icon(
-                                Icons.arrow_drop_down_sharp,
-                                color: Color(0xFF5C5F62),
-                                size: 24.0,
-                              ),
-                            ],
-                          ),
-                        ),
-                        Stack(
-                          children: [
-                            Container(
-                              width: 40.0,
-                              height: 40.0,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(4.0),
-                              ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.shopping_cart_outlined,
-                                    color: Color(0xFF57615B),
-                                    size: 19.0,
-                                  ),
-                                ],
-                              ),
                             ),
-                            FFButtonWidget(
-                              onPressed: () {
-                                print('Button pressed ...');
-                              },
-                              text: '',
-                              options: FFButtonOptions(
-                                width: 40.0,
-                                height: 40.0,
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 0.0),
-                                iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 0.0),
-                                color: Color(0x00009946),
-                                textStyle: FlutterFlowTheme.of(context)
-                                    .titleSmall
-                                    .override(
-                                      fontFamily: 'Roboto Condensed',
-                                      color: Colors.white,
-                                    ),
-                                borderSide: BorderSide(
-                                  color: Colors.transparent,
-                                  width: 1.0,
-                                ),
-                                borderRadius: BorderRadius.circular(8.0),
-                                hoverColor:
-                                    FlutterFlowTheme.of(context).secondaryText,
-                              ),
-                            ),
-                            Container(
-                              width: 40.0,
-                              height: 40.0,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(4.0),
-                                border: Border.all(
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryText,
-                                ),
-                              ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.shopping_cart_outlined,
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryText,
-                                    size: 19.0,
-                                  ),
-                                ],
-                              ),
+                            Icon(
+                              Icons.arrow_drop_down_sharp,
+                              color: Color(0xFF5C5F62),
+                              size: 24.0,
                             ),
                           ],
                         ),
-                      ],
-                    ),
-                ],
-              ),
-            ],
-          ),
+                      ),
+                      Stack(
+                        children: [
+                          Container(
+                            width: 40.0,
+                            height: 40.0,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(4.0),
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.shopping_cart_outlined,
+                                  color: Color(0xFF57615B),
+                                  size: 19.0,
+                                ),
+                              ],
+                            ),
+                          ),
+                          FFButtonWidget(
+                            onPressed: () {
+                              print('Button pressed ...');
+                            },
+                            text: '',
+                            options: FFButtonOptions(
+                              width: 40.0,
+                              height: 40.0,
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 0.0),
+                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 0.0),
+                              color: Color(0x00009946),
+                              textStyle: FlutterFlowTheme.of(context)
+                                  .titleSmall
+                                  .override(
+                                    fontFamily: 'Roboto Condensed',
+                                    color: Colors.white,
+                                  ),
+                              borderSide: BorderSide(
+                                color: Colors.transparent,
+                                width: 1.0,
+                              ),
+                              borderRadius: BorderRadius.circular(8.0),
+                              hoverColor:
+                                  FlutterFlowTheme.of(context).secondaryText,
+                            ),
+                          ),
+                          Container(
+                            width: 40.0,
+                            height: 40.0,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(4.0),
+                              border: Border.all(
+                                color: FlutterFlowTheme.of(context).primaryText,
+                              ),
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.shopping_cart_outlined,
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryText,
+                                  size: 19.0,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+              ],
+            ),
+          ],
         ),
       ),
     );

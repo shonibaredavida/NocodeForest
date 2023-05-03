@@ -106,13 +106,6 @@ class _$ProductsRecordSerializer
             specifiedType:
                 const FullType(BuiltList, const [const FullType(String)])));
     }
-    value = object.layout;
-    if (value != null) {
-      result
-        ..add('layout')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
-    }
     value = object.description;
     if (value != null) {
       result
@@ -177,6 +170,58 @@ class _$ProductsRecordSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(
                 DocumentReference, const [const FullType.nullable(Object)])));
+    }
+    value = object.highResolution;
+    if (value != null) {
+      result
+        ..add('high_resolution')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
+    value = object.updates;
+    if (value != null) {
+      result
+        ..add('updates')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
+    value = object.documentation;
+    if (value != null) {
+      result
+        ..add('documentation')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
+    value = object.responsiveLayout;
+    if (value != null) {
+      result
+        ..add('responsive_layout')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
+    value = object.support;
+    if (value != null) {
+      result
+        ..add('support')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
+    value = object.customCode;
+    if (value != null) {
+      result
+        ..add('custom_code')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
+    value = object.likedBy;
+    if (value != null) {
+      result
+        ..add('liked_by')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(BuiltList, const [
+              const FullType(
+                  DocumentReference, const [const FullType.nullable(Object)])
+            ])));
     }
     value = object.ffRef;
     if (value != null) {
@@ -255,10 +300,6 @@ class _$ProductsRecordSerializer
                       BuiltList, const [const FullType(String)]))!
               as BuiltList<Object?>);
           break;
-        case 'layout':
-          result.layout = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
-          break;
         case 'description':
           result.description = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
@@ -299,6 +340,37 @@ class _$ProductsRecordSerializer
                 const FullType.nullable(Object)
               ])) as DocumentReference<Object?>?;
           break;
+        case 'high_resolution':
+          result.highResolution = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
+        case 'updates':
+          result.updates = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
+        case 'documentation':
+          result.documentation = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
+        case 'responsive_layout':
+          result.responsiveLayout = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
+        case 'support':
+          result.support = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
+        case 'custom_code':
+          result.customCode = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
+        case 'liked_by':
+          result.likedBy.replace(serializers.deserialize(value,
+              specifiedType: const FullType(BuiltList, const [
+                const FullType(
+                    DocumentReference, const [const FullType.nullable(Object)])
+              ]))! as BuiltList<Object?>);
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -338,8 +410,6 @@ class _$ProductsRecord extends ProductsRecord {
   @override
   final BuiltList<String>? includeFiles;
   @override
-  final String? layout;
-  @override
   final String? description;
   @override
   final String? productId;
@@ -357,6 +427,20 @@ class _$ProductsRecord extends ProductsRecord {
   final BuiltList<String>? productImages;
   @override
   final DocumentReference<Object?>? sellerInfo;
+  @override
+  final bool? highResolution;
+  @override
+  final bool? updates;
+  @override
+  final bool? documentation;
+  @override
+  final bool? responsiveLayout;
+  @override
+  final bool? support;
+  @override
+  final bool? customCode;
+  @override
+  final BuiltList<DocumentReference<Object?>>? likedBy;
   @override
   final DocumentReference<Object?>? ffRef;
 
@@ -376,7 +460,6 @@ class _$ProductsRecord extends ProductsRecord {
       this.numOfSales,
       this.compartibleBrowsers,
       this.includeFiles,
-      this.layout,
       this.description,
       this.productId,
       this.liveLink,
@@ -386,6 +469,13 @@ class _$ProductsRecord extends ProductsRecord {
       this.image,
       this.productImages,
       this.sellerInfo,
+      this.highResolution,
+      this.updates,
+      this.documentation,
+      this.responsiveLayout,
+      this.support,
+      this.customCode,
+      this.likedBy,
       this.ffRef})
       : super._();
 
@@ -413,7 +503,6 @@ class _$ProductsRecord extends ProductsRecord {
         numOfSales == other.numOfSales &&
         compartibleBrowsers == other.compartibleBrowsers &&
         includeFiles == other.includeFiles &&
-        layout == other.layout &&
         description == other.description &&
         productId == other.productId &&
         liveLink == other.liveLink &&
@@ -423,6 +512,13 @@ class _$ProductsRecord extends ProductsRecord {
         image == other.image &&
         productImages == other.productImages &&
         sellerInfo == other.sellerInfo &&
+        highResolution == other.highResolution &&
+        updates == other.updates &&
+        documentation == other.documentation &&
+        responsiveLayout == other.responsiveLayout &&
+        support == other.support &&
+        customCode == other.customCode &&
+        likedBy == other.likedBy &&
         ffRef == other.ffRef;
   }
 
@@ -441,7 +537,6 @@ class _$ProductsRecord extends ProductsRecord {
     _$hash = $jc(_$hash, numOfSales.hashCode);
     _$hash = $jc(_$hash, compartibleBrowsers.hashCode);
     _$hash = $jc(_$hash, includeFiles.hashCode);
-    _$hash = $jc(_$hash, layout.hashCode);
     _$hash = $jc(_$hash, description.hashCode);
     _$hash = $jc(_$hash, productId.hashCode);
     _$hash = $jc(_$hash, liveLink.hashCode);
@@ -451,6 +546,13 @@ class _$ProductsRecord extends ProductsRecord {
     _$hash = $jc(_$hash, image.hashCode);
     _$hash = $jc(_$hash, productImages.hashCode);
     _$hash = $jc(_$hash, sellerInfo.hashCode);
+    _$hash = $jc(_$hash, highResolution.hashCode);
+    _$hash = $jc(_$hash, updates.hashCode);
+    _$hash = $jc(_$hash, documentation.hashCode);
+    _$hash = $jc(_$hash, responsiveLayout.hashCode);
+    _$hash = $jc(_$hash, support.hashCode);
+    _$hash = $jc(_$hash, customCode.hashCode);
+    _$hash = $jc(_$hash, likedBy.hashCode);
     _$hash = $jc(_$hash, ffRef.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -471,7 +573,6 @@ class _$ProductsRecord extends ProductsRecord {
           ..add('numOfSales', numOfSales)
           ..add('compartibleBrowsers', compartibleBrowsers)
           ..add('includeFiles', includeFiles)
-          ..add('layout', layout)
           ..add('description', description)
           ..add('productId', productId)
           ..add('liveLink', liveLink)
@@ -481,6 +582,13 @@ class _$ProductsRecord extends ProductsRecord {
           ..add('image', image)
           ..add('productImages', productImages)
           ..add('sellerInfo', sellerInfo)
+          ..add('highResolution', highResolution)
+          ..add('updates', updates)
+          ..add('documentation', documentation)
+          ..add('responsiveLayout', responsiveLayout)
+          ..add('support', support)
+          ..add('customCode', customCode)
+          ..add('likedBy', likedBy)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -543,10 +651,6 @@ class ProductsRecordBuilder
   set includeFiles(ListBuilder<String>? includeFiles) =>
       _$this._includeFiles = includeFiles;
 
-  String? _layout;
-  String? get layout => _$this._layout;
-  set layout(String? layout) => _$this._layout = layout;
-
   String? _description;
   String? get description => _$this._description;
   set description(String? description) => _$this._description = description;
@@ -587,6 +691,39 @@ class ProductsRecordBuilder
   set sellerInfo(DocumentReference<Object?>? sellerInfo) =>
       _$this._sellerInfo = sellerInfo;
 
+  bool? _highResolution;
+  bool? get highResolution => _$this._highResolution;
+  set highResolution(bool? highResolution) =>
+      _$this._highResolution = highResolution;
+
+  bool? _updates;
+  bool? get updates => _$this._updates;
+  set updates(bool? updates) => _$this._updates = updates;
+
+  bool? _documentation;
+  bool? get documentation => _$this._documentation;
+  set documentation(bool? documentation) =>
+      _$this._documentation = documentation;
+
+  bool? _responsiveLayout;
+  bool? get responsiveLayout => _$this._responsiveLayout;
+  set responsiveLayout(bool? responsiveLayout) =>
+      _$this._responsiveLayout = responsiveLayout;
+
+  bool? _support;
+  bool? get support => _$this._support;
+  set support(bool? support) => _$this._support = support;
+
+  bool? _customCode;
+  bool? get customCode => _$this._customCode;
+  set customCode(bool? customCode) => _$this._customCode = customCode;
+
+  ListBuilder<DocumentReference<Object?>>? _likedBy;
+  ListBuilder<DocumentReference<Object?>> get likedBy =>
+      _$this._likedBy ??= new ListBuilder<DocumentReference<Object?>>();
+  set likedBy(ListBuilder<DocumentReference<Object?>>? likedBy) =>
+      _$this._likedBy = likedBy;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -610,7 +747,6 @@ class ProductsRecordBuilder
       _numOfSales = $v.numOfSales;
       _compartibleBrowsers = $v.compartibleBrowsers?.toBuilder();
       _includeFiles = $v.includeFiles?.toBuilder();
-      _layout = $v.layout;
       _description = $v.description;
       _productId = $v.productId;
       _liveLink = $v.liveLink;
@@ -620,6 +756,13 @@ class ProductsRecordBuilder
       _image = $v.image;
       _productImages = $v.productImages?.toBuilder();
       _sellerInfo = $v.sellerInfo;
+      _highResolution = $v.highResolution;
+      _updates = $v.updates;
+      _documentation = $v.documentation;
+      _responsiveLayout = $v.responsiveLayout;
+      _support = $v.support;
+      _customCode = $v.customCode;
+      _likedBy = $v.likedBy?.toBuilder();
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -657,7 +800,6 @@ class ProductsRecordBuilder
               numOfSales: numOfSales,
               compartibleBrowsers: _compartibleBrowsers?.build(),
               includeFiles: _includeFiles?.build(),
-              layout: layout,
               description: description,
               productId: productId,
               liveLink: liveLink,
@@ -667,6 +809,13 @@ class ProductsRecordBuilder
               image: image,
               productImages: _productImages?.build(),
               sellerInfo: sellerInfo,
+              highResolution: highResolution,
+              updates: updates,
+              documentation: documentation,
+              responsiveLayout: responsiveLayout,
+              support: support,
+              customCode: customCode,
+              likedBy: _likedBy?.build(),
               ffRef: ffRef);
     } catch (_) {
       late String _$failedField;
@@ -681,6 +830,9 @@ class ProductsRecordBuilder
 
         _$failedField = 'productImages';
         _productImages?.build();
+
+        _$failedField = 'likedBy';
+        _likedBy?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'ProductsRecord', _$failedField, e.toString());

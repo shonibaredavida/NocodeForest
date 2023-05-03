@@ -32,8 +32,6 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
 
   BuiltList<String>? get wishlist;
 
-  BuiltList<String>? get cart;
-
   String? get profession;
 
   String? get username;
@@ -50,6 +48,8 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
 
   String? get bio;
 
+  BuiltList<DocumentReference>? get cart;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -63,14 +63,14 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
     ..becomeASeller = false
     ..status = ''
     ..wishlist = ListBuilder()
-    ..cart = ListBuilder()
     ..profession = ''
     ..username = ''
     ..interest = ''
     ..lastName = ''
     ..firstName = ''
     ..location = ''
-    ..bio = '';
+    ..bio = ''
+    ..cart = ListBuilder();
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('users');
@@ -123,14 +123,14 @@ Map<String, dynamic> createUsersRecordData({
         ..becomeASeller = becomeASeller
         ..status = status
         ..wishlist = null
-        ..cart = null
         ..profession = profession
         ..username = username
         ..interest = interest
         ..lastName = lastName
         ..firstName = firstName
         ..location = location
-        ..bio = bio,
+        ..bio = bio
+        ..cart = null,
     ),
   );
 

@@ -1,5 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/components/empty_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/main_components/header/header_widget.dart';
@@ -99,6 +100,9 @@ class _DashboardSellerOrderWidgetState
                           iconFiveColor:
                               FlutterFlowTheme.of(context).primaryText,
                           bGColor5: FlutterFlowTheme.of(context).primary,
+                          p1State: false,
+                          p2State: false,
+                          p4State: true,
                         ),
                       ),
                       Expanded(
@@ -467,6 +471,22 @@ class _DashboardSellerOrderWidgetState
                                         List<OrdersRecord>
                                             listViewOrdersRecordList =
                                             snapshot.data!;
+                                        if (listViewOrdersRecordList.isEmpty) {
+                                          return EmptyWidget(
+                                            title:
+                                                'You have not received any order',
+                                            icon: Icon(
+                                              Icons.stacked_line_chart_rounded,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .accent1,
+                                              size: 87.0,
+                                            ),
+                                            titleColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .primaryBackground,
+                                          );
+                                        }
                                         return ListView.builder(
                                           padding: EdgeInsets.zero,
                                           scrollDirection: Axis.vertical,
