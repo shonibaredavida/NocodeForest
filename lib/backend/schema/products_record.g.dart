@@ -28,13 +28,6 @@ class _$ProductsRecordSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    value = object.image;
-    if (value != null) {
-      result
-        ..add('image')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
-    }
     value = object.price;
     if (value != null) {
       result
@@ -162,6 +155,29 @@ class _$ProductsRecordSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(DateTime)));
     }
+    value = object.image;
+    if (value != null) {
+      result
+        ..add('image')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.productImages;
+    if (value != null) {
+      result
+        ..add('product_images')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(String)])));
+    }
+    value = object.sellerInfo;
+    if (value != null) {
+      result
+        ..add('sellerInfo')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(
+                DocumentReference, const [const FullType.nullable(Object)])));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -187,10 +203,6 @@ class _$ProductsRecordSerializer
       switch (key) {
         case 'name':
           result.name = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
-          break;
-        case 'image':
-          result.image = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
         case 'price':
@@ -271,6 +283,22 @@ class _$ProductsRecordSerializer
           result.dateModified = serializers.deserialize(value,
               specifiedType: const FullType(DateTime)) as DateTime?;
           break;
+        case 'image':
+          result.image = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'product_images':
+          result.productImages.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(String)]))!
+              as BuiltList<Object?>);
+          break;
+        case 'sellerInfo':
+          result.sellerInfo = serializers.deserialize(value,
+              specifiedType: const FullType(DocumentReference, const [
+                const FullType.nullable(Object)
+              ])) as DocumentReference<Object?>?;
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -287,8 +315,6 @@ class _$ProductsRecordSerializer
 class _$ProductsRecord extends ProductsRecord {
   @override
   final String? name;
-  @override
-  final String? image;
   @override
   final double? price;
   @override
@@ -326,6 +352,12 @@ class _$ProductsRecord extends ProductsRecord {
   @override
   final DateTime? dateModified;
   @override
+  final String? image;
+  @override
+  final BuiltList<String>? productImages;
+  @override
+  final DocumentReference<Object?>? sellerInfo;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$ProductsRecord([void Function(ProductsRecordBuilder)? updates]) =>
@@ -333,7 +365,6 @@ class _$ProductsRecord extends ProductsRecord {
 
   _$ProductsRecord._(
       {this.name,
-      this.image,
       this.price,
       this.tags,
       this.nocodeSoftware,
@@ -352,6 +383,9 @@ class _$ProductsRecord extends ProductsRecord {
       this.cloneLink,
       this.dateCreated,
       this.dateModified,
+      this.image,
+      this.productImages,
+      this.sellerInfo,
       this.ffRef})
       : super._();
 
@@ -368,7 +402,6 @@ class _$ProductsRecord extends ProductsRecord {
     if (identical(other, this)) return true;
     return other is ProductsRecord &&
         name == other.name &&
-        image == other.image &&
         price == other.price &&
         tags == other.tags &&
         nocodeSoftware == other.nocodeSoftware &&
@@ -387,6 +420,9 @@ class _$ProductsRecord extends ProductsRecord {
         cloneLink == other.cloneLink &&
         dateCreated == other.dateCreated &&
         dateModified == other.dateModified &&
+        image == other.image &&
+        productImages == other.productImages &&
+        sellerInfo == other.sellerInfo &&
         ffRef == other.ffRef;
   }
 
@@ -394,7 +430,6 @@ class _$ProductsRecord extends ProductsRecord {
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, name.hashCode);
-    _$hash = $jc(_$hash, image.hashCode);
     _$hash = $jc(_$hash, price.hashCode);
     _$hash = $jc(_$hash, tags.hashCode);
     _$hash = $jc(_$hash, nocodeSoftware.hashCode);
@@ -413,6 +448,9 @@ class _$ProductsRecord extends ProductsRecord {
     _$hash = $jc(_$hash, cloneLink.hashCode);
     _$hash = $jc(_$hash, dateCreated.hashCode);
     _$hash = $jc(_$hash, dateModified.hashCode);
+    _$hash = $jc(_$hash, image.hashCode);
+    _$hash = $jc(_$hash, productImages.hashCode);
+    _$hash = $jc(_$hash, sellerInfo.hashCode);
     _$hash = $jc(_$hash, ffRef.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -422,7 +460,6 @@ class _$ProductsRecord extends ProductsRecord {
   String toString() {
     return (newBuiltValueToStringHelper(r'ProductsRecord')
           ..add('name', name)
-          ..add('image', image)
           ..add('price', price)
           ..add('tags', tags)
           ..add('nocodeSoftware', nocodeSoftware)
@@ -441,6 +478,9 @@ class _$ProductsRecord extends ProductsRecord {
           ..add('cloneLink', cloneLink)
           ..add('dateCreated', dateCreated)
           ..add('dateModified', dateModified)
+          ..add('image', image)
+          ..add('productImages', productImages)
+          ..add('sellerInfo', sellerInfo)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -453,10 +493,6 @@ class ProductsRecordBuilder
   String? _name;
   String? get name => _$this._name;
   set name(String? name) => _$this._name = name;
-
-  String? _image;
-  String? get image => _$this._image;
-  set image(String? image) => _$this._image = image;
 
   double? _price;
   double? get price => _$this._price;
@@ -536,6 +572,21 @@ class ProductsRecordBuilder
   set dateModified(DateTime? dateModified) =>
       _$this._dateModified = dateModified;
 
+  String? _image;
+  String? get image => _$this._image;
+  set image(String? image) => _$this._image = image;
+
+  ListBuilder<String>? _productImages;
+  ListBuilder<String> get productImages =>
+      _$this._productImages ??= new ListBuilder<String>();
+  set productImages(ListBuilder<String>? productImages) =>
+      _$this._productImages = productImages;
+
+  DocumentReference<Object?>? _sellerInfo;
+  DocumentReference<Object?>? get sellerInfo => _$this._sellerInfo;
+  set sellerInfo(DocumentReference<Object?>? sellerInfo) =>
+      _$this._sellerInfo = sellerInfo;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -548,7 +599,6 @@ class ProductsRecordBuilder
     final $v = _$v;
     if ($v != null) {
       _name = $v.name;
-      _image = $v.image;
       _price = $v.price;
       _tags = $v.tags?.toBuilder();
       _nocodeSoftware = $v.nocodeSoftware;
@@ -567,6 +617,9 @@ class ProductsRecordBuilder
       _cloneLink = $v.cloneLink;
       _dateCreated = $v.dateCreated;
       _dateModified = $v.dateModified;
+      _image = $v.image;
+      _productImages = $v.productImages?.toBuilder();
+      _sellerInfo = $v.sellerInfo;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -593,7 +646,6 @@ class ProductsRecordBuilder
       _$result = _$v ??
           new _$ProductsRecord._(
               name: name,
-              image: image,
               price: price,
               tags: _tags?.build(),
               nocodeSoftware: nocodeSoftware,
@@ -612,6 +664,9 @@ class ProductsRecordBuilder
               cloneLink: cloneLink,
               dateCreated: dateCreated,
               dateModified: dateModified,
+              image: image,
+              productImages: _productImages?.build(),
+              sellerInfo: sellerInfo,
               ffRef: ffRef);
     } catch (_) {
       late String _$failedField;
@@ -623,6 +678,9 @@ class ProductsRecordBuilder
         _compartibleBrowsers?.build();
         _$failedField = 'includeFiles';
         _includeFiles?.build();
+
+        _$failedField = 'productImages';
+        _productImages?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'ProductsRecord', _$failedField, e.toString());

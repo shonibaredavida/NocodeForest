@@ -184,7 +184,7 @@ class _AdminTalentViewWidgetState extends State<AdminTalentViewWidget> {
                                                       .clearRedirectLocation();
 
                                                   context.goNamedAuth(
-                                                      'landingWaitlist',
+                                                      'landingPageBuyers',
                                                       mounted);
                                                 },
                                                 child: Container(
@@ -282,7 +282,7 @@ class _AdminTalentViewWidgetState extends State<AdminTalentViewWidget> {
                                               .clearRedirectLocation();
 
                                           context.goNamedAuth(
-                                              'landingWaitlist', mounted);
+                                              'landingPageBuyers', mounted);
                                         },
                                         child: Container(
                                           decoration: BoxDecoration(

@@ -13,8 +13,6 @@ abstract class ProductsRecord
 
   String? get name;
 
-  String? get image;
-
   double? get price;
 
   BuiltList<String>? get tags;
@@ -62,13 +60,19 @@ abstract class ProductsRecord
   @BuiltValueField(wireName: 'date_modified')
   DateTime? get dateModified;
 
+  String? get image;
+
+  @BuiltValueField(wireName: 'product_images')
+  BuiltList<String>? get productImages;
+
+  DocumentReference? get sellerInfo;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
 
   static void _initializeBuilder(ProductsRecordBuilder builder) => builder
     ..name = ''
-    ..image = ''
     ..price = 0.0
     ..tags = ListBuilder()
     ..nocodeSoftware = ''
@@ -84,7 +88,9 @@ abstract class ProductsRecord
     ..description = ''
     ..productId = ''
     ..liveLink = ''
-    ..cloneLink = '';
+    ..cloneLink = ''
+    ..image = ''
+    ..productImages = ListBuilder();
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('products');
@@ -109,7 +115,6 @@ abstract class ProductsRecord
 
 Map<String, dynamic> createProductsRecordData({
   String? name,
-  String? image,
   double? price,
   String? nocodeSoftware,
   String? status,
@@ -125,13 +130,14 @@ Map<String, dynamic> createProductsRecordData({
   String? cloneLink,
   DateTime? dateCreated,
   DateTime? dateModified,
+  String? image,
+  DocumentReference? sellerInfo,
 }) {
   final firestoreData = serializers.toFirestore(
     ProductsRecord.serializer,
     ProductsRecord(
       (p) => p
         ..name = name
-        ..image = image
         ..price = price
         ..tags = null
         ..nocodeSoftware = nocodeSoftware
@@ -149,7 +155,10 @@ Map<String, dynamic> createProductsRecordData({
         ..liveLink = liveLink
         ..cloneLink = cloneLink
         ..dateCreated = dateCreated
-        ..dateModified = dateModified,
+        ..dateModified = dateModified
+        ..image = image
+        ..productImages = null
+        ..sellerInfo = sellerInfo,
     ),
   );
 

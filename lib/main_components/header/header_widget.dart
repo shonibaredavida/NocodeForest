@@ -85,31 +85,74 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  FFButtonWidget(
-                    onPressed: () {
-                      print('Button pressed ...');
-                    },
-                    text: 'Categories',
-                    options: FFButtonOptions(
-                      padding: EdgeInsetsDirectional.fromSTEB(
-                          48.0, 24.0, 48.0, 24.0),
-                      iconPadding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      color: Color(0x00009946),
-                      textStyle:
-                          FlutterFlowTheme.of(context).titleSmall.override(
-                                fontFamily: 'Roboto Condensed',
-                                color: Colors.white,
-                                fontSize: 16.0,
-                                lineHeight: 1.5,
-                              ),
-                      borderSide: BorderSide(
-                        color: Colors.transparent,
-                      ),
-                      borderRadius: BorderRadius.circular(4.0),
-                      hoverColor: FlutterFlowTheme.of(context).primaryText,
-                      hoverTextColor: FlutterFlowTheme.of(context).primary,
-                    ),
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      if (loggedIn &&
+                          !valueOrDefault<bool>(
+                              currentUserDocument?.becomeASeller, false))
+                        FFButtonWidget(
+                          onPressed: () {
+                            print('Button pressed ...');
+                          },
+                          text: 'Categories',
+                          options: FFButtonOptions(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                48.0, 24.0, 48.0, 24.0),
+                            iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 0.0),
+                            color: Color(0x00009946),
+                            textStyle: FlutterFlowTheme.of(context)
+                                .titleSmall
+                                .override(
+                                  fontFamily: 'Roboto Condensed',
+                                  color: Colors.white,
+                                  fontSize: 16.0,
+                                  lineHeight: 1.5,
+                                ),
+                            borderSide: BorderSide(
+                              color: Colors.transparent,
+                            ),
+                            borderRadius: BorderRadius.circular(4.0),
+                            hoverColor:
+                                FlutterFlowTheme.of(context).primaryText,
+                            hoverTextColor:
+                                FlutterFlowTheme.of(context).primary,
+                          ),
+                        ),
+                      if (loggedIn &&
+                          valueOrDefault<bool>(
+                              currentUserDocument?.becomeASeller, false))
+                        FFButtonWidget(
+                          onPressed: () {
+                            print('Button pressed ...');
+                          },
+                          text: 'Market Place',
+                          options: FFButtonOptions(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                48.0, 24.0, 48.0, 24.0),
+                            iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 0.0),
+                            color: Color(0x00009946),
+                            textStyle: FlutterFlowTheme.of(context)
+                                .titleSmall
+                                .override(
+                                  fontFamily: 'Roboto Condensed',
+                                  color: Colors.white,
+                                  fontSize: 16.0,
+                                  lineHeight: 1.5,
+                                ),
+                            borderSide: BorderSide(
+                              color: Colors.transparent,
+                            ),
+                            borderRadius: BorderRadius.circular(4.0),
+                            hoverColor:
+                                FlutterFlowTheme.of(context).primaryText,
+                            hoverTextColor:
+                                FlutterFlowTheme.of(context).primary,
+                          ),
+                        ),
+                    ],
                   ),
                   if (!valueOrDefault<bool>(
                           currentUserDocument?.becomeASeller, false) &&
@@ -172,7 +215,7 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                 ],
               ),
               Column(
-                mainAxisSize: MainAxisSize.max,
+                mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   if (!loggedIn)
@@ -346,19 +389,16 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                                 0.0, 0.0, 22.0, 0.0),
                             child: FFButtonWidget(
                               onPressed: () async {
-                                await showModalBottomSheet(
-                                  isScrollControlled: true,
-                                  backgroundColor: Colors.transparent,
-                                  enableDrag: false,
-                                  context: context,
-                                  builder: (bottomSheetContext) {
-                                    return Padding(
-                                      padding: MediaQuery.of(bottomSheetContext)
-                                          .viewInsets,
-                                      child: CreateAccountModalWidget(),
-                                    );
+                                context.pushNamed(
+                                  'dashboardSellerAddProductScreen',
+                                  extra: <String, dynamic>{
+                                    kTransitionInfoKey: TransitionInfo(
+                                      hasTransition: true,
+                                      transitionType: PageTransitionType.fade,
+                                      duration: Duration(milliseconds: 0),
+                                    ),
                                   },
-                                ).then((value) => setState(() {}));
+                                );
                               },
                               text: 'Add Product',
                               icon: Icon(
@@ -423,11 +463,26 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                                         color: Color(0x44FFFFFF),
                                       ),
                                     ),
-                                    child: Image.network(
-                                      currentUserPhoto,
-                                      width: 48.0,
-                                      height: 48.0,
-                                      fit: BoxFit.cover,
+                                    child: InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        GoRouter.of(context).prepareAuthEvent();
+                                        await authManager.signOut();
+                                        GoRouter.of(context)
+                                            .clearRedirectLocation();
+
+                                        context.goNamedAuth(
+                                            'landingPageBuyers', mounted);
+                                      },
+                                      child: Image.network(
+                                        currentUserPhoto,
+                                        width: 48.0,
+                                        height: 48.0,
+                                        fit: BoxFit.cover,
+                                      ),
                                     ),
                                   ),
                                 ),

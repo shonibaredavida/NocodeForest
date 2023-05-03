@@ -70,15 +70,15 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       errorBuilder: (context, _) => appStateNotifier.loggedIn
-          ? AdminBizViewWidget()
-          : LandingWaitlistWidget(),
+          ? DashboardSellerWidget()
+          : LandingPageBuyersWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) => appStateNotifier.loggedIn
-              ? AdminBizViewWidget()
-              : LandingWaitlistWidget(),
+              ? DashboardSellerWidget()
+              : LandingPageBuyersWidget(),
         ),
         FFRoute(
           name: 'testing1',
@@ -413,7 +413,7 @@ class FFRoute {
 
           if (requireAuth && !appStateNotifier.loggedIn) {
             appStateNotifier.setRedirectLocationIfUnset(state.location);
-            return '/home';
+            return '/landingPageBuyers';
           }
           return null;
         },

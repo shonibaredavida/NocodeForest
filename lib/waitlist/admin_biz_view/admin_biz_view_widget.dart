@@ -178,7 +178,7 @@ class _AdminBizViewWidgetState extends State<AdminBizViewWidget> {
                                                       .clearRedirectLocation();
 
                                                   context.goNamedAuth(
-                                                      'landingWaitlist',
+                                                      'landingPageBuyers',
                                                       mounted);
                                                 },
                                                 child: Container(
@@ -277,7 +277,7 @@ class _AdminBizViewWidgetState extends State<AdminBizViewWidget> {
                                               .clearRedirectLocation();
 
                                           context.goNamedAuth(
-                                              'landingWaitlist', mounted);
+                                              'landingPageBuyers', mounted);
                                         },
                                         child: Container(
                                           decoration: BoxDecoration(

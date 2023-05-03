@@ -76,12 +76,9 @@ class _ProductDetailScreenWidgetState extends State<ProductDetailScreenWidget> {
             key: scaffoldKey,
             backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
             body: SafeArea(
-              child: StreamBuilder<List<UsersRecord>>(
-                stream: queryUsersRecord(
-                  queryBuilder: (usersRecord) => usersRecord.where('uid',
-                      isEqualTo: productDetailScreenProductsRecord.sellerId),
-                  singleRecord: true,
-                ),
+              child: StreamBuilder<UsersRecord>(
+                stream: UsersRecord.getDocument(
+                    productDetailScreenProductsRecord.sellerInfo!),
                 builder: (context, snapshot) {
                   // Customize what your widget looks like when it's loading.
                   if (!snapshot.hasData) {
@@ -96,15 +93,7 @@ class _ProductDetailScreenWidgetState extends State<ProductDetailScreenWidget> {
                       ),
                     );
                   }
-                  List<UsersRecord> containerUsersRecordList = snapshot.data!;
-                  // Return an empty Container when the item does not exist.
-                  if (snapshot.data!.isEmpty) {
-                    return Container();
-                  }
-                  final containerUsersRecord =
-                      containerUsersRecordList.isNotEmpty
-                          ? containerUsersRecordList.first
-                          : null;
+                  final containerUsersRecord = snapshot.data!;
                   return Container(
                     decoration: BoxDecoration(
                       color: FlutterFlowTheme.of(context).secondaryBackground,
@@ -310,7 +299,7 @@ class _ProductDetailScreenWidgetState extends State<ProductDetailScreenWidget> {
                                                   ),
                                                 ),
                                                 Text(
-                                                  containerUsersRecord!.email!,
+                                                  containerUsersRecord.email!,
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyMedium
@@ -750,75 +739,36 @@ class _ProductDetailScreenWidgetState extends State<ProductDetailScreenWidget> {
                                                 width: 1.2,
                                               ),
                                             ),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Container(
-                                                  decoration: BoxDecoration(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .lineColor,
-                                                  ),
-                                                  child: Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    12.0,
-                                                                    12.0,
-                                                                    12.0,
-                                                                    19.0),
-                                                        child: Container(
-                                                          decoration:
-                                                              BoxDecoration(),
-                                                          child: Image.network(
-                                                            productDetailScreenProductsRecord
-                                                                .image!,
-                                                            width: 590.0,
-                                                            height: 300.0,
-                                                            fit: BoxFit.cover,
-                                                          ),
-                                                        ),
+                                            child: Builder(
+                                              builder: (context) {
+                                                final productImages =
+                                                    productDetailScreenProductsRecord
+                                                        .productImages!
+                                                        .toList()
+                                                        .take(5)
+                                                        .toList();
+                                                return Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: List.generate(
+                                                      productImages.length,
+                                                      (productImagesIndex) {
+                                                    final productImagesItem =
+                                                        productImages[
+                                                            productImagesIndex];
+                                                    return Container(
+                                                      width: 616.0,
+                                                      decoration:
+                                                          BoxDecoration(),
+                                                      child: Image.network(
+                                                        productImagesItem,
+                                                        width: 616.0,
+                                                        fit: BoxFit.cover,
                                                       ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                Image.asset(
-                                                  'assets/images/68747470733a2f2f76726973746f2e73627468656d65732e636f6d2f7468656d65666f726573742f62616e6e6572732f382e706e67.png',
-                                                  width: 616.0,
-                                                  height: 1225.0,
-                                                  fit: BoxFit.cover,
-                                                ),
-                                                Image.asset(
-                                                  'assets/images/68747470733a2f2f76726973746f2e73627468656d65732e636f6d2f7468656d65666f726573742f62616e6e6572732f392e706e67.png',
-                                                  width: 616.0,
-                                                  height: 679.0,
-                                                  fit: BoxFit.cover,
-                                                ),
-                                                Image.asset(
-                                                  'assets/images/68747470733a2f2f76726973746f2e73627468656d65732e636f6d2f7468656d65666f726573742f62616e6e6572732f31302e706e67.png',
-                                                  width: 616.0,
-                                                  height: 489.0,
-                                                  fit: BoxFit.cover,
-                                                ),
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          0.0, 0.0, 0.0, 24.0),
-                                                  child: Image.asset(
-                                                    'assets/images/68747470733a2f2f76726973746f2e73627468656d65732e636f6d2f7468656d65666f726573742f62616e6e6572732f31362e706e67.png',
-                                                    width: 616.0,
-                                                    height: 227.0,
-                                                    fit: BoxFit.cover,
-                                                  ),
-                                                ),
-                                              ],
+                                                    );
+                                                  }),
+                                                );
+                                              },
                                             ),
                                           ),
                                           Container(
@@ -1421,7 +1371,7 @@ class _ProductDetailScreenWidgetState extends State<ProductDetailScreenWidget> {
                                                                           0.0,
                                                                           7.0),
                                                                   child: Text(
-                                                                    containerUsersRecord!
+                                                                    containerUsersRecord
                                                                         .email!,
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
@@ -1461,7 +1411,7 @@ class _ProductDetailScreenWidgetState extends State<ProductDetailScreenWidget> {
                                                                   queryBuilder: (productsRecord) => productsRecord.where(
                                                                       'seller_id',
                                                                       isEqualTo:
-                                                                          containerUsersRecord!
+                                                                          containerUsersRecord
                                                                               .uid),
                                                                 ),
                                                                 builder: (context,

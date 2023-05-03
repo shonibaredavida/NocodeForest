@@ -712,7 +712,7 @@ class _SidebarSellerWidgetState extends State<SidebarSellerWidget>
                   highlightColor: Colors.transparent,
                   onTap: () async {
                     context.pushNamed(
-                      'dashboardBuyerProfileScreen',
+                      'dashboardSellerProfileScreen',
                       extra: <String, dynamic>{
                         kTransitionInfoKey: TransitionInfo(
                           hasTransition: true,
