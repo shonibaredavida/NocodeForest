@@ -14,10 +14,12 @@ class DeleteDialogwaitlistWidget extends StatefulWidget {
     Key? key,
     this.bizRef,
     this.talentRef,
+    this.promoDoc,
   }) : super(key: key);
 
   final WaitlistBusinessOwnerRecord? bizRef;
   final WaitlistTalentRecord? talentRef;
+  final PromoRecordsRecord? promoDoc;
 
   @override
   _DeleteDialogwaitlistWidgetState createState() =>

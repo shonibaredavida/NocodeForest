@@ -8,9 +8,6 @@ import '../flutter_flow/flutter_flow_util.dart';
 import 'schema/users_record.dart';
 import 'schema/products_record.dart';
 import 'schema/nocode_tools_info_record.dart';
-import 'schema/buyers_record.dart';
-import 'schema/sellers_record.dart';
-import 'schema/admins_record.dart';
 import 'schema/orders_record.dart';
 import 'schema/project_catergories_info_record.dart';
 import 'schema/earnings_record.dart';
@@ -19,6 +16,7 @@ import 'schema/seller_info_record.dart';
 import 'schema/cart_record.dart';
 import 'schema/waitlist_talent_record.dart';
 import 'schema/waitlist_business_owner_record.dart';
+import 'schema/promo_records_record.dart';
 import 'schema/serializers.dart';
 
 export 'dart:async' show StreamSubscription;
@@ -29,9 +27,6 @@ export 'schema/serializers.dart';
 export 'schema/users_record.dart';
 export 'schema/products_record.dart';
 export 'schema/nocode_tools_info_record.dart';
-export 'schema/buyers_record.dart';
-export 'schema/sellers_record.dart';
-export 'schema/admins_record.dart';
 export 'schema/orders_record.dart';
 export 'schema/project_catergories_info_record.dart';
 export 'schema/earnings_record.dart';
@@ -40,6 +35,7 @@ export 'schema/seller_info_record.dart';
 export 'schema/cart_record.dart';
 export 'schema/waitlist_talent_record.dart';
 export 'schema/waitlist_business_owner_record.dart';
+export 'schema/promo_records_record.dart';
 
 /// Functions to query UsersRecords (as a Stream and as a Future).
 Future<int> queryUsersRecordCount({
@@ -191,162 +187,6 @@ Future<FFFirestorePage<NocodeToolsInfoRecord>> queryNocodeToolsInfoRecordPage({
     queryCollectionPage(
       NocodeToolsInfoRecord.collection,
       NocodeToolsInfoRecord.serializer,
-      queryBuilder: queryBuilder,
-      nextPageMarker: nextPageMarker,
-      pageSize: pageSize,
-      isStream: isStream,
-    );
-
-/// Functions to query BuyersRecords (as a Stream and as a Future).
-Future<int> queryBuyersRecordCount({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-}) =>
-    queryCollectionCount(
-      BuyersRecord.collection,
-      queryBuilder: queryBuilder,
-      limit: limit,
-    );
-
-Stream<List<BuyersRecord>> queryBuyersRecord({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-  bool singleRecord = false,
-}) =>
-    queryCollection(
-      BuyersRecord.collection,
-      BuyersRecord.serializer,
-      queryBuilder: queryBuilder,
-      limit: limit,
-      singleRecord: singleRecord,
-    );
-
-Future<List<BuyersRecord>> queryBuyersRecordOnce({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-  bool singleRecord = false,
-}) =>
-    queryCollectionOnce(
-      BuyersRecord.collection,
-      BuyersRecord.serializer,
-      queryBuilder: queryBuilder,
-      limit: limit,
-      singleRecord: singleRecord,
-    );
-
-Future<FFFirestorePage<BuyersRecord>> queryBuyersRecordPage({
-  Query Function(Query)? queryBuilder,
-  DocumentSnapshot? nextPageMarker,
-  required int pageSize,
-  required bool isStream,
-}) =>
-    queryCollectionPage(
-      BuyersRecord.collection,
-      BuyersRecord.serializer,
-      queryBuilder: queryBuilder,
-      nextPageMarker: nextPageMarker,
-      pageSize: pageSize,
-      isStream: isStream,
-    );
-
-/// Functions to query SellersRecords (as a Stream and as a Future).
-Future<int> querySellersRecordCount({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-}) =>
-    queryCollectionCount(
-      SellersRecord.collection,
-      queryBuilder: queryBuilder,
-      limit: limit,
-    );
-
-Stream<List<SellersRecord>> querySellersRecord({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-  bool singleRecord = false,
-}) =>
-    queryCollection(
-      SellersRecord.collection,
-      SellersRecord.serializer,
-      queryBuilder: queryBuilder,
-      limit: limit,
-      singleRecord: singleRecord,
-    );
-
-Future<List<SellersRecord>> querySellersRecordOnce({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-  bool singleRecord = false,
-}) =>
-    queryCollectionOnce(
-      SellersRecord.collection,
-      SellersRecord.serializer,
-      queryBuilder: queryBuilder,
-      limit: limit,
-      singleRecord: singleRecord,
-    );
-
-Future<FFFirestorePage<SellersRecord>> querySellersRecordPage({
-  Query Function(Query)? queryBuilder,
-  DocumentSnapshot? nextPageMarker,
-  required int pageSize,
-  required bool isStream,
-}) =>
-    queryCollectionPage(
-      SellersRecord.collection,
-      SellersRecord.serializer,
-      queryBuilder: queryBuilder,
-      nextPageMarker: nextPageMarker,
-      pageSize: pageSize,
-      isStream: isStream,
-    );
-
-/// Functions to query AdminsRecords (as a Stream and as a Future).
-Future<int> queryAdminsRecordCount({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-}) =>
-    queryCollectionCount(
-      AdminsRecord.collection,
-      queryBuilder: queryBuilder,
-      limit: limit,
-    );
-
-Stream<List<AdminsRecord>> queryAdminsRecord({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-  bool singleRecord = false,
-}) =>
-    queryCollection(
-      AdminsRecord.collection,
-      AdminsRecord.serializer,
-      queryBuilder: queryBuilder,
-      limit: limit,
-      singleRecord: singleRecord,
-    );
-
-Future<List<AdminsRecord>> queryAdminsRecordOnce({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-  bool singleRecord = false,
-}) =>
-    queryCollectionOnce(
-      AdminsRecord.collection,
-      AdminsRecord.serializer,
-      queryBuilder: queryBuilder,
-      limit: limit,
-      singleRecord: singleRecord,
-    );
-
-Future<FFFirestorePage<AdminsRecord>> queryAdminsRecordPage({
-  Query Function(Query)? queryBuilder,
-  DocumentSnapshot? nextPageMarker,
-  required int pageSize,
-  required bool isStream,
-}) =>
-    queryCollectionPage(
-      AdminsRecord.collection,
-      AdminsRecord.serializer,
       queryBuilder: queryBuilder,
       nextPageMarker: nextPageMarker,
       pageSize: pageSize,
@@ -775,6 +615,58 @@ Future<FFFirestorePage<WaitlistBusinessOwnerRecord>>
           pageSize: pageSize,
           isStream: isStream,
         );
+
+/// Functions to query PromoRecordsRecords (as a Stream and as a Future).
+Future<int> queryPromoRecordsRecordCount({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+}) =>
+    queryCollectionCount(
+      PromoRecordsRecord.collection,
+      queryBuilder: queryBuilder,
+      limit: limit,
+    );
+
+Stream<List<PromoRecordsRecord>> queryPromoRecordsRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      PromoRecordsRecord.collection,
+      PromoRecordsRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<PromoRecordsRecord>> queryPromoRecordsRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      PromoRecordsRecord.collection,
+      PromoRecordsRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<FFFirestorePage<PromoRecordsRecord>> queryPromoRecordsRecordPage({
+  Query Function(Query)? queryBuilder,
+  DocumentSnapshot? nextPageMarker,
+  required int pageSize,
+  required bool isStream,
+}) =>
+    queryCollectionPage(
+      PromoRecordsRecord.collection,
+      PromoRecordsRecord.serializer,
+      queryBuilder: queryBuilder,
+      nextPageMarker: nextPageMarker,
+      pageSize: pageSize,
+      isStream: isStream,
+    );
 
 Future<int> queryCollectionCount(
   Query collection, {

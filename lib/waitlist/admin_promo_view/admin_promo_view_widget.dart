@@ -8,18 +8,18 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'admin_biz_view_model.dart';
-export 'admin_biz_view_model.dart';
+import 'admin_promo_view_model.dart';
+export 'admin_promo_view_model.dart';
 
-class AdminBizViewWidget extends StatefulWidget {
-  const AdminBizViewWidget({Key? key}) : super(key: key);
+class AdminPromoViewWidget extends StatefulWidget {
+  const AdminPromoViewWidget({Key? key}) : super(key: key);
 
   @override
-  _AdminBizViewWidgetState createState() => _AdminBizViewWidgetState();
+  _AdminPromoViewWidgetState createState() => _AdminPromoViewWidgetState();
 }
 
-class _AdminBizViewWidgetState extends State<AdminBizViewWidget> {
-  late AdminBizViewModel _model;
+class _AdminPromoViewWidgetState extends State<AdminPromoViewWidget> {
+  late AdminPromoViewModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final _unfocusNode = FocusNode();
@@ -27,7 +27,7 @@ class _AdminBizViewWidgetState extends State<AdminBizViewWidget> {
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => AdminBizViewModel());
+    _model = createModel(context, () => AdminPromoViewModel());
 
     _model.textController ??= TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -143,10 +143,10 @@ class _AdminBizViewWidgetState extends State<AdminBizViewWidget> {
                                                       Colors.transparent,
                                                   onTap: () async {
                                                     context.pushNamed(
-                                                        'adminPromoView');
+                                                        'adminBizView');
                                                   },
                                                   child: Text(
-                                                    'View Promo Subscribers',
+                                                    'View Admin Subscribers',
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodyMedium
@@ -164,6 +164,11 @@ class _AdminBizViewWidgetState extends State<AdminBizViewWidget> {
                                                   ),
                                                 ),
                                               ),
+                                            ],
+                                          ),
+                                          Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
                                               Padding(
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(
@@ -374,11 +379,10 @@ class _AdminBizViewWidgetState extends State<AdminBizViewWidget> {
                                             hoverColor: Colors.transparent,
                                             highlightColor: Colors.transparent,
                                             onTap: () async {
-                                              context
-                                                  .pushNamed('adminPromoView');
+                                              context.pushNamed('adminBizView');
                                             },
                                             child: Text(
-                                              'View Promo Subscribers',
+                                              'View Admin Subscribers',
                                               style:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
@@ -522,7 +526,7 @@ class _AdminBizViewWidgetState extends State<AdminBizViewWidget> {
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 4.0, 0.0, 4.0),
                                 child: Text(
-                                  'Recent Subscribers (Business Owners)',
+                                  'Current Promo Subscribers ',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
@@ -542,8 +546,7 @@ class _AdminBizViewWidgetState extends State<AdminBizViewWidget> {
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 4.0, 0.0, 4.0),
                                 child: FutureBuilder<int>(
-                                  future:
-                                      queryWaitlistBusinessOwnerRecordCount(),
+                                  future: queryPromoRecordsRecordCount(),
                                   builder: (context, snapshot) {
                                     // Customize what your widget looks like when it's loading.
                                     if (!snapshot.hasData) {
@@ -561,7 +564,7 @@ class _AdminBizViewWidgetState extends State<AdminBizViewWidget> {
                                     }
                                     int textCount = snapshot.data!;
                                     return Text(
-                                      'Total Business Owners: ${textCount.toString()}',
+                                      'Total  Response: ${textCount.toString()}',
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
@@ -696,7 +699,7 @@ class _AdminBizViewWidgetState extends State<AdminBizViewWidget> {
                                         ),
                                       Expanded(
                                         child: Text(
-                                          'Budget',
+                                          'Option',
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
@@ -713,7 +716,7 @@ class _AdminBizViewWidgetState extends State<AdminBizViewWidget> {
                                       ))
                                         Expanded(
                                           child: Text(
-                                            'Location',
+                                            'Company Name ',
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
@@ -733,44 +736,6 @@ class _AdminBizViewWidgetState extends State<AdminBizViewWidget> {
                                         Expanded(
                                           child: Text(
                                             'Industry',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily:
-                                                      'Roboto Condensed',
-                                                  color: Color(0xFF99969E),
-                                                  lineHeight: 1.15,
-                                                ),
-                                          ),
-                                        ),
-                                      if (responsiveVisibility(
-                                        context: context,
-                                        phone: false,
-                                        tablet: false,
-                                        tabletLandscape: false,
-                                      ))
-                                        Expanded(
-                                          child: Text(
-                                            'Product Type',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily:
-                                                      'Roboto Condensed',
-                                                  color: Color(0xFF99969E),
-                                                  lineHeight: 1.15,
-                                                ),
-                                          ),
-                                        ),
-                                      if (responsiveVisibility(
-                                        context: context,
-                                        phone: false,
-                                        tablet: false,
-                                        tabletLandscape: false,
-                                      ))
-                                        Expanded(
-                                          child: Text(
-                                            'Maintenance',
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
@@ -818,9 +783,8 @@ class _AdminBizViewWidgetState extends State<AdminBizViewWidget> {
                             width: double.infinity,
                             height: 1000.0,
                             decoration: BoxDecoration(),
-                            child: StreamBuilder<
-                                List<WaitlistBusinessOwnerRecord>>(
-                              stream: queryWaitlistBusinessOwnerRecord(),
+                            child: StreamBuilder<List<PromoRecordsRecord>>(
+                              stream: queryPromoRecordsRecord(),
                               builder: (context, snapshot) {
                                 // Customize what your widget looks like when it's loading.
                                 if (!snapshot.hasData) {
@@ -836,17 +800,17 @@ class _AdminBizViewWidgetState extends State<AdminBizViewWidget> {
                                     ),
                                   );
                                 }
-                                List<WaitlistBusinessOwnerRecord>
-                                    columnWaitlistBusinessOwnerRecordList =
+                                List<PromoRecordsRecord>
+                                    columnPromoRecordsRecordList =
                                     snapshot.data!;
                                 return SingleChildScrollView(
                                   child: Column(
                                     mainAxisSize: MainAxisSize.max,
                                     children: List.generate(
-                                        columnWaitlistBusinessOwnerRecordList
-                                            .length, (columnIndex) {
-                                      final columnWaitlistBusinessOwnerRecord =
-                                          columnWaitlistBusinessOwnerRecordList[
+                                        columnPromoRecordsRecordList.length,
+                                        (columnIndex) {
+                                      final columnPromoRecordsRecord =
+                                          columnPromoRecordsRecordList[
                                               columnIndex];
                                       return Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
@@ -896,8 +860,8 @@ class _AdminBizViewWidgetState extends State<AdminBizViewWidget> {
                                                     ),
                                                   Expanded(
                                                     child: Text(
-                                                      columnWaitlistBusinessOwnerRecord
-                                                          .fullName!,
+                                                      columnPromoRecordsRecord
+                                                          .name!,
                                                       style: FlutterFlowTheme
                                                               .of(context)
                                                           .bodyMedium
@@ -911,7 +875,7 @@ class _AdminBizViewWidgetState extends State<AdminBizViewWidget> {
                                                   ),
                                                   Expanded(
                                                     child: Text(
-                                                      columnWaitlistBusinessOwnerRecord
+                                                      columnPromoRecordsRecord
                                                           .email!,
                                                       style: FlutterFlowTheme
                                                               .of(context)
@@ -930,7 +894,7 @@ class _AdminBizViewWidgetState extends State<AdminBizViewWidget> {
                                                   ))
                                                     Expanded(
                                                       child: Text(
-                                                        columnWaitlistBusinessOwnerRecord
+                                                        columnPromoRecordsRecord
                                                             .phone!,
                                                         style:
                                                             FlutterFlowTheme.of(
@@ -949,8 +913,8 @@ class _AdminBizViewWidgetState extends State<AdminBizViewWidget> {
                                                     ),
                                                   Expanded(
                                                     child: Text(
-                                                      columnWaitlistBusinessOwnerRecord
-                                                          .budget!,
+                                                      columnPromoRecordsRecord
+                                                          .offerChoice!,
                                                       style: FlutterFlowTheme
                                                               .of(context)
                                                           .bodyMedium
@@ -969,8 +933,8 @@ class _AdminBizViewWidgetState extends State<AdminBizViewWidget> {
                                                   ))
                                                     Expanded(
                                                       child: Text(
-                                                        columnWaitlistBusinessOwnerRecord
-                                                            .country!,
+                                                        columnPromoRecordsRecord
+                                                            .companyInfo!,
                                                         style: FlutterFlowTheme
                                                                 .of(context)
                                                             .bodyMedium
@@ -991,52 +955,8 @@ class _AdminBizViewWidgetState extends State<AdminBizViewWidget> {
                                                   ))
                                                     Expanded(
                                                       child: Text(
-                                                        columnWaitlistBusinessOwnerRecord
+                                                        columnPromoRecordsRecord
                                                             .industry!,
-                                                        style: FlutterFlowTheme
-                                                                .of(context)
-                                                            .bodyMedium
-                                                            .override(
-                                                              fontFamily:
-                                                                  'Roboto Condensed',
-                                                              color:
-                                                                  Colors.black,
-                                                              lineHeight: 1.15,
-                                                            ),
-                                                      ),
-                                                    ),
-                                                  if (responsiveVisibility(
-                                                    context: context,
-                                                    phone: false,
-                                                    tablet: false,
-                                                    tabletLandscape: false,
-                                                  ))
-                                                    Expanded(
-                                                      child: Text(
-                                                        columnWaitlistBusinessOwnerRecord
-                                                            .websiteType!,
-                                                        style: FlutterFlowTheme
-                                                                .of(context)
-                                                            .bodyMedium
-                                                            .override(
-                                                              fontFamily:
-                                                                  'Roboto Condensed',
-                                                              color:
-                                                                  Colors.black,
-                                                              lineHeight: 1.15,
-                                                            ),
-                                                      ),
-                                                    ),
-                                                  if (responsiveVisibility(
-                                                    context: context,
-                                                    phone: false,
-                                                    tablet: false,
-                                                    tabletLandscape: false,
-                                                  ))
-                                                    Expanded(
-                                                      child: Text(
-                                                        columnWaitlistBusinessOwnerRecord
-                                                            .postMaintenance!,
                                                         style: FlutterFlowTheme
                                                                 .of(context)
                                                             .bodyMedium
@@ -1093,8 +1013,8 @@ class _AdminBizViewWidgetState extends State<AdminBizViewWidget> {
                                                                       .viewInsets,
                                                                   child:
                                                                       DeleteDialogwaitlistWidget(
-                                                                    bizRef:
-                                                                        columnWaitlistBusinessOwnerRecord,
+                                                                    promoDoc:
+                                                                        columnPromoRecordsRecord,
                                                                   ),
                                                                 ),
                                                               );

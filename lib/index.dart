@@ -59,3 +59,5 @@ export '/sellers_related/dashboard_seller_analytics_screen/dashboard_seller_anal
     show DashboardSellerAnalyticsScreenWidget;
 export '/sellers_related/dashboard_seller/dashboard_seller_widget.dart'
     show DashboardSellerWidget;
+export '/waitlist/admin_promo_view/admin_promo_view_widget.dart'
+    show AdminPromoViewWidget;

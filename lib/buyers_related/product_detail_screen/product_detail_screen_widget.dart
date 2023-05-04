@@ -9,6 +9,7 @@ import '/main_components/header/header_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -473,85 +474,25 @@ class _ProductDetailScreenWidgetState extends State<ProductDetailScreenWidget> {
                                                           mainAxisSize:
                                                               MainAxisSize.max,
                                                           children: [
-                                                            Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          6.67,
-                                                                          0.0),
-                                                              child: Icon(
+                                                            RatingBarIndicator(
+                                                              itemBuilder:
+                                                                  (context,
+                                                                          index) =>
+                                                                      Icon(
                                                                 Icons
-                                                                    .star_sharp,
+                                                                    .star_rounded,
                                                                 color: Color(
                                                                     0xFFF2B827),
-                                                                size: 18.0,
                                                               ),
-                                                            ),
-                                                            Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          6.67,
-                                                                          0.0),
-                                                              child: Icon(
-                                                                Icons
-                                                                    .star_sharp,
-                                                                color: Color(
-                                                                    0xFFF2B827),
-                                                                size: 18.0,
-                                                              ),
-                                                            ),
-                                                            Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          6.67,
-                                                                          0.0),
-                                                              child: Icon(
-                                                                Icons
-                                                                    .star_sharp,
-                                                                color: Color(
-                                                                    0xFFF2B827),
-                                                                size: 18.0,
-                                                              ),
-                                                            ),
-                                                            Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          6.67,
-                                                                          0.0),
-                                                              child: Icon(
-                                                                Icons
-                                                                    .star_sharp,
-                                                                color: Color(
-                                                                    0xFFF2B827),
-                                                                size: 18.0,
-                                                              ),
-                                                            ),
-                                                            Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          6.67,
-                                                                          0.0),
-                                                              child: Icon(
-                                                                Icons
-                                                                    .star_border,
-                                                                color: Color(
-                                                                    0xFFF2B827),
-                                                                size: 18.0,
-                                                              ),
+                                                              direction: Axis
+                                                                  .horizontal,
+                                                              rating:
+                                                                  productDetailScreenProductsRecord
+                                                                      .rating!,
+                                                              unratedColor: Color(
+                                                                  0x4FBAB9BD),
+                                                              itemCount: 5,
+                                                              itemSize: 20.0,
                                                             ),
                                                             Padding(
                                                               padding:
@@ -1567,25 +1508,56 @@ class _ProductDetailScreenWidgetState extends State<ProductDetailScreenWidget> {
                                                                 FFButtonWidget(
                                                               onPressed:
                                                                   () async {
-                                                                await showDialog(
-                                                                  context:
-                                                                      context,
-                                                                  builder:
-                                                                      (alertDialogContext) {
-                                                                    return AlertDialog(
-                                                                      content: Text(
-                                                                          'Template Successfully added to Cart'),
-                                                                      actions: [
-                                                                        TextButton(
-                                                                          onPressed: () =>
-                                                                              Navigator.pop(alertDialogContext),
-                                                                          child:
-                                                                              Text('Ok'),
-                                                                        ),
-                                                                      ],
-                                                                    );
-                                                                  },
-                                                                );
+                                                                if (FFAppState()
+                                                                        .cart
+                                                                        .contains(
+                                                                            productDetailScreenProductsRecord.reference) ==
+                                                                    true) {
+                                                                  await showDialog(
+                                                                    context:
+                                                                        context,
+                                                                    builder:
+                                                                        (alertDialogContext) {
+                                                                      return AlertDialog(
+                                                                        content:
+                                                                            Text('Template is already in Cart'),
+                                                                        actions: [
+                                                                          TextButton(
+                                                                            onPressed: () =>
+                                                                                Navigator.pop(alertDialogContext),
+                                                                            child:
+                                                                                Text('Ok'),
+                                                                          ),
+                                                                        ],
+                                                                      );
+                                                                    },
+                                                                  );
+                                                                } else {
+                                                                  setState(() {
+                                                                    FFAppState()
+                                                                        .addToCart(
+                                                                            widget.productRef!);
+                                                                  });
+                                                                  await showDialog(
+                                                                    context:
+                                                                        context,
+                                                                    builder:
+                                                                        (alertDialogContext) {
+                                                                      return AlertDialog(
+                                                                        content:
+                                                                            Text('Template Successfully added to Cart'),
+                                                                        actions: [
+                                                                          TextButton(
+                                                                            onPressed: () =>
+                                                                                Navigator.pop(alertDialogContext),
+                                                                            child:
+                                                                                Text('Ok'),
+                                                                          ),
+                                                                        ],
+                                                                      );
+                                                                    },
+                                                                  );
+                                                                }
                                                               },
                                                               text:
                                                                   'Add to Cart',
@@ -1817,7 +1789,8 @@ class _ProductDetailScreenWidgetState extends State<ProductDetailScreenWidget> {
                                                         0.0, 0.0, 0.0, 24.0),
                                                 child: FFButtonWidget(
                                                   onPressed: () {
-                                                    print('Button pressed ...');
+                                                    print(
+                                                        'AuthorProfileButton pressed ...');
                                                   },
                                                   text:
                                                       'View Author’s Portfolio',

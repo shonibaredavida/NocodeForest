@@ -1146,22 +1146,39 @@ class _DashboardSellerAddProductScreenWidgetState
                                                                           4.0,
                                                                           0.0,
                                                                           0.0),
-                                                              child: Text(
-                                                                'Test this link',
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Roboto Condensed',
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .primary,
-                                                                      fontSize:
-                                                                          12.0,
-                                                                      lineHeight:
-                                                                          1.33,
-                                                                    ),
+                                                              child: InkWell(
+                                                                splashColor: Colors
+                                                                    .transparent,
+                                                                focusColor: Colors
+                                                                    .transparent,
+                                                                hoverColor: Colors
+                                                                    .transparent,
+                                                                highlightColor:
+                                                                    Colors
+                                                                        .transparent,
+                                                                onTap:
+                                                                    () async {
+                                                                  await launchURL(
+                                                                      _model
+                                                                          .livePreviewFieldController
+                                                                          .text);
+                                                                },
+                                                                child: Text(
+                                                                  'Test this link',
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Roboto Condensed',
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .primary,
+                                                                        fontSize:
+                                                                            12.0,
+                                                                        lineHeight:
+                                                                            1.33,
+                                                                      ),
+                                                                ),
                                                               ),
                                                             ),
                                                           ],
@@ -1323,18 +1340,35 @@ class _DashboardSellerAddProductScreenWidgetState
                                                                           4.0,
                                                                           0.0,
                                                                           0.0),
-                                                              child: Text(
-                                                                'Test this link',
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Roboto Condensed',
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .primary,
-                                                                    ),
+                                                              child: InkWell(
+                                                                splashColor: Colors
+                                                                    .transparent,
+                                                                focusColor: Colors
+                                                                    .transparent,
+                                                                hoverColor: Colors
+                                                                    .transparent,
+                                                                highlightColor:
+                                                                    Colors
+                                                                        .transparent,
+                                                                onTap:
+                                                                    () async {
+                                                                  await launchURL(
+                                                                      _model
+                                                                          .cloneLinkFieldController
+                                                                          .text);
+                                                                },
+                                                                child: Text(
+                                                                  'Test this link',
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Roboto Condensed',
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .primary,
+                                                                      ),
+                                                                ),
                                                               ),
                                                             ),
                                                             Padding(
@@ -2930,6 +2964,7 @@ class _DashboardSellerAddProductScreenWidgetState
                                                         .ongoingSupportSwitchValue,
                                                     customCode: _model
                                                         .customCodeSwitchValue,
+                                                    rating: 0.0,
                                                   ),
                                                   'tags': functions
                                                       .sentenceToList(_model

@@ -223,6 +223,13 @@ class _$ProductsRecordSerializer
                   DocumentReference, const [const FullType.nullable(Object)])
             ])));
     }
+    value = object.rating;
+    if (value != null) {
+      result
+        ..add('rating')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(double)));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -371,6 +378,10 @@ class _$ProductsRecordSerializer
                     DocumentReference, const [const FullType.nullable(Object)])
               ]))! as BuiltList<Object?>);
           break;
+        case 'rating':
+          result.rating = serializers.deserialize(value,
+              specifiedType: const FullType(double)) as double?;
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -442,6 +453,8 @@ class _$ProductsRecord extends ProductsRecord {
   @override
   final BuiltList<DocumentReference<Object?>>? likedBy;
   @override
+  final double? rating;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$ProductsRecord([void Function(ProductsRecordBuilder)? updates]) =>
@@ -476,6 +489,7 @@ class _$ProductsRecord extends ProductsRecord {
       this.support,
       this.customCode,
       this.likedBy,
+      this.rating,
       this.ffRef})
       : super._();
 
@@ -519,6 +533,7 @@ class _$ProductsRecord extends ProductsRecord {
         support == other.support &&
         customCode == other.customCode &&
         likedBy == other.likedBy &&
+        rating == other.rating &&
         ffRef == other.ffRef;
   }
 
@@ -553,6 +568,7 @@ class _$ProductsRecord extends ProductsRecord {
     _$hash = $jc(_$hash, support.hashCode);
     _$hash = $jc(_$hash, customCode.hashCode);
     _$hash = $jc(_$hash, likedBy.hashCode);
+    _$hash = $jc(_$hash, rating.hashCode);
     _$hash = $jc(_$hash, ffRef.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -589,6 +605,7 @@ class _$ProductsRecord extends ProductsRecord {
           ..add('support', support)
           ..add('customCode', customCode)
           ..add('likedBy', likedBy)
+          ..add('rating', rating)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -724,6 +741,10 @@ class ProductsRecordBuilder
   set likedBy(ListBuilder<DocumentReference<Object?>>? likedBy) =>
       _$this._likedBy = likedBy;
 
+  double? _rating;
+  double? get rating => _$this._rating;
+  set rating(double? rating) => _$this._rating = rating;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -763,6 +784,7 @@ class ProductsRecordBuilder
       _support = $v.support;
       _customCode = $v.customCode;
       _likedBy = $v.likedBy?.toBuilder();
+      _rating = $v.rating;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -816,6 +838,7 @@ class ProductsRecordBuilder
               support: support,
               customCode: customCode,
               likedBy: _likedBy?.build(),
+              rating: rating,
               ffRef: ffRef);
     } catch (_) {
       late String _$failedField;

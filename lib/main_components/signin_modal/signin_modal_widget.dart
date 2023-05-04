@@ -389,7 +389,7 @@ class _SigninModalWidgetState extends State<SigninModalWidget> {
                                   }
 
                                   context.goNamedAuth(
-                                      'dashboardBuyer', mounted);
+                                      'adminPromoView', mounted);
                                 },
                                 child: Container(
                                   width: 364.0,

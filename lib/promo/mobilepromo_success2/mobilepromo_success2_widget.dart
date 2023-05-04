@@ -6,23 +6,19 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'success_page_model.dart';
-export 'success_page_model.dart';
+import 'mobilepromo_success2_model.dart';
+export 'mobilepromo_success2_model.dart';
 
-class SuccessPageWidget extends StatefulWidget {
-  const SuccessPageWidget({
-    Key? key,
-    this.title,
-  }) : super(key: key);
-
-  final String? title;
+class MobilepromoSuccess2Widget extends StatefulWidget {
+  const MobilepromoSuccess2Widget({Key? key}) : super(key: key);
 
   @override
-  _SuccessPageWidgetState createState() => _SuccessPageWidgetState();
+  _MobilepromoSuccess2WidgetState createState() =>
+      _MobilepromoSuccess2WidgetState();
 }
 
-class _SuccessPageWidgetState extends State<SuccessPageWidget> {
-  late SuccessPageModel _model;
+class _MobilepromoSuccess2WidgetState extends State<MobilepromoSuccess2Widget> {
+  late MobilepromoSuccess2Model _model;
 
   @override
   void setState(VoidCallback callback) {
@@ -33,7 +29,7 @@ class _SuccessPageWidgetState extends State<SuccessPageWidget> {
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => SuccessPageModel());
+    _model = createModel(context, () => MobilepromoSuccess2Model());
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -49,23 +45,20 @@ class _SuccessPageWidgetState extends State<SuccessPageWidget> {
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
 
-    return Wrap(
-      spacing: 0.0,
-      runSpacing: 0.0,
-      alignment: WrapAlignment.start,
-      crossAxisAlignment: WrapCrossAlignment.start,
-      direction: Axis.horizontal,
-      runAlignment: WrapAlignment.start,
-      verticalDirection: VerticalDirection.down,
-      clipBehavior: Clip.none,
+    return Column(
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
+          width: 343.0,
+          height: 388.0,
           decoration: BoxDecoration(
-            color: Colors.black,
+            color: FlutterFlowTheme.of(context).secondaryBackground,
+            borderRadius: BorderRadius.circular(10.0),
           ),
           child: Column(
             mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Row(
                 mainAxisSize: MainAxisSize.max,
@@ -73,28 +66,31 @@ class _SuccessPageWidgetState extends State<SuccessPageWidget> {
                 children: [
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 47.37, 0.0, 47.37),
+                        EdgeInsetsDirectional.fromSTEB(0.0, 39.37, 0.0, 39.37),
                     child: SvgPicture.asset(
                       'assets/images/Icon.svg',
+                      width: 89.0,
+                      height: 89.0,
                       fit: BoxFit.cover,
                     ),
                   ),
                 ],
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 32.0),
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 24.0),
                 child: Text(
-                  'Thank you!',
+                  'Congratulations!',
+                  textAlign: TextAlign.center,
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                         fontFamily: 'millik',
-                        fontSize: 36.0,
+                        fontSize: 20.0,
                         useGoogleFonts: false,
-                        lineHeight: 1.25,
+                        lineHeight: 1.4,
                       ),
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(32.0, 0.0, 32.0, 32.0),
+                padding: EdgeInsetsDirectional.fromSTEB(32.0, 0.0, 32.0, 0.0),
                 child: Wrap(
                   spacing: 0.0,
                   runSpacing: 0.0,
@@ -105,32 +101,52 @@ class _SuccessPageWidgetState extends State<SuccessPageWidget> {
                   verticalDirection: VerticalDirection.down,
                   clipBehavior: Clip.none,
                   children: [
-                    Container(
-                      decoration: BoxDecoration(),
-                      child: Text(
-                        'Your information has been received and you would be the first to know about updates about our official launch. ',
-                        textAlign: TextAlign.center,
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Roboto Condensed',
-                              fontSize: 24.0,
-                              lineHeight: 1.333,
-                            ),
-                      ),
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 24.0),
+                          child: Text(
+                            'Your information has been received and \ndetails of the offer will arrive in your \nprovided email shortly.',
+                            textAlign: TextAlign.center,
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: 'Roboto',
+                                  fontSize: 16.0,
+                                  lineHeight: 1.5,
+                                ),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 32.0),
+                padding: EdgeInsetsDirectional.fromSTEB(32.0, 0.0, 32.0, 24.0),
                 child: FFButtonWidget(
                   onPressed: () async {
-                    Navigator.pop(context);
+                    _model.updatePage(() {
+                      FFAppState().promoState = false;
+                    });
 
-                    context.pushNamed('landingWaitlistCoppp');
+                    context.pushNamed(
+                      'landingWaitlist',
+                      extra: <String, dynamic>{
+                        kTransitionInfoKey: TransitionInfo(
+                          hasTransition: true,
+                          transitionType: PageTransitionType.fade,
+                          duration: Duration(milliseconds: 0),
+                        ),
+                      },
+                    );
                   },
-                  text: 'Go home',
+                  text: 'OK',
                   options: FFButtonOptions(
-                    width: 153.0,
+                    width: 130.0,
                     height: 48.0,
                     padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                     iconPadding:
@@ -140,14 +156,13 @@ class _SuccessPageWidgetState extends State<SuccessPageWidget> {
                           fontFamily: 'Roboto Condensed',
                           color: Colors.white,
                           fontSize: 16.0,
-                          fontWeight: FontWeight.normal,
                           lineHeight: 1.5,
                         ),
                     borderSide: BorderSide(
                       color: Colors.transparent,
                       width: 1.0,
                     ),
-                    borderRadius: BorderRadius.circular(4.0),
+                    borderRadius: BorderRadius.circular(8.0),
                   ),
                 ),
               ),

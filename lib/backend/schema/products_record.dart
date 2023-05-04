@@ -83,6 +83,8 @@ abstract class ProductsRecord
   @BuiltValueField(wireName: 'liked_by')
   BuiltList<DocumentReference>? get likedBy;
 
+  double? get rating;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -112,7 +114,8 @@ abstract class ProductsRecord
     ..responsiveLayout = false
     ..support = false
     ..customCode = false
-    ..likedBy = ListBuilder();
+    ..likedBy = ListBuilder()
+    ..rating = 0.0;
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('products');
@@ -159,6 +162,7 @@ Map<String, dynamic> createProductsRecordData({
   bool? responsiveLayout,
   bool? support,
   bool? customCode,
+  double? rating,
 }) {
   final firestoreData = serializers.toFirestore(
     ProductsRecord.serializer,
@@ -191,7 +195,8 @@ Map<String, dynamic> createProductsRecordData({
         ..responsiveLayout = responsiveLayout
         ..support = support
         ..customCode = customCode
-        ..likedBy = null,
+        ..likedBy = null
+        ..rating = rating,
     ),
   );
 

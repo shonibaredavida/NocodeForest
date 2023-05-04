@@ -70,15 +70,15 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       errorBuilder: (context, _) => appStateNotifier.loggedIn
-          ? DashboardBuyerWidget()
-          : LandingPageBuyersWidget(),
+          ? AdminPromoViewWidget()
+          : LandingWaitlistWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) => appStateNotifier.loggedIn
-              ? DashboardBuyerWidget()
-              : LandingPageBuyersWidget(),
+              ? AdminPromoViewWidget()
+              : LandingWaitlistWidget(),
         ),
         FFRoute(
           name: 'testing1',
@@ -245,6 +245,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'dashboardSeller',
           path: '/dashboardSeller',
           builder: (context, params) => DashboardSellerWidget(),
+        ),
+        FFRoute(
+          name: 'adminPromoView',
+          path: '/adminPromoView',
+          builder: (context, params) => AdminPromoViewWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
       urlPathStrategy: UrlPathStrategy.path,
@@ -413,7 +418,7 @@ class FFRoute {
 
           if (requireAuth && !appStateNotifier.loggedIn) {
             appStateNotifier.setRedirectLocationIfUnset(state.location);
-            return '/landingPageBuyers';
+            return '/home';
           }
           return null;
         },

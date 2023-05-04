@@ -628,7 +628,7 @@ class _DashboardBuyerLogoutWidgetState
                                                 .clearRedirectLocation();
 
                                             context.goNamedAuth(
-                                                'landingPageBuyers', mounted);
+                                                'landingWaitlist', mounted);
                                           },
                                           text: 'Logout',
                                           options: FFButtonOptions(

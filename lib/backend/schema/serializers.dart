@@ -4,9 +4,6 @@ import 'package:from_css_color/from_css_color.dart';
 import 'users_record.dart';
 import 'products_record.dart';
 import 'nocode_tools_info_record.dart';
-import 'buyers_record.dart';
-import 'sellers_record.dart';
-import 'admins_record.dart';
 import 'orders_record.dart';
 import 'project_catergories_info_record.dart';
 import 'earnings_record.dart';
@@ -15,6 +12,7 @@ import 'seller_info_record.dart';
 import 'cart_record.dart';
 import 'waitlist_talent_record.dart';
 import 'waitlist_business_owner_record.dart';
+import 'promo_records_record.dart';
 
 import 'index.dart';
 
@@ -28,9 +26,6 @@ const kDocumentReferenceField = 'Document__Reference__Field';
   UsersRecord,
   ProductsRecord,
   NocodeToolsInfoRecord,
-  BuyersRecord,
-  SellersRecord,
-  AdminsRecord,
   OrdersRecord,
   ProjectCatergoriesInfoRecord,
   EarningsRecord,
@@ -39,6 +34,7 @@ const kDocumentReferenceField = 'Document__Reference__Field';
   CartRecord,
   WaitlistTalentRecord,
   WaitlistBusinessOwnerRecord,
+  PromoRecordsRecord,
 ])
 final Serializers serializers = (_$serializers.toBuilder()
       ..add(DocumentReferenceSerializer())

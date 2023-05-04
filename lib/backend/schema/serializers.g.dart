@@ -7,23 +7,18 @@ part of 'serializers.dart';
 // **************************************************************************
 
 Serializers _$serializers = (new Serializers().toBuilder()
-      ..add(AdminsRecord.serializer)
-      ..add(BuyersRecord.serializer)
       ..add(CartRecord.serializer)
       ..add(EarningsRecord.serializer)
       ..add(NocodeToolsInfoRecord.serializer)
       ..add(OrdersRecord.serializer)
       ..add(ProductsRecord.serializer)
       ..add(ProjectCatergoriesInfoRecord.serializer)
+      ..add(PromoRecordsRecord.serializer)
       ..add(ReviewsRecord.serializer)
       ..add(SellerInfoRecord.serializer)
-      ..add(SellersRecord.serializer)
       ..add(UsersRecord.serializer)
       ..add(WaitlistBusinessOwnerRecord.serializer)
       ..add(WaitlistTalentRecord.serializer)
-      ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(String)]),
-          () => new ListBuilder<String>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(String)]),
           () => new ListBuilder<String>())
@@ -42,12 +37,6 @@ Serializers _$serializers = (new Serializers().toBuilder()
                 DocumentReference, const [const FullType.nullable(Object)])
           ]),
           () => new ListBuilder<DocumentReference<Object?>>())
-      ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(String)]),
-          () => new ListBuilder<String>())
-      ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(String)]),
-          () => new ListBuilder<String>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(String)]),
           () => new ListBuilder<String>())

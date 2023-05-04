@@ -63,6 +63,12 @@ class FFAppState extends ChangeNotifier {
     _sum = _value;
   }
 
+  bool _promoState = true;
+  bool get promoState => _promoState;
+  set promoState(bool _value) {
+    _promoState = _value;
+  }
+
   final _allProductQueryManager = StreamRequestManager<List<ProductsRecord>>();
   Stream<List<ProductsRecord>> allProductQuery({
     String? uniqueQueryKey,
