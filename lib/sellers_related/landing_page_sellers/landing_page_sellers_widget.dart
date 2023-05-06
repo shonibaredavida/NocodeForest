@@ -113,7 +113,7 @@ class _LandingPageSellersWidgetState extends State<LandingPageSellersWidget> {
                                                         Colors.transparent,
                                                     onTap: () async {
                                                       context.pushNamed(
-                                                          'onboardingSellersScreen1');
+                                                          'landingPageBuyers');
                                                     },
                                                     child: SvgPicture.asset(
                                                       'assets/images/NF_Logo.svg',

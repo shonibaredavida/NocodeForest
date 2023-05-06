@@ -41,9 +41,9 @@ export '/waitlist/biz_mobileform_waitlist/biz_mobileform_waitlist_widget.dart'
     show BizMobileformWaitlistWidget;
 export '/waitlist/biz_mobile_success_waitlist/biz_mobile_success_waitlist_widget.dart'
     show BizMobileSuccessWaitlistWidget;
-export '/waitlist/admin_biz_view/admin_biz_view_widget.dart'
+export '/waitlist/admin_view/admin_biz_view/admin_biz_view_widget.dart'
     show AdminBizViewWidget;
-export '/waitlist/admin_talent_view/admin_talent_view_widget.dart'
+export '/waitlist/admin_view/admin_talent_view/admin_talent_view_widget.dart'
     show AdminTalentViewWidget;
 export '/sellers_related/dashboard_seller_logout/dashboard_seller_logout_widget.dart'
     show DashboardSellerLogoutWidget;
@@ -59,5 +59,7 @@ export '/sellers_related/dashboard_seller_analytics_screen/dashboard_seller_anal
     show DashboardSellerAnalyticsScreenWidget;
 export '/sellers_related/dashboard_seller/dashboard_seller_widget.dart'
     show DashboardSellerWidget;
-export '/waitlist/admin_promo_view/admin_promo_view_widget.dart'
+export '/waitlist/admin_view/admin_promo_view/admin_promo_view_widget.dart'
     show AdminPromoViewWidget;
+export '/admin/dashboardadmin/dashboardadmin_widget.dart'
+    show DashboardadminWidget;

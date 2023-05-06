@@ -2,12 +2,12 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/promo/mob_promo_form/mob_promo_form_widget.dart';
-import '/promo/web_form_promo/web_form_promo_widget.dart';
 import '/waitlist/components/signin_modal_waitlist/signin_modal_waitlist_widget.dart';
 import '/waitlist/components/wait_list_form_business_owner_modal/wait_list_form_business_owner_modal_widget.dart';
 import '/waitlist/components/wait_list_form_talent_modal/wait_list_form_talent_modal_widget.dart';
 import '/waitlist/components/waitlist_menu/waitlist_menu_widget.dart';
+import '/waitlist/promo/mob_promo_form/mob_promo_form_widget.dart';
+import '/waitlist/promo/web_form_promo/web_form_promo_widget.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -41,8 +41,8 @@ class _LandingWaitlistWidgetState extends State<LandingWaitlistWidget>
         MoveEffect(
           curve: Curves.linear,
           delay: 0.ms,
-          duration: 7070.ms,
-          begin: Offset(-1234.0, 0.0),
+          duration: 16070.ms,
+          begin: Offset(-2034.0, 0.0),
           end: Offset(3034.0, 0.0),
         ),
       ],
@@ -54,7 +54,7 @@ class _LandingWaitlistWidgetState extends State<LandingWaitlistWidget>
         MoveEffect(
           curve: Curves.linear,
           delay: 0.ms,
-          duration: 7970.ms,
+          duration: 15970.ms,
           begin: Offset(-634.0, 0.0),
           end: Offset(1034.0, 0.0),
         ),
@@ -281,7 +281,10 @@ class _LandingWaitlistWidgetState extends State<LandingWaitlistWidget>
                                                     padding: MediaQuery.of(
                                                             bottomSheetContext)
                                                         .viewInsets,
-                                                    child: WebFormPromoWidget(),
+                                                    child: WebFormPromoWidget(
+                                                      buttonText:
+                                                          'Claim Offer Now',
+                                                    ),
                                                   ),
                                                 );
                                               },
@@ -368,7 +371,15 @@ class _LandingWaitlistWidgetState extends State<LandingWaitlistWidget>
                                               padding: MediaQuery.of(
                                                       bottomSheetContext)
                                                   .viewInsets,
-                                              child: WebFormPromoWidget(),
+                                              child: WebFormPromoWidget(
+                                                textboxBgColor:
+                                                    Color(0x00000000),
+                                                mainBgColor: Color(0x00000000),
+                                                headerTitle: '',
+                                                textboxLabelColors:
+                                                    Color(0x00000000),
+                                                buttonText: 'Claim Offer Now',
+                                              ),
                                             ),
                                           );
                                         },

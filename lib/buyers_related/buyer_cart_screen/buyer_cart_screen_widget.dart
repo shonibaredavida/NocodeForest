@@ -5,7 +5,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/main_components/footer_component/footer_component_widget.dart';
 import '/main_components/header/header_widget.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -14,12 +13,7 @@ import 'buyer_cart_screen_model.dart';
 export 'buyer_cart_screen_model.dart';
 
 class BuyerCartScreenWidget extends StatefulWidget {
-  const BuyerCartScreenWidget({
-    Key? key,
-    this.userRef,
-  }) : super(key: key);
-
-  final DocumentReference? userRef;
+  const BuyerCartScreenWidget({Key? key}) : super(key: key);
 
   @override
   _BuyerCartScreenWidgetState createState() => _BuyerCartScreenWidgetState();
@@ -115,16 +109,26 @@ class _BuyerCartScreenWidgetState extends State<BuyerCartScreenWidget> {
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
-                                    Text(
-                                      'Home',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Roboto Condensed',
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                            lineHeight: 1.24,
-                                          ),
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        context.pushNamed('landingPageBuyers');
+                                      },
+                                      child: Text(
+                                        'Home',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Roboto Condensed',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryText,
+                                              lineHeight: 1.24,
+                                            ),
+                                      ),
                                     ),
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
@@ -330,7 +334,8 @@ class _BuyerCartScreenWidgetState extends State<BuyerCartScreenWidget> {
                                                                             16.0),
                                                                     child: Image
                                                                         .network(
-                                                                      'https://picsum.photos/seed/48/600',
+                                                                      columnProductsRecord
+                                                                          .image!,
                                                                       width:
                                                                           100.0,
                                                                       height:
@@ -366,7 +371,8 @@ class _BuyerCartScreenWidgetState extends State<BuyerCartScreenWidget> {
                                                                     decoration:
                                                                         BoxDecoration(),
                                                                     child: Text(
-                                                                      'Vristo | E-commerce Web App made with Flutterflow with Multipurpose Admin Dashboard Template',
+                                                                      columnProductsRecord
+                                                                          .name!,
                                                                       style: FlutterFlowTheme.of(
                                                                               context)
                                                                           .bodyMedium
@@ -417,18 +423,38 @@ class _BuyerCartScreenWidgetState extends State<BuyerCartScreenWidget> {
                                                                             0.0,
                                                                             4.0,
                                                                             0.0),
-                                                                        child:
-                                                                            Text(
-                                                                          'Bamifemi',
-                                                                          style: FlutterFlowTheme.of(context)
-                                                                              .bodyMedium
-                                                                              .override(
-                                                                                fontFamily: 'Roboto Condensed',
-                                                                                color: FlutterFlowTheme.of(context).primary,
-                                                                                fontSize: 16.0,
-                                                                                fontWeight: FontWeight.bold,
-                                                                                lineHeight: 1.5,
-                                                                              ),
+                                                                        child: FutureBuilder<
+                                                                            UsersRecord>(
+                                                                          future:
+                                                                              UsersRecord.getDocumentOnce(columnProductsRecord.sellerInfo!),
+                                                                          builder:
+                                                                              (context, snapshot) {
+                                                                            // Customize what your widget looks like when it's loading.
+                                                                            if (!snapshot.hasData) {
+                                                                              return Center(
+                                                                                child: SizedBox(
+                                                                                  width: 50.0,
+                                                                                  height: 50.0,
+                                                                                  child: SpinKitFoldingCube(
+                                                                                    color: FlutterFlowTheme.of(context).primary,
+                                                                                    size: 50.0,
+                                                                                  ),
+                                                                                ),
+                                                                              );
+                                                                            }
+                                                                            final textUsersRecord =
+                                                                                snapshot.data!;
+                                                                            return Text(
+                                                                              textUsersRecord.username!,
+                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                    fontFamily: 'Roboto Condensed',
+                                                                                    color: FlutterFlowTheme.of(context).primary,
+                                                                                    fontSize: 16.0,
+                                                                                    fontWeight: FontWeight.bold,
+                                                                                    lineHeight: 1.5,
+                                                                                  ),
+                                                                            );
+                                                                          },
                                                                         ),
                                                                       ),
                                                                       Padding(
@@ -450,7 +476,8 @@ class _BuyerCartScreenWidgetState extends State<BuyerCartScreenWidget> {
                                                                         ),
                                                                       ),
                                                                       Text(
-                                                                        'E-Commerce',
+                                                                        columnProductsRecord
+                                                                            .category!,
                                                                         style: FlutterFlowTheme.of(context)
                                                                             .bodyMedium
                                                                             .override(
@@ -483,7 +510,7 @@ class _BuyerCartScreenWidgetState extends State<BuyerCartScreenWidget> {
                                                               decoration:
                                                                   BoxDecoration(),
                                                               child: Text(
-                                                                '\$200',
+                                                                '\$${columnProductsRecord.price?.toString()}',
                                                                 textAlign:
                                                                     TextAlign
                                                                         .end,
@@ -505,24 +532,43 @@ class _BuyerCartScreenWidgetState extends State<BuyerCartScreenWidget> {
                                                               height: 33.0,
                                                               decoration:
                                                                   BoxDecoration(),
-                                                              child: Text(
-                                                                'Remove',
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .end,
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Roboto Condensed',
-                                                                      color: Color(
-                                                                          0xFFF34335),
-                                                                      fontSize:
-                                                                          20.0,
-                                                                      lineHeight:
-                                                                          1.5,
-                                                                    ),
+                                                              child: InkWell(
+                                                                splashColor: Colors
+                                                                    .transparent,
+                                                                focusColor: Colors
+                                                                    .transparent,
+                                                                hoverColor: Colors
+                                                                    .transparent,
+                                                                highlightColor:
+                                                                    Colors
+                                                                        .transparent,
+                                                                onTap:
+                                                                    () async {
+                                                                  setState(() {
+                                                                    FFAppState()
+                                                                        .removeFromCart(
+                                                                            cartItemsItem);
+                                                                  });
+                                                                },
+                                                                child: Text(
+                                                                  'Remove',
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .end,
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Roboto Condensed',
+                                                                        color: Color(
+                                                                            0xFFF34335),
+                                                                        fontSize:
+                                                                            20.0,
+                                                                        lineHeight:
+                                                                            1.5,
+                                                                      ),
+                                                                ),
                                                               ),
                                                             ),
                                                           ],

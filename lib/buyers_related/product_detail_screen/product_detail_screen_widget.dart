@@ -709,12 +709,7 @@ class _ProductDetailScreenWidgetState extends State<ProductDetailScreenWidget> {
                                       Container(
                                         width: 60.0,
                                         height: 60.0,
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                          ),
-                                        ),
+                                        decoration: BoxDecoration(),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
@@ -754,14 +749,14 @@ class _ProductDetailScreenWidgetState extends State<ProductDetailScreenWidget> {
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .primary,
-                                                size: 37.0,
+                                                size: 40.0,
                                               ),
                                               offIcon: Icon(
                                                 Icons.favorite_border,
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .accent2,
-                                                size: 30.0,
+                                                size: 40.0,
                                               ),
                                             ),
                                           ],
@@ -811,10 +806,19 @@ class _ProductDetailScreenWidgetState extends State<ProductDetailScreenWidget> {
                                                       width: 616.0,
                                                       decoration:
                                                           BoxDecoration(),
-                                                      child: Image.network(
-                                                        productImagesItem,
-                                                        width: 616.0,
-                                                        fit: BoxFit.cover,
+                                                      child: Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    10.0),
+                                                        child: Image.network(
+                                                          productImagesItem,
+                                                          width: 616.0,
+                                                          fit: BoxFit.cover,
+                                                        ),
                                                       ),
                                                     );
                                                   }),
@@ -1558,6 +1562,21 @@ class _ProductDetailScreenWidgetState extends State<ProductDetailScreenWidget> {
                                                                     },
                                                                   );
                                                                 }
+
+                                                                final productsCreateData =
+                                                                    {
+                                                                  'liked_by': [
+                                                                    productDetailScreenProductsRecord
+                                                                        .likedBy!
+                                                                        .toList()
+                                                                        .first
+                                                                  ],
+                                                                };
+                                                                await ProductsRecord
+                                                                    .collection
+                                                                    .doc()
+                                                                    .set(
+                                                                        productsCreateData);
                                                               },
                                                               text:
                                                                   'Add to Cart',
@@ -1611,6 +1630,8 @@ class _ProductDetailScreenWidgetState extends State<ProductDetailScreenWidget> {
                                                                         .circular(
                                                                             4.0),
                                                               ),
+                                                              showLoadingIndicator:
+                                                                  false,
                                                             ),
                                                           ),
                                                           Container(

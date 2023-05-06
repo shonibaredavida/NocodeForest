@@ -4,7 +4,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/main_components/header/header_widget.dart';
 import '/sellers_related/componnents/sidebar_seller/sidebar_seller_widget.dart';
-import '/sellers_related/empty/empty_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
@@ -213,7 +212,16 @@ class _DashboardSellerOrderWidgetState
                                               ),
                                             ),
                                             style: FlutterFlowTheme.of(context)
-                                                .bodyMedium,
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily:
+                                                      'Roboto Condensed',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryBackground,
+                                                  fontSize: 16.0,
+                                                  lineHeight: 1.5,
+                                                ),
                                             validator: _model
                                                 .textControllerValidator
                                                 .asValidator(context),
@@ -471,22 +479,6 @@ class _DashboardSellerOrderWidgetState
                                         List<OrdersRecord>
                                             listViewOrdersRecordList =
                                             snapshot.data!;
-                                        if (listViewOrdersRecordList.isEmpty) {
-                                          return EmptyWidget(
-                                            title:
-                                                'You have not received any order',
-                                            icon: Icon(
-                                              Icons.stacked_line_chart_rounded,
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .accent1,
-                                              size: 87.0,
-                                            ),
-                                            titleColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .primaryBackground,
-                                          );
-                                        }
                                         return ListView.builder(
                                           padding: EdgeInsets.zero,
                                           scrollDirection: Axis.vertical,

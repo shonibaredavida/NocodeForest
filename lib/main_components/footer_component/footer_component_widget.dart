@@ -70,11 +70,20 @@ class _FooterComponentWidgetState extends State<FooterComponentWidget> {
                       width: 132.0,
                       height: 52.0,
                       decoration: BoxDecoration(),
-                      child: SvgPicture.asset(
-                        'assets/images/NF_Logo.svg',
-                        width: 100.0,
-                        height: 100.0,
-                        fit: BoxFit.cover,
+                      child: InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          context.pushNamed('landingPageBuyers');
+                        },
+                        child: SvgPicture.asset(
+                          'assets/images/NF_Logo.svg',
+                          width: 100.0,
+                          height: 100.0,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                     Row(
@@ -90,16 +99,25 @@ class _FooterComponentWidgetState extends State<FooterComponentWidget> {
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 16.0),
-                                child: Text(
-                                  'Marketplace',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Roboto Condensed',
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryText,
-                                        lineHeight: 1.4,
-                                      ),
+                                child: InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () async {
+                                    context.pushNamed('landingPageBuyers');
+                                  },
+                                  child: Text(
+                                    'Marketplace',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Roboto Condensed',
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryText,
+                                          lineHeight: 1.4,
+                                        ),
+                                  ),
                                 ),
                               ),
                               Padding(

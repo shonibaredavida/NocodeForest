@@ -136,7 +136,7 @@ class _DashboardSellerLogoutWidgetState
                                                 .clearRedirectLocation();
 
                                             context.goNamedAuth(
-                                                'landingWaitlist', mounted);
+                                                'testing2', mounted);
                                           },
                                           text: 'Logout',
                                           options: FFButtonOptions(

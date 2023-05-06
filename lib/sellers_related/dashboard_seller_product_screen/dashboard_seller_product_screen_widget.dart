@@ -4,7 +4,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/main_components/header/header_widget.dart';
 import '/sellers_related/componnents/sidebar_seller/sidebar_seller_widget.dart';
-import '/sellers_related/empty/empty_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
@@ -151,7 +150,9 @@ class _DashboardSellerProductScreenWidgetState
                                                         fontFamily:
                                                             'Roboto Condensed',
                                                         color:
-                                                            Color(0xFF99969E),
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .secondaryText,
                                                         fontSize: 16.0,
                                                         lineHeight: 1.5,
                                                       ),
@@ -216,7 +217,11 @@ class _DashboardSellerProductScreenWidgetState
                                                 .override(
                                                   fontFamily:
                                                       'Roboto Condensed',
-                                                  fontSize: 1.0,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryBackground,
+                                                  fontSize: 16.0,
+                                                  lineHeight: 1.5,
                                                 ),
                                             validator: _model
                                                 .textControllerValidator
@@ -495,25 +500,6 @@ class _DashboardSellerProductScreenWidgetState
                                         List<ProductsRecord>
                                             listViewProductsRecordList =
                                             snapshot.data!;
-                                        if (listViewProductsRecordList
-                                            .isEmpty) {
-                                          return Center(
-                                            child: EmptyWidget(
-                                              title: 'No Product Added',
-                                              icon: Icon(
-                                                Icons.dangerous,
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .accent1,
-                                                size: 82.0,
-                                              ),
-                                              titleColor:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryBackground,
-                                              subtitleColor: Color(0x00000000),
-                                            ),
-                                          );
-                                        }
                                         return ListView.builder(
                                           padding: EdgeInsets.zero,
                                           scrollDirection: Axis.vertical,
@@ -570,7 +556,7 @@ class _DashboardSellerProductScreenWidgetState
                                                                         .fromSTEB(
                                                                             6.0,
                                                                             0.0,
-                                                                            0.0,
+                                                                            10.0,
                                                                             0.0),
                                                                 child: Row(
                                                                   mainAxisSize:
@@ -605,21 +591,22 @@ class _DashboardSellerProductScreenWidgetState
                                                                               ),
                                                                             ),
                                                                           ),
-                                                                          Padding(
-                                                                            padding: EdgeInsetsDirectional.fromSTEB(
-                                                                                16.0,
-                                                                                0.0,
-                                                                                0.0,
-                                                                                0.0),
+                                                                          ClipRRect(
                                                                             child:
-                                                                                Text(
-                                                                              listViewProductsRecord.name!,
-                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                    fontFamily: 'Roboto Condensed',
-                                                                                    color: FlutterFlowTheme.of(context).primaryBackground,
-                                                                                    fontSize: 16.0,
-                                                                                    lineHeight: 1.5,
-                                                                                  ),
+                                                                                Container(
+                                                                              decoration: BoxDecoration(),
+                                                                              child: Padding(
+                                                                                padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
+                                                                                child: Text(
+                                                                                  listViewProductsRecord.name!,
+                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                        fontFamily: 'Roboto Condensed',
+                                                                                        color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                                        fontSize: 16.0,
+                                                                                        lineHeight: 1.5,
+                                                                                      ),
+                                                                                ),
+                                                                              ),
                                                                             ),
                                                                           ),
                                                                         ],
@@ -645,8 +632,15 @@ class _DashboardSellerProductScreenWidgetState
                                                                 tablet: false,
                                                               ),
                                                               child: Text(
-                                                                '${listViewProductsRecord.dateCreated?.secondsSinceEpoch?.toString()}-${dateTimeFormat(
+                                                                '${dateTimeFormat(
                                                                   'yMMMd',
+                                                                  listViewProductsRecord
+                                                                      .dateCreated,
+                                                                  locale: FFLocalizations.of(
+                                                                          context)
+                                                                      .languageCode,
+                                                                )}-${dateTimeFormat(
+                                                                  'jm',
                                                                   listViewProductsRecord
                                                                       .dateCreated,
                                                                   locale: FFLocalizations.of(
@@ -751,13 +745,53 @@ class _DashboardSellerProductScreenWidgetState
                                                                             0.0,
                                                                             20.0,
                                                                             0.0),
-                                                                child: Icon(
-                                                                  Icons
-                                                                      .delete_sweep,
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .accent1,
-                                                                  size: 24.0,
+                                                                child: InkWell(
+                                                                  splashColor:
+                                                                      Colors
+                                                                          .transparent,
+                                                                  focusColor: Colors
+                                                                      .transparent,
+                                                                  hoverColor: Colors
+                                                                      .transparent,
+                                                                  highlightColor:
+                                                                      Colors
+                                                                          .transparent,
+                                                                  onTap:
+                                                                      () async {
+                                                                    var confirmDialogResponse =
+                                                                        await showDialog<bool>(
+                                                                              context: context,
+                                                                              builder: (alertDialogContext) {
+                                                                                return AlertDialog(
+                                                                                  title: Text('Delete Product?'),
+                                                                                  actions: [
+                                                                                    TextButton(
+                                                                                      onPressed: () => Navigator.pop(alertDialogContext, false),
+                                                                                      child: Text('No'),
+                                                                                    ),
+                                                                                    TextButton(
+                                                                                      onPressed: () => Navigator.pop(alertDialogContext, true),
+                                                                                      child: Text('Yes'),
+                                                                                    ),
+                                                                                  ],
+                                                                                );
+                                                                              },
+                                                                            ) ??
+                                                                            false;
+                                                                    if (confirmDialogResponse) {
+                                                                      await listViewProductsRecord
+                                                                          .reference
+                                                                          .delete();
+                                                                    }
+                                                                  },
+                                                                  child: Icon(
+                                                                    Icons
+                                                                        .delete_sweep,
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .accent1,
+                                                                    size: 24.0,
+                                                                  ),
                                                                 ),
                                                               ),
                                                             ],

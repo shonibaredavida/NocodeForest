@@ -375,7 +375,6 @@ class _SigninModalWidgetState extends State<SigninModalWidget> {
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
-                                  Navigator.pop(context);
                                   GoRouter.of(context).prepareAuthEvent();
 
                                   final user =
@@ -388,8 +387,10 @@ class _SigninModalWidgetState extends State<SigninModalWidget> {
                                     return;
                                   }
 
-                                  context.goNamedAuth(
-                                      'adminPromoView', mounted);
+                                  Navigator.pop(context);
+
+                                  context.pushNamedAuth(
+                                      'dashboardBuyer', mounted);
                                 },
                                 child: Container(
                                   width: 364.0,

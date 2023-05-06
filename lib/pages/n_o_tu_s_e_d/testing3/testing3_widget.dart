@@ -220,7 +220,7 @@ class _Testing3WidgetState extends State<Testing3Widget> {
                                             .clearRedirectLocation();
 
                                         context.goNamedAuth(
-                                            'landingWaitlist', mounted);
+                                            'testing2', mounted);
                                       },
                                       text: 'Logout',
                                       options: FFButtonOptions(

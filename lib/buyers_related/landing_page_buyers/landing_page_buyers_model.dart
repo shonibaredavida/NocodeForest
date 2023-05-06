@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/main_components/footer_component/footer_component_widget.dart';
 import '/main_components/header/header_widget.dart';
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -18,6 +19,9 @@ class LandingPageBuyersModel extends FlutterFlowModel {
 
   // Model for header component.
   late HeaderModel headerModel;
+  // State field(s) for TextField widget.
+  TextEditingController? textController;
+  String? Function(BuildContext, String?)? textControllerValidator;
   // Model for footerComponent component.
   late FooterComponentModel footerComponentModel;
 
@@ -30,6 +34,7 @@ class LandingPageBuyersModel extends FlutterFlowModel {
 
   void dispose() {
     headerModel.dispose();
+    textController?.dispose();
     footerComponentModel.dispose();
   }
 

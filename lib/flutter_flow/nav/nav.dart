@@ -69,16 +69,15 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       initialLocation: '/',
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
-      errorBuilder: (context, _) => appStateNotifier.loggedIn
-          ? AdminPromoViewWidget()
-          : LandingWaitlistWidget(),
+      errorBuilder: (context, _) =>
+          appStateNotifier.loggedIn ? DashboardBuyerWidget() : Testing2Widget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) => appStateNotifier.loggedIn
-              ? AdminPromoViewWidget()
-              : LandingWaitlistWidget(),
+              ? DashboardBuyerWidget()
+              : Testing2Widget(),
         ),
         FFRoute(
           name: 'testing1',
@@ -141,10 +140,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'buyerCartScreen',
           path: '/buyerCart',
-          builder: (context, params) => BuyerCartScreenWidget(
-            userRef: params.getParam(
-                'userRef', ParamType.DocumentReference, false, ['users']),
-          ),
+          builder: (context, params) => BuyerCartScreenWidget(),
         ),
         FFRoute(
           name: 'testing2',
@@ -250,6 +246,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'adminPromoView',
           path: '/adminPromoView',
           builder: (context, params) => AdminPromoViewWidget(),
+        ),
+        FFRoute(
+          name: 'Dashboardadmin',
+          path: '/dashboardadmin',
+          builder: (context, params) => DashboardadminWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
       urlPathStrategy: UrlPathStrategy.path,
@@ -418,7 +419,7 @@ class FFRoute {
 
           if (requireAuth && !appStateNotifier.loggedIn) {
             appStateNotifier.setRedirectLocationIfUnset(state.location);
-            return '/home';
+            return '/testing2';
           }
           return null;
         },
@@ -431,11 +432,14 @@ class FFRoute {
                 )
               : builder(context, ffParams);
           final child = appStateNotifier.loading
-              ? Container(
-                  color: FlutterFlowTheme.of(context).primaryBackground,
-                  child: Image.asset(
-                    'assets/images/NF_Logo.svg',
-                    fit: BoxFit.fill,
+              ? Center(
+                  child: SizedBox(
+                    width: 50.0,
+                    height: 50.0,
+                    child: SpinKitFoldingCube(
+                      color: FlutterFlowTheme.of(context).primary,
+                      size: 50.0,
+                    ),
                   ),
                 )
               : page;

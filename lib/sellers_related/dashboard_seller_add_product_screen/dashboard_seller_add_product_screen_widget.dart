@@ -15,6 +15,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:provider/provider.dart';
 import 'dashboard_seller_add_product_screen_model.dart';
 export 'dashboard_seller_add_product_screen_model.dart';
@@ -312,6 +313,9 @@ class _DashboardSellerAddProductScreenWidgetState
                                                                       .productNameFieldController,
                                                                   autofocus:
                                                                       true,
+                                                                  textCapitalization:
+                                                                      TextCapitalization
+                                                                          .words,
                                                                   obscureText:
                                                                       false,
                                                                   decoration:
@@ -469,7 +473,7 @@ class _DashboardSellerAddProductScreenWidgetState
                                                                 decoration:
                                                                     InputDecoration(
                                                                   hintText:
-                                                                      '\$ 0.00',
+                                                                      '0.00',
                                                                   hintStyle: FlutterFlowTheme.of(
                                                                           context)
                                                                       .bodySmall
@@ -559,6 +563,10 @@ class _DashboardSellerAddProductScreenWidgetState
                                                                     .priceFieldControllerValidator
                                                                     .asValidator(
                                                                         context),
+                                                                inputFormatters: [
+                                                                  _model
+                                                                      .priceFieldMask
+                                                                ],
                                                               ),
                                                             ),
                                                           ),
@@ -605,6 +613,9 @@ class _DashboardSellerAddProductScreenWidgetState
                                                               controller: _model
                                                                   .descriptionFieldController,
                                                               autofocus: true,
+                                                              textCapitalization:
+                                                                  TextCapitalization
+                                                                      .sentences,
                                                               obscureText:
                                                                   false,
                                                               decoration:
@@ -780,6 +791,9 @@ class _DashboardSellerAddProductScreenWidgetState
                                                                 controller: _model
                                                                     .nocodeSoftwareFieldController,
                                                                 autofocus: true,
+                                                                textCapitalization:
+                                                                    TextCapitalization
+                                                                        .words,
                                                                 obscureText:
                                                                     false,
                                                                 decoration:
@@ -2253,6 +2267,9 @@ class _DashboardSellerAddProductScreenWidgetState
                                                                             .tagsFieldController,
                                                                     autofocus:
                                                                         true,
+                                                                    textCapitalization:
+                                                                        TextCapitalization
+                                                                            .none,
                                                                     obscureText:
                                                                         false,
                                                                     decoration:
@@ -2703,9 +2720,10 @@ class _DashboardSellerAddProductScreenWidgetState
                                                               FFButtonWidget(
                                                                 onPressed:
                                                                     () async {
-                                                                  if (_model
-                                                                          .uploadedFileUrl3 !=
-                                                                      '1') {
+                                                                  if (_model.uploadedFileUrl3 ==
+                                                                          null ||
+                                                                      _model.uploadedFileUrl3 ==
+                                                                          '') {
                                                                     final selectedMedia =
                                                                         await selectMedia(
                                                                       mediaSource:
@@ -2981,9 +2999,38 @@ class _DashboardSellerAddProductScreenWidgetState
                                                   'date_modified': FieldValue
                                                       .serverTimestamp(),
                                                 };
-                                                await ProductsRecord.collection
-                                                    .doc()
+                                                var productsRecordReference =
+                                                    ProductsRecord.collection
+                                                        .doc();
+                                                await productsRecordReference
                                                     .set(productsCreateData);
+                                                _model.fileUploaded = ProductsRecord
+                                                    .getDocumentFromData(
+                                                        productsCreateData,
+                                                        productsRecordReference);
+                                                await showDialog(
+                                                  context: context,
+                                                  builder:
+                                                      (alertDialogContext) {
+                                                    return AlertDialog(
+                                                      content: Text(
+                                                          'Product Added Successfully'),
+                                                      actions: [
+                                                        TextButton(
+                                                          onPressed: () =>
+                                                              Navigator.pop(
+                                                                  alertDialogContext),
+                                                          child: Text('Ok'),
+                                                        ),
+                                                      ],
+                                                    );
+                                                  },
+                                                );
+
+                                                context.pushNamed(
+                                                    'dashboardSellerProductScreen');
+
+                                                setState(() {});
                                               },
                                               text: 'Add Product',
                                               options: FFButtonOptions(

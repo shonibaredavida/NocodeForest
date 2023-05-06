@@ -7,7 +7,6 @@ import '/main_components/footer_component/footer_component_widget.dart';
 import '/main_components/header/header_widget.dart';
 import '/flutter_flow/request_manager.dart';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';

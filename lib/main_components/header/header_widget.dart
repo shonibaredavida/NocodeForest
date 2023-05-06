@@ -61,29 +61,11 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  InkWell(
-                    splashColor: Colors.transparent,
-                    focusColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onTap: () async {
-                      if (loggedIn) {
-                        if (valueOrDefault<bool>(
-                            currentUserDocument?.becomeASeller, false)) {
-                          context.pushNamed('dashboardSeller');
-                        } else {
-                          context.pushNamed('landingPageBuyers');
-                        }
-                      } else {
-                        context.pushNamed('landingPageBuyers');
-                      }
-                    },
-                    child: SvgPicture.asset(
-                      'assets/images/NF_Logo.svg',
-                      width: 132.0,
-                      height: 51.1,
-                      fit: BoxFit.cover,
-                    ),
+                  SvgPicture.asset(
+                    'assets/images/NF_Logo.svg',
+                    width: 132.0,
+                    height: 51.1,
+                    fit: BoxFit.cover,
                   ),
                   Row(
                     mainAxisSize: MainAxisSize.max,
@@ -102,7 +84,7 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                                   48.0, 24.0, 48.0, 24.0),
                               iconPadding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
-                              color: Color(0x00009946),
+                              color: Color(0x000D0D0D),
                               textStyle: FlutterFlowTheme.of(context)
                                   .titleSmall
                                   .override(
@@ -133,33 +115,7 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                               48.0, 24.0, 48.0, 24.0),
                           iconPadding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 0.0),
-                          color: Color(0x00009946),
-                          textStyle:
-                              FlutterFlowTheme.of(context).titleSmall.override(
-                                    fontFamily: 'Roboto Condensed',
-                                    color: Colors.white,
-                                    fontSize: 16.0,
-                                    lineHeight: 1.5,
-                                  ),
-                          borderSide: BorderSide(
-                            color: Colors.transparent,
-                          ),
-                          borderRadius: BorderRadius.circular(4.0),
-                          hoverColor: FlutterFlowTheme.of(context).primaryText,
-                          hoverTextColor: FlutterFlowTheme.of(context).primary,
-                        ),
-                      ),
-                      FFButtonWidget(
-                        onPressed: () async {
-                          context.pushNamed('landingPageSellers');
-                        },
-                        text: 'Become a Seller',
-                        options: FFButtonOptions(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              48.0, 24.0, 48.0, 24.0),
-                          iconPadding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 0.0),
-                          color: Color(0x00009946),
+                          color: Color(0x00FFFFFF),
                           textStyle:
                               FlutterFlowTheme.of(context).titleSmall.override(
                                     fontFamily: 'Roboto Condensed',
@@ -324,28 +280,51 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                                       color: Color(0x47FFFFFF),
                                     ),
                                   ),
-                                  child: Container(
-                                    width: 40.0,
-                                    height: 40.0,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(4.0),
-                                      border: Border.all(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
-                                      ),
-                                    ),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Icon(
-                                          Icons.shopping_cart_outlined,
+                                  child: InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      await showModalBottomSheet(
+                                        isScrollControlled: true,
+                                        backgroundColor: Colors.transparent,
+                                        enableDrag: false,
+                                        context: context,
+                                        builder: (bottomSheetContext) {
+                                          return Padding(
+                                            padding: MediaQuery.of(
+                                                    bottomSheetContext)
+                                                .viewInsets,
+                                            child: SigninModalWidget(),
+                                          );
+                                        },
+                                      ).then((value) => setState(() {}));
+                                    },
+                                    child: Container(
+                                      width: 40.0,
+                                      height: 40.0,
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(4.0),
+                                        border: Border.all(
                                           color: FlutterFlowTheme.of(context)
-                                              .secondaryText,
-                                          size: 19.0,
+                                              .primaryText,
                                         ),
-                                      ],
+                                      ),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Icon(
+                                            Icons.shopping_cart_outlined,
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
+                                            size: 19.0,
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -374,16 +353,7 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        if (loggedIn) {
-                          if (valueOrDefault<bool>(
-                              currentUserDocument?.becomeASeller, false)) {
-                            context.pushNamed('dashboardSeller');
-                          } else {
-                            context.pushNamed('landingPageBuyers');
-                          }
-                        } else {
-                          context.pushNamed('landingPageBuyers');
-                        }
+                        context.pushNamed('landingPageBuyers');
                       },
                       child: SvgPicture.asset(
                         'assets/images/NF_Logo.svg',
@@ -409,7 +379,7 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                                     48.0, 24.0, 48.0, 24.0),
                                 iconPadding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 0.0),
-                                color: Color(0x00009946),
+                                color: Color(0x00FFFFFF),
                                 textStyle: FlutterFlowTheme.of(context)
                                     .titleSmall
                                     .override(
@@ -440,7 +410,7 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                                 48.0, 24.0, 48.0, 24.0),
                             iconPadding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 0.0),
-                            color: Color(0x00009946),
+                            color: Color(0x00FFFFFF),
                             textStyle: FlutterFlowTheme.of(context)
                                 .titleSmall
                                 .override(
@@ -469,7 +439,7 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                                 48.0, 24.0, 48.0, 24.0),
                             iconPadding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 0.0),
-                            color: Color(0x00009946),
+                            color: Color(0x00FFFFFF),
                             textStyle: FlutterFlowTheme.of(context)
                                 .titleSmall
                                 .override(
@@ -521,8 +491,6 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                                         width: 40.0,
                                         height: 40.0,
                                         decoration: BoxDecoration(
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
                                           shape: BoxShape.circle,
                                           border: Border.all(
                                             color: Color(0x44FFFFFF),
@@ -541,7 +509,7 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                                                 .clearRedirectLocation();
 
                                             context.goNamedAuth(
-                                                'landingWaitlist', mounted);
+                                                'testing2', mounted);
                                           },
                                           child: Image.network(
                                             currentUserPhoto,
@@ -561,83 +529,37 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                                 ],
                               ),
                             ),
-                            Stack(
-                              children: [
-                                Container(
-                                  width: 40.0,
-                                  height: 40.0,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(4.0),
-                                  ),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.shopping_cart_outlined,
-                                        color: Color(0xFF57615B),
-                                        size: 19.0,
-                                      ),
-                                    ],
+                            InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                context.pushNamed('buyerCartScreen');
+                              },
+                              child: Container(
+                                width: 48.0,
+                                height: 48.0,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(4.0),
+                                  border: Border.all(
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
                                   ),
                                 ),
-                                FFButtonWidget(
-                                  onPressed: () {
-                                    print('Button pressed ...');
-                                  },
-                                  text: '',
-                                  options: FFButtonOptions(
-                                    width: 40.0,
-                                    height: 40.0,
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 0.0),
-                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 0.0),
-                                    color: Color(0x00009946),
-                                    textStyle: FlutterFlowTheme.of(context)
-                                        .titleSmall
-                                        .override(
-                                          fontFamily: 'Roboto Condensed',
-                                          color: Colors.white,
-                                        ),
-                                    borderSide: BorderSide(
-                                      color: Colors.transparent,
-                                      width: 1.0,
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.shopping_cart_outlined,
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryText,
+                                      size: 19.0,
                                     ),
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    hoverColor: FlutterFlowTheme.of(context)
-                                        .secondaryText,
-                                  ),
+                                  ],
                                 ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 2.0, 0.0),
-                                  child: Container(
-                                    width: 48.0,
-                                    height: 48.0,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(4.0),
-                                      border: Border.all(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
-                                      ),
-                                    ),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Icon(
-                                          Icons.shopping_cart_outlined,
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryText,
-                                          size: 19.0,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ],
+                              ),
                             ),
                           ],
                         ),
@@ -662,22 +584,39 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        if (loggedIn) {
-                          if (valueOrDefault<bool>(
-                              currentUserDocument?.becomeASeller, false)) {
-                            context.pushNamed('dashboardSeller');
-                          } else {
-                            context.pushNamed('landingPageBuyers');
-                          }
-                        } else {
-                          context.pushNamed('landingPageBuyers');
-                        }
+                        context.pushNamed('landingPageBuyers');
                       },
                       child: SvgPicture.asset(
                         'assets/images/NF_Logo.svg',
                         width: 132.0,
                         height: 51.1,
                         fit: BoxFit.cover,
+                      ),
+                    ),
+                    FFButtonWidget(
+                      onPressed: () {
+                        print('Button pressed ...');
+                      },
+                      text: 'Categories',
+                      options: FFButtonOptions(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            48.0, 24.0, 48.0, 24.0),
+                        iconPadding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        color: Color(0x00FFFFFF),
+                        textStyle:
+                            FlutterFlowTheme.of(context).titleSmall.override(
+                                  fontFamily: 'Roboto Condensed',
+                                  color: Colors.white,
+                                  fontSize: 16.0,
+                                  lineHeight: 1.5,
+                                ),
+                        borderSide: BorderSide(
+                          color: Colors.transparent,
+                        ),
+                        borderRadius: BorderRadius.circular(4.0),
+                        hoverColor: FlutterFlowTheme.of(context).primaryText,
+                        hoverTextColor: FlutterFlowTheme.of(context).primary,
                       ),
                     ),
                     Column(
@@ -760,8 +699,6 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                                         width: 40.0,
                                         height: 40.0,
                                         decoration: BoxDecoration(
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
                                           shape: BoxShape.circle,
                                           border: Border.all(
                                             color: Color(0x44FFFFFF),
@@ -780,7 +717,7 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                                                 .clearRedirectLocation();
 
                                             context.goNamedAuth(
-                                                'landingWaitlist', mounted);
+                                                'testing2', mounted);
                                           },
                                           child: Image.network(
                                             currentUserPhoto,
@@ -800,78 +737,37 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                                 ],
                               ),
                             ),
-                            Stack(
-                              children: [
-                                Container(
-                                  width: 40.0,
-                                  height: 40.0,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(4.0),
-                                  ),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.shopping_cart_outlined,
-                                        color: Color(0xFF57615B),
-                                        size: 19.0,
-                                      ),
-                                    ],
+                            InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                context.pushNamed('buyerCartScreen');
+                              },
+                              child: Container(
+                                width: 48.0,
+                                height: 48.0,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(4.0),
+                                  border: Border.all(
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
                                   ),
                                 ),
-                                FFButtonWidget(
-                                  onPressed: () {
-                                    print('Button pressed ...');
-                                  },
-                                  text: '',
-                                  options: FFButtonOptions(
-                                    width: 40.0,
-                                    height: 40.0,
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 0.0),
-                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 0.0),
-                                    color: Color(0x00009946),
-                                    textStyle: FlutterFlowTheme.of(context)
-                                        .titleSmall
-                                        .override(
-                                          fontFamily: 'Roboto Condensed',
-                                          color: Colors.white,
-                                        ),
-                                    borderSide: BorderSide(
-                                      color: Colors.transparent,
-                                      width: 1.0,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    hoverColor: FlutterFlowTheme.of(context)
-                                        .secondaryText,
-                                  ),
-                                ),
-                                Container(
-                                  width: 48.0,
-                                  height: 48.0,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(4.0),
-                                    border: Border.all(
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.shopping_cart_outlined,
                                       color: FlutterFlowTheme.of(context)
-                                          .primaryText,
+                                          .secondaryText,
+                                      size: 19.0,
                                     ),
-                                  ),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.shopping_cart_outlined,
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryText,
-                                        size: 19.0,
-                                      ),
-                                    ],
-                                  ),
+                                  ],
                                 ),
-                              ],
+                              ),
                             ),
                           ],
                         ),

@@ -15,6 +15,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:provider/provider.dart';
 
 class DashboardSellerAddProductScreenModel extends FlutterFlowModel {
@@ -48,6 +49,7 @@ class DashboardSellerAddProductScreenModel extends FlutterFlowModel {
 
   // State field(s) for PriceField widget.
   TextEditingController? priceFieldController;
+  final priceFieldMask = MaskTextInputFormatter(mask: '\$ ');
   String? Function(BuildContext, String?)? priceFieldControllerValidator;
   String? _priceFieldControllerValidator(BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
@@ -129,6 +131,9 @@ class DashboardSellerAddProductScreenModel extends FlutterFlowModel {
   FFUploadedFile uploadedLocalFile3 =
       FFUploadedFile(bytes: Uint8List.fromList([]));
   String uploadedFileUrl3 = '';
+
+  // Stores action output result for [Backend Call - Create Document] action in Button widget.
+  ProductsRecord? fileUploaded;
 
   /// Initialization and disposal methods.
 

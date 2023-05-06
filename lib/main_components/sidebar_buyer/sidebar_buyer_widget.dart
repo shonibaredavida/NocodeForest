@@ -352,7 +352,7 @@ class _SidebarBuyerWidgetState extends State<SidebarBuyerWidget>
                   await authManager.signOut();
                   GoRouter.of(context).clearRedirectLocation();
 
-                  context.goNamedAuth('landingWaitlist', mounted);
+                  context.goNamedAuth('testing2', mounted);
                 },
                 child: Container(
                   width: double.infinity,
