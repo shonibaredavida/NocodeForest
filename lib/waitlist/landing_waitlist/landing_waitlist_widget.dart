@@ -1,4 +1,3 @@
-import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -6,12 +5,8 @@ import '/waitlist/components/signin_modal_waitlist/signin_modal_waitlist_widget.
 import '/waitlist/components/wait_list_form_business_owner_modal/wait_list_form_business_owner_modal_widget.dart';
 import '/waitlist/components/wait_list_form_talent_modal/wait_list_form_talent_modal_widget.dart';
 import '/waitlist/components/waitlist_menu/waitlist_menu_widget.dart';
-import '/waitlist/promo/mob_promo_form/mob_promo_form_widget.dart';
-import '/waitlist/promo/web_form_promo/web_form_promo_widget.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -26,41 +21,11 @@ class LandingWaitlistWidget extends StatefulWidget {
   _LandingWaitlistWidgetState createState() => _LandingWaitlistWidgetState();
 }
 
-class _LandingWaitlistWidgetState extends State<LandingWaitlistWidget>
-    with TickerProviderStateMixin {
+class _LandingWaitlistWidgetState extends State<LandingWaitlistWidget> {
   late LandingWaitlistModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final _unfocusNode = FocusNode();
-
-  final animationsMap = {
-    'textOnPageLoadAnimation1': AnimationInfo(
-      loop: true,
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        MoveEffect(
-          curve: Curves.linear,
-          delay: 0.ms,
-          duration: 16070.ms,
-          begin: Offset(-2034.0, 0.0),
-          end: Offset(3034.0, 0.0),
-        ),
-      ],
-    ),
-    'textOnPageLoadAnimation2': AnimationInfo(
-      loop: true,
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        MoveEffect(
-          curve: Curves.linear,
-          delay: 0.ms,
-          duration: 15970.ms,
-          begin: Offset(-634.0, 0.0),
-          end: Offset(1034.0, 0.0),
-        ),
-      ],
-    ),
-  };
 
   @override
   void initState() {
@@ -88,6 +53,7 @@ class _LandingWaitlistWidgetState extends State<LandingWaitlistWidget>
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         body: SafeArea(
+          top: true,
           child: Stack(
             children: [
               SingleChildScrollView(
@@ -261,73 +227,6 @@ class _LandingWaitlistWidgetState extends State<LandingWaitlistWidget>
                                           showLoadingIndicator: false,
                                         ),
                                       ),
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 38.0, 0.0),
-                                        child: FFButtonWidget(
-                                          onPressed: () async {
-                                            await showModalBottomSheet(
-                                              isScrollControlled: true,
-                                              backgroundColor:
-                                                  Colors.transparent,
-                                              context: context,
-                                              builder: (bottomSheetContext) {
-                                                return GestureDetector(
-                                                  onTap: () =>
-                                                      FocusScope.of(context)
-                                                          .requestFocus(
-                                                              _unfocusNode),
-                                                  child: Padding(
-                                                    padding: MediaQuery.of(
-                                                            bottomSheetContext)
-                                                        .viewInsets,
-                                                    child: WebFormPromoWidget(
-                                                      buttonText:
-                                                          'Claim Offer Now',
-                                                    ),
-                                                  ),
-                                                );
-                                              },
-                                            ).then((value) => setState(() {}));
-                                          },
-                                          text: 'Get Promo Here',
-                                          options: FFButtonOptions(
-                                            width: 198.0,
-                                            height: 48.0,
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 0.0),
-                                            iconPadding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 0.0),
-                                            color: Color(0xFFE21C3D),
-                                            textStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .titleSmall
-                                                    .override(
-                                                      fontFamily:
-                                                          'Roboto Condensed',
-                                                      color: Colors.white,
-                                                      fontSize: 16.0,
-                                                    ),
-                                            elevation: 2.0,
-                                            borderSide: BorderSide(
-                                              color: Colors.white,
-                                              width: 1.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(4.0),
-                                            hoverColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .lineColor,
-                                            hoverTextColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .secondaryText,
-                                            hoverElevation: 2.0,
-                                          ),
-                                          showLoadingIndicator: false,
-                                        ),
-                                      ),
                                       if (responsiveVisibility(
                                         context: context,
                                         phone: false,
@@ -341,63 +240,6 @@ class _LandingWaitlistWidgetState extends State<LandingWaitlistWidget>
                                         ),
                                     ],
                                   ),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              width: 1200.0,
-                              height: 50.0,
-                              decoration: BoxDecoration(),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  InkWell(
-                                    splashColor: Colors.transparent,
-                                    focusColor: Colors.transparent,
-                                    hoverColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    onTap: () async {
-                                      await showModalBottomSheet(
-                                        isScrollControlled: true,
-                                        backgroundColor: Colors.transparent,
-                                        context: context,
-                                        builder: (bottomSheetContext) {
-                                          return GestureDetector(
-                                            onTap: () => FocusScope.of(context)
-                                                .requestFocus(_unfocusNode),
-                                            child: Padding(
-                                              padding: MediaQuery.of(
-                                                      bottomSheetContext)
-                                                  .viewInsets,
-                                              child: WebFormPromoWidget(
-                                                textboxBgColor:
-                                                    Color(0x00000000),
-                                                mainBgColor: Color(0x00000000),
-                                                headerTitle: '',
-                                                textboxLabelColors:
-                                                    Color(0x00000000),
-                                                buttonText: 'Claim Offer Now',
-                                              ),
-                                            ),
-                                          );
-                                        },
-                                      ).then((value) => setState(() {}));
-                                    },
-                                    child: Text(
-                                      'Click to Get a Company Website for \$10 - \$49 with FREE Hosting + Domain Forever',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Roboto Condensed',
-                                            color: Color(0xFF1FFF35),
-                                            fontSize: 24.0,
-                                            letterSpacing: 1.4,
-                                          ),
-                                    ),
-                                  ).animateOnPageLoad(animationsMap[
-                                      'textOnPageLoadAnimation1']!),
                                 ],
                               ),
                             ),
@@ -958,7 +800,7 @@ class _LandingWaitlistWidgetState extends State<LandingWaitlistWidget>
                                           clipBehavior: Clip.none,
                                           children: [
                                             Image.asset(
-                                              'assets/images/Macbook_Air_-_Landing_Page.png',
+                                              'assets/images/Macbook_Air_-_Landing_Page_(2).png',
                                               width: 850.9,
                                               height: 570.5,
                                               fit: BoxFit.fill,
@@ -2752,22 +2594,6 @@ class _LandingWaitlistWidgetState extends State<LandingWaitlistWidget>
                                                   decoration: BoxDecoration(),
                                                 ),
                                               ),
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 0.0, 36.0, 0.0),
-                                                child: ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          16.0),
-                                                  child: Image.asset(
-                                                    'assets/images/Rectangle_6_(1).png',
-                                                    width: 618.0,
-                                                    height: 754.0,
-                                                    fit: BoxFit.cover,
-                                                  ),
-                                                ),
-                                              ),
                                               Visibility(
                                                 visible: responsiveVisibility(
                                                   context: context,
@@ -2927,6 +2753,22 @@ class _LandingWaitlistWidgetState extends State<LandingWaitlistWidget>
                                                             false,
                                                       ),
                                                     ],
+                                                  ),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 0.0, 36.0, 0.0),
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          16.0),
+                                                  child: Image.asset(
+                                                    'assets/images/Rectangle_6_(1).png',
+                                                    width: 618.0,
+                                                    height: 754.0,
+                                                    fit: BoxFit.cover,
                                                   ),
                                                 ),
                                               ),
@@ -3424,63 +3266,21 @@ class _LandingWaitlistWidgetState extends State<LandingWaitlistWidget>
                                               size: 32.0,
                                             ),
                                           ),
-                                          SvgPicture.asset(
-                                            'assets/images/NF_Logo.svg',
-                                            width: 80.0,
-                                            height: 32.0,
-                                            fit: BoxFit.cover,
+                                          Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              SvgPicture.asset(
+                                                'assets/images/NF_Logo.svg',
+                                                width: 80.0,
+                                                height: 32.0,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ],
                                           ),
                                         ],
                                       ),
                                     ),
                                   ],
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 13.0, 0.0, 13.0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      InkWell(
-                                        splashColor: Colors.transparent,
-                                        focusColor: Colors.transparent,
-                                        hoverColor: Colors.transparent,
-                                        highlightColor: Colors.transparent,
-                                        onTap: () async {
-                                          await showModalBottomSheet(
-                                            isScrollControlled: true,
-                                            backgroundColor: Colors.transparent,
-                                            context: context,
-                                            builder: (bottomSheetContext) {
-                                              return GestureDetector(
-                                                onTap: () => FocusScope.of(
-                                                        context)
-                                                    .requestFocus(_unfocusNode),
-                                                child: Padding(
-                                                  padding: MediaQuery.of(
-                                                          bottomSheetContext)
-                                                      .viewInsets,
-                                                  child: MobPromoFormWidget(),
-                                                ),
-                                              );
-                                            },
-                                          ).then((value) => setState(() {}));
-                                        },
-                                        child: Text(
-                                          'Click to Get a Company Website for \$10 - \$49 with FREE Hosting + Domain Forever',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Roboto Condensed',
-                                                color: Color(0xFF1FFF35),
-                                                fontSize: 18.0,
-                                                letterSpacing: 1.3,
-                                              ),
-                                        ),
-                                      ).animateOnPageLoad(animationsMap[
-                                          'textOnPageLoadAnimation2']!),
-                                    ],
-                                  ),
                                 ),
                                 Column(
                                   mainAxisSize: MainAxisSize.max,
@@ -3540,9 +3340,9 @@ class _LandingWaitlistWidgetState extends State<LandingWaitlistWidget>
                                                             FlutterFlowTheme.of(
                                                                     context)
                                                                 .primary,
-                                                        fontSize: 24.0,
+                                                        fontSize: 28.0,
                                                         useGoogleFonts: false,
-                                                        lineHeight: 1.33,
+                                                        lineHeight: 1.5,
                                                       ),
                                                 ),
                                               ),
@@ -5322,37 +5122,6 @@ class _LandingWaitlistWidgetState extends State<LandingWaitlistWidget>
                   ],
                 ),
               ),
-              if ((FFAppState().promoState == true) &&
-                  responsiveVisibility(
-                    context: context,
-                    phone: false,
-                  ))
-                Align(
-                  alignment: AlignmentDirectional(0.0, 0.0),
-                  child: wrapWithModel(
-                    model: _model.webFormPromoModel,
-                    updateCallback: () => setState(() {}),
-                    child: WebFormPromoWidget(
-                      buttonText: 'Claim Offer Now',
-                      businessOwner: false,
-                    ),
-                  ),
-                ),
-              if ((FFAppState().promoState == true) &&
-                  responsiveVisibility(
-                    context: context,
-                    tablet: false,
-                    tabletLandscape: false,
-                    desktop: false,
-                  ))
-                Align(
-                  alignment: AlignmentDirectional(0.0, 0.0),
-                  child: wrapWithModel(
-                    model: _model.mobPromoFormModel,
-                    updateCallback: () => setState(() {}),
-                    child: MobPromoFormWidget(),
-                  ),
-                ),
             ],
           ),
         ),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'flutter_flow/request_manager.dart';
-import 'backend/backend.dart';
+import '/backend/backend.dart';
 import 'backend/api_requests/api_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'flutter_flow/flutter_flow_util.dart';
@@ -51,32 +50,36 @@ class FFAppState extends ChangeNotifier {
     _cart.removeAt(_index);
   }
 
+  void updateCartAtIndex(
+    int _index,
+    Function(DocumentReference) updateFn,
+  ) {
+    updateFn(_cart[_index]);
+  }
+
   double _sum = 0.0;
   double get sum => _sum;
   set sum(double _value) {
     _sum = _value;
   }
 
-  bool _promoState = true;
+  bool _promoState = false;
   bool get promoState => _promoState;
   set promoState(bool _value) {
     _promoState = _value;
   }
 
-  final _allProductQueryManager = StreamRequestManager<List<ProductsRecord>>();
-  Stream<List<ProductsRecord>> allProductQuery({
-    String? uniqueQueryKey,
-    bool? overrideCache,
-    required Stream<List<ProductsRecord>> Function() requestFn,
-  }) =>
-      _allProductQueryManager.performRequest(
-        uniqueQueryKey: uniqueQueryKey,
-        overrideCache: overrideCache,
-        requestFn: requestFn,
-      );
-  void clearAllProductQueryCache() => _allProductQueryManager.clear();
-  void clearAllProductQueryCacheKey(String? uniqueKey) =>
-      _allProductQueryManager.clearRequest(uniqueKey);
+  int _well = 12;
+  int get well => _well;
+  set well(int _value) {
+    _well = _value;
+  }
+
+  int _wellless = 33;
+  int get wellless => _wellless;
+  set wellless(int _value) {
+    _wellless = _value;
+  }
 }
 
 LatLng? _latLngFromString(String? val) {

@@ -52,6 +52,7 @@ class _BizMobileSuccessWaitlistWidgetState
         key: scaffoldKey,
         backgroundColor: Color(0xFFF3F3F5),
         body: SafeArea(
+          top: true,
           child: Container(
             decoration: BoxDecoration(),
             child: Visibility(

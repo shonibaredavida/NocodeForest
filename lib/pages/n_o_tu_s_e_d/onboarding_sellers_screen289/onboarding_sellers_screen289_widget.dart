@@ -54,6 +54,7 @@ class _OnboardingSellersScreen289WidgetState
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         body: SafeArea(
+          top: true,
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
@@ -427,19 +428,22 @@ class _OnboardingSellersScreen289WidgetState
                                               return;
                                             }
 
-                                            final usersCreateData =
-                                                createUsersRecordData(
-                                              becomeASeller: false,
-                                              photoUrl:
-                                                  'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Windows_10_Default_Profile_Picture.svg/2048px-Windows_10_Default_Profile_Picture.svg.png',
-                                            );
+                                            final usersCreateData = {
+                                              ...createUsersRecordData(
+                                                status: 'active',
+                                                becomeASeller: false,
+                                                admin: false,
+                                              ),
+                                              'created_time':
+                                                  FieldValue.serverTimestamp(),
+                                            };
                                             await UsersRecord.collection
                                                 .doc(user.uid)
                                                 .update(usersCreateData);
 
                                             context.pushNamedAuth(
                                                 'onboardingSellersScreen2',
-                                                mounted);
+                                                context.mounted);
                                           },
                                           text: 'Continue',
                                           options: FFButtonOptions(
@@ -509,7 +513,7 @@ class _OnboardingSellersScreen289WidgetState
 
                                               context.pushNamedAuth(
                                                   'onboardingSellersScreen2',
-                                                  mounted);
+                                                  context.mounted);
                                             },
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,

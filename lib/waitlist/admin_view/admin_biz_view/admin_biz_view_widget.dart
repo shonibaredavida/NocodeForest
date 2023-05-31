@@ -2,7 +2,7 @@ import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/waitlist/components/delete_dialogwaitlist/delete_dialogwaitlist_widget.dart';
+import '/main_components/dialog_component/dialog_component_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -51,6 +51,7 @@ class _AdminBizViewWidgetState extends State<AdminBizViewWidget> {
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         body: SafeArea(
+          top: true,
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
@@ -214,7 +215,8 @@ class _AdminBizViewWidgetState extends State<AdminBizViewWidget> {
                                                       .clearRedirectLocation();
 
                                                   context.goNamedAuth(
-                                                      'testing2', mounted);
+                                                      'landingPageBuyers',
+                                                      context.mounted);
                                                 },
                                                 child: Container(
                                                   decoration: BoxDecoration(
@@ -312,7 +314,8 @@ class _AdminBizViewWidgetState extends State<AdminBizViewWidget> {
                                               .clearRedirectLocation();
 
                                           context.goNamedAuth(
-                                              'testing2', mounted);
+                                              'landingPageBuyers',
+                                              context.mounted);
                                         },
                                         child: Container(
                                           decoration: BoxDecoration(
@@ -550,7 +553,7 @@ class _AdminBizViewWidgetState extends State<AdminBizViewWidget> {
                                         child: SizedBox(
                                           width: 50.0,
                                           height: 50.0,
-                                          child: SpinKitFoldingCube(
+                                          child: SpinKitCubeGrid(
                                             color: FlutterFlowTheme.of(context)
                                                 .primary,
                                             size: 50.0,
@@ -827,7 +830,7 @@ class _AdminBizViewWidgetState extends State<AdminBizViewWidget> {
                                     child: SizedBox(
                                       width: 50.0,
                                       height: 50.0,
-                                      child: SpinKitFoldingCube(
+                                      child: SpinKitCubeGrid(
                                         color: FlutterFlowTheme.of(context)
                                             .primary,
                                         size: 50.0,
@@ -896,7 +899,7 @@ class _AdminBizViewWidgetState extends State<AdminBizViewWidget> {
                                                   Expanded(
                                                     child: Text(
                                                       columnWaitlistBusinessOwnerRecord
-                                                          .fullName!,
+                                                          .fullName,
                                                       style: FlutterFlowTheme
                                                               .of(context)
                                                           .bodyMedium
@@ -911,7 +914,7 @@ class _AdminBizViewWidgetState extends State<AdminBizViewWidget> {
                                                   Expanded(
                                                     child: Text(
                                                       columnWaitlistBusinessOwnerRecord
-                                                          .email!,
+                                                          .email,
                                                       style: FlutterFlowTheme
                                                               .of(context)
                                                           .bodyMedium
@@ -930,7 +933,7 @@ class _AdminBizViewWidgetState extends State<AdminBizViewWidget> {
                                                     Expanded(
                                                       child: Text(
                                                         columnWaitlistBusinessOwnerRecord
-                                                            .phone!,
+                                                            .phone,
                                                         style:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -949,7 +952,7 @@ class _AdminBizViewWidgetState extends State<AdminBizViewWidget> {
                                                   Expanded(
                                                     child: Text(
                                                       columnWaitlistBusinessOwnerRecord
-                                                          .budget!,
+                                                          .budget,
                                                       style: FlutterFlowTheme
                                                               .of(context)
                                                           .bodyMedium
@@ -969,7 +972,7 @@ class _AdminBizViewWidgetState extends State<AdminBizViewWidget> {
                                                     Expanded(
                                                       child: Text(
                                                         columnWaitlistBusinessOwnerRecord
-                                                            .country!,
+                                                            .country,
                                                         style: FlutterFlowTheme
                                                                 .of(context)
                                                             .bodyMedium
@@ -991,7 +994,7 @@ class _AdminBizViewWidgetState extends State<AdminBizViewWidget> {
                                                     Expanded(
                                                       child: Text(
                                                         columnWaitlistBusinessOwnerRecord
-                                                            .industry!,
+                                                            .industry,
                                                         style: FlutterFlowTheme
                                                                 .of(context)
                                                             .bodyMedium
@@ -1013,7 +1016,7 @@ class _AdminBizViewWidgetState extends State<AdminBizViewWidget> {
                                                     Expanded(
                                                       child: Text(
                                                         columnWaitlistBusinessOwnerRecord
-                                                            .websiteType!,
+                                                            .websiteType,
                                                         style: FlutterFlowTheme
                                                                 .of(context)
                                                             .bodyMedium
@@ -1035,7 +1038,7 @@ class _AdminBizViewWidgetState extends State<AdminBizViewWidget> {
                                                     Expanded(
                                                       child: Text(
                                                         columnWaitlistBusinessOwnerRecord
-                                                            .postMaintenance!,
+                                                            .postMaintenance,
                                                         style: FlutterFlowTheme
                                                                 .of(context)
                                                             .bodyMedium
@@ -1091,9 +1094,17 @@ class _AdminBizViewWidgetState extends State<AdminBizViewWidget> {
                                                                           bottomSheetContext)
                                                                       .viewInsets,
                                                                   child:
-                                                                      DeleteDialogwaitlistWidget(
+                                                                      DialogComponentWidget(
                                                                     bizRef:
                                                                         columnWaitlistBusinessOwnerRecord,
+                                                                    successDialog:
+                                                                        false,
+                                                                    deleteDialog:
+                                                                        true,
+                                                                    requiresYesNo:
+                                                                        false,
+                                                                    nextRoute:
+                                                                        () async {},
                                                                   ),
                                                                 ),
                                                               );

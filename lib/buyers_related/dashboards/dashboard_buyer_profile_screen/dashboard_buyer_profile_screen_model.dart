@@ -1,17 +1,20 @@
-import '/auth/base_auth_user_provider.dart';
 import '/auth/firebase_auth/auth_util.dart';
+import '/backend/api_requests/api_calls.dart';
+import '/backend/backend.dart';
+import '/backend/firebase_storage/storage.dart';
+import '/buyers_related/sidebar_buyer/sidebar_buyer_widget.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
-import '/main_components/create_account_modal/create_account_modal_widget.dart';
-import '/main_components/sidebar_buyer/sidebar_buyer_widget.dart';
-import '/main_components/signin_modal/signin_modal_widget.dart';
+import '/flutter_flow/upload_data.dart';
+import '/main_components/dialog_component/dialog_component_widget.dart';
+import '/main_components/header/header_widget.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -19,23 +22,31 @@ class DashboardBuyerProfileScreenModel extends FlutterFlowModel {
   ///  State fields for stateful widgets in this page.
 
   final formKey = GlobalKey<FormState>();
+  // Model for header component.
+  late HeaderModel headerModel;
   // Model for sidebar_buyer component.
   late SidebarBuyerModel sidebarBuyerModel;
-  // State field(s) for TextField widget.
-  TextEditingController? textController1;
-  String? Function(BuildContext, String?)? textController1Validator;
-  // State field(s) for TextField widget.
-  TextEditingController? textController2;
-  String? Function(BuildContext, String?)? textController2Validator;
-  // State field(s) for TextField widget.
-  TextEditingController? textController3;
-  String? Function(BuildContext, String?)? textController3Validator;
-  // State field(s) for TextField widget.
-  TextEditingController? textController4;
-  String? Function(BuildContext, String?)? textController4Validator;
-  // State field(s) for TextField widget.
-  TextEditingController? textController5;
-  String? Function(BuildContext, String?)? textController5Validator;
+  bool isDataUploading = false;
+  FFUploadedFile uploadedLocalFile =
+      FFUploadedFile(bytes: Uint8List.fromList([]));
+  String uploadedFileUrl = '';
+
+  // State field(s) for FNameTextField widget.
+  TextEditingController? fNameTextFieldController;
+  String? Function(BuildContext, String?)? fNameTextFieldControllerValidator;
+  // State field(s) for EmailTextField widget.
+  TextEditingController? emailTextFieldController;
+  String? Function(BuildContext, String?)? emailTextFieldControllerValidator;
+  // State field(s) for ProffessionTextField widget.
+  TextEditingController? proffessionTextFieldController;
+  String? Function(BuildContext, String?)?
+      proffessionTextFieldControllerValidator;
+  // State field(s) for LNameTextField widget.
+  TextEditingController? lNameTextFieldController;
+  String? Function(BuildContext, String?)? lNameTextFieldControllerValidator;
+  // State field(s) for PhoneTextField widget.
+  TextEditingController? phoneTextFieldController;
+  String? Function(BuildContext, String?)? phoneTextFieldControllerValidator;
   // State field(s) for DropDown widget.
   String? dropDownValue;
   FormFieldController<String>? dropDownValueController;
@@ -43,16 +54,18 @@ class DashboardBuyerProfileScreenModel extends FlutterFlowModel {
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
+    headerModel = createModel(context, () => HeaderModel());
     sidebarBuyerModel = createModel(context, () => SidebarBuyerModel());
   }
 
   void dispose() {
+    headerModel.dispose();
     sidebarBuyerModel.dispose();
-    textController1?.dispose();
-    textController2?.dispose();
-    textController3?.dispose();
-    textController4?.dispose();
-    textController5?.dispose();
+    fNameTextFieldController?.dispose();
+    emailTextFieldController?.dispose();
+    proffessionTextFieldController?.dispose();
+    lNameTextFieldController?.dispose();
+    phoneTextFieldController?.dispose();
   }
 
   /// Additional helper methods are added here.

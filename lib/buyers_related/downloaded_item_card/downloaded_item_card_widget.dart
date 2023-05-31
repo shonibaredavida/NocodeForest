@@ -64,7 +64,7 @@ class _DownloadedItemCardWidgetState extends State<DownloadedItemCardWidget> {
             child: SizedBox(
               width: 50.0,
               height: 50.0,
-              child: SpinKitFoldingCube(
+              child: SpinKitCubeGrid(
                 color: FlutterFlowTheme.of(context).primary,
                 size: 50.0,
               ),
@@ -81,12 +81,9 @@ class _DownloadedItemCardWidgetState extends State<DownloadedItemCardWidget> {
             : null;
         return Container(
           decoration: BoxDecoration(),
-          child: StreamBuilder<List<UsersRecord>>(
-            stream: queryUsersRecord(
-              queryBuilder: (usersRecord) =>
-                  usersRecord.where('uid', isEqualTo: widget.orderRef!.buyerId),
-              singleRecord: true,
-            ),
+          child: FutureBuilder<UsersRecord>(
+            future: UsersRecord.getDocumentOnce(
+                containerProductsRecord!.sellerInfo!),
             builder: (context, snapshot) {
               // Customize what your widget looks like when it's loading.
               if (!snapshot.hasData) {
@@ -94,21 +91,14 @@ class _DownloadedItemCardWidgetState extends State<DownloadedItemCardWidget> {
                   child: SizedBox(
                     width: 50.0,
                     height: 50.0,
-                    child: SpinKitFoldingCube(
+                    child: SpinKitCubeGrid(
                       color: FlutterFlowTheme.of(context).primary,
                       size: 50.0,
                     ),
                   ),
                 );
               }
-              List<UsersRecord> containerUsersRecordList = snapshot.data!;
-              // Return an empty Container when the item does not exist.
-              if (snapshot.data!.isEmpty) {
-                return Container();
-              }
-              final containerUsersRecord = containerUsersRecordList.isNotEmpty
-                  ? containerUsersRecordList.first
-                  : null;
+              final containerUsersRecord = snapshot.data!;
               return Container(
                 width: 365.0,
                 height: 390.0,
@@ -137,7 +127,7 @@ class _DownloadedItemCardWidgetState extends State<DownloadedItemCardWidget> {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(16.0),
                             child: Image.network(
-                              containerProductsRecord!.image!,
+                              containerProductsRecord!.image,
                               width: double.infinity,
                               height: 208.0,
                               fit: BoxFit.cover,
@@ -149,7 +139,7 @@ class _DownloadedItemCardWidgetState extends State<DownloadedItemCardWidget> {
                         padding:
                             EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 4.0),
                         child: Text(
-                          containerProductsRecord!.name!,
+                          containerProductsRecord!.name,
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
                                     fontFamily: 'Roboto Condensed',
@@ -172,7 +162,7 @@ class _DownloadedItemCardWidgetState extends State<DownloadedItemCardWidget> {
                                     style: TextStyle(),
                                   ),
                                   TextSpan(
-                                    text: containerUsersRecord!.email!,
+                                    text: containerUsersRecord.email,
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -182,7 +172,7 @@ class _DownloadedItemCardWidgetState extends State<DownloadedItemCardWidget> {
                                     style: TextStyle(),
                                   ),
                                   TextSpan(
-                                    text: containerProductsRecord!.category!,
+                                    text: containerProductsRecord!.category,
                                     style: GoogleFonts.getFont(
                                       'Roboto',
                                       fontWeight: FontWeight.bold,

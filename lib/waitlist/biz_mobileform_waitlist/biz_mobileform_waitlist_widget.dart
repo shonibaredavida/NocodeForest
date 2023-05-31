@@ -61,6 +61,7 @@ class _BizMobileformWaitlistWidgetState
         key: scaffoldKey,
         backgroundColor: Color(0xFFF3F3F5),
         body: SafeArea(
+          top: true,
           child: Visibility(
             visible: responsiveVisibility(
               context: context,
@@ -197,7 +198,7 @@ class _BizMobileformWaitlistWidgetState
                               child: SizedBox(
                                 width: 50.0,
                                 height: 50.0,
-                                child: SpinKitFoldingCube(
+                                child: SpinKitCubeGrid(
                                   color: FlutterFlowTheme.of(context).primary,
                                   size: 50.0,
                                 ),
@@ -553,8 +554,7 @@ class _BizMobileformWaitlistWidgetState
                                               ) as List)
                                                   .map<String>(
                                                       (s) => s.toString())
-                                                  .toList()!
-                                                  .toList(),
+                                                  .toList()!,
                                               onChanged: (val) => setState(() =>
                                                   _model.locationnDropDownValue =
                                                       val),

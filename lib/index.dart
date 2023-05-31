@@ -1,5 +1,4 @@
 // Export pages
-export '/pages/n_o_tu_s_e_d/testing1/testing1_widget.dart' show Testing1Widget;
 export '/waitlist/reset_password_modal/reset_password_modal_widget.dart'
     show ResetPasswordModalWidget;
 export '/pages/n_o_tu_s_e_d/modal/modal_widget.dart' show ModalWidget;
@@ -51,8 +50,6 @@ export '/sellers_related/dashboard_seller_profile_screen/dashboard_seller_profil
     show DashboardSellerProfileScreenWidget;
 export '/sellers_related/dashboard_seller_order/dashboard_seller_order_widget.dart'
     show DashboardSellerOrderWidget;
-export '/sellers_related/dashboard_seller_add_product_screen/dashboard_seller_add_product_screen_widget.dart'
-    show DashboardSellerAddProductScreenWidget;
 export '/sellers_related/dashboard_seller_product_screen/dashboard_seller_product_screen_widget.dart'
     show DashboardSellerProductScreenWidget;
 export '/sellers_related/dashboard_seller_analytics_screen/dashboard_seller_analytics_screen_widget.dart'
@@ -61,5 +58,11 @@ export '/sellers_related/dashboard_seller/dashboard_seller_widget.dart'
     show DashboardSellerWidget;
 export '/waitlist/admin_view/admin_promo_view/admin_promo_view_widget.dart'
     show AdminPromoViewWidget;
-export '/admin/dashboardadmin/dashboardadmin_widget.dart'
-    show DashboardadminWidget;
+export '/admin/admin_login/admin_login_widget.dart' show AdminLoginWidget;
+export '/admin/admin_overview/admin_overview_widget.dart'
+    show AdminOverviewWidget;
+export '/pages/n_o_tu_s_e_d/admin_all_users/admin_all_users_widget.dart'
+    show AdminAllUsersWidget;
+export '/admin/admin_products/admin_products_widget.dart'
+    show AdminProductsWidget;
+export '/admin/admin_users/admin_users_widget.dart' show AdminUsersWidget;

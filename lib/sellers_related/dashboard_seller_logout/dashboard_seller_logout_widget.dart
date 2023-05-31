@@ -52,131 +52,155 @@ class _DashboardSellerLogoutWidgetState
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         body: SafeArea(
-          child: Column(
+          top: true,
+          child: Row(
             mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                width: 1512.0,
-                height: 123.0,
-                decoration: BoxDecoration(
-                  color: Color(0xFF0D0D0D),
-                ),
-                child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(32.0, 0.0, 32.0, 0.0),
-                  child: wrapWithModel(
-                    model: _model.headerModel,
-                    updateCallback: () => setState(() {}),
-                    child: HeaderWidget(),
-                  ),
-                ),
-              ),
-              Container(
-                width: double.infinity,
-                height: 700.0,
-                decoration: BoxDecoration(
-                  color: Color(0xFFF3F3F5),
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    wrapWithModel(
-                      model: _model.sidebarSellerModel,
-                      updateCallback: () => setState(() {}),
-                      child: SidebarSellerWidget(
-                        logoutColor: Color(0xFFF34335),
-                        logoutIconColor:
-                            FlutterFlowTheme.of(context).primaryText,
+              Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Container(
+                    width: 1512.0,
+                    height: 123.0,
+                    decoration: BoxDecoration(
+                      color: Color(0xFF0D0D0D),
+                    ),
+                    child: Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(32.0, 0.0, 32.0, 0.0),
+                      child: wrapWithModel(
+                        model: _model.headerModel,
+                        updateCallback: () => setState(() {}),
+                        child: HeaderWidget(),
                       ),
                     ),
-                    Expanded(
+                  ),
+                  Expanded(
+                    child: Container(
+                      width: 1512.0,
+                      height: 700.0,
+                      decoration: BoxDecoration(
+                        color: Color(0xFFF3F3F5),
+                      ),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Column(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(
-                                width: 519.0,
-                                decoration: BoxDecoration(
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryText,
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      32.0, 32.0, 32.0, 32.0),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        'You are about to logout of the system',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Roboto Condensed',
-                                              color: Color(0xFF0F1C10),
-                                              fontSize: 24.0,
-                                              lineHeight: 1.33,
-                                            ),
+                          wrapWithModel(
+                            model: _model.sidebarSellerModel,
+                            updateCallback: () => setState(() {}),
+                            child: SidebarSellerWidget(
+                              logoutColor: Color(0xFFF34335),
+                              logoutIconColor:
+                                  FlutterFlowTheme.of(context).primaryText,
+                              p1State: false,
+                              p2State: false,
+                              p4State: false,
+                              p5State: false,
+                              profileState: false,
+                              logoutState: true,
+                            ),
+                          ),
+                          Expanded(
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      width: 519.0,
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
                                       ),
-                                      Padding(
+                                      child: Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 44.0, 0.0, 0.0),
-                                        child: FFButtonWidget(
-                                          onPressed: () async {
-                                            GoRouter.of(context)
-                                                .prepareAuthEvent();
-                                            await authManager.signOut();
-                                            GoRouter.of(context)
-                                                .clearRedirectLocation();
-
-                                            context.goNamedAuth(
-                                                'testing2', mounted);
-                                          },
-                                          text: 'Logout',
-                                          options: FFButtonOptions(
-                                            width: 141.0,
-                                            height: 48.0,
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 0.0),
-                                            iconPadding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 0.0),
-                                            color: Color(0xFFF34335),
-                                            textStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .titleSmall
-                                                    .override(
-                                                      fontFamily:
-                                                          'Roboto Condensed',
-                                                      color: Colors.white,
-                                                    ),
-                                            borderSide: BorderSide(
-                                              color: Colors.transparent,
-                                              width: 1.0,
+                                            32.0, 32.0, 32.0, 32.0),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              'You are about to logout of the system',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            'Roboto Condensed',
+                                                        color:
+                                                            Color(0xFF0F1C10),
+                                                        fontSize: 24.0,
+                                                        lineHeight: 1.33,
+                                                      ),
                                             ),
-                                            borderRadius:
-                                                BorderRadius.circular(4.0),
-                                          ),
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      0.0, 44.0, 0.0, 0.0),
+                                              child: FFButtonWidget(
+                                                onPressed: () async {
+                                                  GoRouter.of(context)
+                                                      .prepareAuthEvent();
+                                                  await authManager.signOut();
+                                                  GoRouter.of(context)
+                                                      .clearRedirectLocation();
+
+                                                  context.goNamedAuth(
+                                                      'landingPageBuyers',
+                                                      context.mounted);
+                                                },
+                                                text: 'Logout',
+                                                options: FFButtonOptions(
+                                                  width: 141.0,
+                                                  height: 48.0,
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 0.0, 0.0, 0.0),
+                                                  iconPadding:
+                                                      EdgeInsetsDirectional
+                                                          .fromSTEB(0.0, 0.0,
+                                                              0.0, 0.0),
+                                                  color: Color(0xFFF34335),
+                                                  textStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .titleSmall
+                                                          .override(
+                                                            fontFamily:
+                                                                'Roboto Condensed',
+                                                            color: Colors.white,
+                                                          ),
+                                                  borderSide: BorderSide(
+                                                    color: Colors.transparent,
+                                                    width: 1.0,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          4.0),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ],
           ),

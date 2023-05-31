@@ -2,6 +2,7 @@ import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/main_components/dialog_component/dialog_component_widget.dart';
 import '/main_components/signin_modal/signin_modal_widget.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
@@ -503,6 +504,7 @@ class _CreateAccountModalWidgetState extends State<CreateAccountModalWidget> {
                                     hoverColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
+                                      Function() _navigate = () {};
                                       if (_model.checkboxValue!) {
                                         GoRouter.of(context).prepareAuthEvent();
                                         if (_model.passwordController.text !=
@@ -529,16 +531,21 @@ class _CreateAccountModalWidgetState extends State<CreateAccountModalWidget> {
                                           return;
                                         }
 
-                                        final usersCreateData =
-                                            createUsersRecordData(
-                                          becomeASeller: false,
-                                          photoUrl:
-                                              'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Windows_10_Default_Profile_Picture.svg/2048px-Windows_10_Default_Profile_Picture.svg.png',
-                                        );
+                                        final usersCreateData = {
+                                          ...createUsersRecordData(
+                                            status: 'active',
+                                            becomeASeller: false,
+                                            admin: false,
+                                          ),
+                                          'created_time':
+                                              FieldValue.serverTimestamp(),
+                                        };
                                         await UsersRecord.collection
                                             .doc(user.uid)
                                             .update(usersCreateData);
 
+                                        _navigate = () => context.goNamedAuth(
+                                            'dashboardBuyer', context.mounted);
                                         await authManager
                                             .sendEmailVerification();
                                         setState(() {
@@ -547,35 +554,73 @@ class _CreateAccountModalWidgetState extends State<CreateAccountModalWidget> {
                                           _model.confirmPasswordController
                                               ?.clear();
                                         });
-                                        Navigator.pop(context);
-
-                                        context.pushNamedAuth(
-                                            'landingPageBuyers', mounted);
-                                      } else {
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          SnackBar(
-                                            content: Text(
-                                              'Kindly Check the box ',
-                                              style: TextStyle(
-                                                fontFamily: 'millik',
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
+                                        await showModalBottomSheet(
+                                          isScrollControlled: true,
+                                          backgroundColor: Colors.transparent,
+                                          isDismissible: false,
+                                          enableDrag: false,
+                                          context: context,
+                                          builder: (bottomSheetContext) {
+                                            return Padding(
+                                              padding: MediaQuery.of(
+                                                      bottomSheetContext)
+                                                  .viewInsets,
+                                              child: DialogComponentWidget(
+                                                subtitle:
+                                                    'An email has been sent  to your mail box,  Kindly check it',
+                                                deleteDialog: false,
+                                                successDialog: true,
+                                                requiresYesNo: false,
+                                                nextRoute: () async {},
                                               ),
-                                            ),
-                                            duration:
-                                                Duration(milliseconds: 4000),
-                                            backgroundColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .secondary,
-                                          ),
-                                        );
-                                        await Future.delayed(
-                                            const Duration(milliseconds: 2000));
-                                        ScaffoldMessenger.of(context)
-                                            .hideCurrentSnackBar();
+                                            );
+                                          },
+                                        ).then((value) => setState(() {}));
+
+                                        await showModalBottomSheet(
+                                          isScrollControlled: true,
+                                          backgroundColor: Colors.transparent,
+                                          context: context,
+                                          builder: (bottomSheetContext) {
+                                            return Padding(
+                                              padding: MediaQuery.of(
+                                                      bottomSheetContext)
+                                                  .viewInsets,
+                                              child: SigninModalWidget(),
+                                            );
+                                          },
+                                        ).then((value) => setState(() {}));
+                                      } else {
+                                        setState(() {
+                                          _model.emailController?.clear();
+                                          _model.passwordController?.clear();
+                                          _model.confirmPasswordController
+                                              ?.clear();
+                                        });
+                                        await showModalBottomSheet(
+                                          isScrollControlled: true,
+                                          backgroundColor: Colors.transparent,
+                                          enableDrag: false,
+                                          context: context,
+                                          builder: (bottomSheetContext) {
+                                            return Padding(
+                                              padding: MediaQuery.of(
+                                                      bottomSheetContext)
+                                                  .viewInsets,
+                                              child: DialogComponentWidget(
+                                                successDialog: false,
+                                                subtitle:
+                                                    'Kindly Check the box ',
+                                                deleteDialog: false,
+                                                requiresYesNo: false,
+                                                nextRoute: () async {},
+                                              ),
+                                            );
+                                          },
+                                        ).then((value) => setState(() {}));
                                       }
+
+                                      _navigate();
                                     },
                                     child: Container(
                                       width: 364.0,
@@ -695,79 +740,46 @@ class _CreateAccountModalWidgetState extends State<CreateAccountModalWidget> {
                                 ),
                               ],
                             ),
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 16.0, 0.0, 32.0),
-                                  child: Container(
-                                    width: 364.0,
-                                    height: 56.0,
-                                    decoration: BoxDecoration(
-                                      color:
-                                          FlutterFlowTheme.of(context).accent4,
-                                      borderRadius: BorderRadius.circular(5.0),
-                                    ),
-                                    child: InkWell(
-                                      splashColor: Colors.transparent,
-                                      focusColor: Colors.transparent,
-                                      hoverColor: Colors.transparent,
-                                      highlightColor: Colors.transparent,
-                                      onTap: () async {
-                                        GoRouter.of(context).prepareAuthEvent();
-                                        final user = await authManager
-                                            .signInWithGoogle(context);
-                                        if (user == null) {
-                                          return;
-                                        }
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          SnackBar(
-                                            content: Text(
-                                              'User  Account Created Successfully!!!',
-                                              style: TextStyle(
-                                                fontFamily: 'millik',
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryBackground,
-                                                fontSize: 15.0,
-                                              ),
-                                            ),
-                                            duration:
-                                                Duration(milliseconds: 4000),
-                                            backgroundColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .primary,
-                                          ),
-                                        );
-                                        await Future.delayed(
-                                            const Duration(milliseconds: 3000));
-                                        ScaffoldMessenger.of(context)
-                                            .hideCurrentSnackBar();
-                                        Navigator.pop(context);
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 16.0, 0.0, 32.0),
+                              child: InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  GoRouter.of(context).prepareAuthEvent();
+                                  final user = await authManager
+                                      .signInWithGoogle(context);
+                                  if (user == null) {
+                                    return;
+                                  }
 
-                                        context.pushNamedAuth(
-                                            'landingPageSellers', mounted);
-                                      },
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          SvgPicture.asset(
-                                            'assets/images/Group.svg',
-                                            width: 102.3,
-                                            height: 32.0,
-                                            fit: BoxFit.scaleDown,
-                                          ),
-                                        ],
+                                  context.goNamedAuth(
+                                      'dashboardBuyer', context.mounted);
+                                },
+                                child: Container(
+                                  width: 364.0,
+                                  height: 56.0,
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.of(context).accent4,
+                                    borderRadius: BorderRadius.circular(5.0),
+                                  ),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SvgPicture.asset(
+                                        'assets/images/Group.svg',
+                                        width: 102.3,
+                                        height: 32.0,
+                                        fit: BoxFit.scaleDown,
                                       ),
-                                    ),
+                                    ],
                                   ),
                                 ),
-                              ],
+                              ),
                             ),
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(

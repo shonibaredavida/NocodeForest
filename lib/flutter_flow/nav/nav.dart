@@ -5,7 +5,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:go_router/go_router.dart';
 import 'package:page_transition/page_transition.dart';
 import '../flutter_flow_theme.dart';
-import '../../backend/backend.dart';
+import '/backend/backend.dart';
 
 import '../../auth/base_auth_user_provider.dart';
 
@@ -69,20 +69,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       initialLocation: '/',
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
-      errorBuilder: (context, _) =>
-          appStateNotifier.loggedIn ? DashboardBuyerWidget() : Testing2Widget(),
+      errorBuilder: (context, _) => appStateNotifier.loggedIn
+          ? DashboardBuyerWidget()
+          : LandingPageBuyersWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) => appStateNotifier.loggedIn
               ? DashboardBuyerWidget()
-              : Testing2Widget(),
-        ),
-        FFRoute(
-          name: 'testing1',
-          path: '/testing1',
-          builder: (context, params) => Testing1Widget(),
+              : LandingPageBuyersWidget(),
         ),
         FFRoute(
           name: 'resetPasswordModal',
@@ -223,11 +219,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => DashboardSellerOrderWidget(),
         ),
         FFRoute(
-          name: 'dashboardSellerAddProductScreen',
-          path: '/dashboardSellerAddProductScreen',
-          builder: (context, params) => DashboardSellerAddProductScreenWidget(),
-        ),
-        FFRoute(
           name: 'dashboardSellerProductScreen',
           path: '/dashboardSellerProductScreen',
           builder: (context, params) => DashboardSellerProductScreenWidget(),
@@ -248,9 +239,29 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => AdminPromoViewWidget(),
         ),
         FFRoute(
-          name: 'Dashboardadmin',
-          path: '/dashboardadmin',
-          builder: (context, params) => DashboardadminWidget(),
+          name: 'adminLogin',
+          path: '/adminLogin',
+          builder: (context, params) => AdminLoginWidget(),
+        ),
+        FFRoute(
+          name: 'adminOverview',
+          path: '/adminOverview',
+          builder: (context, params) => AdminOverviewWidget(),
+        ),
+        FFRoute(
+          name: 'adminAllUsers',
+          path: '/adminUsers',
+          builder: (context, params) => AdminAllUsersWidget(),
+        ),
+        FFRoute(
+          name: 'adminProducts',
+          path: '/adminProduct',
+          builder: (context, params) => AdminProductsWidget(),
+        ),
+        FFRoute(
+          name: 'adminUsers',
+          path: '/adminAllProducts',
+          builder: (context, params) => AdminUsersWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
       urlPathStrategy: UrlPathStrategy.path,
@@ -386,7 +397,8 @@ class FFParameters {
       return param;
     }
     // Return serialized value.
-    return deserializeParam<T>(param, type, isList, collectionNamePath);
+    return deserializeParam<T>(param, type, isList,
+        collectionNamePath: collectionNamePath);
   }
 }
 
@@ -419,7 +431,7 @@ class FFRoute {
 
           if (requireAuth && !appStateNotifier.loggedIn) {
             appStateNotifier.setRedirectLocationIfUnset(state.location);
-            return '/testing2';
+            return '/landingPageBuyers';
           }
           return null;
         },
@@ -436,7 +448,7 @@ class FFRoute {
                   child: SizedBox(
                     width: 50.0,
                     height: 50.0,
-                    child: SpinKitFoldingCube(
+                    child: SpinKitCubeGrid(
                       color: FlutterFlowTheme.of(context).primary,
                       size: 50.0,
                     ),

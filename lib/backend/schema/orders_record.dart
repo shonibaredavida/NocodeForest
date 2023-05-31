@@ -1,70 +1,117 @@
 import 'dart:async';
 
+import '/backend/schema/util/firestore_util.dart';
+import '/backend/schema/util/schema_util.dart';
+
 import 'index.dart';
-import 'serializers.dart';
-import 'package:built_value/built_value.dart';
+import '/flutter_flow/flutter_flow_util.dart';
 
-part 'orders_record.g.dart';
+class OrdersRecord extends FirestoreRecord {
+  OrdersRecord._(
+    DocumentReference reference,
+    Map<String, dynamic> data,
+  ) : super(reference, data) {
+    _initializeFields();
+  }
 
-abstract class OrdersRecord
-    implements Built<OrdersRecord, OrdersRecordBuilder> {
-  static Serializer<OrdersRecord> get serializer => _$ordersRecordSerializer;
+  // "buyer_id" field.
+  String? _buyerId;
+  String get buyerId => _buyerId ?? '';
+  bool hasBuyerId() => _buyerId != null;
 
-  @BuiltValueField(wireName: 'buyer_id')
-  String? get buyerId;
+  // "seller_id" field.
+  String? _sellerId;
+  String get sellerId => _sellerId ?? '';
+  bool hasSellerId() => _sellerId != null;
 
-  @BuiltValueField(wireName: 'seller_id')
-  String? get sellerId;
+  // "product_id" field.
+  String? _productId;
+  String get productId => _productId ?? '';
+  bool hasProductId() => _productId != null;
 
-  @BuiltValueField(wireName: 'product_id')
-  String? get productId;
+  // "quantity" field.
+  int? _quantity;
+  int get quantity => _quantity ?? 0;
+  bool hasQuantity() => _quantity != null;
 
-  int? get quantity;
+  // "order_status" field.
+  String? _orderStatus;
+  String get orderStatus => _orderStatus ?? '';
+  bool hasOrderStatus() => _orderStatus != null;
 
-  @BuiltValueField(wireName: 'order_status')
-  String? get orderStatus;
+  // "payment_status" field.
+  bool? _paymentStatus;
+  bool get paymentStatus => _paymentStatus ?? false;
+  bool hasPaymentStatus() => _paymentStatus != null;
 
-  @BuiltValueField(wireName: 'payment_status')
-  bool? get paymentStatus;
+  // "order_date" field.
+  DateTime? _orderDate;
+  DateTime? get orderDate => _orderDate;
+  bool hasOrderDate() => _orderDate != null;
 
-  @BuiltValueField(wireName: 'order_date')
-  DateTime? get orderDate;
+  // "order_id" field.
+  String? _orderId;
+  String get orderId => _orderId ?? '';
+  bool hasOrderId() => _orderId != null;
 
-  @BuiltValueField(wireName: 'order_id')
-  String? get orderId;
+  // "seller_info" field.
+  DocumentReference? _sellerInfo;
+  DocumentReference? get sellerInfo => _sellerInfo;
+  bool hasSellerInfo() => _sellerInfo != null;
 
-  @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference? get ffRef;
-  DocumentReference get reference => ffRef!;
+  // "product_info" field.
+  DocumentReference? _productInfo;
+  DocumentReference? get productInfo => _productInfo;
+  bool hasProductInfo() => _productInfo != null;
 
-  static void _initializeBuilder(OrdersRecordBuilder builder) => builder
-    ..buyerId = ''
-    ..sellerId = ''
-    ..productId = ''
-    ..quantity = 0
-    ..orderStatus = ''
-    ..paymentStatus = false
-    ..orderId = '';
+  // "total_price" field.
+  double? _totalPrice;
+  double get totalPrice => _totalPrice ?? 0.0;
+  bool hasTotalPrice() => _totalPrice != null;
+
+  // "cart_ref" field.
+  DocumentReference? _cartRef;
+  DocumentReference? get cartRef => _cartRef;
+  bool hasCartRef() => _cartRef != null;
+
+  void _initializeFields() {
+    _buyerId = snapshotData['buyer_id'] as String?;
+    _sellerId = snapshotData['seller_id'] as String?;
+    _productId = snapshotData['product_id'] as String?;
+    _quantity = snapshotData['quantity'] as int?;
+    _orderStatus = snapshotData['order_status'] as String?;
+    _paymentStatus = snapshotData['payment_status'] as bool?;
+    _orderDate = snapshotData['order_date'] as DateTime?;
+    _orderId = snapshotData['order_id'] as String?;
+    _sellerInfo = snapshotData['seller_info'] as DocumentReference?;
+    _productInfo = snapshotData['product_info'] as DocumentReference?;
+    _totalPrice = castToType<double>(snapshotData['total_price']);
+    _cartRef = snapshotData['cart_ref'] as DocumentReference?;
+  }
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('orders');
 
-  static Stream<OrdersRecord> getDocument(DocumentReference ref) => ref
-      .snapshots()
-      .map((s) => serializers.deserializeWith(serializer, serializedData(s))!);
+  static Stream<OrdersRecord> getDocument(DocumentReference ref) =>
+      ref.snapshots().map((s) => OrdersRecord.fromSnapshot(s));
 
-  static Future<OrdersRecord> getDocumentOnce(DocumentReference ref) => ref
-      .get()
-      .then((s) => serializers.deserializeWith(serializer, serializedData(s))!);
+  static Future<OrdersRecord> getDocumentOnce(DocumentReference ref) =>
+      ref.get().then((s) => OrdersRecord.fromSnapshot(s));
 
-  OrdersRecord._();
-  factory OrdersRecord([void Function(OrdersRecordBuilder) updates]) =
-      _$OrdersRecord;
+  static OrdersRecord fromSnapshot(DocumentSnapshot snapshot) => OrdersRecord._(
+        snapshot.reference,
+        mapFromFirestore(snapshot.data() as Map<String, dynamic>),
+      );
 
   static OrdersRecord getDocumentFromData(
-          Map<String, dynamic> data, DocumentReference reference) =>
-      serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
+    Map<String, dynamic> data,
+    DocumentReference reference,
+  ) =>
+      OrdersRecord._(reference, mapFromFirestore(data));
+
+  @override
+  String toString() =>
+      'OrdersRecord(reference: ${reference.path}, data: $snapshotData)';
 }
 
 Map<String, dynamic> createOrdersRecordData({
@@ -76,20 +123,26 @@ Map<String, dynamic> createOrdersRecordData({
   bool? paymentStatus,
   DateTime? orderDate,
   String? orderId,
+  DocumentReference? sellerInfo,
+  DocumentReference? productInfo,
+  double? totalPrice,
+  DocumentReference? cartRef,
 }) {
-  final firestoreData = serializers.toFirestore(
-    OrdersRecord.serializer,
-    OrdersRecord(
-      (o) => o
-        ..buyerId = buyerId
-        ..sellerId = sellerId
-        ..productId = productId
-        ..quantity = quantity
-        ..orderStatus = orderStatus
-        ..paymentStatus = paymentStatus
-        ..orderDate = orderDate
-        ..orderId = orderId,
-    ),
+  final firestoreData = mapToFirestore(
+    <String, dynamic>{
+      'buyer_id': buyerId,
+      'seller_id': sellerId,
+      'product_id': productId,
+      'quantity': quantity,
+      'order_status': orderStatus,
+      'payment_status': paymentStatus,
+      'order_date': orderDate,
+      'order_id': orderId,
+      'seller_info': sellerInfo,
+      'product_info': productInfo,
+      'total_price': totalPrice,
+      'cart_ref': cartRef,
+    }.withoutNulls,
   );
 
   return firestoreData;

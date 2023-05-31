@@ -379,7 +379,8 @@ class _SigninModalWaitlistWidgetState extends State<SigninModalWaitlistWidget> {
 
                                 Navigator.pop(context);
 
-                                context.pushNamedAuth('adminBizView', mounted);
+                                context.pushNamedAuth(
+                                    'adminBizView', context.mounted);
                               },
                               child: Container(
                                 width: 364.0,

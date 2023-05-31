@@ -1,74 +1,92 @@
 import 'dart:async';
 
+import '/backend/schema/util/firestore_util.dart';
+import '/backend/schema/util/schema_util.dart';
+
 import 'index.dart';
-import 'serializers.dart';
-import 'package:built_value/built_value.dart';
+import '/flutter_flow/flutter_flow_util.dart';
 
-part 'cart_record.g.dart';
+class CartRecord extends FirestoreRecord {
+  CartRecord._(
+    DocumentReference reference,
+    Map<String, dynamic> data,
+  ) : super(reference, data) {
+    _initializeFields();
+  }
 
-abstract class CartRecord implements Built<CartRecord, CartRecordBuilder> {
-  static Serializer<CartRecord> get serializer => _$cartRecordSerializer;
+  // "user_id" field.
+  String? _userId;
+  String get userId => _userId ?? '';
+  bool hasUserId() => _userId != null;
 
-  @BuiltValueField(wireName: 'user_id')
-  String? get userId;
+  // "product_id" field.
+  DocumentReference? _productId;
+  DocumentReference? get productId => _productId;
+  bool hasProductId() => _productId != null;
 
-  @BuiltValueField(wireName: 'product_id')
-  DocumentReference? get productId;
+  // "product_name" field.
+  String? _productName;
+  String get productName => _productName ?? '';
+  bool hasProductName() => _productName != null;
 
-  @BuiltValueField(wireName: 'product_name')
-  String? get productName;
+  // "image" field.
+  String? _image;
+  String get image => _image ?? '';
+  bool hasImage() => _image != null;
 
-  String? get price;
+  // "total_price" field.
+  double? _totalPrice;
+  double get totalPrice => _totalPrice ?? 0.0;
+  bool hasTotalPrice() => _totalPrice != null;
 
-  String? get image;
-
-  @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference? get ffRef;
-  DocumentReference get reference => ffRef!;
-
-  static void _initializeBuilder(CartRecordBuilder builder) => builder
-    ..userId = ''
-    ..productName = ''
-    ..price = ''
-    ..image = '';
+  void _initializeFields() {
+    _userId = snapshotData['user_id'] as String?;
+    _productId = snapshotData['product_id'] as DocumentReference?;
+    _productName = snapshotData['product_name'] as String?;
+    _image = snapshotData['image'] as String?;
+    _totalPrice = castToType<double>(snapshotData['total_price']);
+  }
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('cart');
 
-  static Stream<CartRecord> getDocument(DocumentReference ref) => ref
-      .snapshots()
-      .map((s) => serializers.deserializeWith(serializer, serializedData(s))!);
+  static Stream<CartRecord> getDocument(DocumentReference ref) =>
+      ref.snapshots().map((s) => CartRecord.fromSnapshot(s));
 
-  static Future<CartRecord> getDocumentOnce(DocumentReference ref) => ref
-      .get()
-      .then((s) => serializers.deserializeWith(serializer, serializedData(s))!);
+  static Future<CartRecord> getDocumentOnce(DocumentReference ref) =>
+      ref.get().then((s) => CartRecord.fromSnapshot(s));
 
-  CartRecord._();
-  factory CartRecord([void Function(CartRecordBuilder) updates]) = _$CartRecord;
+  static CartRecord fromSnapshot(DocumentSnapshot snapshot) => CartRecord._(
+        snapshot.reference,
+        mapFromFirestore(snapshot.data() as Map<String, dynamic>),
+      );
 
   static CartRecord getDocumentFromData(
-          Map<String, dynamic> data, DocumentReference reference) =>
-      serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
+    Map<String, dynamic> data,
+    DocumentReference reference,
+  ) =>
+      CartRecord._(reference, mapFromFirestore(data));
+
+  @override
+  String toString() =>
+      'CartRecord(reference: ${reference.path}, data: $snapshotData)';
 }
 
 Map<String, dynamic> createCartRecordData({
   String? userId,
   DocumentReference? productId,
   String? productName,
-  String? price,
   String? image,
+  double? totalPrice,
 }) {
-  final firestoreData = serializers.toFirestore(
-    CartRecord.serializer,
-    CartRecord(
-      (c) => c
-        ..userId = userId
-        ..productId = productId
-        ..productName = productName
-        ..price = price
-        ..image = image,
-    ),
+  final firestoreData = mapToFirestore(
+    <String, dynamic>{
+      'user_id': userId,
+      'product_id': productId,
+      'product_name': productName,
+      'image': image,
+      'total_price': totalPrice,
+    }.withoutNulls,
   );
 
   return firestoreData;

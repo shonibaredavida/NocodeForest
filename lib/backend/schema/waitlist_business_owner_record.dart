@@ -1,76 +1,102 @@
 import 'dart:async';
 
+import '/backend/schema/util/firestore_util.dart';
+import '/backend/schema/util/schema_util.dart';
+
 import 'index.dart';
-import 'serializers.dart';
-import 'package:built_value/built_value.dart';
+import '/flutter_flow/flutter_flow_util.dart';
 
-part 'waitlist_business_owner_record.g.dart';
+class WaitlistBusinessOwnerRecord extends FirestoreRecord {
+  WaitlistBusinessOwnerRecord._(
+    DocumentReference reference,
+    Map<String, dynamic> data,
+  ) : super(reference, data) {
+    _initializeFields();
+  }
 
-abstract class WaitlistBusinessOwnerRecord
-    implements
-        Built<WaitlistBusinessOwnerRecord, WaitlistBusinessOwnerRecordBuilder> {
-  static Serializer<WaitlistBusinessOwnerRecord> get serializer =>
-      _$waitlistBusinessOwnerRecordSerializer;
+  // "country" field.
+  String? _country;
+  String get country => _country ?? '';
+  bool hasCountry() => _country != null;
 
-  String? get country;
+  // "email" field.
+  String? _email;
+  String get email => _email ?? '';
+  bool hasEmail() => _email != null;
 
-  String? get email;
+  // "phone" field.
+  String? _phone;
+  String get phone => _phone ?? '';
+  bool hasPhone() => _phone != null;
 
-  String? get phone;
+  // "created_time" field.
+  DateTime? _createdTime;
+  DateTime? get createdTime => _createdTime;
+  bool hasCreatedTime() => _createdTime != null;
 
-  @BuiltValueField(wireName: 'created_time')
-  DateTime? get createdTime;
+  // "full_name" field.
+  String? _fullName;
+  String get fullName => _fullName ?? '';
+  bool hasFullName() => _fullName != null;
 
-  @BuiltValueField(wireName: 'full_name')
-  String? get fullName;
+  // "website_type" field.
+  String? _websiteType;
+  String get websiteType => _websiteType ?? '';
+  bool hasWebsiteType() => _websiteType != null;
 
-  @BuiltValueField(wireName: 'website_type')
-  String? get websiteType;
+  // "industry" field.
+  String? _industry;
+  String get industry => _industry ?? '';
+  bool hasIndustry() => _industry != null;
 
-  String? get industry;
+  // "post_maintenance" field.
+  String? _postMaintenance;
+  String get postMaintenance => _postMaintenance ?? '';
+  bool hasPostMaintenance() => _postMaintenance != null;
 
-  @BuiltValueField(wireName: 'post_maintenance')
-  String? get postMaintenance;
+  // "budget" field.
+  String? _budget;
+  String get budget => _budget ?? '';
+  bool hasBudget() => _budget != null;
 
-  String? get budget;
-
-  @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference? get ffRef;
-  DocumentReference get reference => ffRef!;
-
-  static void _initializeBuilder(WaitlistBusinessOwnerRecordBuilder builder) =>
-      builder
-        ..country = ''
-        ..email = ''
-        ..phone = ''
-        ..fullName = ''
-        ..websiteType = ''
-        ..industry = ''
-        ..postMaintenance = ''
-        ..budget = '';
+  void _initializeFields() {
+    _country = snapshotData['country'] as String?;
+    _email = snapshotData['email'] as String?;
+    _phone = snapshotData['phone'] as String?;
+    _createdTime = snapshotData['created_time'] as DateTime?;
+    _fullName = snapshotData['full_name'] as String?;
+    _websiteType = snapshotData['website_type'] as String?;
+    _industry = snapshotData['industry'] as String?;
+    _postMaintenance = snapshotData['post_maintenance'] as String?;
+    _budget = snapshotData['budget'] as String?;
+  }
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('waitlist_businessOwner');
 
   static Stream<WaitlistBusinessOwnerRecord> getDocument(
           DocumentReference ref) =>
-      ref.snapshots().map(
-          (s) => serializers.deserializeWith(serializer, serializedData(s))!);
+      ref.snapshots().map((s) => WaitlistBusinessOwnerRecord.fromSnapshot(s));
 
   static Future<WaitlistBusinessOwnerRecord> getDocumentOnce(
           DocumentReference ref) =>
-      ref.get().then(
-          (s) => serializers.deserializeWith(serializer, serializedData(s))!);
+      ref.get().then((s) => WaitlistBusinessOwnerRecord.fromSnapshot(s));
 
-  WaitlistBusinessOwnerRecord._();
-  factory WaitlistBusinessOwnerRecord(
-          [void Function(WaitlistBusinessOwnerRecordBuilder) updates]) =
-      _$WaitlistBusinessOwnerRecord;
+  static WaitlistBusinessOwnerRecord fromSnapshot(DocumentSnapshot snapshot) =>
+      WaitlistBusinessOwnerRecord._(
+        snapshot.reference,
+        mapFromFirestore(snapshot.data() as Map<String, dynamic>),
+      );
 
   static WaitlistBusinessOwnerRecord getDocumentFromData(
-          Map<String, dynamic> data, DocumentReference reference) =>
-      serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
+    Map<String, dynamic> data,
+    DocumentReference reference,
+  ) =>
+      WaitlistBusinessOwnerRecord._(reference, mapFromFirestore(data));
+
+  @override
+  String toString() =>
+      'WaitlistBusinessOwnerRecord(reference: ${reference.path}, data: $snapshotData)';
 }
 
 Map<String, dynamic> createWaitlistBusinessOwnerRecordData({
@@ -84,20 +110,18 @@ Map<String, dynamic> createWaitlistBusinessOwnerRecordData({
   String? postMaintenance,
   String? budget,
 }) {
-  final firestoreData = serializers.toFirestore(
-    WaitlistBusinessOwnerRecord.serializer,
-    WaitlistBusinessOwnerRecord(
-      (w) => w
-        ..country = country
-        ..email = email
-        ..phone = phone
-        ..createdTime = createdTime
-        ..fullName = fullName
-        ..websiteType = websiteType
-        ..industry = industry
-        ..postMaintenance = postMaintenance
-        ..budget = budget,
-    ),
+  final firestoreData = mapToFirestore(
+    <String, dynamic>{
+      'country': country,
+      'email': email,
+      'phone': phone,
+      'created_time': createdTime,
+      'full_name': fullName,
+      'website_type': websiteType,
+      'industry': industry,
+      'post_maintenance': postMaintenance,
+      'budget': budget,
+    }.withoutNulls,
   );
 
   return firestoreData;

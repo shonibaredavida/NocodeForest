@@ -91,7 +91,7 @@ class _WaitListFormTalentModalWidgetState
                 child: SizedBox(
                   width: 50.0,
                   height: 50.0,
-                  child: SpinKitFoldingCube(
+                  child: SpinKitCubeGrid(
                     color: FlutterFlowTheme.of(context).primary,
                     size: 50.0,
                   ),
@@ -856,8 +856,7 @@ class _WaitListFormTalentModalWidgetState
                                                       ) as List)
                                                           .map<String>((s) =>
                                                               s.toString())
-                                                          .toList()!
-                                                          .toList(),
+                                                          .toList()!,
                                                       onChanged: (val) =>
                                                           setState(() => _model
                                                                   .locationDropDownValue =

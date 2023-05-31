@@ -65,7 +65,7 @@ class _ProductDetailScreenWidgetState extends State<ProductDetailScreenWidget> {
             child: SizedBox(
               width: 50.0,
               height: 50.0,
-              child: SpinKitFoldingCube(
+              child: SpinKitCubeGrid(
                 color: FlutterFlowTheme.of(context).primary,
                 size: 50.0,
               ),
@@ -79,6 +79,7 @@ class _ProductDetailScreenWidgetState extends State<ProductDetailScreenWidget> {
             key: scaffoldKey,
             backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
             body: SafeArea(
+              top: true,
               child: StreamBuilder<UsersRecord>(
                 stream: UsersRecord.getDocument(
                     productDetailScreenProductsRecord.sellerInfo!),
@@ -89,7 +90,7 @@ class _ProductDetailScreenWidgetState extends State<ProductDetailScreenWidget> {
                       child: SizedBox(
                         width: 50.0,
                         height: 50.0,
-                        child: SpinKitFoldingCube(
+                        child: SpinKitCubeGrid(
                           color: FlutterFlowTheme.of(context).primary,
                           size: 50.0,
                         ),
@@ -152,20 +153,34 @@ class _ProductDetailScreenWidgetState extends State<ProductDetailScreenWidget> {
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
-                                            Text(
-                                              'Home',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Roboto Condensed',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .secondaryText,
-                                                        lineHeight: 1.24,
-                                                      ),
+                                            InkWell(
+                                              splashColor: Colors.transparent,
+                                              focusColor: Colors.transparent,
+                                              hoverColor: Colors.transparent,
+                                              highlightColor:
+                                                  Colors.transparent,
+                                              onTap: () async {
+                                                if (!valueOrDefault<bool>(
+                                                    currentUserDocument?.admin,
+                                                    false)) {
+                                                  context.pushNamed(
+                                                      'dashboardBuyer');
+                                                }
+                                              },
+                                              child: Text(
+                                                'Home',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              'Roboto Condensed',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondaryText,
+                                                          lineHeight: 1.24,
+                                                        ),
+                                              ),
                                             ),
                                             Padding(
                                               padding: EdgeInsetsDirectional
@@ -259,7 +274,7 @@ class _ProductDetailScreenWidgetState extends State<ProductDetailScreenWidget> {
                                             0.0, 0.0, 0.0, 36.0),
                                         child: Text(
                                           productDetailScreenProductsRecord
-                                              .name!,
+                                              .name,
                                           textAlign: TextAlign.start,
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
@@ -315,7 +330,7 @@ class _ProductDetailScreenWidgetState extends State<ProductDetailScreenWidget> {
                                                     ),
                                                     Text(
                                                       containerUsersRecord
-                                                          .email!,
+                                                          .email,
                                                       style:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -361,7 +376,7 @@ class _ProductDetailScreenWidgetState extends State<ProductDetailScreenWidget> {
                                                         ),
                                                       ),
                                                       Text(
-                                                        '${productDetailScreenProductsRecord.numOfSales?.toString()}  Sales',
+                                                        '${productDetailScreenProductsRecord.numOfSales.toString()}  Sales',
                                                         style: FlutterFlowTheme
                                                                 .of(context)
                                                             .bodyMedium
@@ -407,9 +422,7 @@ class _ProductDetailScreenWidgetState extends State<ProductDetailScreenWidget> {
                                                       ),
                                                       Text(
                                                         productDetailScreenProductsRecord
-                                                            .likedBy!
-                                                            .toList()
-                                                            .length
+                                                            .likedBy.length
                                                             .toString(),
                                                         style: FlutterFlowTheme
                                                                 .of(context)
@@ -488,7 +501,7 @@ class _ProductDetailScreenWidgetState extends State<ProductDetailScreenWidget> {
                                                                   .horizontal,
                                                               rating:
                                                                   productDetailScreenProductsRecord
-                                                                      .rating!,
+                                                                      .rating,
                                                               unratedColor: Color(
                                                                   0x4FBAB9BD),
                                                               itemCount: 5,
@@ -527,8 +540,7 @@ class _ProductDetailScreenWidgetState extends State<ProductDetailScreenWidget> {
                                                   ),
                                                 ),
                                                 if (productDetailScreenProductsRecord
-                                                        .updates ??
-                                                    true)
+                                                    .updates)
                                                   Padding(
                                                     padding:
                                                         EdgeInsetsDirectional
@@ -573,8 +585,7 @@ class _ProductDetailScreenWidgetState extends State<ProductDetailScreenWidget> {
                                                     ),
                                                   ),
                                                 if (productDetailScreenProductsRecord
-                                                        .documentation ??
-                                                    true)
+                                                    .documentation)
                                                   Padding(
                                                     padding:
                                                         EdgeInsetsDirectional
@@ -633,7 +644,7 @@ class _ProductDetailScreenWidgetState extends State<ProductDetailScreenWidget> {
                                                   onPressed: () async {
                                                     await launchURL(
                                                         productDetailScreenProductsRecord
-                                                            .liveLink!);
+                                                            .liveLink);
                                                   },
                                                   text: 'Live Preview',
                                                   icon: Icon(
@@ -721,8 +732,7 @@ class _ProductDetailScreenWidgetState extends State<ProductDetailScreenWidget> {
                                                     currentUserReference;
                                                 final likedByUpdate =
                                                     productDetailScreenProductsRecord
-                                                            .likedBy!
-                                                            .toList()
+                                                            .likedBy
                                                             .contains(
                                                                 likedByElement)
                                                         ? FieldValue
@@ -740,8 +750,7 @@ class _ProductDetailScreenWidgetState extends State<ProductDetailScreenWidget> {
                                               },
                                               value:
                                                   productDetailScreenProductsRecord
-                                                      .likedBy!
-                                                      .toList()
+                                                      .likedBy
                                                       .contains(
                                                           currentUserReference),
                                               onIcon: Icon(
@@ -789,7 +798,7 @@ class _ProductDetailScreenWidgetState extends State<ProductDetailScreenWidget> {
                                               builder: (context) {
                                                 final productImages =
                                                     productDetailScreenProductsRecord
-                                                        .productImages!
+                                                        .productImages
                                                         .toList()
                                                         .take(5)
                                                         .toList();
@@ -870,7 +879,7 @@ class _ProductDetailScreenWidgetState extends State<ProductDetailScreenWidget> {
                                                     children: [
                                                       Text(
                                                         productDetailScreenProductsRecord
-                                                            .name!,
+                                                            .name,
                                                         textAlign:
                                                             TextAlign.start,
                                                         style: FlutterFlowTheme
@@ -917,7 +926,7 @@ class _ProductDetailScreenWidgetState extends State<ProductDetailScreenWidget> {
                                                               BoxDecoration(),
                                                           child: Text(
                                                             productDetailScreenProductsRecord
-                                                                .description!,
+                                                                .description,
                                                             style: FlutterFlowTheme
                                                                     .of(context)
                                                                 .bodyMedium
@@ -960,8 +969,7 @@ class _ProductDetailScreenWidgetState extends State<ProductDetailScreenWidget> {
                                                                 .start,
                                                         children: [
                                                           if (productDetailScreenProductsRecord
-                                                                  .updates ??
-                                                              true)
+                                                              .updates)
                                                             Padding(
                                                               padding:
                                                                   EdgeInsetsDirectional
@@ -1029,7 +1037,7 @@ class _ProductDetailScreenWidgetState extends State<ProductDetailScreenWidget> {
                                                                           7.0),
                                                                   child: Text(
                                                                     containerUsersRecord
-                                                                        .username!,
+                                                                        .username,
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
                                                                         .bodyMedium
@@ -1088,7 +1096,7 @@ class _ProductDetailScreenWidgetState extends State<ProductDetailScreenWidget> {
                                                                         height:
                                                                             50.0,
                                                                         child:
-                                                                            SpinKitFoldingCube(
+                                                                            SpinKitCubeGrid(
                                                                           color:
                                                                               FlutterFlowTheme.of(context).primary,
                                                                           size:
@@ -1312,7 +1320,7 @@ class _ProductDetailScreenWidgetState extends State<ProductDetailScreenWidget> {
                                                                             1.0,
                                                                             0.0),
                                                                 child: Text(
-                                                                  '\$${productDetailScreenProductsRecord.price?.toString()}',
+                                                                  '\$${productDetailScreenProductsRecord.price.toString()}',
                                                                   style: FlutterFlowTheme.of(
                                                                           context)
                                                                       .bodyMedium
@@ -1408,8 +1416,7 @@ class _ProductDetailScreenWidgetState extends State<ProductDetailScreenWidget> {
                                                                   ),
                                                                 ),
                                                                 if (productDetailScreenProductsRecord
-                                                                        .updates ??
-                                                                    true)
+                                                                    .updates)
                                                                   Padding(
                                                                     padding: EdgeInsetsDirectional
                                                                         .fromSTEB(
@@ -1453,8 +1460,7 @@ class _ProductDetailScreenWidgetState extends State<ProductDetailScreenWidget> {
                                                                     ),
                                                                   ),
                                                                 if (productDetailScreenProductsRecord
-                                                                        .support ??
-                                                                    true)
+                                                                    .support)
                                                                   Padding(
                                                                     padding: EdgeInsetsDirectional
                                                                         .fromSTEB(
@@ -1567,8 +1573,7 @@ class _ProductDetailScreenWidgetState extends State<ProductDetailScreenWidget> {
                                                                     {
                                                                   'liked_by': [
                                                                     productDetailScreenProductsRecord
-                                                                        .likedBy!
-                                                                        .toList()
+                                                                        .likedBy
                                                                         .first
                                                                   ],
                                                                 };
@@ -2084,7 +2089,7 @@ class _ProductDetailScreenWidgetState extends State<ProductDetailScreenWidget> {
                                                                             0.0),
                                                                 child: Text(
                                                                   productDetailScreenProductsRecord
-                                                                          .highResolution!
+                                                                          .highResolution
                                                                       ? 'Yes'
                                                                       : 'No',
                                                                   style: FlutterFlowTheme.of(
@@ -2170,7 +2175,7 @@ class _ProductDetailScreenWidgetState extends State<ProductDetailScreenWidget> {
                                                                       valueOrDefault<
                                                                           String>(
                                                                         functions.listToSentence(productDetailScreenProductsRecord
-                                                                            .compartibleBrowsers!
+                                                                            .compartibleBrowsers
                                                                             .toList()),
                                                                         'NA',
                                                                       ),
@@ -2340,7 +2345,7 @@ class _ProductDetailScreenWidgetState extends State<ProductDetailScreenWidget> {
                                                                             0.0),
                                                                     child: Text(
                                                                       productDetailScreenProductsRecord
-                                                                              .updates!
+                                                                              .updates
                                                                           ? 'Yes'
                                                                           : 'No',
                                                                       style: FlutterFlowTheme.of(
@@ -2428,7 +2433,7 @@ class _ProductDetailScreenWidgetState extends State<ProductDetailScreenWidget> {
                                                                       valueOrDefault<
                                                                           String>(
                                                                         functions.listToSentence(productDetailScreenProductsRecord
-                                                                            .includeFiles!
+                                                                            .includeFiles
                                                                             .toList()),
                                                                         'NA',
                                                                       ),
@@ -2499,7 +2504,7 @@ class _ProductDetailScreenWidgetState extends State<ProductDetailScreenWidget> {
                                                                             0.0),
                                                                 child: Text(
                                                                   productDetailScreenProductsRecord
-                                                                          .documentation!
+                                                                          .documentation
                                                                       ? 'Yes'
                                                                       : 'No',
                                                                   style: FlutterFlowTheme.of(
@@ -2570,7 +2575,7 @@ class _ProductDetailScreenWidgetState extends State<ProductDetailScreenWidget> {
                                                                             0.0),
                                                                 child: Text(
                                                                   productDetailScreenProductsRecord
-                                                                          .responsiveLayout!
+                                                                          .responsiveLayout
                                                                       ? 'Responsive'
                                                                       : 'not Responsive',
                                                                   style: FlutterFlowTheme.of(
@@ -2656,7 +2661,7 @@ class _ProductDetailScreenWidgetState extends State<ProductDetailScreenWidget> {
                                                                       valueOrDefault<
                                                                           String>(
                                                                         functions.listToSentence(productDetailScreenProductsRecord
-                                                                            .tags!
+                                                                            .tags
                                                                             .toList()),
                                                                         'None',
                                                                       ),

@@ -1,54 +1,70 @@
 import 'dart:async';
 
+import '/backend/schema/util/firestore_util.dart';
+import '/backend/schema/util/schema_util.dart';
+
 import 'index.dart';
-import 'serializers.dart';
-import 'package:built_value/built_value.dart';
+import '/flutter_flow/flutter_flow_util.dart';
 
-part 'reviews_record.g.dart';
+class ReviewsRecord extends FirestoreRecord {
+  ReviewsRecord._(
+    DocumentReference reference,
+    Map<String, dynamic> data,
+  ) : super(reference, data) {
+    _initializeFields();
+  }
 
-abstract class ReviewsRecord
-    implements Built<ReviewsRecord, ReviewsRecordBuilder> {
-  static Serializer<ReviewsRecord> get serializer => _$reviewsRecordSerializer;
+  // "product_id" field.
+  String? _productId;
+  String get productId => _productId ?? '';
+  bool hasProductId() => _productId != null;
 
-  @BuiltValueField(wireName: 'product_id')
-  String? get productId;
+  // "buyer_id" field.
+  String? _buyerId;
+  String get buyerId => _buyerId ?? '';
+  bool hasBuyerId() => _buyerId != null;
 
-  @BuiltValueField(wireName: 'buyer_id')
-  String? get buyerId;
+  // "reviews" field.
+  List<String>? _reviews;
+  List<String> get reviews => _reviews ?? const [];
+  bool hasReviews() => _reviews != null;
 
-  BuiltList<String>? get reviews;
+  // "ratings" field.
+  double? _ratings;
+  double get ratings => _ratings ?? 0.0;
+  bool hasRatings() => _ratings != null;
 
-  double? get ratings;
-
-  @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference? get ffRef;
-  DocumentReference get reference => ffRef!;
-
-  static void _initializeBuilder(ReviewsRecordBuilder builder) => builder
-    ..productId = ''
-    ..buyerId = ''
-    ..reviews = ListBuilder()
-    ..ratings = 0.0;
+  void _initializeFields() {
+    _productId = snapshotData['product_id'] as String?;
+    _buyerId = snapshotData['buyer_id'] as String?;
+    _reviews = getDataList(snapshotData['reviews']);
+    _ratings = castToType<double>(snapshotData['ratings']);
+  }
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('reviews');
 
-  static Stream<ReviewsRecord> getDocument(DocumentReference ref) => ref
-      .snapshots()
-      .map((s) => serializers.deserializeWith(serializer, serializedData(s))!);
+  static Stream<ReviewsRecord> getDocument(DocumentReference ref) =>
+      ref.snapshots().map((s) => ReviewsRecord.fromSnapshot(s));
 
-  static Future<ReviewsRecord> getDocumentOnce(DocumentReference ref) => ref
-      .get()
-      .then((s) => serializers.deserializeWith(serializer, serializedData(s))!);
+  static Future<ReviewsRecord> getDocumentOnce(DocumentReference ref) =>
+      ref.get().then((s) => ReviewsRecord.fromSnapshot(s));
 
-  ReviewsRecord._();
-  factory ReviewsRecord([void Function(ReviewsRecordBuilder) updates]) =
-      _$ReviewsRecord;
+  static ReviewsRecord fromSnapshot(DocumentSnapshot snapshot) =>
+      ReviewsRecord._(
+        snapshot.reference,
+        mapFromFirestore(snapshot.data() as Map<String, dynamic>),
+      );
 
   static ReviewsRecord getDocumentFromData(
-          Map<String, dynamic> data, DocumentReference reference) =>
-      serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
+    Map<String, dynamic> data,
+    DocumentReference reference,
+  ) =>
+      ReviewsRecord._(reference, mapFromFirestore(data));
+
+  @override
+  String toString() =>
+      'ReviewsRecord(reference: ${reference.path}, data: $snapshotData)';
 }
 
 Map<String, dynamic> createReviewsRecordData({
@@ -56,15 +72,12 @@ Map<String, dynamic> createReviewsRecordData({
   String? buyerId,
   double? ratings,
 }) {
-  final firestoreData = serializers.toFirestore(
-    ReviewsRecord.serializer,
-    ReviewsRecord(
-      (r) => r
-        ..productId = productId
-        ..buyerId = buyerId
-        ..reviews = null
-        ..ratings = ratings,
-    ),
+  final firestoreData = mapToFirestore(
+    <String, dynamic>{
+      'product_id': productId,
+      'buyer_id': buyerId,
+      'ratings': ratings,
+    }.withoutNulls,
   );
 
   return firestoreData;

@@ -2,7 +2,7 @@ import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/waitlist/components/delete_dialogwaitlist/delete_dialogwaitlist_widget.dart';
+import '/main_components/dialog_component/dialog_component_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -51,6 +51,7 @@ class _AdminPromoViewWidgetState extends State<AdminPromoViewWidget> {
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         body: SafeArea(
+          top: true,
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
@@ -219,7 +220,8 @@ class _AdminPromoViewWidgetState extends State<AdminPromoViewWidget> {
                                                       .clearRedirectLocation();
 
                                                   context.goNamedAuth(
-                                                      'testing2', mounted);
+                                                      'landingPageBuyers',
+                                                      context.mounted);
                                                 },
                                                 child: Container(
                                                   decoration: BoxDecoration(
@@ -317,7 +319,8 @@ class _AdminPromoViewWidgetState extends State<AdminPromoViewWidget> {
                                               .clearRedirectLocation();
 
                                           context.goNamedAuth(
-                                              'testing2', mounted);
+                                              'landingPageBuyers',
+                                              context.mounted);
                                         },
                                         child: Container(
                                           decoration: BoxDecoration(
@@ -553,7 +556,7 @@ class _AdminPromoViewWidgetState extends State<AdminPromoViewWidget> {
                                         child: SizedBox(
                                           width: 50.0,
                                           height: 50.0,
-                                          child: SpinKitFoldingCube(
+                                          child: SpinKitCubeGrid(
                                             color: FlutterFlowTheme.of(context)
                                                 .primary,
                                             size: 50.0,
@@ -791,7 +794,7 @@ class _AdminPromoViewWidgetState extends State<AdminPromoViewWidget> {
                                     child: SizedBox(
                                       width: 50.0,
                                       height: 50.0,
-                                      child: SpinKitFoldingCube(
+                                      child: SpinKitCubeGrid(
                                         color: FlutterFlowTheme.of(context)
                                             .primary,
                                         size: 50.0,
@@ -860,7 +863,7 @@ class _AdminPromoViewWidgetState extends State<AdminPromoViewWidget> {
                                                   Expanded(
                                                     child: Text(
                                                       columnPromoRecordsRecord
-                                                          .name!,
+                                                          .name,
                                                       style: FlutterFlowTheme
                                                               .of(context)
                                                           .bodyMedium
@@ -875,7 +878,7 @@ class _AdminPromoViewWidgetState extends State<AdminPromoViewWidget> {
                                                   Expanded(
                                                     child: Text(
                                                       columnPromoRecordsRecord
-                                                          .email!,
+                                                          .email,
                                                       style: FlutterFlowTheme
                                                               .of(context)
                                                           .bodyMedium
@@ -894,7 +897,7 @@ class _AdminPromoViewWidgetState extends State<AdminPromoViewWidget> {
                                                     Expanded(
                                                       child: Text(
                                                         columnPromoRecordsRecord
-                                                            .phone!,
+                                                            .phone,
                                                         style:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -913,7 +916,7 @@ class _AdminPromoViewWidgetState extends State<AdminPromoViewWidget> {
                                                   Expanded(
                                                     child: Text(
                                                       columnPromoRecordsRecord
-                                                          .offerChoice!,
+                                                          .offerChoice,
                                                       style: FlutterFlowTheme
                                                               .of(context)
                                                           .bodyMedium
@@ -933,7 +936,7 @@ class _AdminPromoViewWidgetState extends State<AdminPromoViewWidget> {
                                                     Expanded(
                                                       child: Text(
                                                         columnPromoRecordsRecord
-                                                            .companyInfo!,
+                                                            .companyInfo,
                                                         style: FlutterFlowTheme
                                                                 .of(context)
                                                             .bodyMedium
@@ -955,7 +958,7 @@ class _AdminPromoViewWidgetState extends State<AdminPromoViewWidget> {
                                                     Expanded(
                                                       child: Text(
                                                         columnPromoRecordsRecord
-                                                            .industry!,
+                                                            .industry,
                                                         style: FlutterFlowTheme
                                                                 .of(context)
                                                             .bodyMedium
@@ -1011,9 +1014,17 @@ class _AdminPromoViewWidgetState extends State<AdminPromoViewWidget> {
                                                                           bottomSheetContext)
                                                                       .viewInsets,
                                                                   child:
-                                                                      DeleteDialogwaitlistWidget(
+                                                                      DialogComponentWidget(
                                                                     promoDoc:
                                                                         columnPromoRecordsRecord,
+                                                                    successDialog:
+                                                                        true,
+                                                                    deleteDialog:
+                                                                        true,
+                                                                    requiresYesNo:
+                                                                        false,
+                                                                    nextRoute:
+                                                                        () async {},
                                                                   ),
                                                                 ),
                                                               );

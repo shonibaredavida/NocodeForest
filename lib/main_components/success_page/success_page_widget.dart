@@ -49,17 +49,14 @@ class _SuccessPageWidgetState extends State<SuccessPageWidget> {
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
 
-    return Wrap(
-      spacing: 0.0,
-      runSpacing: 0.0,
-      alignment: WrapAlignment.start,
-      crossAxisAlignment: WrapCrossAlignment.start,
-      direction: Axis.horizontal,
-      runAlignment: WrapAlignment.start,
-      verticalDirection: VerticalDirection.down,
-      clipBehavior: Clip.none,
+    return Column(
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
+          constraints: BoxConstraints(
+            maxWidth: 500.0,
+          ),
           decoration: BoxDecoration(
             color: Colors.black,
           ),

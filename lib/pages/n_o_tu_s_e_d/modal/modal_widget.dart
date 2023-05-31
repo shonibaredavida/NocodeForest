@@ -66,6 +66,7 @@ class _ModalWidgetState extends State<ModalWidget>
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         body: SafeArea(
+          top: true,
           child: Stack(
             children: [
               Row(

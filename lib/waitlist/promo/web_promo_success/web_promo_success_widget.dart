@@ -132,27 +132,31 @@ class _WebPromoSuccessWidgetState extends State<WebPromoSuccessWidget> {
                   ),
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(32.0, 0.0, 32.0, 24.0),
+                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 24.0),
                     child: FFButtonWidget(
                       onPressed: () async {
-                        _model.updatePage(() {
-                          FFAppState().promoState = false;
-                        });
+                        if (FFAppState().promoState == false) {
+                          _model.updatePage(() {
+                            FFAppState().promoState = false;
+                          });
 
-                        context.pushNamed(
-                          'landingWaitlist',
-                          extra: <String, dynamic>{
-                            kTransitionInfoKey: TransitionInfo(
-                              hasTransition: true,
-                              transitionType: PageTransitionType.fade,
-                              duration: Duration(milliseconds: 0),
-                            ),
-                          },
-                        );
+                          context.pushNamed(
+                            'landingWaitlist',
+                            extra: <String, dynamic>{
+                              kTransitionInfoKey: TransitionInfo(
+                                hasTransition: true,
+                                transitionType: PageTransitionType.fade,
+                                duration: Duration(milliseconds: 0),
+                              ),
+                            },
+                          );
+                        } else {
+                          Navigator.pop(context);
+                        }
                       },
                       text: 'OK',
                       options: FFButtonOptions(
-                        width: 115.0,
+                        width: 165.0,
                         height: 48.0,
                         padding:
                             EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),

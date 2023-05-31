@@ -50,11 +50,13 @@ class _OnboardingSellersScreen1WidgetState
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         body: SafeArea(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
+          top: true,
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                width: double.infinity,
+                width: 1512.0,
                 height: 982.0,
                 decoration: BoxDecoration(
                   color: FlutterFlowTheme.of(context).primaryText,

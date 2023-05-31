@@ -1,44 +1,59 @@
 import 'dart:async';
 
+import '/backend/schema/util/firestore_util.dart';
+import '/backend/schema/util/schema_util.dart';
+
 import 'index.dart';
-import 'serializers.dart';
-import 'package:built_value/built_value.dart';
+import '/flutter_flow/flutter_flow_util.dart';
 
-part 'seller_info_record.g.dart';
+class SellerInfoRecord extends FirestoreRecord {
+  SellerInfoRecord._(
+    DocumentReference reference,
+    Map<String, dynamic> data,
+  ) : super(reference, data) {
+    _initializeFields();
+  }
 
-abstract class SellerInfoRecord
-    implements Built<SellerInfoRecord, SellerInfoRecordBuilder> {
-  static Serializer<SellerInfoRecord> get serializer =>
-      _$sellerInfoRecordSerializer;
+  // "profession" field.
+  String? _profession;
+  String get profession => _profession ?? '';
+  bool hasProfession() => _profession != null;
 
-  String? get profession;
+  // "username" field.
+  String? _username;
+  String get username => _username ?? '';
+  bool hasUsername() => _username != null;
 
-  String? get username;
+  // "display_name" field.
+  String? _displayName;
+  String get displayName => _displayName ?? '';
+  bool hasDisplayName() => _displayName != null;
 
-  @BuiltValueField(wireName: 'display_name')
-  String? get displayName;
+  // "last_name" field.
+  String? _lastName;
+  String get lastName => _lastName ?? '';
+  bool hasLastName() => _lastName != null;
 
-  @BuiltValueField(wireName: 'last_name')
-  String? get lastName;
+  // "first_name" field.
+  String? _firstName;
+  String get firstName => _firstName ?? '';
+  bool hasFirstName() => _firstName != null;
 
-  @BuiltValueField(wireName: 'first_name')
-  String? get firstName;
-
-  String? get uid;
-
-  @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference? get ffRef;
-  DocumentReference get reference => ffRef!;
+  // "uid" field.
+  String? _uid;
+  String get uid => _uid ?? '';
+  bool hasUid() => _uid != null;
 
   DocumentReference get parentReference => reference.parent.parent!;
 
-  static void _initializeBuilder(SellerInfoRecordBuilder builder) => builder
-    ..profession = ''
-    ..username = ''
-    ..displayName = ''
-    ..lastName = ''
-    ..firstName = ''
-    ..uid = '';
+  void _initializeFields() {
+    _profession = snapshotData['profession'] as String?;
+    _username = snapshotData['username'] as String?;
+    _displayName = snapshotData['display_name'] as String?;
+    _lastName = snapshotData['last_name'] as String?;
+    _firstName = snapshotData['first_name'] as String?;
+    _uid = snapshotData['uid'] as String?;
+  }
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
       parent != null
@@ -48,22 +63,27 @@ abstract class SellerInfoRecord
   static DocumentReference createDoc(DocumentReference parent) =>
       parent.collection('seller_info').doc();
 
-  static Stream<SellerInfoRecord> getDocument(DocumentReference ref) => ref
-      .snapshots()
-      .map((s) => serializers.deserializeWith(serializer, serializedData(s))!);
+  static Stream<SellerInfoRecord> getDocument(DocumentReference ref) =>
+      ref.snapshots().map((s) => SellerInfoRecord.fromSnapshot(s));
 
-  static Future<SellerInfoRecord> getDocumentOnce(DocumentReference ref) => ref
-      .get()
-      .then((s) => serializers.deserializeWith(serializer, serializedData(s))!);
+  static Future<SellerInfoRecord> getDocumentOnce(DocumentReference ref) =>
+      ref.get().then((s) => SellerInfoRecord.fromSnapshot(s));
 
-  SellerInfoRecord._();
-  factory SellerInfoRecord([void Function(SellerInfoRecordBuilder) updates]) =
-      _$SellerInfoRecord;
+  static SellerInfoRecord fromSnapshot(DocumentSnapshot snapshot) =>
+      SellerInfoRecord._(
+        snapshot.reference,
+        mapFromFirestore(snapshot.data() as Map<String, dynamic>),
+      );
 
   static SellerInfoRecord getDocumentFromData(
-          Map<String, dynamic> data, DocumentReference reference) =>
-      serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
+    Map<String, dynamic> data,
+    DocumentReference reference,
+  ) =>
+      SellerInfoRecord._(reference, mapFromFirestore(data));
+
+  @override
+  String toString() =>
+      'SellerInfoRecord(reference: ${reference.path}, data: $snapshotData)';
 }
 
 Map<String, dynamic> createSellerInfoRecordData({
@@ -74,17 +94,15 @@ Map<String, dynamic> createSellerInfoRecordData({
   String? firstName,
   String? uid,
 }) {
-  final firestoreData = serializers.toFirestore(
-    SellerInfoRecord.serializer,
-    SellerInfoRecord(
-      (s) => s
-        ..profession = profession
-        ..username = username
-        ..displayName = displayName
-        ..lastName = lastName
-        ..firstName = firstName
-        ..uid = uid,
-    ),
+  final firestoreData = mapToFirestore(
+    <String, dynamic>{
+      'profession': profession,
+      'username': username,
+      'display_name': displayName,
+      'last_name': lastName,
+      'first_name': firstName,
+      'uid': uid,
+    }.withoutNulls,
   );
 
   return firestoreData;

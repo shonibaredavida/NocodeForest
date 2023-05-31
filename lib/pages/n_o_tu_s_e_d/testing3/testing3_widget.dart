@@ -49,6 +49,7 @@ class _Testing3WidgetState extends State<Testing3Widget> {
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         body: SafeArea(
+          top: true,
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
@@ -219,8 +220,8 @@ class _Testing3WidgetState extends State<Testing3Widget> {
                                         GoRouter.of(context)
                                             .clearRedirectLocation();
 
-                                        context.goNamedAuth(
-                                            'testing2', mounted);
+                                        context.goNamedAuth('landingPageBuyers',
+                                            context.mounted);
                                       },
                                       text: 'Logout',
                                       options: FFButtonOptions(

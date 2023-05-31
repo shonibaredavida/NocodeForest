@@ -1,6 +1,7 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/main_components/dialog_component/dialog_component_widget.dart';
 import '/main_components/forgot_password_modal/forgot_password_modal_widget.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
@@ -48,24 +49,23 @@ class _SigninModalWidgetState extends State<SigninModalWidget> {
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
 
-    return Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(0.0, 40.0, 0.0, 0.0),
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Container(
-            width: 428.0,
-            height: 816.0,
-            constraints: BoxConstraints(
-              maxWidth: 570.0,
+    return Column(
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        Container(
+          width: 428.0,
+          height: 816.0,
+          constraints: BoxConstraints(
+            maxWidth: 570.0,
+          ),
+          decoration: BoxDecoration(
+            color: FlutterFlowTheme.of(context).secondaryBackground,
+            borderRadius: BorderRadius.circular(10.0),
+            border: Border.all(
+              color: Color(0x45E0E3E7),
             ),
-            decoration: BoxDecoration(
-              color: FlutterFlowTheme.of(context).secondaryBackground,
-              borderRadius: BorderRadius.circular(10.0),
-              border: Border.all(
-                color: Color(0x45E0E3E7),
-              ),
-            ),
+          ),
+          child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
@@ -79,66 +79,76 @@ class _SigninModalWidgetState extends State<SigninModalWidget> {
                     children: [
                       Stack(
                         children: [
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 32.0),
-                                child: Text(
-                                  'Sign In',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'millik',
-                                        fontSize: 32.0,
-                                        useGoogleFonts: false,
-                                      ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 40.0),
-                                child: InkWell(
-                                  splashColor: Colors.transparent,
-                                  focusColor: Colors.transparent,
-                                  hoverColor: Colors.transparent,
-                                  highlightColor: Colors.transparent,
-                                  onTap: () async {
-                                    Navigator.pop(context);
-                                  },
-                                  child: Container(
-                                    width: 40.0,
-                                    height: 40.0,
-                                    decoration: BoxDecoration(
-                                      color:
-                                          FlutterFlowTheme.of(context).accent1,
-                                      shape: BoxShape.circle,
-                                    ),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Icon(
-                                          Icons.close_fullscreen,
-                                          color: FlutterFlowTheme.of(context)
-                                              .lineColor,
-                                          size: 24.0,
+                          Container(
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              color: FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 32.0),
+                                  child: Text(
+                                    'Sign In',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'millik',
+                                          fontSize: 32.0,
+                                          useGoogleFonts: false,
                                         ),
-                                      ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            decoration: BoxDecoration(),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 40.0),
+                                  child: InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Container(
+                                      width: 40.0,
+                                      height: 40.0,
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .accent1,
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Icon(
+                                            Icons.close_fullscreen,
+                                            color: FlutterFlowTheme.of(context)
+                                                .lineColor,
+                                            size: 24.0,
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ],
                       ),
@@ -387,10 +397,77 @@ class _SigninModalWidgetState extends State<SigninModalWidget> {
                                     return;
                                   }
 
-                                  Navigator.pop(context);
+                                  if (valueOrDefault<bool>(
+                                      currentUserDocument?.admin, false)) {
+                                    await showModalBottomSheet(
+                                      isScrollControlled: true,
+                                      backgroundColor: Colors.transparent,
+                                      enableDrag: false,
+                                      context: context,
+                                      builder: (bottomSheetContext) {
+                                        return Padding(
+                                          padding:
+                                              MediaQuery.of(bottomSheetContext)
+                                                  .viewInsets,
+                                          child: DialogComponentWidget(
+                                            subtitle:
+                                                'Kindly Login with a User Account',
+                                            requiresYesNo: false,
+                                            nextRoute: () async {},
+                                          ),
+                                        );
+                                      },
+                                    ).then((value) => setState(() {}));
 
-                                  context.pushNamedAuth(
-                                      'dashboardBuyer', mounted);
+                                    Navigator.pop(context);
+                                    setState(() {
+                                      _model.emailAddressController?.clear();
+                                      _model.passwordController?.clear();
+                                    });
+                                  } else {
+                                    if (valueOrDefault(
+                                            currentUserDocument?.status, '') !=
+                                        'deactivated') {
+                                      if (!valueOrDefault<bool>(
+                                          currentUserDocument?.becomeASeller,
+                                          false)) {
+                                        context.pushNamedAuth(
+                                            'dashboardBuyer', context.mounted);
+                                      } else {
+                                        context.pushNamedAuth(
+                                            'dashboardSeller', context.mounted);
+                                      }
+                                    } else {
+                                      Navigator.pop(context);
+                                      await showModalBottomSheet(
+                                        isScrollControlled: true,
+                                        backgroundColor: Colors.transparent,
+                                        isDismissible: false,
+                                        enableDrag: false,
+                                        context: context,
+                                        builder: (bottomSheetContext) {
+                                          return Padding(
+                                            padding: MediaQuery.of(
+                                                    bottomSheetContext)
+                                                .viewInsets,
+                                            child: DialogComponentWidget(
+                                              subtitle:
+                                                  'Your  account is deactivated. Kindly  send a mail to admin@nocode.com.',
+                                              deleteDialog: true,
+                                              successDialog: false,
+                                              requiresYesNo: false,
+                                              nextRoute: () async {},
+                                            ),
+                                          );
+                                        },
+                                      ).then((value) => setState(() {}));
+
+                                      GoRouter.of(context).prepareAuthEvent();
+                                      await authManager.signOut();
+                                      GoRouter.of(context)
+                                          .clearRedirectLocation();
+                                    }
+                                  }
                                 },
                                 child: Container(
                                   width: 364.0,
@@ -548,54 +625,47 @@ class _SigninModalWidgetState extends State<SigninModalWidget> {
                               ),
                             ],
                           ),
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 16.0, 0.0, 32.0),
-                                child: Container(
-                                  width: 364.0,
-                                  height: 56.0,
-                                  decoration: BoxDecoration(
-                                    color: FlutterFlowTheme.of(context).accent4,
-                                    borderRadius: BorderRadius.circular(5.0),
-                                  ),
-                                  child: InkWell(
-                                    splashColor: Colors.transparent,
-                                    focusColor: Colors.transparent,
-                                    hoverColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    onTap: () async {
-                                      GoRouter.of(context).prepareAuthEvent();
-                                      final user = await authManager
-                                          .signInWithGoogle(context);
-                                      if (user == null) {
-                                        return;
-                                      }
-                                      Navigator.pop(context);
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 16.0, 0.0, 32.0),
+                            child: InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                GoRouter.of(context).prepareAuthEvent();
+                                final user =
+                                    await authManager.signInWithGoogle(context);
+                                if (user == null) {
+                                  return;
+                                }
+                                Navigator.pop(context);
 
-                                      context.pushNamedAuth(
-                                          'landingPageBuyers', mounted);
-                                    },
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        SvgPicture.asset(
-                                          'assets/images/Group.svg',
-                                          width: 102.3,
-                                          height: 32.0,
-                                          fit: BoxFit.scaleDown,
-                                        ),
-                                      ],
+                                context.goNamedAuth(
+                                    'landingPageBuyers', context.mounted);
+                              },
+                              child: Container(
+                                width: 364.0,
+                                height: 56.0,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context).accent4,
+                                  borderRadius: BorderRadius.circular(5.0),
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SvgPicture.asset(
+                                      'assets/images/Group.svg',
+                                      width: 102.3,
+                                      height: 32.0,
+                                      fit: BoxFit.scaleDown,
                                     ),
-                                  ),
+                                  ],
                                 ),
                               ),
-                            ],
+                            ),
                           ),
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
@@ -640,8 +710,8 @@ class _SigninModalWidgetState extends State<SigninModalWidget> {
               ],
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
