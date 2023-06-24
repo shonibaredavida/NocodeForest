@@ -19,14 +19,15 @@ import 'package:provider/provider.dart';
 class LandingPageBuyersModel extends FlutterFlowModel {
   ///  State fields for stateful widgets in this page.
 
+  final unfocusNode = FocusNode();
   // Model for header component.
   late HeaderModel headerModel;
-  // State field(s) for TextField widget.
-  TextEditingController? textController;
-  String? Function(BuildContext, String?)? textControllerValidator;
   // State field(s) for ChoiceChips widget.
   String? choiceChipsValue;
   FormFieldController<List<String>>? choiceChipsValueController;
+  // State field(s) for TextField widget.
+  TextEditingController? textController;
+  String? Function(BuildContext, String?)? textControllerValidator;
   // Model for footerComponent component.
   late FooterComponentModel footerComponentModel;
 
@@ -38,11 +39,13 @@ class LandingPageBuyersModel extends FlutterFlowModel {
   }
 
   void dispose() {
+    unfocusNode.dispose();
     headerModel.dispose();
     textController?.dispose();
     footerComponentModel.dispose();
   }
 
-  /// Additional helper methods are added here.
+  /// Action blocks are added here.
 
+  /// Additional helper methods are added here.
 }

@@ -7,8 +7,10 @@ import 'package:intl/intl.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'lat_lng.dart';
 import 'place.dart';
+import 'uploaded_file.dart';
 import '/backend/backend.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '/backend/schema/structs/index.dart';
 import '/auth/firebase_auth/auth_util.dart';
 
 List<String>? sentenceToList(String? sentence) {
@@ -29,6 +31,197 @@ bool? filterProductByName(
       .toString()
       .toLowerCase()
       .contains(_searchText.toString().toLowerCase());
+}
+
+String? getCurrentMonthInWord() {
+  String? currentMonthInWord;
+  int currentMonth;
+  currentMonth = DateTime.now().month;
+
+  switch (currentMonth) {
+    case 1:
+      {
+        currentMonthInWord = "Jan";
+      }
+      break;
+
+    case 2:
+      {
+        currentMonthInWord = "Feb";
+      }
+      break;
+    case 3:
+      {
+        currentMonthInWord = "Mar";
+      }
+      break;
+    case 4:
+      {
+        currentMonthInWord = "Apr";
+      }
+      break;
+    case 5:
+      {
+        currentMonthInWord = "May";
+      }
+      break;
+    case 6:
+      {
+        currentMonthInWord = "Jun";
+      }
+      break;
+    case 7:
+      {
+        currentMonthInWord = "Jul";
+      }
+      break;
+    case 8:
+      {
+        currentMonthInWord = "Aug";
+      }
+      break;
+    case 9:
+      {
+        currentMonthInWord = "Sept";
+      }
+      break;
+    case 10:
+      {
+        currentMonthInWord = "Oct";
+      }
+      break;
+    case 11:
+      {
+        currentMonthInWord = "Nov";
+      }
+      break;
+    case 12:
+      {
+        currentMonthInWord = "Dec";
+      }
+      break;
+    default:
+      {}
+      break;
+  }
+
+  return currentMonthInWord;
+}
+
+List<int>? getAYearAgoDataForLineGraph(List<OrdersRecord>? orders) {
+  List<int>? monthlyOrders = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+//get the current month
+  int currentMonth;
+  currentMonth = DateTime.now().month;
+  List<int> arrangeMonthlyOrders;
+
+  //removes all orders without values
+  if (orders == null) {
+    return null;
+  }
+//this function checks orders with less than or equal to 365 difference from the current date
+  String? convertToAgo(ord) {
+    Duration diff = DateTime.now().difference(ord.orderDate);
+    if (diff.inDays <= 365) {
+//gets the Order informtion on a monthly basis
+      switch (ord.orderDate!.month) {
+        case 1:
+          {
+            monthlyOrders[0] = monthlyOrders[0] + 1;
+          }
+          break;
+
+        case 2:
+          {
+            monthlyOrders[1] = monthlyOrders[1] + 1;
+          }
+          break;
+        case 3:
+          {
+            monthlyOrders[2] = monthlyOrders[2] + 1;
+          }
+          break;
+        case 4:
+          {
+            monthlyOrders[3] = monthlyOrders[3] + 1;
+          }
+          break;
+        case 5:
+          {
+            monthlyOrders[4] = monthlyOrders[4] + 1;
+          }
+          break;
+        case 6:
+          {
+            monthlyOrders[5] = monthlyOrders[5] + 1;
+          }
+          break;
+        case 7:
+          {
+            monthlyOrders[6] = monthlyOrders[6] + 1;
+          }
+          break;
+        case 8:
+          {
+            monthlyOrders[7] = monthlyOrders[7] + 1;
+          }
+          break;
+        case 9:
+          {
+            monthlyOrders[8] = monthlyOrders[8] + 1;
+          }
+          break;
+        case 10:
+          {
+            monthlyOrders[9] = monthlyOrders[9] + 1;
+          }
+          break;
+        case 11:
+          {
+            monthlyOrders[10] = monthlyOrders[10] + 1;
+          }
+          break;
+        case 12:
+          {
+            monthlyOrders[11] = monthlyOrders[11] + 1;
+          }
+          break;
+        default:
+          {}
+          break;
+      }
+    }
+    return null;
+  }
+
+// this function Rearranges the retrieved order data wrt in order of oldest to most recent month
+  rearrangeList(int variable, List<int> list) {
+    if (variable >= 0 && variable < list.length) {
+      // Get the sublist from the variable index to the end
+      final sublist = list.sublist(variable);
+
+      // Get the sublist from the start to the variable index
+      final sublist2 = list.sublist(0, variable);
+
+      // Concatenate the two sublists
+      final rearrangedList = sublist + sublist2;
+
+      // Update the original list with the rearranged positions
+      for (var i = 0; i < list.length; i++) {
+        list[i] = rearrangedList[i];
+      }
+    }
+    arrangeMonthlyOrders = list;
+    return arrangeMonthlyOrders;
+  }
+
+  for (var ord in orders) {
+//this checks all orderdata to filter those with difference of 365days
+    convertToAgo(ord);
+  }
+  return rearrangeList(currentMonth, monthlyOrders);
+  // return monthlyOrders;
 }
 
 String? listToSentence(List<String>? listedItems) {
@@ -182,11 +375,30 @@ List<int>? getDataForLineGraph(List<OrdersRecord>? orders) {
         break;
     }
   }
-  return [3, 6, 16];
-  //return order;
+  return order;
 }
 
-List<String> getLabelLineChart() {
+bool isSellerInCart(
+  List<DocumentReference> cartItems,
+  String authSellerId,
+) {
+  List<String> sellerList = [];
+  List<String> getList(List<DocumentReference> productRefList) {
+    for (dynamic docRef in productRefList) {
+      docRef.get().then((DocumentSnapshot snapshot) {
+        if (snapshot.exists) {
+          // Access specific fields
+          sellerList.add(snapshot.get('seller_id'));
+        }
+      }).catchError((error) => print('Error getting document: $error'));
+    }
+    return sellerList;
+  }
+
+  return getList(cartItems).contains(authSellerId);
+}
+
+List<int> getLabelLineChart() {
   List<String> months = [
     "Jan",
     "Feb",
@@ -201,5 +413,114 @@ List<String> getLabelLineChart() {
     "Nov",
     "Dec"
   ];
-  return ['ere', 'dffg', 'fdknj']; //months;
+  List<int> monthsInt = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+  return monthsInt; //months;
+}
+
+List<String>? getProductCatergoryList(List<ProductsRecord> products) {
+  List<String> productCategoriesList = [];
+  List<int> freq = [];
+  Set productCategories = {};
+
+  // List<int> checkCategory(List<ProductsRecord> products) {
+  List<String> checkCategory(List<ProductsRecord> products) {
+    for (var product in products) {
+      productCategories.add(product.category);
+    }
+    for (String productCategory in productCategories) {
+      productCategoriesList.add(productCategory);
+    }
+    //  freq.length = productCategoriesList.length;
+    for (int i = 0; i < productCategoriesList.length; i++) {
+      freq.add(0);
+      freq[i] = 0;
+    }
+    for (var product in products) {
+      for (int cat = 0; cat < productCategoriesList.length; cat++) {
+        if (product.category == productCategoriesList[cat]) {
+          freq[cat] = freq[cat] + 1;
+        }
+      }
+    }
+//    return freq;
+    return productCategoriesList;
+  }
+
+//ypeError: Instance of 'JSArray<dynamic>': type 'JSArray<dynamic>' is not a subtype of type 'Map<String, int>'
+  return checkCategory(products);
+}
+
+double? test1(List<ProductsRecord>? products) {
+  double total = 0.0;
+  double getTotal(List<ProductsRecord> cartProducts) {
+    for (var prices in cartProducts) {
+      total += prices.price as double;
+    }
+    return total;
+  }
+
+  return getTotal(products!);
+}
+
+double? getTotalCostFromCart(List<DocumentReference>? productRefList) {
+  double total = 0.0;
+  /* for (dynamic docRef in productRefList!) {
+    docRef.get().then((DocumentSnapshot snapshot) {
+      if (snapshot.exists) {
+        // Access specific fields
+        lisst.add(snapshot.get('price'));
+      } else {
+        print('Document does not exist');
+      }
+    }).catchError((error) => print('Error getting document: $error'));
+  }*/
+  double getTotal(List<DocumentReference> productRefList) {
+    for (dynamic docRef in productRefList) {
+      docRef.get().then((DocumentSnapshot snapshot) {
+        if (snapshot.exists) {
+          // Access specific fields
+          total += double.parse(snapshot.get('price'));
+        } else {
+          total = total;
+        }
+      }).catchError((error) => print('Error getting document: $error'));
+    }
+    return total;
+  }
+
+  return total;
+}
+
+List<String> listOfSellersInCart(List<DocumentReference> cartItems) {
+  List<String> sellerList = [];
+  List<String> getList(List<DocumentReference> productRefList) {
+    for (dynamic docRef in productRefList) {
+      docRef.get().then((DocumentSnapshot snapshot) {
+        if (snapshot.exists) {
+          // Access specific fields
+          sellerList.add(snapshot.get('seller_id'));
+        }
+      }).catchError((error) => print('Error getting document: $error'));
+    }
+    return sellerList;
+  }
+
+  return getList(cartItems);
+}
+
+List<String> listOfProductIDInCart(List<DocumentReference> cartItems) {
+  List<String> productIdList = [];
+  List<String> getList(List<DocumentReference> productRefList) {
+    for (dynamic docRef in productRefList) {
+      docRef.get().then((DocumentSnapshot snapshot) {
+        if (snapshot.exists) {
+          // Access specific fields
+          productIdList.add(snapshot.get('product_id'));
+        }
+      }).catchError((error) => print('Error getting document: $error'));
+    }
+    return productIdList;
+  }
+
+  return getList(cartItems);
 }

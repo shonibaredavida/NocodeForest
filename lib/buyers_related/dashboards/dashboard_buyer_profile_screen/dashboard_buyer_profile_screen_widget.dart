@@ -2,7 +2,7 @@ import '/auth/firebase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
-import '/buyers_related/sidebar_buyer/sidebar_buyer_widget.dart';
+import '/buyers_related/component/sidebar_buyer/sidebar_buyer_widget.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -33,7 +33,6 @@ class _DashboardBuyerProfileScreenWidgetState
   late DashboardBuyerProfileScreenModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  final _unfocusNode = FocusNode();
 
   @override
   void initState() {
@@ -68,7 +67,6 @@ class _DashboardBuyerProfileScreenWidgetState
   void dispose() {
     _model.dispose();
 
-    _unfocusNode.dispose();
     super.dispose();
   }
 
@@ -77,7 +75,7 @@ class _DashboardBuyerProfileScreenWidgetState
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -1209,15 +1207,6 @@ class _DashboardBuyerProfileScreenWidgetState
                                                                         180.0,
                                                                     height:
                                                                         48.0,
-                                                                    searchHintTextStyle: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyLarge
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'Roboto Condensed',
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).secondaryText,
-                                                                        ),
                                                                     textStyle: FlutterFlowTheme.of(
                                                                             context)
                                                                         .bodyMedium
@@ -1233,8 +1222,6 @@ class _DashboardBuyerProfileScreenWidgetState
                                                                         ),
                                                                     hintText:
                                                                         'Please select...',
-                                                                    searchHintText:
-                                                                        'Search for an item...',
                                                                     fillColor:
                                                                         Color(
                                                                             0xFFFAFAFA),
@@ -1285,8 +1272,9 @@ class _DashboardBuyerProfileScreenWidgetState
                                                     if (_model
                                                             .uploadedFileUrl ==
                                                         '1') {
-                                                      final usersUpdateData1 =
-                                                          createUsersRecordData(
+                                                      await currentUserReference!
+                                                          .update(
+                                                              createUsersRecordData(
                                                         displayName:
                                                             '${_model.fNameTextFieldController.text} ${_model.lNameTextFieldController.text}',
                                                         photoUrl: _model
@@ -1304,13 +1292,11 @@ class _DashboardBuyerProfileScreenWidgetState
                                                             .text,
                                                         location: _model
                                                             .dropDownValue,
-                                                      );
+                                                      ));
+                                                    } else {
                                                       await currentUserReference!
                                                           .update(
-                                                              usersUpdateData1);
-                                                    } else {
-                                                      final usersUpdateData2 =
-                                                          createUsersRecordData(
+                                                              createUsersRecordData(
                                                         displayName:
                                                             '${_model.fNameTextFieldController.text} ${_model.lNameTextFieldController.text}',
                                                         phoneNumber:
@@ -1326,10 +1312,7 @@ class _DashboardBuyerProfileScreenWidgetState
                                                             .text,
                                                         location: _model
                                                             .dropDownValue,
-                                                      );
-                                                      await currentUserReference!
-                                                          .update(
-                                                              usersUpdateData2);
+                                                      ));
                                                     }
 
                                                     await showModalBottomSheet(
@@ -1337,17 +1320,17 @@ class _DashboardBuyerProfileScreenWidgetState
                                                       backgroundColor:
                                                           Colors.transparent,
                                                       context: context,
-                                                      builder:
-                                                          (bottomSheetContext) {
+                                                      builder: (context) {
                                                         return GestureDetector(
                                                           onTap: () => FocusScope
                                                                   .of(context)
-                                                              .requestFocus(
-                                                                  _unfocusNode),
+                                                              .requestFocus(_model
+                                                                  .unfocusNode),
                                                           child: Padding(
-                                                            padding: MediaQuery.of(
-                                                                    bottomSheetContext)
-                                                                .viewInsets,
+                                                            padding:
+                                                                MediaQuery.of(
+                                                                        context)
+                                                                    .viewInsets,
                                                             child:
                                                                 DialogComponentWidget(
                                                               subtitle:

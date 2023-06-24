@@ -27,7 +27,6 @@ class _DashboardSellerProductScreenWidgetState
   late DashboardSellerProductScreenModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  final _unfocusNode = FocusNode();
 
   @override
   void initState() {
@@ -42,7 +41,6 @@ class _DashboardSellerProductScreenWidgetState
   void dispose() {
     _model.dispose();
 
-    _unfocusNode.dispose();
     super.dispose();
   }
 
@@ -51,7 +49,7 @@ class _DashboardSellerProductScreenWidgetState
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -502,7 +500,8 @@ class _DashboardSellerProductScreenWidgetState
                                                   productsRecord.where(
                                                       'seller_id',
                                                       isEqualTo:
-                                                          currentUserUid),
+                                                          currentUserReference
+                                                              ?.id),
                                             ),
                                           ),
                                           builder: (context, snapshot) {

@@ -13,7 +13,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:provider/provider.dart';
 
 class AddProductModel extends FlutterFlowModel {
@@ -25,7 +24,6 @@ class AddProductModel extends FlutterFlowModel {
   String? Function(BuildContext, String?)? productNameFieldControllerValidator;
   // State field(s) for PriceField widget.
   TextEditingController? priceFieldController;
-  final priceFieldMask = MaskTextInputFormatter(mask: '\$ ');
   String? Function(BuildContext, String?)? priceFieldControllerValidator;
   // State field(s) for DescriptionField widget.
   TextEditingController? descriptionFieldController;
@@ -74,7 +72,7 @@ class AddProductModel extends FlutterFlowModel {
   String uploadedFileUrl2 = '';
 
   // Stores action output result for [Backend Call - Create Document] action in Button widget.
-  ProductsRecord? fileUploaded;
+  ProductsRecord? productCreated;
 
   /// Initialization and disposal methods.
 
@@ -92,6 +90,7 @@ class AddProductModel extends FlutterFlowModel {
     tagsFieldController?.dispose();
   }
 
-  /// Additional helper methods are added here.
+  /// Action blocks are added here.
 
+  /// Additional helper methods are added here.
 }

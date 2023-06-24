@@ -1,6 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/buyers_related/sidebar_buyer/sidebar_buyer_widget.dart';
+import '/buyers_related/component/sidebar_buyer/sidebar_buyer_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/main_components/header/header_widget.dart';
@@ -24,7 +24,6 @@ class _DashboardBuyerWidgetState extends State<DashboardBuyerWidget> {
   late DashboardBuyerModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  final _unfocusNode = FocusNode();
 
   @override
   void initState() {
@@ -39,7 +38,6 @@ class _DashboardBuyerWidgetState extends State<DashboardBuyerWidget> {
   void dispose() {
     _model.dispose();
 
-    _unfocusNode.dispose();
     super.dispose();
   }
 
@@ -48,7 +46,7 @@ class _DashboardBuyerWidgetState extends State<DashboardBuyerWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,

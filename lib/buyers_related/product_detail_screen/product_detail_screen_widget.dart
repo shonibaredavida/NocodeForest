@@ -34,7 +34,6 @@ class _ProductDetailScreenWidgetState extends State<ProductDetailScreenWidget> {
   late ProductDetailScreenModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  final _unfocusNode = FocusNode();
 
   @override
   void initState() {
@@ -48,7 +47,6 @@ class _ProductDetailScreenWidgetState extends State<ProductDetailScreenWidget> {
   void dispose() {
     _model.dispose();
 
-    _unfocusNode.dispose();
     super.dispose();
   }
 
@@ -61,20 +59,23 @@ class _ProductDetailScreenWidgetState extends State<ProductDetailScreenWidget> {
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
         if (!snapshot.hasData) {
-          return Center(
-            child: SizedBox(
-              width: 50.0,
-              height: 50.0,
-              child: SpinKitCubeGrid(
-                color: FlutterFlowTheme.of(context).primary,
-                size: 50.0,
+          return Scaffold(
+            backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+            body: Center(
+              child: SizedBox(
+                width: 50.0,
+                height: 50.0,
+                child: SpinKitCubeGrid(
+                  color: FlutterFlowTheme.of(context).primary,
+                  size: 50.0,
+                ),
               ),
             ),
           );
         }
         final productDetailScreenProductsRecord = snapshot.data!;
         return GestureDetector(
-          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+          onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
           child: Scaffold(
             key: scaffoldKey,
             backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -116,16 +117,22 @@ class _ProductDetailScreenWidgetState extends State<ProductDetailScreenWidget> {
                           Column(
                             mainAxisSize: MainAxisSize.max,
                             children: [
-                              Container(
-                                width: 1256.0,
-                                height: 123.1,
-                                decoration: BoxDecoration(),
-                                child: wrapWithModel(
-                                  model: _model.headerModel,
-                                  updateCallback: () => setState(() {}),
-                                  child: HeaderWidget(),
+                              if (valueOrDefault<bool>(
+                                      currentUserDocument?.admin, false)
+                                  ? false
+                                  : true)
+                                AuthUserStreamWidget(
+                                  builder: (context) => Container(
+                                    width: 1256.0,
+                                    height: 123.1,
+                                    decoration: BoxDecoration(),
+                                    child: wrapWithModel(
+                                      model: _model.headerModel,
+                                      updateCallback: () => setState(() {}),
+                                      child: HeaderWidget(),
+                                    ),
+                                  ),
                                 ),
-                              ),
                               Container(
                                 width: double.infinity,
                                 decoration: BoxDecoration(
@@ -164,7 +171,7 @@ class _ProductDetailScreenWidgetState extends State<ProductDetailScreenWidget> {
                                                     currentUserDocument?.admin,
                                                     false)) {
                                                   context.pushNamed(
-                                                      'dashboardBuyer');
+                                                      'landingPageBuyers');
                                                 }
                                               },
                                               child: Text(
@@ -726,48 +733,50 @@ class _ProductDetailScreenWidgetState extends State<ProductDetailScreenWidget> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            ToggleIcon(
-                                              onPressed: () async {
-                                                final likedByElement =
-                                                    currentUserReference;
-                                                final likedByUpdate =
+                                            if (FFAppState().NotNeedNow)
+                                              ToggleIcon(
+                                                onPressed: () async {
+                                                  final likedByElement =
+                                                      currentUserReference;
+                                                  final likedByUpdate =
+                                                      productDetailScreenProductsRecord
+                                                              .likedBy
+                                                              .contains(
+                                                                  likedByElement)
+                                                          ? FieldValue
+                                                              .arrayRemove([
+                                                              likedByElement
+                                                            ])
+                                                          : FieldValue
+                                                              .arrayUnion([
+                                                              likedByElement
+                                                            ]);
+                                                  await productDetailScreenProductsRecord
+                                                      .reference
+                                                      .update({
+                                                    'liked_by': likedByUpdate,
+                                                  });
+                                                },
+                                                value:
                                                     productDetailScreenProductsRecord
-                                                            .likedBy
-                                                            .contains(
-                                                                likedByElement)
-                                                        ? FieldValue
-                                                            .arrayRemove([
-                                                            likedByElement
-                                                          ])
-                                                        : FieldValue.arrayUnion(
-                                                            [likedByElement]);
-                                                final productsUpdateData = {
-                                                  'liked_by': likedByUpdate,
-                                                };
-                                                await productDetailScreenProductsRecord
-                                                    .reference
-                                                    .update(productsUpdateData);
-                                              },
-                                              value:
-                                                  productDetailScreenProductsRecord
-                                                      .likedBy
-                                                      .contains(
-                                                          currentUserReference),
-                                              onIcon: Icon(
-                                                Icons.favorite_rounded,
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
-                                                size: 40.0,
+                                                        .likedBy
+                                                        .contains(
+                                                            currentUserReference),
+                                                onIcon: Icon(
+                                                  Icons.favorite_rounded,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primary,
+                                                  size: 40.0,
+                                                ),
+                                                offIcon: Icon(
+                                                  Icons.favorite_border,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .accent2,
+                                                  size: 40.0,
+                                                ),
                                               ),
-                                              offIcon: Icon(
-                                                Icons.favorite_border,
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .accent2,
-                                                size: 40.0,
-                                              ),
-                                            ),
                                           ],
                                         ),
                                       ),
@@ -1145,7 +1154,7 @@ class _ProductDetailScreenWidgetState extends State<ProductDetailScreenWidget> {
                                                                               () async {
                                                                             context.pushNamed(
                                                                               'productDetailScreen',
-                                                                              queryParams: {
+                                                                              queryParameters: {
                                                                                 'productRef': serializeParam(
                                                                                   listViewProductsRecord.reference,
                                                                                   ParamType.DocumentReference,
@@ -1226,10 +1235,7 @@ class _ProductDetailScreenWidgetState extends State<ProductDetailScreenWidget> {
                                             68.0, 0.0, 0.0, 0.0),
                                         child: Container(
                                           width: 350.0,
-                                          decoration: BoxDecoration(
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryBackground,
-                                          ),
+                                          decoration: BoxDecoration(),
                                           child: Column(
                                             mainAxisSize: MainAxisSize.max,
                                             crossAxisAlignment:
@@ -1506,139 +1512,225 @@ class _ProductDetailScreenWidgetState extends State<ProductDetailScreenWidget> {
                                                               ],
                                                             ),
                                                           ),
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0.0,
-                                                                        24.0,
-                                                                        0.0,
-                                                                        0.0),
-                                                            child:
-                                                                FFButtonWidget(
-                                                              onPressed:
-                                                                  () async {
-                                                                if (FFAppState()
-                                                                        .cart
-                                                                        .contains(
-                                                                            productDetailScreenProductsRecord.reference) ==
-                                                                    true) {
-                                                                  await showDialog(
-                                                                    context:
-                                                                        context,
+                                                          if (FFAppState()
+                                                              .NotNeedNow)
+                                                            Container(
+                                                              decoration:
+                                                                  BoxDecoration(),
+                                                              child: Visibility(
+                                                                visible: valueOrDefault<
+                                                                            bool>(
+                                                                        currentUserDocument
+                                                                            ?.admin,
+                                                                        false)
+                                                                    ? false
+                                                                    : true,
+                                                                child: Padding(
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          24.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                                  child:
+                                                                      AuthUserStreamWidget(
                                                                     builder:
-                                                                        (alertDialogContext) {
-                                                                      return AlertDialog(
-                                                                        content:
-                                                                            Text('Template is already in Cart'),
-                                                                        actions: [
-                                                                          TextButton(
-                                                                            onPressed: () =>
-                                                                                Navigator.pop(alertDialogContext),
-                                                                            child:
-                                                                                Text('Ok'),
-                                                                          ),
-                                                                        ],
-                                                                      );
-                                                                    },
-                                                                  );
-                                                                } else {
-                                                                  setState(() {
-                                                                    FFAppState()
-                                                                        .addToCart(
-                                                                            widget.productRef!);
-                                                                  });
-                                                                  await showDialog(
-                                                                    context:
-                                                                        context,
-                                                                    builder:
-                                                                        (alertDialogContext) {
-                                                                      return AlertDialog(
-                                                                        content:
-                                                                            Text('Template Successfully added to Cart'),
-                                                                        actions: [
-                                                                          TextButton(
-                                                                            onPressed: () =>
-                                                                                Navigator.pop(alertDialogContext),
-                                                                            child:
-                                                                                Text('Ok'),
-                                                                          ),
-                                                                        ],
-                                                                      );
-                                                                    },
-                                                                  );
-                                                                }
+                                                                        (context) =>
+                                                                            FFButtonWidget(
+                                                                      onPressed:
+                                                                          () async {
+                                                                        if (FFAppState().userCart.contains(widget.productRef) ==
+                                                                            true) {
+                                                                          await showDialog(
+                                                                            context:
+                                                                                context,
+                                                                            builder:
+                                                                                (alertDialogContext) {
+                                                                              return AlertDialog(
+                                                                                content: Text('Template is already in Cart'),
+                                                                                actions: [
+                                                                                  TextButton(
+                                                                                    onPressed: () => Navigator.pop(alertDialogContext),
+                                                                                    child: Text('Ok'),
+                                                                                  ),
+                                                                                ],
+                                                                              );
+                                                                            },
+                                                                          );
+                                                                        } else {
+                                                                          setState(
+                                                                              () {
+                                                                            FFAppState().addToUserCart(widget.productRef!);
+                                                                          });
+                                                                          await showDialog(
+                                                                            context:
+                                                                                context,
+                                                                            builder:
+                                                                                (alertDialogContext) {
+                                                                              return AlertDialog(
+                                                                                content: Text('Template Successfully added to Cart'),
+                                                                                actions: [
+                                                                                  TextButton(
+                                                                                    onPressed: () => Navigator.pop(alertDialogContext),
+                                                                                    child: Text('Ok'),
+                                                                                  ),
+                                                                                ],
+                                                                              );
+                                                                            },
+                                                                          );
+                                                                        }
 
-                                                                final productsCreateData =
-                                                                    {
-                                                                  'liked_by': [
-                                                                    productDetailScreenProductsRecord
-                                                                        .likedBy
-                                                                        .first
-                                                                  ],
-                                                                };
-                                                                await ProductsRecord
-                                                                    .collection
-                                                                    .doc()
-                                                                    .set(
-                                                                        productsCreateData);
-                                                              },
-                                                              text:
-                                                                  'Add to Cart',
-                                                              icon: Icon(
-                                                                Icons
-                                                                    .shopping_cart_outlined,
-                                                                size: 18.0,
-                                                              ),
-                                                              options:
-                                                                  FFButtonOptions(
-                                                                width: double
-                                                                    .infinity,
-                                                                height: 48.0,
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
+                                                                        await ProductsRecord
+                                                                            .collection
+                                                                            .doc()
+                                                                            .set({
+                                                                          'liked_by':
+                                                                              [
+                                                                            productDetailScreenProductsRecord.likedBy.first
+                                                                          ],
+                                                                        });
+                                                                      },
+                                                                      text:
+                                                                          'Add to Cart',
+                                                                      icon:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .shopping_cart_outlined,
+                                                                        size:
+                                                                            18.0,
+                                                                      ),
+                                                                      options:
+                                                                          FFButtonOptions(
+                                                                        width: double
+                                                                            .infinity,
+                                                                        height:
+                                                                            48.0,
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
                                                                             0.0,
                                                                             0.0,
                                                                             0.0,
                                                                             0.0),
-                                                                iconPadding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
+                                                                        iconPadding: EdgeInsetsDirectional.fromSTEB(
                                                                             0.0,
                                                                             0.0,
                                                                             0.0,
                                                                             0.0),
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primary,
-                                                                textStyle: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .titleSmall
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Roboto Condensed',
-                                                                      color: Colors
-                                                                          .white,
-                                                                      lineHeight:
-                                                                          1.5,
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .primary,
+                                                                        textStyle: FlutterFlowTheme.of(context)
+                                                                            .titleSmall
+                                                                            .override(
+                                                                              fontFamily: 'Roboto Condensed',
+                                                                              color: Colors.white,
+                                                                              lineHeight: 1.5,
+                                                                            ),
+                                                                        borderSide:
+                                                                            BorderSide(
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).secondaryText,
+                                                                          width:
+                                                                              1.0,
+                                                                        ),
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(4.0),
+                                                                      ),
+                                                                      showLoadingIndicator:
+                                                                          false,
                                                                     ),
-                                                                borderSide:
-                                                                    BorderSide(
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .secondaryText,
-                                                                  width: 1.0,
+                                                                  ),
                                                                 ),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            4.0),
                                                               ),
-                                                              showLoadingIndicator:
-                                                                  false,
                                                             ),
-                                                          ),
+                                                          if (valueOrDefault<
+                                                                      bool>(
+                                                                  currentUserDocument
+                                                                      ?.admin,
+                                                                  false)
+                                                              ? false
+                                                              : true)
+                                                            Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          24.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                              child:
+                                                                  AuthUserStreamWidget(
+                                                                builder:
+                                                                    (context) =>
+                                                                        FFButtonWidget(
+                                                                  onPressed:
+                                                                      () async {
+                                                                    await ProductsRecord
+                                                                        .collection
+                                                                        .doc()
+                                                                        .set({
+                                                                      'liked_by':
+                                                                          [
+                                                                        productDetailScreenProductsRecord
+                                                                            .likedBy
+                                                                            .first
+                                                                      ],
+                                                                    });
+                                                                  },
+                                                                  text:
+                                                                      'Buy Now',
+                                                                  icon: Icon(
+                                                                    Icons
+                                                                        .shopping_cart_outlined,
+                                                                    size: 18.0,
+                                                                  ),
+                                                                  options:
+                                                                      FFButtonOptions(
+                                                                    width: double
+                                                                        .infinity,
+                                                                    height:
+                                                                        48.0,
+                                                                    padding: EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                    iconPadding:
+                                                                        EdgeInsetsDirectional.fromSTEB(
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primary,
+                                                                    textStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .titleSmall
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              'Roboto Condensed',
+                                                                          color:
+                                                                              Colors.white,
+                                                                          lineHeight:
+                                                                              1.5,
+                                                                        ),
+                                                                    borderSide:
+                                                                        BorderSide(
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .secondaryText,
+                                                                      width:
+                                                                          1.0,
+                                                                    ),
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            4.0),
+                                                                  ),
+                                                                  showLoadingIndicator:
+                                                                      false,
+                                                                ),
+                                                              ),
+                                                            ),
                                                           Container(
                                                             decoration:
                                                                 BoxDecoration(

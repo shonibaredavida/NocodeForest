@@ -11,6 +11,7 @@ import 'package:provider/provider.dart';
 class OrderCompletedScreenModel extends FlutterFlowModel {
   ///  State fields for stateful widgets in this page.
 
+  final unfocusNode = FocusNode();
   // Model for header component.
   late HeaderModel headerModel;
   // Model for footerComponent component.
@@ -24,10 +25,12 @@ class OrderCompletedScreenModel extends FlutterFlowModel {
   }
 
   void dispose() {
+    unfocusNode.dispose();
     headerModel.dispose();
     footerComponentModel.dispose();
   }
 
-  /// Additional helper methods are added here.
+  /// Action blocks are added here.
 
+  /// Additional helper methods are added here.
 }

@@ -24,7 +24,6 @@ class _OnboardingSellersScreen289WidgetState
   late OnboardingSellersScreen289Model _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  final _unfocusNode = FocusNode();
 
   @override
   void initState() {
@@ -40,7 +39,6 @@ class _OnboardingSellersScreen289WidgetState
   void dispose() {
     _model.dispose();
 
-    _unfocusNode.dispose();
     super.dispose();
   }
 
@@ -49,7 +47,7 @@ class _OnboardingSellersScreen289WidgetState
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -428,7 +426,9 @@ class _OnboardingSellersScreen289WidgetState
                                               return;
                                             }
 
-                                            final usersCreateData = {
+                                            await UsersRecord.collection
+                                                .doc(user.uid)
+                                                .update({
                                               ...createUsersRecordData(
                                                 status: 'active',
                                                 becomeASeller: false,
@@ -436,10 +436,7 @@ class _OnboardingSellersScreen289WidgetState
                                               ),
                                               'created_time':
                                                   FieldValue.serverTimestamp(),
-                                            };
-                                            await UsersRecord.collection
-                                                .doc(user.uid)
-                                                .update(usersCreateData);
+                                            });
 
                                             context.pushNamedAuth(
                                                 'onboardingSellersScreen2',

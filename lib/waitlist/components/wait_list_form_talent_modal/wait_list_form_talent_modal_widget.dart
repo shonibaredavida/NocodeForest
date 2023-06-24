@@ -482,17 +482,6 @@ class _WaitListFormTalentModalWidgetState
                                                                       val),
                                                           width: 180.0,
                                                           height: 48.0,
-                                                          searchHintTextStyle:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyLarge
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Roboto Condensed',
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .secondaryText,
-                                                                  ),
                                                           textStyle:
                                                               FlutterFlowTheme.of(
                                                                       context)
@@ -509,8 +498,6 @@ class _WaitListFormTalentModalWidgetState
                                                                   ),
                                                           hintText:
                                                               'Select Option',
-                                                          searchHintText:
-                                                              'Search for an item...',
                                                           fillColor: widget
                                                               .textboxBgColor,
                                                           elevation: 2.0,
@@ -863,17 +850,6 @@ class _WaitListFormTalentModalWidgetState
                                                               val),
                                                       width: 180.0,
                                                       height: 48.0,
-                                                      searchHintTextStyle:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyLarge
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Roboto Condensed',
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .secondaryText,
-                                                              ),
                                                       textStyle:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -888,8 +864,6 @@ class _WaitListFormTalentModalWidgetState
                                                               ),
                                                       hintText:
                                                           'Select your Country',
-                                                      searchHintText:
-                                                          'Search for an item...',
                                                       fillColor:
                                                           widget.textboxBgColor,
                                                       elevation: 2.0,
@@ -963,17 +937,6 @@ class _WaitListFormTalentModalWidgetState
                                                               val),
                                                       width: 180.0,
                                                       height: 48.0,
-                                                      searchHintTextStyle:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyLarge
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Roboto Condensed',
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .secondaryText,
-                                                              ),
                                                       textStyle:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -987,8 +950,6 @@ class _WaitListFormTalentModalWidgetState
                                                                 lineHeight: 1.5,
                                                               ),
                                                       hintText: 'Select Option',
-                                                      searchHintText:
-                                                          'Search for an item...',
                                                       fillColor:
                                                           widget.textboxBgColor,
                                                       elevation: 2.0,
@@ -1205,7 +1166,9 @@ class _WaitListFormTalentModalWidgetState
                                                     null &&
                                                 _model.nocodertoolsDropDownValue !=
                                                     '')) {
-                                          final waitlistTalentCreateData = {
+                                          await WaitlistTalentRecord.collection
+                                              .doc()
+                                              .set({
                                             ...createWaitlistTalentRecordData(
                                               country:
                                                   _model.locationDropDownValue,
@@ -1229,10 +1192,7 @@ class _WaitListFormTalentModalWidgetState
                                             ),
                                             'created_time':
                                                 FieldValue.serverTimestamp(),
-                                          };
-                                          await WaitlistTalentRecord.collection
-                                              .doc()
-                                              .set(waitlistTalentCreateData);
+                                          });
                                           setState(() {
                                             _model.nameTextFieldController
                                                 ?.clear();
@@ -1252,10 +1212,9 @@ class _WaitListFormTalentModalWidgetState
                                             backgroundColor: Colors.transparent,
                                             enableDrag: false,
                                             context: context,
-                                            builder: (bottomSheetContext) {
+                                            builder: (context) {
                                               return Padding(
-                                                padding: MediaQuery.of(
-                                                        bottomSheetContext)
+                                                padding: MediaQuery.of(context)
                                                     .viewInsets,
                                                 child: SuccessPageWidget(),
                                               );

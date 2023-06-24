@@ -40,6 +40,7 @@ class SidebarSellerWidget extends StatefulWidget {
     bool? p5State,
     bool? profileState,
     bool? logoutState,
+    bool? p6State,
   })  : this.iconOneColor = iconOneColor ?? const Color(0xFF99969E),
         this.iconTwoColor = iconTwoColor ?? const Color(0xFF99969E),
         this.iconThreeColor = iconThreeColor ?? const Color(0xFF99969E),
@@ -66,6 +67,7 @@ class SidebarSellerWidget extends StatefulWidget {
         this.p5State = p5State ?? false,
         this.profileState = profileState ?? false,
         this.logoutState = logoutState ?? false,
+        this.p6State = p6State ?? false,
         super(key: key);
 
   final Color iconOneColor;
@@ -94,6 +96,7 @@ class SidebarSellerWidget extends StatefulWidget {
   final bool p5State;
   final bool profileState;
   final bool logoutState;
+  final bool p6State;
 
   @override
   _SidebarSellerWidgetState createState() => _SidebarSellerWidgetState();
@@ -660,39 +663,59 @@ class _SidebarSellerWidgetState extends State<SidebarSellerWidget>
                     Padding(
                       padding:
                           EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 20.0),
-                      child: Container(
-                        width: double.infinity,
-                        height: 40.0,
-                        decoration: BoxDecoration(
-                          color: widget.bGColor6,
-                          borderRadius: BorderRadius.circular(4.0),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              8.0, 4.0, 4.0, 4.0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 12.0, 0.0),
-                                child: SvgPicture.asset(
-                                  'assets/images/Vector.svg',
-                                  width: 24.0,
-                                  height: 24.0,
-                                  fit: BoxFit.cover,
+                      child: InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          if (!widget.p6State) {
+                            context.pushNamed(
+                              'dashboardSellerCustomers',
+                              extra: <String, dynamic>{
+                                kTransitionInfoKey: TransitionInfo(
+                                  hasTransition: true,
+                                  transitionType: PageTransitionType.fade,
+                                  duration: Duration(milliseconds: 0),
                                 ),
-                              ),
-                              Text(
-                                'Customers',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Roboto Condensed',
-                                      color: widget.iconSixColor,
-                                    ),
-                              ),
-                            ],
+                              },
+                            );
+                          }
+                        },
+                        child: Container(
+                          width: double.infinity,
+                          height: 40.0,
+                          decoration: BoxDecoration(
+                            color: widget.bGColor6,
+                            borderRadius: BorderRadius.circular(4.0),
+                          ),
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                8.0, 4.0, 4.0, 4.0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 12.0, 0.0),
+                                  child: SvgPicture.asset(
+                                    'assets/images/Vector.svg',
+                                    width: 24.0,
+                                    height: 24.0,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                Text(
+                                  'Customers',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Roboto Condensed',
+                                        color: widget.iconSixColor,
+                                      ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ).animateOnPageLoad(

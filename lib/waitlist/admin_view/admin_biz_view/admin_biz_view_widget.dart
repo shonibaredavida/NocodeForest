@@ -22,7 +22,6 @@ class _AdminBizViewWidgetState extends State<AdminBizViewWidget> {
   late AdminBizViewModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  final _unfocusNode = FocusNode();
 
   @override
   void initState() {
@@ -37,7 +36,6 @@ class _AdminBizViewWidgetState extends State<AdminBizViewWidget> {
   void dispose() {
     _model.dispose();
 
-    _unfocusNode.dispose();
     super.dispose();
   }
 
@@ -46,7 +44,7 @@ class _AdminBizViewWidgetState extends State<AdminBizViewWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -1082,16 +1080,16 @@ class _AdminBizViewWidgetState extends State<AdminBizViewWidget> {
                                                                 Colors
                                                                     .transparent,
                                                             context: context,
-                                                            builder:
-                                                                (bottomSheetContext) {
+                                                            builder: (context) {
                                                               return GestureDetector(
                                                                 onTap: () => FocusScope.of(
                                                                         context)
                                                                     .requestFocus(
-                                                                        _unfocusNode),
+                                                                        _model
+                                                                            .unfocusNode),
                                                                 child: Padding(
                                                                   padding: MediaQuery.of(
-                                                                          bottomSheetContext)
+                                                                          context)
                                                                       .viewInsets,
                                                                   child:
                                                                       DialogComponentWidget(

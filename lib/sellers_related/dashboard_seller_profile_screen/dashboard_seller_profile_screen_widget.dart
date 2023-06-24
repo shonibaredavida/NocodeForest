@@ -33,7 +33,6 @@ class _DashboardSellerProfileScreenWidgetState
   late DashboardSellerProfileScreenModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  final _unfocusNode = FocusNode();
 
   @override
   void initState() {
@@ -57,7 +56,6 @@ class _DashboardSellerProfileScreenWidgetState
   void dispose() {
     _model.dispose();
 
-    _unfocusNode.dispose();
     super.dispose();
   }
 
@@ -66,7 +64,7 @@ class _DashboardSellerProfileScreenWidgetState
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -1137,15 +1135,6 @@ class _DashboardSellerProfileScreenWidgetState
                                                                         180.0,
                                                                     height:
                                                                         48.0,
-                                                                    searchHintTextStyle: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyLarge
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'Roboto Condensed',
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).secondaryText,
-                                                                        ),
                                                                     textStyle: FlutterFlowTheme.of(
                                                                             context)
                                                                         .bodyMedium
@@ -1161,8 +1150,6 @@ class _DashboardSellerProfileScreenWidgetState
                                                                         ),
                                                                     hintText:
                                                                         'Please select...',
-                                                                    searchHintText:
-                                                                        'Search for an item...',
                                                                     fillColor:
                                                                         Color(
                                                                             0xFFFAFAFA),
@@ -1373,8 +1360,9 @@ class _DashboardSellerProfileScreenWidgetState
                                                       if (_model
                                                               .uploadedFileUrl ==
                                                           '1') {
-                                                        final usersUpdateData1 =
-                                                            createUsersRecordData(
+                                                        await currentUserReference!
+                                                            .update(
+                                                                createUsersRecordData(
                                                           photoUrl: _model
                                                               .uploadedFileUrl,
                                                           uid: '',
@@ -1395,13 +1383,11 @@ class _DashboardSellerProfileScreenWidgetState
                                                           bio: _model
                                                               .textController6
                                                               .text,
-                                                        );
+                                                        ));
+                                                      } else {
                                                         await currentUserReference!
                                                             .update(
-                                                                usersUpdateData1);
-                                                      } else {
-                                                        final usersUpdateData2 =
-                                                            createUsersRecordData(
+                                                                createUsersRecordData(
                                                           uid: '',
                                                           phoneNumber: _model
                                                               .textController5
@@ -1420,10 +1406,7 @@ class _DashboardSellerProfileScreenWidgetState
                                                           bio: _model
                                                               .textController6
                                                               .text,
-                                                        );
-                                                        await currentUserReference!
-                                                            .update(
-                                                                usersUpdateData2);
+                                                        ));
                                                       }
 
                                                       await showModalBottomSheet(
@@ -1432,16 +1415,15 @@ class _DashboardSellerProfileScreenWidgetState
                                                         backgroundColor:
                                                             Colors.transparent,
                                                         context: context,
-                                                        builder:
-                                                            (bottomSheetContext) {
+                                                        builder: (context) {
                                                           return GestureDetector(
                                                             onTap: () => FocusScope
                                                                     .of(context)
-                                                                .requestFocus(
-                                                                    _unfocusNode),
+                                                                .requestFocus(_model
+                                                                    .unfocusNode),
                                                             child: Padding(
-                                                              padding: MediaQuery.of(
-                                                                      bottomSheetContext)
+                                                              padding: MediaQuery
+                                                                      .of(context)
                                                                   .viewInsets,
                                                               child:
                                                                   DialogComponentWidget(

@@ -5,8 +5,9 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/main_components/footer_component/footer_component_widget.dart';
 import '/main_components/header/header_widget.dart';
-import '/flutter_flow/request_manager.dart';
-
+import '/custom_code/widgets/index.dart' as custom_widgets;
+import '/flutter_flow/custom_functions.dart' as functions;
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -15,30 +16,16 @@ import 'package:provider/provider.dart';
 class BuyerCartScreenModel extends FlutterFlowModel {
   ///  State fields for stateful widgets in this page.
 
+  final unfocusNode = FocusNode();
   // Model for header component.
   late HeaderModel headerModel;
   // State field(s) for TextField widget.
   TextEditingController? textController;
   String? Function(BuildContext, String?)? textControllerValidator;
+  // Stores action output result for [Backend Call - Create Document] action in Button widget.
+  OrdersRecord? orderSent;
   // Model for footerComponent component.
   late FooterComponentModel footerComponentModel;
-
-  /// Query cache managers for this widget.
-
-  final _cartItemsManager = FutureRequestManager<ProductsRecord>();
-  Future<ProductsRecord> cartItems({
-    String? uniqueQueryKey,
-    bool? overrideCache,
-    required Future<ProductsRecord> Function() requestFn,
-  }) =>
-      _cartItemsManager.performRequest(
-        uniqueQueryKey: uniqueQueryKey,
-        overrideCache: overrideCache,
-        requestFn: requestFn,
-      );
-  void clearCartItemsCache() => _cartItemsManager.clear();
-  void clearCartItemsCacheKey(String? uniqueKey) =>
-      _cartItemsManager.clearRequest(uniqueKey);
 
   /// Initialization and disposal methods.
 
@@ -48,15 +35,13 @@ class BuyerCartScreenModel extends FlutterFlowModel {
   }
 
   void dispose() {
+    unfocusNode.dispose();
     headerModel.dispose();
     textController?.dispose();
     footerComponentModel.dispose();
-
-    /// Dispose query cache managers for this widget.
-
-    clearCartItemsCache();
   }
 
-  /// Additional helper methods are added here.
+  /// Action blocks are added here.
 
+  /// Additional helper methods are added here.
 }

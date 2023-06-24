@@ -24,8 +24,8 @@ export '/pages/n_o_tu_s_e_d/testing2/testing2_widget.dart' show Testing2Widget;
 export '/buyers_related/dashboards/dashboard_buyer_profile_screen/dashboard_buyer_profile_screen_widget.dart'
     show DashboardBuyerProfileScreenWidget;
 export '/pages/n_o_tu_s_e_d/testing3/testing3_widget.dart' show Testing3Widget;
-export '/buyers_related/dashboards/dashboard_buyer_download_scren/dashboard_buyer_download_scren_widget.dart'
-    show DashboardBuyerDownloadScrenWidget;
+export '/buyers_related/dashboards/dashboard_buyer_download_screen/dashboard_buyer_download_screen_widget.dart'
+    show DashboardBuyerDownloadScreenWidget;
 export '/buyers_related/dashboards/dashboard_buyer/dashboard_buyer_widget.dart'
     show DashboardBuyerWidget;
 export '/pages/n_o_tu_s_e_d/landing_waitlist_coppp/landing_waitlist_coppp_widget.dart'
@@ -65,4 +65,10 @@ export '/pages/n_o_tu_s_e_d/admin_all_users/admin_all_users_widget.dart'
     show AdminAllUsersWidget;
 export '/admin/admin_products/admin_products_widget.dart'
     show AdminProductsWidget;
-export '/admin/admin_users/admin_users_widget.dart' show AdminUsersWidget;
+export '/admin/admin_users_list/admin_users_list_widget.dart'
+    show AdminUsersListWidget;
+export '/sellers_related/dashboard_seller_customers/dashboard_seller_customers_widget.dart'
+    show DashboardSellerCustomersWidget;
+export '/admin/admins_list/admins_list_widget.dart' show AdminsListWidget;
+export '/buyers_related/buyer_previous_views_screen/buyer_previous_views_screen_widget.dart'
+    show BuyerPreviousViewsScreenWidget;

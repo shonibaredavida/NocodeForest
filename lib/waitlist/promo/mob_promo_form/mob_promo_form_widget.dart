@@ -612,15 +612,6 @@ class _MobPromoFormWidgetState extends State<MobPromoFormWidget> {
                                                   val),
                                           width: 279.0,
                                           height: 48.0,
-                                          searchHintTextStyle: FlutterFlowTheme
-                                                  .of(context)
-                                              .bodyLarge
-                                              .override(
-                                                fontFamily: 'Roboto Condensed',
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryText,
-                                              ),
                                           textStyle: FlutterFlowTheme.of(
                                                   context)
                                               .bodyMedium
@@ -633,7 +624,6 @@ class _MobPromoFormWidgetState extends State<MobPromoFormWidget> {
                                                 lineHeight: 1.5,
                                               ),
                                           hintText: 'Select Option',
-                                          searchHintText: '',
                                           fillColor: Color(0xFF3F3F3F),
                                           elevation: 2.0,
                                           borderColor: Colors.transparent,
@@ -687,15 +677,6 @@ class _MobPromoFormWidgetState extends State<MobPromoFormWidget> {
                                               _model.offerDropDownValue = val),
                                           width: 279.0,
                                           height: 48.0,
-                                          searchHintTextStyle: FlutterFlowTheme
-                                                  .of(context)
-                                              .bodyLarge
-                                              .override(
-                                                fontFamily: 'Roboto Condensed',
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryText,
-                                              ),
                                           textStyle: FlutterFlowTheme.of(
                                                   context)
                                               .bodyMedium
@@ -708,7 +689,6 @@ class _MobPromoFormWidgetState extends State<MobPromoFormWidget> {
                                                 lineHeight: 1.5,
                                               ),
                                           hintText: 'Select Option',
-                                          searchHintText: '',
                                           fillColor: Color(0xFF3F3F3F),
                                           elevation: 2.0,
                                           borderColor: Colors.transparent,
@@ -756,7 +736,9 @@ class _MobPromoFormWidgetState extends State<MobPromoFormWidget> {
                                           (_model.offerDropDownValue != null &&
                                               _model.offerDropDownValue !=
                                                   '')) {
-                                        final promoRecordsCreateData = {
+                                        await PromoRecordsRecord.collection
+                                            .doc()
+                                            .set({
                                           ...createPromoRecordsRecordData(
                                             email: _model
                                                 .emailTextFieldController.text,
@@ -774,10 +756,7 @@ class _MobPromoFormWidgetState extends State<MobPromoFormWidget> {
                                           ),
                                           'time_created':
                                               FieldValue.serverTimestamp(),
-                                        };
-                                        await PromoRecordsRecord.collection
-                                            .doc()
-                                            .set(promoRecordsCreateData);
+                                        });
                                         setState(() {
                                           _model.industryDropDownValueController
                                               ?.reset();
@@ -800,10 +779,9 @@ class _MobPromoFormWidgetState extends State<MobPromoFormWidget> {
                                           isDismissible: false,
                                           enableDrag: false,
                                           context: context,
-                                          builder: (bottomSheetContext) {
+                                          builder: (context) {
                                             return Padding(
-                                              padding: MediaQuery.of(
-                                                      bottomSheetContext)
+                                              padding: MediaQuery.of(context)
                                                   .viewInsets,
                                               child:
                                                   MobilepromoSuccess2Widget(),

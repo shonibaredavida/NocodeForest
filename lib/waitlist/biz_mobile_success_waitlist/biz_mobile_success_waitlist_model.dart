@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 class BizMobileSuccessWaitlistModel extends FlutterFlowModel {
   ///  State fields for stateful widgets in this page.
 
+  final unfocusNode = FocusNode();
   // Model for footerMobilewaitlist component.
   late FooterMobilewaitlistModel footerMobilewaitlistModel;
 
@@ -23,9 +24,11 @@ class BizMobileSuccessWaitlistModel extends FlutterFlowModel {
   }
 
   void dispose() {
+    unfocusNode.dispose();
     footerMobilewaitlistModel.dispose();
   }
 
-  /// Additional helper methods are added here.
+  /// Action blocks are added here.
 
+  /// Additional helper methods are added here.
 }

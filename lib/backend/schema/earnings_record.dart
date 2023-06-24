@@ -19,11 +19,6 @@ class EarningsRecord extends FirestoreRecord {
   double get totalEarnings => _totalEarnings ?? 0.0;
   bool hasTotalEarnings() => _totalEarnings != null;
 
-  // "total_withdrawals" field.
-  double? _totalWithdrawals;
-  double get totalWithdrawals => _totalWithdrawals ?? 0.0;
-  bool hasTotalWithdrawals() => _totalWithdrawals != null;
-
   // "last_withdrawal" field.
   double? _lastWithdrawal;
   double get lastWithdrawal => _lastWithdrawal ?? 0.0;
@@ -44,25 +39,30 @@ class EarningsRecord extends FirestoreRecord {
   String get sellerId => _sellerId ?? '';
   bool hasSellerId() => _sellerId != null;
 
-  // "product_id" field.
-  String? _productId;
-  String get productId => _productId ?? '';
-  bool hasProductId() => _productId != null;
+  // "specific_arnings" field.
+  List<EarningsStruct>? _specificArnings;
+  List<EarningsStruct> get specificArnings => _specificArnings ?? const [];
+  bool hasSpecificArnings() => _specificArnings != null;
 
-  // "buyer_id" field.
-  String? _buyerId;
-  String get buyerId => _buyerId ?? '';
-  bool hasBuyerId() => _buyerId != null;
+  // "specific_earnings" field.
+  List<EarningsStruct>? _specificEarnings;
+  List<EarningsStruct> get specificEarnings => _specificEarnings ?? const [];
+  bool hasSpecificEarnings() => _specificEarnings != null;
 
   void _initializeFields() {
     _totalEarnings = castToType<double>(snapshotData['total_earnings']);
-    _totalWithdrawals = castToType<double>(snapshotData['total_withdrawals']);
     _lastWithdrawal = castToType<double>(snapshotData['last_withdrawal']);
     _currentEarning = castToType<double>(snapshotData['current_earning']);
     _currentBalance = castToType<double>(snapshotData['current_balance']);
     _sellerId = snapshotData['seller_id'] as String?;
-    _productId = snapshotData['product_id'] as String?;
-    _buyerId = snapshotData['buyer_id'] as String?;
+    _specificArnings = getStructList(
+      snapshotData['specific_arnings'],
+      EarningsStruct.fromMap,
+    );
+    _specificEarnings = getStructList(
+      snapshotData['specific_earnings'],
+      EarningsStruct.fromMap,
+    );
   }
 
   static CollectionReference get collection =>
@@ -89,28 +89,30 @@ class EarningsRecord extends FirestoreRecord {
   @override
   String toString() =>
       'EarningsRecord(reference: ${reference.path}, data: $snapshotData)';
+
+  @override
+  int get hashCode => reference.path.hashCode;
+
+  @override
+  bool operator ==(other) =>
+      other is EarningsRecord &&
+      reference.path.hashCode == other.reference.path.hashCode;
 }
 
 Map<String, dynamic> createEarningsRecordData({
   double? totalEarnings,
-  double? totalWithdrawals,
   double? lastWithdrawal,
   double? currentEarning,
   double? currentBalance,
   String? sellerId,
-  String? productId,
-  String? buyerId,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'total_earnings': totalEarnings,
-      'total_withdrawals': totalWithdrawals,
       'last_withdrawal': lastWithdrawal,
       'current_earning': currentEarning,
       'current_balance': currentBalance,
       'seller_id': sellerId,
-      'product_id': productId,
-      'buyer_id': buyerId,
     }.withoutNulls,
   );
 

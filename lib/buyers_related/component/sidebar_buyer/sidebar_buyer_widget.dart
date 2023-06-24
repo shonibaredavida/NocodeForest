@@ -278,7 +278,7 @@ class _SidebarBuyerWidgetState extends State<SidebarBuyerWidget>
                       highlightColor: Colors.transparent,
                       onTap: () async {
                         if (!widget.page2IsActive!) {
-                          context.pushNamed('dashboardBuyerDownloadScren');
+                          context.pushNamed('dashboardBuyerDownloadScreen');
                         }
                       },
                       child: Container(

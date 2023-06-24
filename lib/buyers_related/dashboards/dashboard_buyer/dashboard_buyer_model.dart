@@ -1,6 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/buyers_related/sidebar_buyer/sidebar_buyer_widget.dart';
+import '/buyers_related/component/sidebar_buyer/sidebar_buyer_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/main_components/header/header_widget.dart';
@@ -14,6 +14,7 @@ import 'package:provider/provider.dart';
 class DashboardBuyerModel extends FlutterFlowModel {
   ///  State fields for stateful widgets in this page.
 
+  final unfocusNode = FocusNode();
   // Model for header component.
   late HeaderModel headerModel;
   // Model for sidebar_buyer component.
@@ -30,11 +31,13 @@ class DashboardBuyerModel extends FlutterFlowModel {
   }
 
   void dispose() {
+    unfocusNode.dispose();
     headerModel.dispose();
     sidebarBuyerModel.dispose();
     textController?.dispose();
   }
 
-  /// Additional helper methods are added here.
+  /// Action blocks are added here.
 
+  /// Additional helper methods are added here.
 }

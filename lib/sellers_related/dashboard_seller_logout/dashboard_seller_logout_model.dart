@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 class DashboardSellerLogoutModel extends FlutterFlowModel {
   ///  State fields for stateful widgets in this page.
 
+  final unfocusNode = FocusNode();
   // Model for header component.
   late HeaderModel headerModel;
   // Model for sidebar_seller component.
@@ -25,10 +26,12 @@ class DashboardSellerLogoutModel extends FlutterFlowModel {
   }
 
   void dispose() {
+    unfocusNode.dispose();
     headerModel.dispose();
     sidebarSellerModel.dispose();
   }
 
-  /// Additional helper methods are added here.
+  /// Action blocks are added here.
 
+  /// Additional helper methods are added here.
 }

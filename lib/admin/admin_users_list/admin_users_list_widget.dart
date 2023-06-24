@@ -4,33 +4,34 @@ import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
-import '/main_components/header/header_widget.dart';
+import '/main_components/create_account_modal/create_account_modal_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'admin_users_model.dart';
-export 'admin_users_model.dart';
+import 'admin_users_list_model.dart';
+export 'admin_users_list_model.dart';
 
-class AdminUsersWidget extends StatefulWidget {
-  const AdminUsersWidget({Key? key}) : super(key: key);
+class AdminUsersListWidget extends StatefulWidget {
+  const AdminUsersListWidget({Key? key}) : super(key: key);
 
   @override
-  _AdminUsersWidgetState createState() => _AdminUsersWidgetState();
+  _AdminUsersListWidgetState createState() => _AdminUsersListWidgetState();
 }
 
-class _AdminUsersWidgetState extends State<AdminUsersWidget> {
-  late AdminUsersModel _model;
+class _AdminUsersListWidgetState extends State<AdminUsersListWidget> {
+  late AdminUsersListModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  final _unfocusNode = FocusNode();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => AdminUsersModel());
+    _model = createModel(context, () => AdminUsersListModel());
 
     _model.allUsersTextFieldController ??= TextEditingController();
     _model.buyerTextFieldController ??= TextEditingController();
@@ -43,7 +44,6 @@ class _AdminUsersWidgetState extends State<AdminUsersWidget> {
   void dispose() {
     _model.dispose();
 
-    _unfocusNode.dispose();
     super.dispose();
   }
 
@@ -59,20 +59,23 @@ class _AdminUsersWidgetState extends State<AdminUsersWidget> {
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
         if (!snapshot.hasData) {
-          return Center(
-            child: SizedBox(
-              width: 50.0,
-              height: 50.0,
-              child: SpinKitCubeGrid(
-                color: FlutterFlowTheme.of(context).primary,
-                size: 50.0,
+          return Scaffold(
+            backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+            body: Center(
+              child: SizedBox(
+                width: 50.0,
+                height: 50.0,
+                child: SpinKitCubeGrid(
+                  color: FlutterFlowTheme.of(context).primary,
+                  size: 50.0,
+                ),
               ),
             ),
           );
         }
-        List<UsersRecord> adminUsersUsersRecordList = snapshot.data!;
+        List<UsersRecord> adminUsersListUsersRecordList = snapshot.data!;
         return GestureDetector(
-          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+          onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
           child: Scaffold(
             key: scaffoldKey,
             backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -95,11 +98,101 @@ class _AdminUsersWidgetState extends State<AdminUsersWidget> {
                       ),
                       child: Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
-                            32.0, 0.0, 32.0, 0.0),
-                        child: wrapWithModel(
-                          model: _model.headerModel,
-                          updateCallback: () => setState(() {}),
-                          child: HeaderWidget(),
+                            0.0, 36.0, 0.0, 36.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  32.0, 0.0, 0.0, 0.0),
+                              child: SvgPicture.asset(
+                                'assets/images/NF_Logo.svg',
+                                width: 132.0,
+                                height: 51.1,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            Column(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 4.0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 4.0, 32.0, 0.0),
+                                        child: FFButtonWidget(
+                                          onPressed: () async {
+                                            await showModalBottomSheet(
+                                              isScrollControlled: true,
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              enableDrag: false,
+                                              context: context,
+                                              builder: (context) {
+                                                return GestureDetector(
+                                                  onTap: () => FocusScope.of(
+                                                          context)
+                                                      .requestFocus(
+                                                          _model.unfocusNode),
+                                                  child: Padding(
+                                                    padding:
+                                                        MediaQuery.of(context)
+                                                            .viewInsets,
+                                                    child:
+                                                        CreateAccountModalWidget(),
+                                                  ),
+                                                );
+                                              },
+                                            ).then((value) => setState(() {}));
+                                          },
+                                          text: 'Logout',
+                                          options: FFButtonOptions(
+                                            width: 141.0,
+                                            height: 48.0,
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 0.0, 0.0),
+                                            iconPadding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 0.0, 0.0),
+                                            color: Color(0xFFE94057),
+                                            textStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmall
+                                                    .override(
+                                                      fontFamily:
+                                                          'Roboto Condensed',
+                                                      color: Colors.white,
+                                                      fontSize: 16.0,
+                                                      lineHeight: 1.5,
+                                                    ),
+                                            borderSide: BorderSide(
+                                              color: Colors.transparent,
+                                              width: 1.0,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(5.0),
+                                            hoverColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .primaryText,
+                                            hoverTextColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .primary,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                       ),
                     ),
@@ -370,8 +463,6 @@ class _AdminUsersWidgetState extends State<AdminUsersWidget> {
                                                                                 100.0,
                                                                             height:
                                                                                 40.0,
-                                                                            searchHintTextStyle:
-                                                                                FlutterFlowTheme.of(context).labelMedium,
                                                                             textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                   fontFamily: 'Roboto Condensed',
                                                                                   fontSize: 16.0,
@@ -379,8 +470,6 @@ class _AdminUsersWidgetState extends State<AdminUsersWidget> {
                                                                                 ),
                                                                             hintText:
                                                                                 'Filter',
-                                                                            searchHintText:
-                                                                                'Search for an item...',
                                                                             icon:
                                                                                 Icon(
                                                                               Icons.keyboard_arrow_down_rounded,
@@ -539,7 +628,7 @@ class _AdminUsersWidgetState extends State<AdminUsersWidget> {
                                                                               padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
                                                                               child: Builder(
                                                                                 builder: (context) {
-                                                                                  final individualUsers = adminUsersUsersRecordList.map((e) => e).toList().where((e) => !e.admin).toList();
+                                                                                  final individualUsers = adminUsersListUsersRecordList.map((e) => e).toList().where((e) => !e.admin).toList();
                                                                                   return ListView.builder(
                                                                                     padding: EdgeInsets.zero,
                                                                                     scrollDirection: Axis.vertical,
@@ -559,11 +648,11 @@ class _AdminUsersWidgetState extends State<AdminUsersWidget> {
                                                                                               backgroundColor: Colors.transparent,
                                                                                               enableDrag: false,
                                                                                               context: context,
-                                                                                              builder: (bottomSheetContext) {
+                                                                                              builder: (context) {
                                                                                                 return GestureDetector(
-                                                                                                  onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+                                                                                                  onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
                                                                                                   child: Padding(
-                                                                                                    padding: MediaQuery.of(bottomSheetContext).viewInsets,
+                                                                                                    padding: MediaQuery.of(context).viewInsets,
                                                                                                     child: UserProfileCardWidget(
                                                                                                       userRef: individualUsersItem.reference,
                                                                                                     ),
@@ -767,11 +856,11 @@ class _AdminUsersWidgetState extends State<AdminUsersWidget> {
                                                                                                                       isScrollControlled: true,
                                                                                                                       backgroundColor: Colors.transparent,
                                                                                                                       context: context,
-                                                                                                                      builder: (bottomSheetContext) {
+                                                                                                                      builder: (context) {
                                                                                                                         return GestureDetector(
-                                                                                                                          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+                                                                                                                          onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
                                                                                                                           child: Padding(
-                                                                                                                            padding: MediaQuery.of(bottomSheetContext).viewInsets,
+                                                                                                                            padding: MediaQuery.of(context).viewInsets,
                                                                                                                             child: UserProfileCardWidget(
                                                                                                                               userRef: individualUsersItem.reference,
                                                                                                                             ),
@@ -1230,7 +1319,7 @@ class _AdminUsersWidgetState extends State<AdminUsersWidget> {
                                                                               padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
                                                                               child: Builder(
                                                                                 builder: (context) {
-                                                                                  final individualUsers = adminUsersUsersRecordList.map((e) => e).toList().where((e) => (e.becomeASeller == true) && (e.admin == false)).toList();
+                                                                                  final individualUsers = adminUsersListUsersRecordList.map((e) => e).toList().where((e) => (e.becomeASeller == true) && (e.admin == false)).toList();
                                                                                   return ListView.builder(
                                                                                     padding: EdgeInsets.zero,
                                                                                     scrollDirection: Axis.vertical,
@@ -1250,11 +1339,11 @@ class _AdminUsersWidgetState extends State<AdminUsersWidget> {
                                                                                               backgroundColor: Colors.transparent,
                                                                                               enableDrag: false,
                                                                                               context: context,
-                                                                                              builder: (bottomSheetContext) {
+                                                                                              builder: (context) {
                                                                                                 return GestureDetector(
-                                                                                                  onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+                                                                                                  onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
                                                                                                   child: Padding(
-                                                                                                    padding: MediaQuery.of(bottomSheetContext).viewInsets,
+                                                                                                    padding: MediaQuery.of(context).viewInsets,
                                                                                                     child: UserProfileCardWidget(
                                                                                                       userRef: individualUsersItem.reference,
                                                                                                     ),
@@ -1458,11 +1547,11 @@ class _AdminUsersWidgetState extends State<AdminUsersWidget> {
                                                                                                                       isScrollControlled: true,
                                                                                                                       backgroundColor: Colors.transparent,
                                                                                                                       context: context,
-                                                                                                                      builder: (bottomSheetContext) {
+                                                                                                                      builder: (context) {
                                                                                                                         return GestureDetector(
-                                                                                                                          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+                                                                                                                          onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
                                                                                                                           child: Padding(
-                                                                                                                            padding: MediaQuery.of(bottomSheetContext).viewInsets,
+                                                                                                                            padding: MediaQuery.of(context).viewInsets,
                                                                                                                             child: UserProfileCardWidget(
                                                                                                                               userRef: individualUsersItem.reference,
                                                                                                                             ),
@@ -1929,7 +2018,7 @@ class _AdminUsersWidgetState extends State<AdminUsersWidget> {
                                                                             child:
                                                                                 Builder(
                                                                               builder: (context) {
-                                                                                final individualUsers = adminUsersUsersRecordList.map((e) => e).toList().where((e) => (e.becomeASeller == false) && (e.admin == false)).toList();
+                                                                                final individualUsers = adminUsersListUsersRecordList.map((e) => e).toList().where((e) => (e.becomeASeller == false) && (e.admin == false)).toList();
                                                                                 return ListView.builder(
                                                                                   padding: EdgeInsets.zero,
                                                                                   scrollDirection: Axis.vertical,
@@ -1949,11 +2038,11 @@ class _AdminUsersWidgetState extends State<AdminUsersWidget> {
                                                                                             backgroundColor: Colors.transparent,
                                                                                             enableDrag: false,
                                                                                             context: context,
-                                                                                            builder: (bottomSheetContext) {
+                                                                                            builder: (context) {
                                                                                               return GestureDetector(
-                                                                                                onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+                                                                                                onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
                                                                                                 child: Padding(
-                                                                                                  padding: MediaQuery.of(bottomSheetContext).viewInsets,
+                                                                                                  padding: MediaQuery.of(context).viewInsets,
                                                                                                   child: UserProfileCardWidget(
                                                                                                     userRef: individualUsersItem.reference,
                                                                                                   ),
@@ -2157,11 +2246,11 @@ class _AdminUsersWidgetState extends State<AdminUsersWidget> {
                                                                                                                     isScrollControlled: true,
                                                                                                                     backgroundColor: Colors.transparent,
                                                                                                                     context: context,
-                                                                                                                    builder: (bottomSheetContext) {
+                                                                                                                    builder: (context) {
                                                                                                                       return GestureDetector(
-                                                                                                                        onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+                                                                                                                        onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
                                                                                                                         child: Padding(
-                                                                                                                          padding: MediaQuery.of(bottomSheetContext).viewInsets,
+                                                                                                                          padding: MediaQuery.of(context).viewInsets,
                                                                                                                           child: UserProfileCardWidget(
                                                                                                                             userRef: individualUsersItem.reference,
                                                                                                                           ),
@@ -2618,7 +2707,7 @@ class _AdminUsersWidgetState extends State<AdminUsersWidget> {
                                                                               padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
                                                                               child: Builder(
                                                                                 builder: (context) {
-                                                                                  final individualUsers = adminUsersUsersRecordList.map((e) => e).toList().where((e) => (e.status == 'deactivated') && (e.admin == false)).toList();
+                                                                                  final individualUsers = adminUsersListUsersRecordList.map((e) => e).toList().where((e) => (e.status == 'deactivated') && (e.admin == false)).toList();
                                                                                   return ListView.builder(
                                                                                     padding: EdgeInsets.zero,
                                                                                     scrollDirection: Axis.vertical,
@@ -2638,11 +2727,11 @@ class _AdminUsersWidgetState extends State<AdminUsersWidget> {
                                                                                               backgroundColor: Colors.transparent,
                                                                                               enableDrag: false,
                                                                                               context: context,
-                                                                                              builder: (bottomSheetContext) {
+                                                                                              builder: (context) {
                                                                                                 return GestureDetector(
-                                                                                                  onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+                                                                                                  onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
                                                                                                   child: Padding(
-                                                                                                    padding: MediaQuery.of(bottomSheetContext).viewInsets,
+                                                                                                    padding: MediaQuery.of(context).viewInsets,
                                                                                                     child: UserProfileCardWidget(
                                                                                                       userRef: individualUsersItem.reference,
                                                                                                     ),
@@ -2809,11 +2898,11 @@ class _AdminUsersWidgetState extends State<AdminUsersWidget> {
                                                                                                                       isScrollControlled: true,
                                                                                                                       backgroundColor: Colors.transparent,
                                                                                                                       context: context,
-                                                                                                                      builder: (bottomSheetContext) {
+                                                                                                                      builder: (context) {
                                                                                                                         return GestureDetector(
-                                                                                                                          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+                                                                                                                          onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
                                                                                                                           child: Padding(
-                                                                                                                            padding: MediaQuery.of(bottomSheetContext).viewInsets,
+                                                                                                                            padding: MediaQuery.of(context).viewInsets,
                                                                                                                             child: UserProfileCardWidget(
                                                                                                                               userRef: individualUsersItem.reference,
                                                                                                                             ),

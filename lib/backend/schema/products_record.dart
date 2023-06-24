@@ -159,15 +159,15 @@ class ProductsRecord extends FirestoreRecord {
   double get rating => _rating ?? 0.0;
   bool hasRating() => _rating != null;
 
-  // "pending" field.
-  bool? _pending;
-  bool get pending => _pending ?? false;
-  bool hasPending() => _pending != null;
+  // "reviews" field.
+  List<ProductReviewsStruct>? _reviews;
+  List<ProductReviewsStruct> get reviews => _reviews ?? const [];
+  bool hasReviews() => _reviews != null;
 
-  // "approved" field.
-  bool? _approved;
-  bool get approved => _approved ?? false;
-  bool hasApproved() => _approved != null;
+  // "payment_link" field.
+  String? _paymentLink;
+  String get paymentLink => _paymentLink ?? '';
+  bool hasPaymentLink() => _paymentLink != null;
 
   void _initializeFields() {
     _name = snapshotData['name'] as String?;
@@ -178,8 +178,8 @@ class ProductsRecord extends FirestoreRecord {
     _sellerId = snapshotData['seller_id'] as String?;
     _platform = snapshotData['platform'] as String?;
     _category = snapshotData['category'] as String?;
-    _numOfClicks = snapshotData['num_of_clicks'] as int?;
-    _numOfSales = snapshotData['num_of_sales'] as int?;
+    _numOfClicks = castToType<int>(snapshotData['num_of_clicks']);
+    _numOfSales = castToType<int>(snapshotData['num_of_sales']);
     _compartibleBrowsers = getDataList(snapshotData['compartible_browsers']);
     _includeFiles = getDataList(snapshotData['include_files']);
     _description = snapshotData['description'] as String?;
@@ -199,8 +199,11 @@ class ProductsRecord extends FirestoreRecord {
     _customCode = snapshotData['custom_code'] as bool?;
     _likedBy = getDataList(snapshotData['liked_by']);
     _rating = castToType<double>(snapshotData['rating']);
-    _pending = snapshotData['pending'] as bool?;
-    _approved = snapshotData['approved'] as bool?;
+    _reviews = getStructList(
+      snapshotData['reviews'],
+      ProductReviewsStruct.fromMap,
+    );
+    _paymentLink = snapshotData['payment_link'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -227,6 +230,14 @@ class ProductsRecord extends FirestoreRecord {
   @override
   String toString() =>
       'ProductsRecord(reference: ${reference.path}, data: $snapshotData)';
+
+  @override
+  int get hashCode => reference.path.hashCode;
+
+  @override
+  bool operator ==(other) =>
+      other is ProductsRecord &&
+      reference.path.hashCode == other.reference.path.hashCode;
 }
 
 Map<String, dynamic> createProductsRecordData({
@@ -254,8 +265,7 @@ Map<String, dynamic> createProductsRecordData({
   bool? support,
   bool? customCode,
   double? rating,
-  bool? pending,
-  bool? approved,
+  String? paymentLink,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -283,8 +293,7 @@ Map<String, dynamic> createProductsRecordData({
       'support': support,
       'custom_code': customCode,
       'rating': rating,
-      'pending': pending,
-      'approved': approved,
+      'payment_link': paymentLink,
     }.withoutNulls,
   );
 

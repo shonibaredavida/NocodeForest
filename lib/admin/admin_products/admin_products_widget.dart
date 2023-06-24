@@ -3,11 +3,13 @@ import '/admin/component/sidebar_admin/sidebar_admin_widget.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/main_components/header/header_widget.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
+import '/main_components/create_account_modal/create_account_modal_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'admin_products_model.dart';
@@ -24,7 +26,6 @@ class _AdminProductsWidgetState extends State<AdminProductsWidget> {
   late AdminProductsModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  final _unfocusNode = FocusNode();
 
   @override
   void initState() {
@@ -42,7 +43,6 @@ class _AdminProductsWidgetState extends State<AdminProductsWidget> {
   void dispose() {
     _model.dispose();
 
-    _unfocusNode.dispose();
     super.dispose();
   }
 
@@ -51,7 +51,7 @@ class _AdminProductsWidgetState extends State<AdminProductsWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -74,11 +74,95 @@ class _AdminProductsWidgetState extends State<AdminProductsWidget> {
                   ),
                   child: Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(32.0, 0.0, 32.0, 0.0),
-                    child: wrapWithModel(
-                      model: _model.headerModel,
-                      updateCallback: () => setState(() {}),
-                      child: HeaderWidget(),
+                        EdgeInsetsDirectional.fromSTEB(0.0, 36.0, 0.0, 36.0),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              32.0, 0.0, 0.0, 0.0),
+                          child: SvgPicture.asset(
+                            'assets/images/NF_Logo.svg',
+                            width: 132.0,
+                            height: 51.1,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 4.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 4.0, 32.0, 0.0),
+                                    child: FFButtonWidget(
+                                      onPressed: () async {
+                                        await showModalBottomSheet(
+                                          isScrollControlled: true,
+                                          backgroundColor: Colors.transparent,
+                                          enableDrag: false,
+                                          context: context,
+                                          builder: (context) {
+                                            return GestureDetector(
+                                              onTap: () =>
+                                                  FocusScope.of(context)
+                                                      .requestFocus(
+                                                          _model.unfocusNode),
+                                              child: Padding(
+                                                padding: MediaQuery.of(context)
+                                                    .viewInsets,
+                                                child:
+                                                    CreateAccountModalWidget(),
+                                              ),
+                                            );
+                                          },
+                                        ).then((value) => setState(() {}));
+                                      },
+                                      text: 'Logout',
+                                      options: FFButtonOptions(
+                                        width: 141.0,
+                                        height: 48.0,
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 0.0, 0.0),
+                                        iconPadding:
+                                            EdgeInsetsDirectional.fromSTEB(
+                                                0.0, 0.0, 0.0, 0.0),
+                                        color: Color(0xFFE94057),
+                                        textStyle: FlutterFlowTheme.of(context)
+                                            .titleSmall
+                                            .override(
+                                              fontFamily: 'Roboto Condensed',
+                                              color: Colors.white,
+                                              fontSize: 16.0,
+                                              lineHeight: 1.5,
+                                            ),
+                                        borderSide: BorderSide(
+                                          color: Colors.transparent,
+                                          width: 1.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(5.0),
+                                        hoverColor: FlutterFlowTheme.of(context)
+                                            .primaryText,
+                                        hoverTextColor:
+                                            FlutterFlowTheme.of(context)
+                                                .primary,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -537,11 +621,11 @@ class _AdminProductsWidgetState extends State<AdminProductsWidget> {
                                                                                             backgroundColor: Colors.transparent,
                                                                                             enableDrag: false,
                                                                                             context: context,
-                                                                                            builder: (bottomSheetContext) {
+                                                                                            builder: (context) {
                                                                                               return GestureDetector(
-                                                                                                onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+                                                                                                onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
                                                                                                 child: Padding(
-                                                                                                  padding: MediaQuery.of(bottomSheetContext).viewInsets,
+                                                                                                  padding: MediaQuery.of(context).viewInsets,
                                                                                                   child: ProductCardWidget(
                                                                                                     productRef: individualProductsItem.reference,
                                                                                                   ),
@@ -706,11 +790,11 @@ class _AdminProductsWidgetState extends State<AdminProductsWidget> {
                                                                                                                     backgroundColor: Colors.transparent,
                                                                                                                     enableDrag: false,
                                                                                                                     context: context,
-                                                                                                                    builder: (bottomSheetContext) {
+                                                                                                                    builder: (context) {
                                                                                                                       return GestureDetector(
-                                                                                                                        onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+                                                                                                                        onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
                                                                                                                         child: Padding(
-                                                                                                                          padding: MediaQuery.of(bottomSheetContext).viewInsets,
+                                                                                                                          padding: MediaQuery.of(context).viewInsets,
                                                                                                                           child: ProductCardWidget(
                                                                                                                             productRef: individualProductsItem.reference,
                                                                                                                           ),
@@ -1329,11 +1413,11 @@ class _AdminProductsWidgetState extends State<AdminProductsWidget> {
                                                                                                                   backgroundColor: Colors.transparent,
                                                                                                                   enableDrag: false,
                                                                                                                   context: context,
-                                                                                                                  builder: (bottomSheetContext) {
+                                                                                                                  builder: (context) {
                                                                                                                     return GestureDetector(
-                                                                                                                      onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+                                                                                                                      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
                                                                                                                       child: Padding(
-                                                                                                                        padding: MediaQuery.of(bottomSheetContext).viewInsets,
+                                                                                                                        padding: MediaQuery.of(context).viewInsets,
                                                                                                                         child: ProductCardWidget(
                                                                                                                           productRef: individualProductsItem.reference,
                                                                                                                         ),
@@ -1946,11 +2030,11 @@ class _AdminProductsWidgetState extends State<AdminProductsWidget> {
                                                                                                                   backgroundColor: Colors.transparent,
                                                                                                                   enableDrag: false,
                                                                                                                   context: context,
-                                                                                                                  builder: (bottomSheetContext) {
+                                                                                                                  builder: (context) {
                                                                                                                     return GestureDetector(
-                                                                                                                      onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+                                                                                                                      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
                                                                                                                       child: Padding(
-                                                                                                                        padding: MediaQuery.of(bottomSheetContext).viewInsets,
+                                                                                                                        padding: MediaQuery.of(context).viewInsets,
                                                                                                                         child: ProductCardWidget(
                                                                                                                           productRef: individualProductsItem.reference,
                                                                                                                         ),
@@ -2563,11 +2647,11 @@ class _AdminProductsWidgetState extends State<AdminProductsWidget> {
                                                                                                                   backgroundColor: Colors.transparent,
                                                                                                                   enableDrag: false,
                                                                                                                   context: context,
-                                                                                                                  builder: (bottomSheetContext) {
+                                                                                                                  builder: (context) {
                                                                                                                     return GestureDetector(
-                                                                                                                      onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+                                                                                                                      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
                                                                                                                       child: Padding(
-                                                                                                                        padding: MediaQuery.of(bottomSheetContext).viewInsets,
+                                                                                                                        padding: MediaQuery.of(context).viewInsets,
                                                                                                                         child: ProductCardWidget(
                                                                                                                           productRef: individualProductsItem.reference,
                                                                                                                         ),

@@ -26,7 +26,7 @@ class ChartDataRecord extends FirestoreRecord {
 
   void _initializeFields() {
     _xAxis = snapshotData['x_axis'] as String?;
-    _yAxis = snapshotData['y_axis'] as int?;
+    _yAxis = castToType<int>(snapshotData['y_axis']);
   }
 
   static CollectionReference get collection =>
@@ -53,6 +53,14 @@ class ChartDataRecord extends FirestoreRecord {
   @override
   String toString() =>
       'ChartDataRecord(reference: ${reference.path}, data: $snapshotData)';
+
+  @override
+  int get hashCode => reference.path.hashCode;
+
+  @override
+  bool operator ==(other) =>
+      other is ChartDataRecord &&
+      reference.path.hashCode == other.reference.path.hashCode;
 }
 
 Map<String, dynamic> createChartDataRecordData({

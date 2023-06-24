@@ -109,6 +109,16 @@ class UsersRecord extends FirestoreRecord {
   bool get admin => _admin ?? false;
   bool hasAdmin() => _admin != null;
 
+  // "withdrawals" field.
+  List<WithdrawalStruct>? _withdrawals;
+  List<WithdrawalStruct> get withdrawals => _withdrawals ?? const [];
+  bool hasWithdrawals() => _withdrawals != null;
+
+  // "earnings" field.
+  List<EarningsStruct>? _earnings;
+  List<EarningsStruct> get earnings => _earnings ?? const [];
+  bool hasEarnings() => _earnings != null;
+
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _displayName = snapshotData['display_name'] as String?;
@@ -129,6 +139,14 @@ class UsersRecord extends FirestoreRecord {
     _cart = getDataList(snapshotData['cart']);
     _modifiedTime = getDataList(snapshotData['modified_time']);
     _admin = snapshotData['admin'] as bool?;
+    _withdrawals = getStructList(
+      snapshotData['withdrawals'],
+      WithdrawalStruct.fromMap,
+    );
+    _earnings = getStructList(
+      snapshotData['earnings'],
+      EarningsStruct.fromMap,
+    );
   }
 
   static CollectionReference get collection =>
@@ -154,6 +172,14 @@ class UsersRecord extends FirestoreRecord {
   @override
   String toString() =>
       'UsersRecord(reference: ${reference.path}, data: $snapshotData)';
+
+  @override
+  int get hashCode => reference.path.hashCode;
+
+  @override
+  bool operator ==(other) =>
+      other is UsersRecord &&
+      reference.path.hashCode == other.reference.path.hashCode;
 }
 
 Map<String, dynamic> createUsersRecordData({

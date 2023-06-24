@@ -2,7 +2,7 @@ import '/auth/firebase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
-import '/buyers_related/sidebar_buyer/sidebar_buyer_widget.dart';
+import '/buyers_related/component/sidebar_buyer/sidebar_buyer_widget.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -21,6 +21,7 @@ import 'package:provider/provider.dart';
 class DashboardBuyerProfileScreenModel extends FlutterFlowModel {
   ///  State fields for stateful widgets in this page.
 
+  final unfocusNode = FocusNode();
   final formKey = GlobalKey<FormState>();
   // Model for header component.
   late HeaderModel headerModel;
@@ -59,6 +60,7 @@ class DashboardBuyerProfileScreenModel extends FlutterFlowModel {
   }
 
   void dispose() {
+    unfocusNode.dispose();
     headerModel.dispose();
     sidebarBuyerModel.dispose();
     fNameTextFieldController?.dispose();
@@ -68,6 +70,7 @@ class DashboardBuyerProfileScreenModel extends FlutterFlowModel {
     phoneTextFieldController?.dispose();
   }
 
-  /// Additional helper methods are added here.
+  /// Action blocks are added here.
 
+  /// Additional helper methods are added here.
 }

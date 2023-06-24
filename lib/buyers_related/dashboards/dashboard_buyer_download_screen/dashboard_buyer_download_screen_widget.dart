@@ -1,6 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/buyers_related/sidebar_buyer/sidebar_buyer_widget.dart';
+import '/buyers_related/component/sidebar_buyer/sidebar_buyer_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -10,28 +10,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'dashboard_buyer_download_scren_model.dart';
-export 'dashboard_buyer_download_scren_model.dart';
+import 'dashboard_buyer_download_screen_model.dart';
+export 'dashboard_buyer_download_screen_model.dart';
 
-class DashboardBuyerDownloadScrenWidget extends StatefulWidget {
-  const DashboardBuyerDownloadScrenWidget({Key? key}) : super(key: key);
+class DashboardBuyerDownloadScreenWidget extends StatefulWidget {
+  const DashboardBuyerDownloadScreenWidget({Key? key}) : super(key: key);
 
   @override
-  _DashboardBuyerDownloadScrenWidgetState createState() =>
-      _DashboardBuyerDownloadScrenWidgetState();
+  _DashboardBuyerDownloadScreenWidgetState createState() =>
+      _DashboardBuyerDownloadScreenWidgetState();
 }
 
-class _DashboardBuyerDownloadScrenWidgetState
-    extends State<DashboardBuyerDownloadScrenWidget> {
-  late DashboardBuyerDownloadScrenModel _model;
+class _DashboardBuyerDownloadScreenWidgetState
+    extends State<DashboardBuyerDownloadScreenWidget> {
+  late DashboardBuyerDownloadScreenModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  final _unfocusNode = FocusNode();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => DashboardBuyerDownloadScrenModel());
+    _model = createModel(context, () => DashboardBuyerDownloadScreenModel());
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -40,7 +39,6 @@ class _DashboardBuyerDownloadScrenWidgetState
   void dispose() {
     _model.dispose();
 
-    _unfocusNode.dispose();
     super.dispose();
   }
 
@@ -58,21 +56,24 @@ class _DashboardBuyerDownloadScrenWidgetState
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
         if (!snapshot.hasData) {
-          return Center(
-            child: SizedBox(
-              width: 50.0,
-              height: 50.0,
-              child: SpinKitCubeGrid(
-                color: FlutterFlowTheme.of(context).primary,
-                size: 50.0,
+          return Scaffold(
+            backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+            body: Center(
+              child: SizedBox(
+                width: 50.0,
+                height: 50.0,
+                child: SpinKitCubeGrid(
+                  color: FlutterFlowTheme.of(context).primary,
+                  size: 50.0,
+                ),
               ),
             ),
           );
         }
-        List<OrdersRecord> dashboardBuyerDownloadScrenOrdersRecordList =
+        List<OrdersRecord> dashboardBuyerDownloadScreenOrdersRecordList =
             snapshot.data!;
         return GestureDetector(
-          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+          onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
           child: Scaffold(
             key: scaffoldKey,
             backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -133,12 +134,12 @@ class _DashboardBuyerDownloadScrenWidgetState
                                   child: Builder(
                                     builder: (context) {
                                       final downloadedItems =
-                                          dashboardBuyerDownloadScrenOrdersRecordList
+                                          dashboardBuyerDownloadScreenOrdersRecordList
                                               .map((e) => e)
                                               .toList()
                                               .where((e) =>
-                                                  e.sellerInfo ==
-                                                  currentUserReference)
+                                                  e.buyerId ==
+                                                  currentUserReference?.id)
                                               .toList();
                                       return GridView.builder(
                                         padding: EdgeInsets.zero,
@@ -368,7 +369,7 @@ class _DashboardBuyerDownloadScrenWidgetState
                                                           onPressed: () async {
                                                             context.pushNamed(
                                                               'productDetailScreen',
-                                                              queryParams: {
+                                                              queryParameters: {
                                                                 'productRef':
                                                                     serializeParam(
                                                                   containerProductsRecord

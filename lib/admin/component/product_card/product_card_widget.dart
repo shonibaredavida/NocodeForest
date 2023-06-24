@@ -135,7 +135,7 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                                       currentUserDocument?.admin, false)) {
                                     context.pushNamed(
                                       'productDetailScreen',
-                                      queryParams: {
+                                      queryParameters: {
                                         'productRef': serializeParam(
                                           widget.productRef,
                                           ParamType.DocumentReference,
@@ -533,21 +533,18 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                                     onPressed: () async {
                                       Navigator.pop(context);
 
-                                      final productsUpdateData =
-                                          createProductsRecordData(
-                                        status: 'disapproved',
-                                      );
                                       await columnProductsRecord.reference
-                                          .update(productsUpdateData);
+                                          .update(createProductsRecordData(
+                                        status: 'disapproved',
+                                      ));
                                       await showModalBottomSheet(
                                         isScrollControlled: true,
                                         backgroundColor: Colors.transparent,
                                         enableDrag: false,
                                         context: context,
-                                        builder: (bottomSheetContext) {
+                                        builder: (context) {
                                           return Padding(
-                                            padding: MediaQuery.of(
-                                                    bottomSheetContext)
+                                            padding: MediaQuery.of(context)
                                                 .viewInsets,
                                             child: Success2Widget(
                                               subtitle: 'Product Disapproved',
@@ -591,21 +588,18 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                                     onPressed: () async {
                                       Navigator.pop(context);
 
-                                      final productsUpdateData =
-                                          createProductsRecordData(
-                                        status: 'approved',
-                                      );
                                       await columnProductsRecord.reference
-                                          .update(productsUpdateData);
+                                          .update(createProductsRecordData(
+                                        status: 'approved',
+                                      ));
                                       await showModalBottomSheet(
                                         isScrollControlled: true,
                                         backgroundColor: Colors.transparent,
                                         enableDrag: false,
                                         context: context,
-                                        builder: (bottomSheetContext) {
+                                        builder: (context) {
                                           return Padding(
-                                            padding: MediaQuery.of(
-                                                    bottomSheetContext)
+                                            padding: MediaQuery.of(context)
                                                 .viewInsets,
                                             child: Success2Widget(
                                               subtitle: 'Product Approved',

@@ -19,20 +19,10 @@ class OrdersRecord extends FirestoreRecord {
   String get buyerId => _buyerId ?? '';
   bool hasBuyerId() => _buyerId != null;
 
-  // "seller_id" field.
-  String? _sellerId;
-  String get sellerId => _sellerId ?? '';
-  bool hasSellerId() => _sellerId != null;
-
   // "product_id" field.
   String? _productId;
   String get productId => _productId ?? '';
   bool hasProductId() => _productId != null;
-
-  // "quantity" field.
-  int? _quantity;
-  int get quantity => _quantity ?? 0;
-  bool hasQuantity() => _quantity != null;
 
   // "order_status" field.
   String? _orderStatus;
@@ -69,16 +59,39 @@ class OrdersRecord extends FirestoreRecord {
   double get totalPrice => _totalPrice ?? 0.0;
   bool hasTotalPrice() => _totalPrice != null;
 
-  // "cart_ref" field.
-  DocumentReference? _cartRef;
-  DocumentReference? get cartRef => _cartRef;
-  bool hasCartRef() => _cartRef != null;
+  // "buyer_info" field.
+  DocumentReference? _buyerInfo;
+  DocumentReference? get buyerInfo => _buyerInfo;
+  bool hasBuyerInfo() => _buyerInfo != null;
+
+  // "buyer_name" field.
+  String? _buyerName;
+  String get buyerName => _buyerName ?? '';
+  bool hasBuyerName() => _buyerName != null;
+
+  // "seller_id" field.
+  String? _sellerId;
+  String get sellerId => _sellerId ?? '';
+  bool hasSellerId() => _sellerId != null;
+
+  // "cart_items" field.
+  List<DocumentReference>? _cartItems;
+  List<DocumentReference> get cartItems => _cartItems ?? const [];
+  bool hasCartItems() => _cartItems != null;
+
+  // "seller_ids" field.
+  List<String>? _sellerIds;
+  List<String> get sellerIds => _sellerIds ?? const [];
+  bool hasSellerIds() => _sellerIds != null;
+
+  // "product_ids" field.
+  List<String>? _productIds;
+  List<String> get productIds => _productIds ?? const [];
+  bool hasProductIds() => _productIds != null;
 
   void _initializeFields() {
     _buyerId = snapshotData['buyer_id'] as String?;
-    _sellerId = snapshotData['seller_id'] as String?;
     _productId = snapshotData['product_id'] as String?;
-    _quantity = snapshotData['quantity'] as int?;
     _orderStatus = snapshotData['order_status'] as String?;
     _paymentStatus = snapshotData['payment_status'] as bool?;
     _orderDate = snapshotData['order_date'] as DateTime?;
@@ -86,7 +99,12 @@ class OrdersRecord extends FirestoreRecord {
     _sellerInfo = snapshotData['seller_info'] as DocumentReference?;
     _productInfo = snapshotData['product_info'] as DocumentReference?;
     _totalPrice = castToType<double>(snapshotData['total_price']);
-    _cartRef = snapshotData['cart_ref'] as DocumentReference?;
+    _buyerInfo = snapshotData['buyer_info'] as DocumentReference?;
+    _buyerName = snapshotData['buyer_name'] as String?;
+    _sellerId = snapshotData['seller_id'] as String?;
+    _cartItems = getDataList(snapshotData['cart_items']);
+    _sellerIds = getDataList(snapshotData['seller_ids']);
+    _productIds = getDataList(snapshotData['product_ids']);
   }
 
   static CollectionReference get collection =>
@@ -112,13 +130,19 @@ class OrdersRecord extends FirestoreRecord {
   @override
   String toString() =>
       'OrdersRecord(reference: ${reference.path}, data: $snapshotData)';
+
+  @override
+  int get hashCode => reference.path.hashCode;
+
+  @override
+  bool operator ==(other) =>
+      other is OrdersRecord &&
+      reference.path.hashCode == other.reference.path.hashCode;
 }
 
 Map<String, dynamic> createOrdersRecordData({
   String? buyerId,
-  String? sellerId,
   String? productId,
-  int? quantity,
   String? orderStatus,
   bool? paymentStatus,
   DateTime? orderDate,
@@ -126,14 +150,14 @@ Map<String, dynamic> createOrdersRecordData({
   DocumentReference? sellerInfo,
   DocumentReference? productInfo,
   double? totalPrice,
-  DocumentReference? cartRef,
+  DocumentReference? buyerInfo,
+  String? buyerName,
+  String? sellerId,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'buyer_id': buyerId,
-      'seller_id': sellerId,
       'product_id': productId,
-      'quantity': quantity,
       'order_status': orderStatus,
       'payment_status': paymentStatus,
       'order_date': orderDate,
@@ -141,7 +165,9 @@ Map<String, dynamic> createOrdersRecordData({
       'seller_info': sellerInfo,
       'product_info': productInfo,
       'total_price': totalPrice,
-      'cart_ref': cartRef,
+      'buyer_info': buyerInfo,
+      'buyer_name': buyerName,
+      'seller_id': sellerId,
     }.withoutNulls,
   );
 

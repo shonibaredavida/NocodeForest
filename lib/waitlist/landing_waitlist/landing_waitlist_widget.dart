@@ -25,7 +25,6 @@ class _LandingWaitlistWidgetState extends State<LandingWaitlistWidget> {
   late LandingWaitlistModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  final _unfocusNode = FocusNode();
 
   @override
   void initState() {
@@ -39,7 +38,6 @@ class _LandingWaitlistWidgetState extends State<LandingWaitlistWidget> {
   void dispose() {
     _model.dispose();
 
-    _unfocusNode.dispose();
     super.dispose();
   }
 
@@ -48,7 +46,7 @@ class _LandingWaitlistWidgetState extends State<LandingWaitlistWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -130,16 +128,16 @@ class _LandingWaitlistWidgetState extends State<LandingWaitlistWidget> {
                                               backgroundColor:
                                                   Colors.transparent,
                                               context: context,
-                                              builder: (bottomSheetContext) {
+                                              builder: (context) {
                                                 return GestureDetector(
-                                                  onTap: () =>
-                                                      FocusScope.of(context)
-                                                          .requestFocus(
-                                                              _unfocusNode),
+                                                  onTap: () => FocusScope.of(
+                                                          context)
+                                                      .requestFocus(
+                                                          _model.unfocusNode),
                                                   child: Padding(
-                                                    padding: MediaQuery.of(
-                                                            bottomSheetContext)
-                                                        .viewInsets,
+                                                    padding:
+                                                        MediaQuery.of(context)
+                                                            .viewInsets,
                                                     child:
                                                         SigninModalWaitlistWidget(),
                                                   ),
@@ -164,16 +162,16 @@ class _LandingWaitlistWidgetState extends State<LandingWaitlistWidget> {
                                               backgroundColor:
                                                   Colors.transparent,
                                               context: context,
-                                              builder: (bottomSheetContext) {
+                                              builder: (context) {
                                                 return GestureDetector(
-                                                  onTap: () =>
-                                                      FocusScope.of(context)
-                                                          .requestFocus(
-                                                              _unfocusNode),
+                                                  onTap: () => FocusScope.of(
+                                                          context)
+                                                      .requestFocus(
+                                                          _model.unfocusNode),
                                                   child: Padding(
-                                                    padding: MediaQuery.of(
-                                                            bottomSheetContext)
-                                                        .viewInsets,
+                                                    padding:
+                                                        MediaQuery.of(context)
+                                                            .viewInsets,
                                                     child:
                                                         WaitListFormTalentModalWidget(
                                                       textboxBgColor:
@@ -690,16 +688,17 @@ class _LandingWaitlistWidgetState extends State<LandingWaitlistWidget> {
                                                                       .transparent,
                                                               context: context,
                                                               builder:
-                                                                  (bottomSheetContext) {
+                                                                  (context) {
                                                                 return GestureDetector(
                                                                   onTap: () => FocusScope.of(
                                                                           context)
                                                                       .requestFocus(
-                                                                          _unfocusNode),
+                                                                          _model
+                                                                              .unfocusNode),
                                                                   child:
                                                                       Padding(
                                                                     padding: MediaQuery.of(
-                                                                            bottomSheetContext)
+                                                                            context)
                                                                         .viewInsets,
                                                                     child:
                                                                         WaitListFormTalentModalWidget(
@@ -2458,17 +2457,17 @@ class _LandingWaitlistWidgetState extends State<LandingWaitlistWidget> {
                                                       backgroundColor:
                                                           Colors.transparent,
                                                       context: context,
-                                                      builder:
-                                                          (bottomSheetContext) {
+                                                      builder: (context) {
                                                         return GestureDetector(
                                                           onTap: () => FocusScope
                                                                   .of(context)
-                                                              .requestFocus(
-                                                                  _unfocusNode),
+                                                              .requestFocus(_model
+                                                                  .unfocusNode),
                                                           child: Padding(
-                                                            padding: MediaQuery.of(
-                                                                    bottomSheetContext)
-                                                                .viewInsets,
+                                                            padding:
+                                                                MediaQuery.of(
+                                                                        context)
+                                                                    .viewInsets,
                                                             child:
                                                                 WaitListFormTalentModalWidget(
                                                               textboxBgColor:
@@ -2678,16 +2677,16 @@ class _LandingWaitlistWidgetState extends State<LandingWaitlistWidget> {
                                                                 Colors
                                                                     .transparent,
                                                             context: context,
-                                                            builder:
-                                                                (bottomSheetContext) {
+                                                            builder: (context) {
                                                               return GestureDetector(
                                                                 onTap: () => FocusScope.of(
                                                                         context)
                                                                     .requestFocus(
-                                                                        _unfocusNode),
+                                                                        _model
+                                                                            .unfocusNode),
                                                                 child: Padding(
                                                                   padding: MediaQuery.of(
-                                                                          bottomSheetContext)
+                                                                          context)
                                                                       .viewInsets,
                                                                   child:
                                                                       WaitListFormBusinessOwnerModalWidget(),
@@ -2840,17 +2839,17 @@ class _LandingWaitlistWidgetState extends State<LandingWaitlistWidget> {
                                                       backgroundColor:
                                                           Colors.transparent,
                                                       context: context,
-                                                      builder:
-                                                          (bottomSheetContext) {
+                                                      builder: (context) {
                                                         return GestureDetector(
                                                           onTap: () => FocusScope
                                                                   .of(context)
-                                                              .requestFocus(
-                                                                  _unfocusNode),
+                                                              .requestFocus(_model
+                                                                  .unfocusNode),
                                                           child: Padding(
-                                                            padding: MediaQuery.of(
-                                                                    bottomSheetContext)
-                                                                .viewInsets,
+                                                            padding:
+                                                                MediaQuery.of(
+                                                                        context)
+                                                                    .viewInsets,
                                                             child:
                                                                 WaitListFormBusinessOwnerModalWidget(),
                                                           ),
@@ -3019,16 +3018,15 @@ class _LandingWaitlistWidgetState extends State<LandingWaitlistWidget> {
                                                         backgroundColor:
                                                             Colors.transparent,
                                                         context: context,
-                                                        builder:
-                                                            (bottomSheetContext) {
+                                                        builder: (context) {
                                                           return GestureDetector(
                                                             onTap: () => FocusScope
                                                                     .of(context)
-                                                                .requestFocus(
-                                                                    _unfocusNode),
+                                                                .requestFocus(_model
+                                                                    .unfocusNode),
                                                             child: Padding(
-                                                              padding: MediaQuery.of(
-                                                                      bottomSheetContext)
+                                                              padding: MediaQuery
+                                                                      .of(context)
                                                                   .viewInsets,
                                                               child:
                                                                   WaitListFormTalentModalWidget(
@@ -3242,16 +3240,16 @@ class _LandingWaitlistWidgetState extends State<LandingWaitlistWidget> {
                                                 backgroundColor:
                                                     Colors.transparent,
                                                 context: context,
-                                                builder: (bottomSheetContext) {
+                                                builder: (context) {
                                                   return GestureDetector(
-                                                    onTap: () =>
-                                                        FocusScope.of(context)
-                                                            .requestFocus(
-                                                                _unfocusNode),
+                                                    onTap: () => FocusScope.of(
+                                                            context)
+                                                        .requestFocus(
+                                                            _model.unfocusNode),
                                                     child: Padding(
-                                                      padding: MediaQuery.of(
-                                                              bottomSheetContext)
-                                                          .viewInsets,
+                                                      padding:
+                                                          MediaQuery.of(context)
+                                                              .viewInsets,
                                                       child:
                                                           WaitlistMenuWidget(),
                                                     ),

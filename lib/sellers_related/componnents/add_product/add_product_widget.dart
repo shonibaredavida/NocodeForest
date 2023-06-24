@@ -13,7 +13,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:provider/provider.dart';
 import 'add_product_model.dart';
 export 'add_product_model.dart';
@@ -301,7 +300,7 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                 autofocus: true,
                                                 obscureText: false,
                                                 decoration: InputDecoration(
-                                                  hintText: '0.00',
+                                                  hintText: '0.00 ',
                                                   hintStyle: FlutterFlowTheme
                                                           .of(context)
                                                       .bodySmall
@@ -370,9 +369,6 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                 validator: _model
                                                     .priceFieldControllerValidator
                                                     .asValidator(context),
-                                                inputFormatters: [
-                                                  _model.priceFieldMask
-                                                ],
                                               ),
                                             ),
                                           ),
@@ -676,17 +672,6 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                       val),
                                               width: 180.0,
                                               height: 48.0,
-                                              searchHintTextStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyLarge
-                                                      .override(
-                                                        fontFamily:
-                                                            'Roboto Condensed',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .secondaryText,
-                                                      ),
                                               textStyle:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
@@ -699,8 +684,6 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                         lineHeight: 1.5,
                                                       ),
                                               hintText: 'Select Categories',
-                                              searchHintText:
-                                                  'Search for an item...',
                                               fillColor: Color(0xFFFAFAFA),
                                               elevation: 2.0,
                                               borderColor: Colors.transparent,
@@ -2609,7 +2592,9 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                               0.0, 36.0, 0.0, 0.0),
                           child: FFButtonWidget(
                             onPressed: () async {
-                              final productsCreateData = {
+                              var productsRecordReference =
+                                  ProductsRecord.collection.doc();
+                              await productsRecordReference.set({
                                 ...createProductsRecordData(
                                   name: _model.productNameFieldController.text,
                                   price: double.tryParse(
@@ -2628,7 +2613,8 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                   platform: 'web',
                                   numOfClicks: 0,
                                   numOfSales: 0,
-                                  productId: 'NA',
+                                  productId:
+                                      '${getCurrentTimestamp.microsecondsSinceEpoch.toString()}${currentUserEmail}',
                                   sellerInfo: currentUserReference,
                                   highResolution: _model.hDSwitchValue,
                                   updates: _model.updatesSwitchValue,
@@ -2638,6 +2624,8 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                   support: _model.ongoingSupportSwitchValue,
                                   customCode: _model.customCodeSwitchValue,
                                   rating: 0.0,
+                                  paymentLink: 'NA',
+                                  sellerId: currentUserUid,
                                 ),
                                 'tags': functions.sentenceToList(
                                     _model.tagsFieldController.text),
@@ -2646,33 +2634,52 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                 'compartible_browsers': ['NA'],
                                 'include_files': ['NA'],
                                 'date_modified': FieldValue.serverTimestamp(),
-                              };
-                              var productsRecordReference =
-                                  ProductsRecord.collection.doc();
-                              await productsRecordReference
-                                  .set(productsCreateData);
-                              _model.fileUploaded =
-                                  ProductsRecord.getDocumentFromData(
-                                      productsCreateData,
-                                      productsRecordReference);
+                              });
+                              _model.productCreated =
+                                  ProductsRecord.getDocumentFromData({
+                                ...createProductsRecordData(
+                                  name: _model.productNameFieldController.text,
+                                  price: double.tryParse(
+                                      _model.priceFieldController.text),
+                                  status: 'approved',
+                                  category: _model.catergoryDropDownValue,
+                                  description:
+                                      _model.descriptionFieldController.text,
+                                  nocodeSoftware:
+                                      _model.nocodeSoftwareFieldController.text,
+                                  liveLink:
+                                      _model.livePreviewFieldController.text,
+                                  cloneLink:
+                                      _model.cloneLinkFieldController.text,
+                                  image: _model.uploadedFileUrl2,
+                                  platform: 'web',
+                                  numOfClicks: 0,
+                                  numOfSales: 0,
+                                  productId:
+                                      '${getCurrentTimestamp.microsecondsSinceEpoch.toString()}${currentUserEmail}',
+                                  sellerInfo: currentUserReference,
+                                  highResolution: _model.hDSwitchValue,
+                                  updates: _model.updatesSwitchValue,
+                                  documentation: _model.wellDocSwitchValue,
+                                  responsiveLayout:
+                                      _model.responsiveSwitchValue,
+                                  support: _model.ongoingSupportSwitchValue,
+                                  customCode: _model.customCodeSwitchValue,
+                                  rating: 0.0,
+                                  paymentLink: 'NA',
+                                  sellerId: currentUserUid,
+                                ),
+                                'tags': functions.sentenceToList(
+                                    _model.tagsFieldController.text),
+                                'date_created': DateTime.now(),
+                                'product_images': _model.uploadedFileUrls1,
+                                'compartible_browsers': ['NA'],
+                                'include_files': ['NA'],
+                                'date_modified': DateTime.now(),
+                              }, productsRecordReference);
+                              await Future.delayed(
+                                  const Duration(milliseconds: 500));
                               Navigator.pop(context);
-                              await showDialog(
-                                context: context,
-                                builder: (alertDialogContext) {
-                                  return AlertDialog(
-                                    content: Text('Product Added Successfully'),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () =>
-                                            Navigator.pop(alertDialogContext),
-                                        child: Text('Ok'),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
-
-                              context.pushNamed('dashboardSellerProductScreen');
 
                               setState(() {});
                             },

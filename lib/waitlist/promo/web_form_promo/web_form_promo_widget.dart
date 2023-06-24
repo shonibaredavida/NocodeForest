@@ -620,15 +620,6 @@ class _WebFormPromoWidgetState extends State<WebFormPromoWidget> {
                                                                         180.0,
                                                                     height:
                                                                         48.0,
-                                                                    searchHintTextStyle: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyLarge
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'Roboto Condensed',
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).secondaryText,
-                                                                        ),
                                                                     textStyle: FlutterFlowTheme.of(
                                                                             context)
                                                                         .bodyMedium
@@ -644,8 +635,6 @@ class _WebFormPromoWidgetState extends State<WebFormPromoWidget> {
                                                                         ),
                                                                     hintText:
                                                                         'Select Option',
-                                                                    searchHintText:
-                                                                        'Search for an item...',
                                                                     fillColor:
                                                                         widget
                                                                             .textboxBgColor,
@@ -1043,16 +1032,6 @@ class _WebFormPromoWidgetState extends State<WebFormPromoWidget> {
                                                                             val),
                                                                 width: 180.0,
                                                                 height: 48.0,
-                                                                searchHintTextStyle:
-                                                                    FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyLarge
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'Roboto Condensed',
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).secondaryText,
-                                                                        ),
                                                                 textStyle: FlutterFlowTheme.of(
                                                                         context)
                                                                     .bodyMedium
@@ -1069,8 +1048,6 @@ class _WebFormPromoWidgetState extends State<WebFormPromoWidget> {
                                                                     ),
                                                                 hintText:
                                                                     'Select Option',
-                                                                searchHintText:
-                                                                    'Search for an item...',
                                                                 fillColor: widget
                                                                     .textboxBgColor,
                                                                 elevation: 2.0,
@@ -1178,7 +1155,10 @@ class _WebFormPromoWidgetState extends State<WebFormPromoWidget> {
                                                           null &&
                                                       _model.industryDropDownValue !=
                                                           '')) {
-                                                final promoRecordsCreateData = {
+                                                await PromoRecordsRecord
+                                                    .collection
+                                                    .doc()
+                                                    .set({
                                                   ...createPromoRecordsRecordData(
                                                     email: _model
                                                         .emailTextFieldController
@@ -1198,12 +1178,7 @@ class _WebFormPromoWidgetState extends State<WebFormPromoWidget> {
                                                   ),
                                                   'time_created': FieldValue
                                                       .serverTimestamp(),
-                                                };
-                                                await PromoRecordsRecord
-                                                    .collection
-                                                    .doc()
-                                                    .set(
-                                                        promoRecordsCreateData);
+                                                });
                                                 setState(() {
                                                   _model
                                                       .emailTextFieldController
@@ -1222,12 +1197,11 @@ class _WebFormPromoWidgetState extends State<WebFormPromoWidget> {
                                                   isDismissible: false,
                                                   enableDrag: false,
                                                   context: context,
-                                                  builder:
-                                                      (bottomSheetContext) {
+                                                  builder: (context) {
                                                     return Padding(
-                                                      padding: MediaQuery.of(
-                                                              bottomSheetContext)
-                                                          .viewInsets,
+                                                      padding:
+                                                          MediaQuery.of(context)
+                                                              .viewInsets,
                                                       child:
                                                           WebPromoSuccessWidget(),
                                                     );

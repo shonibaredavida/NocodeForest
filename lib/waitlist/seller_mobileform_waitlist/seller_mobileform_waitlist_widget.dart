@@ -30,7 +30,6 @@ class _SellerMobileformWaitlistWidgetState
   late SellerMobileformWaitlistModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  final _unfocusNode = FocusNode();
 
   @override
   void initState() {
@@ -49,7 +48,6 @@ class _SellerMobileformWaitlistWidgetState
   void dispose() {
     _model.dispose();
 
-    _unfocusNode.dispose();
     super.dispose();
   }
 
@@ -62,20 +60,23 @@ class _SellerMobileformWaitlistWidgetState
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
         if (!snapshot.hasData) {
-          return Center(
-            child: SizedBox(
-              width: 50.0,
-              height: 50.0,
-              child: SpinKitCubeGrid(
-                color: FlutterFlowTheme.of(context).primary,
-                size: 50.0,
+          return Scaffold(
+            backgroundColor: Color(0xFFF3F3F5),
+            body: Center(
+              child: SizedBox(
+                width: 50.0,
+                height: 50.0,
+                child: SpinKitCubeGrid(
+                  color: FlutterFlowTheme.of(context).primary,
+                  size: 50.0,
+                ),
               ),
             ),
           );
         }
         final sellerMobileformWaitlistCountryListResponse = snapshot.data!;
         return GestureDetector(
-          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+          onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
           child: Scaffold(
             key: scaffoldKey,
             backgroundColor: Color(0xFFF3F3F5),
@@ -125,13 +126,13 @@ class _SellerMobileformWaitlistWidgetState
                                         isScrollControlled: true,
                                         backgroundColor: Colors.transparent,
                                         context: context,
-                                        builder: (bottomSheetContext) {
+                                        builder: (context) {
                                           return GestureDetector(
                                             onTap: () => FocusScope.of(context)
-                                                .requestFocus(_unfocusNode),
+                                                .requestFocus(
+                                                    _model.unfocusNode),
                                             child: Padding(
-                                              padding: MediaQuery.of(
-                                                      bottomSheetContext)
+                                              padding: MediaQuery.of(context)
                                                   .viewInsets,
                                               child: WaitlistMenuWidget(),
                                             ),
@@ -581,17 +582,6 @@ class _SellerMobileformWaitlistWidgetState
                                                   _model.dropDownValue = val),
                                               width: 279.0,
                                               height: 48.0,
-                                              searchHintTextStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyLarge
-                                                      .override(
-                                                        fontFamily:
-                                                            'Roboto Condensed',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .secondaryText,
-                                                      ),
                                               textStyle:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
@@ -606,7 +596,6 @@ class _SellerMobileformWaitlistWidgetState
                                                         lineHeight: 1.5,
                                                       ),
                                               hintText: 'Select Country',
-                                              searchHintText: '',
                                               fillColor: Color(0xFF3F3F3F),
                                               elevation: 2.0,
                                               borderColor: Colors.transparent,
@@ -659,17 +648,6 @@ class _SellerMobileformWaitlistWidgetState
                                                       val),
                                               width: 279.0,
                                               height: 48.0,
-                                              searchHintTextStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyLarge
-                                                      .override(
-                                                        fontFamily:
-                                                            'Roboto Condensed',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .secondaryText,
-                                                      ),
                                               textStyle:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
@@ -684,7 +662,6 @@ class _SellerMobileformWaitlistWidgetState
                                                         lineHeight: 1.5,
                                                       ),
                                               hintText: 'Select Option',
-                                              searchHintText: '',
                                               fillColor: Color(0xFF3F3F3F),
                                               elevation: 2.0,
                                               borderColor: Colors.transparent,
@@ -743,17 +720,6 @@ class _SellerMobileformWaitlistWidgetState
                                                       val),
                                               width: 279.0,
                                               height: 48.0,
-                                              searchHintTextStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyLarge
-                                                      .override(
-                                                        fontFamily:
-                                                            'Roboto Condensed',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .secondaryText,
-                                                      ),
                                               textStyle:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
@@ -768,7 +734,6 @@ class _SellerMobileformWaitlistWidgetState
                                                         lineHeight: 1.5,
                                                       ),
                                               hintText: 'Select Tool',
-                                              searchHintText: '',
                                               fillColor: Color(0xFF3F3F3F),
                                               elevation: 2.0,
                                               borderColor: Colors.transparent,
@@ -1004,7 +969,10 @@ class _SellerMobileformWaitlistWidgetState
                                                       null &&
                                                   _model.nocodeToolsDropDownValue !=
                                                       '')) {
-                                            final waitlistTalentCreateData = {
+                                            await WaitlistTalentRecord
+                                                .collection
+                                                .doc()
+                                                .set({
                                               ...createWaitlistTalentRecordData(
                                                 country: _model.dropDownValue,
                                                 email: _model
@@ -1029,11 +997,7 @@ class _SellerMobileformWaitlistWidgetState
                                               ),
                                               'created_time':
                                                   FieldValue.serverTimestamp(),
-                                            };
-                                            await WaitlistTalentRecord
-                                                .collection
-                                                .doc()
-                                                .set(waitlistTalentCreateData);
+                                            });
                                             setState(() {
                                               _model.nameTextFieldController
                                                   ?.clear();

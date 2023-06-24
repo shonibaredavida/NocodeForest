@@ -4,10 +4,12 @@ import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_charts.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/main_components/header/header_widget.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
+import '/main_components/create_account_modal/create_account_modal_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -25,7 +27,6 @@ class _AdminOverviewWidgetState extends State<AdminOverviewWidget> {
   late AdminOverviewModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  final _unfocusNode = FocusNode();
 
   @override
   void initState() {
@@ -39,7 +40,6 @@ class _AdminOverviewWidgetState extends State<AdminOverviewWidget> {
   void dispose() {
     _model.dispose();
 
-    _unfocusNode.dispose();
     super.dispose();
   }
 
@@ -48,7 +48,7 @@ class _AdminOverviewWidgetState extends State<AdminOverviewWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -78,11 +78,101 @@ class _AdminOverviewWidgetState extends State<AdminOverviewWidget> {
                       ),
                       child: Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
-                            32.0, 0.0, 32.0, 0.0),
-                        child: wrapWithModel(
-                          model: _model.headerModel,
-                          updateCallback: () => setState(() {}),
-                          child: HeaderWidget(),
+                            0.0, 36.0, 0.0, 36.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  32.0, 0.0, 0.0, 0.0),
+                              child: SvgPicture.asset(
+                                'assets/images/NF_Logo.svg',
+                                width: 132.0,
+                                height: 51.1,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            Column(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 4.0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 4.0, 32.0, 0.0),
+                                        child: FFButtonWidget(
+                                          onPressed: () async {
+                                            await showModalBottomSheet(
+                                              isScrollControlled: true,
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              enableDrag: false,
+                                              context: context,
+                                              builder: (context) {
+                                                return GestureDetector(
+                                                  onTap: () => FocusScope.of(
+                                                          context)
+                                                      .requestFocus(
+                                                          _model.unfocusNode),
+                                                  child: Padding(
+                                                    padding:
+                                                        MediaQuery.of(context)
+                                                            .viewInsets,
+                                                    child:
+                                                        CreateAccountModalWidget(),
+                                                  ),
+                                                );
+                                              },
+                                            ).then((value) => setState(() {}));
+                                          },
+                                          text: 'Logout',
+                                          options: FFButtonOptions(
+                                            width: 141.0,
+                                            height: 48.0,
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 0.0, 0.0),
+                                            iconPadding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 0.0, 0.0),
+                                            color: Color(0xFFE94057),
+                                            textStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmall
+                                                    .override(
+                                                      fontFamily:
+                                                          'Roboto Condensed',
+                                                      color: Colors.white,
+                                                      fontSize: 16.0,
+                                                      lineHeight: 1.5,
+                                                    ),
+                                            borderSide: BorderSide(
+                                              color: Colors.transparent,
+                                              width: 1.0,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(5.0),
+                                            hoverColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .primaryText,
+                                            hoverTextColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .primary,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                       ),
                     ),
@@ -165,6 +255,9 @@ class _AdminOverviewWidgetState extends State<AdminOverviewWidget> {
                                                       Row(
                                                         mainAxisSize:
                                                             MainAxisSize.max,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceEvenly,
                                                         crossAxisAlignment:
                                                             CrossAxisAlignment
                                                                 .start,
@@ -175,10 +268,10 @@ class _AdminOverviewWidgetState extends State<AdminOverviewWidget> {
                                                                     .fromSTEB(
                                                                         0.0,
                                                                         0.0,
-                                                                        18.0,
+                                                                        8.0,
                                                                         0.0),
                                                             child: Container(
-                                                              width: 433.0,
+                                                              width: 400.0,
                                                               height: 184.0,
                                                               decoration:
                                                                   BoxDecoration(
@@ -297,49 +390,194 @@ class _AdminOverviewWidgetState extends State<AdminOverviewWidget> {
                                                             padding:
                                                                 EdgeInsetsDirectional
                                                                     .fromSTEB(
+                                                                        8.0,
                                                                         0.0,
                                                                         0.0,
-                                                                        0.0,
-                                                                        29.0),
-                                                            child: Row(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .start,
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                Padding(
-                                                                  padding: EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          34.0,
-                                                                          0.0),
-                                                                  child:
-                                                                      Container(
-                                                                    width:
-                                                                        424.0,
-                                                                    height:
-                                                                        184.0,
-                                                                    decoration:
-                                                                        BoxDecoration(
-                                                                      color: Colors
-                                                                          .white,
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              16.0),
-                                                                    ),
-                                                                    child:
+                                                                        0.0),
+                                                            child: Container(
+                                                              width: 400.0,
+                                                              height: 184.0,
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color: Colors
+                                                                    .white,
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            16.0),
+                                                              ),
+                                                              child: Padding(
+                                                                padding: EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        20.0,
+                                                                        32.0,
+                                                                        20.0,
+                                                                        32.0),
+                                                                child: Row(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceBetween,
+                                                                  children: [
+                                                                    Column(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .max,
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .center,
+                                                                      crossAxisAlignment:
+                                                                          CrossAxisAlignment
+                                                                              .start,
+                                                                      children: [
                                                                         Padding(
+                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                              0.0,
+                                                                              0.0,
+                                                                              0.0,
+                                                                              8.0),
+                                                                          child:
+                                                                              Text(
+                                                                            'Total Number of Buyers',
+                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                  fontFamily: 'Roboto Condensed',
+                                                                                  color: Color(0xFF525252),
+                                                                                  fontWeight: FontWeight.bold,
+                                                                                  lineHeight: 1.15,
+                                                                                ),
+                                                                          ),
+                                                                        ),
+                                                                        Text(
+                                                                          containerUsersRecordList
+                                                                              .where((e) => !e.becomeASeller && !e.admin)
+                                                                              .toList()
+                                                                              .length
+                                                                              .toString(),
+                                                                          style: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .override(
+                                                                                fontFamily: 'Roboto Condensed',
+                                                                                color: Colors.black,
+                                                                                fontSize: 24.0,
+                                                                                fontWeight: FontWeight.bold,
+                                                                                lineHeight: 1.15,
+                                                                              ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                    Container(
+                                                                      width:
+                                                                          220.0,
+                                                                      height:
+                                                                          300.0,
+                                                                      child:
+                                                                          FlutterFlowPieChart(
+                                                                        data:
+                                                                            FFPieChartData(
+                                                                          values: [
+                                                                            containerUsersRecordList.where((e) => !e.becomeASeller && !e.admin).toList().length,
+                                                                            containerUsersRecordList.where((e) => e.becomeASeller && !e.admin).toList().length
+                                                                          ],
+                                                                          colors: [
+                                                                            FlutterFlowTheme.of(context).error,
+                                                                            FlutterFlowTheme.of(context).secondaryText
+                                                                          ],
+                                                                          radius: [
+                                                                            40.0,
+                                                                            40.0
+                                                                          ],
+                                                                          borderWidth: [
+                                                                            0,
+                                                                            1.0
+                                                                          ],
+                                                                          borderColor: [
+                                                                            Colors.transparent,
+                                                                            Color(0xFFE4E8EF)
+                                                                          ],
+                                                                        ),
+                                                                        donutHoleRadius:
+                                                                            20.0,
+                                                                        donutHoleColor:
+                                                                            Colors.white,
+                                                                        sectionLabelStyle:
+                                                                            FlutterFlowTheme.of(context).headlineSmall,
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    30.0,
+                                                                    0.0,
+                                                                    0.0),
+                                                        child: StreamBuilder<
+                                                            List<OrdersRecord>>(
+                                                          stream:
+                                                              queryOrdersRecord(),
+                                                          builder: (context,
+                                                              snapshot) {
+                                                            // Customize what your widget looks like when it's loading.
+                                                            if (!snapshot
+                                                                .hasData) {
+                                                              return Center(
+                                                                child: SizedBox(
+                                                                  width: 50.0,
+                                                                  height: 50.0,
+                                                                  child:
+                                                                      SpinKitCubeGrid(
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primary,
+                                                                    size: 50.0,
+                                                                  ),
+                                                                ),
+                                                              );
+                                                            }
+                                                            List<OrdersRecord>
+                                                                containerOrdersRecordList =
+                                                                snapshot.data!;
+                                                            return Container(
+                                                              width: double
+                                                                  .infinity,
+                                                              height: 265.0,
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryText,
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            16.0),
+                                                              ),
+                                                              child: Padding(
+                                                                padding: EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        16.0,
+                                                                        16.0,
+                                                                        16.0,
+                                                                        16.0),
+                                                                child: Column(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  children: [
+                                                                    Padding(
                                                                       padding: EdgeInsetsDirectional.fromSTEB(
-                                                                          20.0,
-                                                                          32.0,
-                                                                          20.0,
-                                                                          32.0),
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          16.0),
                                                                       child:
                                                                           Row(
                                                                         mainAxisSize:
@@ -347,239 +585,119 @@ class _AdminOverviewWidgetState extends State<AdminOverviewWidget> {
                                                                         mainAxisAlignment:
                                                                             MainAxisAlignment.spaceBetween,
                                                                         children: [
-                                                                          Column(
+                                                                          Text(
+                                                                            'Sales Chart',
+                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                  fontFamily: 'Roboto Condensed',
+                                                                                  color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                                  fontSize: 23.0,
+                                                                                  fontWeight: FontWeight.bold,
+                                                                                ),
+                                                                          ),
+                                                                          Row(
                                                                             mainAxisSize:
                                                                                 MainAxisSize.max,
-                                                                            mainAxisAlignment:
-                                                                                MainAxisAlignment.center,
-                                                                            crossAxisAlignment:
-                                                                                CrossAxisAlignment.start,
                                                                             children: [
+                                                                              Container(
+                                                                                width: 12.0,
+                                                                                height: 12.0,
+                                                                                decoration: BoxDecoration(
+                                                                                  color: Color(0xFF1900D5),
+                                                                                  shape: BoxShape.circle,
+                                                                                ),
+                                                                              ),
                                                                               Padding(
-                                                                                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
+                                                                                padding: EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 0.0, 0.0),
                                                                                 child: Text(
-                                                                                  'Total Number of Buyers',
+                                                                                  'Sales',
                                                                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                         fontFamily: 'Roboto Condensed',
-                                                                                        color: Color(0xFF525252),
-                                                                                        fontWeight: FontWeight.bold,
-                                                                                        lineHeight: 1.15,
+                                                                                        color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                        lineHeight: 1.5,
                                                                                       ),
                                                                                 ),
                                                                               ),
-                                                                              Text(
-                                                                                containerUsersRecordList.where((e) => !e.becomeASeller && !e.admin).toList().length.toString(),
-                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                      fontFamily: 'Roboto Condensed',
-                                                                                      color: Colors.black,
-                                                                                      fontSize: 24.0,
-                                                                                      fontWeight: FontWeight.bold,
-                                                                                      lineHeight: 1.15,
-                                                                                    ),
-                                                                              ),
                                                                             ],
                                                                           ),
-                                                                          Container(
-                                                                            width:
-                                                                                220.0,
-                                                                            height:
-                                                                                300.0,
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                    Expanded(
+                                                                      child:
+                                                                          Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        children: [
+                                                                          Expanded(
                                                                             child:
-                                                                                FlutterFlowPieChart(
-                                                                              data: FFPieChartData(
-                                                                                values: [
-                                                                                  containerUsersRecordList.where((e) => !e.becomeASeller && !e.admin).toList().length,
-                                                                                  containerUsersRecordList.where((e) => e.becomeASeller && !e.admin).toList().length
+                                                                                Container(
+                                                                              width: 370.0,
+                                                                              height: 230.0,
+                                                                              child: FlutterFlowLineChart(
+                                                                                data: [
+                                                                                  FFLineChartData(
+                                                                                    xData: functions.getLabelLineChart(),
+                                                                                    yData: functions.getAYearAgoDataForLineGraph(containerOrdersRecordList.toList())!,
+                                                                                    settings: LineChartBarData(
+                                                                                      color: FlutterFlowTheme.of(context).primary,
+                                                                                      barWidth: 2.0,
+                                                                                    ),
+                                                                                  )
                                                                                 ],
-                                                                                colors: [
-                                                                                  FlutterFlowTheme.of(context).error,
-                                                                                  FlutterFlowTheme.of(context).secondaryText
-                                                                                ],
-                                                                                radius: [
-                                                                                  40.0,
-                                                                                  40.0
-                                                                                ],
-                                                                                borderWidth: [
-                                                                                  0,
-                                                                                  1.0
-                                                                                ],
-                                                                                borderColor: [
-                                                                                  Colors.transparent,
-                                                                                  Color(0xFFE4E8EF)
-                                                                                ],
+                                                                                chartStylingInfo: ChartStylingInfo(
+                                                                                  enableTooltip: true,
+                                                                                  tooltipBackgroundColor: Colors.transparent,
+                                                                                  backgroundColor: FlutterFlowTheme.of(context).primaryText,
+                                                                                  showGrid: true,
+                                                                                  borderColor: FlutterFlowTheme.of(context).secondaryText,
+                                                                                  borderWidth: 1.0,
+                                                                                ),
+                                                                                axisBounds: AxisBounds(),
+                                                                                xAxisLabelInfo: AxisLabelInfo(),
+                                                                                yAxisLabelInfo: AxisLabelInfo(
+                                                                                  title: 'Quantity',
+                                                                                  titleTextStyle: GoogleFonts.getFont(
+                                                                                    'Roboto Condensed',
+                                                                                    fontSize: 16.0,
+                                                                                  ),
+                                                                                  showLabels: true,
+                                                                                  labelTextStyle: GoogleFonts.getFont(
+                                                                                    'Roboto',
+                                                                                  ),
+                                                                                  labelInterval: 10.0,
+                                                                                ),
                                                                               ),
-                                                                              donutHoleRadius: 20.0,
-                                                                              donutHoleColor: Colors.white,
-                                                                              sectionLabelStyle: FlutterFlowTheme.of(context).headlineSmall,
                                                                             ),
                                                                           ),
                                                                         ],
                                                                       ),
                                                                     ),
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      StreamBuilder<
-                                                          List<OrdersRecord>>(
-                                                        stream:
-                                                            queryOrdersRecord(),
-                                                        builder: (context,
-                                                            snapshot) {
-                                                          // Customize what your widget looks like when it's loading.
-                                                          if (!snapshot
-                                                              .hasData) {
-                                                            return Center(
-                                                              child: SizedBox(
-                                                                width: 50.0,
-                                                                height: 50.0,
-                                                                child:
-                                                                    SpinKitCubeGrid(
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primary,
-                                                                  size: 50.0,
-                                                                ),
-                                                              ),
-                                                            );
-                                                          }
-                                                          List<OrdersRecord>
-                                                              containerOrdersRecordList =
-                                                              snapshot.data!;
-                                                          return Container(
-                                                            width:
-                                                                double.infinity,
-                                                            height: 265.0,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .primaryText,
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          16.0),
-                                                            ),
-                                                            child: Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          16.0,
-                                                                          16.0,
-                                                                          16.0,
-                                                                          16.0),
-                                                              child: Column(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                children: [
-                                                                  Padding(
-                                                                    padding: EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            16.0),
-                                                                    child: Row(
+                                                                    Row(
                                                                       mainAxisSize:
                                                                           MainAxisSize
                                                                               .max,
                                                                       mainAxisAlignment:
                                                                           MainAxisAlignment
-                                                                              .spaceBetween,
+                                                                              .end,
                                                                       children: [
                                                                         Text(
-                                                                          'Sales Chart',
+                                                                          functions
+                                                                              .getCurrentMonthInWord()!,
                                                                           style: FlutterFlowTheme.of(context)
                                                                               .bodyMedium
                                                                               .override(
                                                                                 fontFamily: 'Roboto Condensed',
                                                                                 color: FlutterFlowTheme.of(context).primaryBackground,
-                                                                                fontSize: 23.0,
-                                                                                fontWeight: FontWeight.bold,
                                                                               ),
-                                                                        ),
-                                                                        Row(
-                                                                          mainAxisSize:
-                                                                              MainAxisSize.max,
-                                                                          children: [
-                                                                            Container(
-                                                                              width: 12.0,
-                                                                              height: 12.0,
-                                                                              decoration: BoxDecoration(
-                                                                                color: Color(0xFF1900D5),
-                                                                                shape: BoxShape.circle,
-                                                                              ),
-                                                                            ),
-                                                                            Padding(
-                                                                              padding: EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 0.0, 0.0),
-                                                                              child: Text(
-                                                                                'Sales',
-                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                      fontFamily: 'Roboto Condensed',
-                                                                                      color: FlutterFlowTheme.of(context).secondaryText,
-                                                                                      lineHeight: 1.5,
-                                                                                    ),
-                                                                              ),
-                                                                            ),
-                                                                          ],
                                                                         ),
                                                                       ],
                                                                     ),
-                                                                  ),
-                                                                  Expanded(
-                                                                    child: Row(
-                                                                      mainAxisSize:
-                                                                          MainAxisSize
-                                                                              .max,
-                                                                      children: [
-                                                                        Expanded(
-                                                                          child:
-                                                                              Container(
-                                                                            width:
-                                                                                370.0,
-                                                                            height:
-                                                                                230.0,
-                                                                            child:
-                                                                                FlutterFlowLineChart(
-                                                                              data: [
-                                                                                FFLineChartData(
-                                                                                  xData: functions.getLabelLineChart(),
-                                                                                  yData: functions.getDataForLineGraph(containerOrdersRecordList.toList())!,
-                                                                                  settings: LineChartBarData(
-                                                                                    color: FlutterFlowTheme.of(context).primary,
-                                                                                    barWidth: 2.0,
-                                                                                    isCurved: true,
-                                                                                    preventCurveOverShooting: true,
-                                                                                  ),
-                                                                                )
-                                                                              ],
-                                                                              chartStylingInfo: ChartStylingInfo(
-                                                                                enableTooltip: true,
-                                                                                backgroundColor: FlutterFlowTheme.of(context).primaryText,
-                                                                                showGrid: true,
-                                                                                showBorder: false,
-                                                                              ),
-                                                                              axisBounds: AxisBounds(
-                                                                                minX: 0.0,
-                                                                                maxX: 12.0,
-                                                                              ),
-                                                                              xAxisLabelInfo: AxisLabelInfo(),
-                                                                              yAxisLabelInfo: AxisLabelInfo(),
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                ],
+                                                                  ],
+                                                                ),
                                                               ),
-                                                            ),
-                                                          );
-                                                        },
+                                                            );
+                                                          },
+                                                        ),
                                                       ),
                                                     ],
                                                   ),
@@ -656,8 +774,7 @@ class _AdminOverviewWidgetState extends State<AdminOverviewWidget> {
                                                                   context
                                                                       .pushNamed(
                                                                     'adminProducts',
-                                                                    extra: <
-                                                                        String,
+                                                                    extra: <String,
                                                                         dynamic>{
                                                                       kTransitionInfoKey:
                                                                           TransitionInfo(
@@ -946,7 +1063,7 @@ class _AdminOverviewWidgetState extends State<AdminOverviewWidget> {
                                                                     .transparent,
                                                             onTap: () async {
                                                               context.pushNamed(
-                                                                'adminUsers',
+                                                                'adminUsersList',
                                                                 extra: <String,
                                                                     dynamic>{
                                                                   kTransitionInfoKey:
@@ -1337,11 +1454,11 @@ class _AdminOverviewWidgetState extends State<AdminOverviewWidget> {
                                                                                                       isScrollControlled: true,
                                                                                                       backgroundColor: Colors.transparent,
                                                                                                       context: context,
-                                                                                                      builder: (bottomSheetContext) {
+                                                                                                      builder: (context) {
                                                                                                         return GestureDetector(
-                                                                                                          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+                                                                                                          onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
                                                                                                           child: Padding(
-                                                                                                            padding: MediaQuery.of(bottomSheetContext).viewInsets,
+                                                                                                            padding: MediaQuery.of(context).viewInsets,
                                                                                                             child: UserProfileCardWidget(
                                                                                                               userRef: individualUserItem.reference,
                                                                                                             ),

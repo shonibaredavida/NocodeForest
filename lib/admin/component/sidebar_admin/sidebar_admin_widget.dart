@@ -1,3 +1,4 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -38,6 +39,7 @@ class SidebarAdminWidget extends StatefulWidget {
     bool? p2State,
     this.p4State,
     this.p3State,
+    bool? p5State,
   })  : this.iconOneColor = iconOneColor ?? const Color(0xFF99969E),
         this.iconTwoColor = iconTwoColor ?? const Color(0xFF99969E),
         this.iconThreeColor = iconThreeColor ?? const Color(0xFF99969E),
@@ -60,6 +62,7 @@ class SidebarAdminWidget extends StatefulWidget {
         this.iconSettingColor = iconSettingColor ?? const Color(0xFF99969E),
         this.p1State = p1State ?? false,
         this.p2State = p2State ?? false,
+        this.p5State = p5State ?? false,
         super(key: key);
 
   final Color iconOneColor;
@@ -86,6 +89,7 @@ class SidebarAdminWidget extends StatefulWidget {
   final bool p2State;
   final bool? p4State;
   final bool? p3State;
+  final bool p5State;
 
   @override
   _SidebarAdminWidgetState createState() => _SidebarAdminWidgetState();
@@ -176,6 +180,46 @@ class _SidebarAdminWidgetState extends State<SidebarAdminWidget>
         ),
       ],
     ),
+    'containerOnPageLoadAnimation5': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        VisibilityEffect(duration: 1.ms),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: Offset(0.0, 10.0),
+          end: Offset(0.0, 0.0),
+        ),
+      ],
+    ),
+    'containerOnPageLoadAnimation6': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        VisibilityEffect(duration: 1.ms),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: Offset(0.0, 10.0),
+          end: Offset(0.0, 0.0),
+        ),
+      ],
+    ),
   };
 
   @override
@@ -225,243 +269,390 @@ class _SidebarAdminWidgetState extends State<SidebarAdminWidget>
               color: FlutterFlowTheme.of(context).primaryText,
               borderRadius: BorderRadius.circular(0.0),
             ),
-            child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 22.0, 0.0, 20.0),
-                      child: InkWell(
-                        splashColor: Colors.transparent,
-                        focusColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onTap: () async {
-                          if (!widget.p1State) {
-                            context.pushNamed(
-                              'adminOverview',
-                              extra: <String, dynamic>{
-                                kTransitionInfoKey: TransitionInfo(
-                                  hasTransition: true,
-                                  transitionType: PageTransitionType.fade,
-                                  duration: Duration(milliseconds: 0),
-                                ),
-                              },
-                            );
-                          }
-                        },
-                        child: Container(
-                          width: double.infinity,
-                          height: 40.0,
-                          decoration: BoxDecoration(
-                            color: valueOrDefault<Color>(
-                              widget.bGColor1,
-                              Color(0xFF009946),
-                            ),
-                            borderRadius: BorderRadius.circular(4.0),
-                          ),
-                          child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                8.0, 4.0, 4.0, 4.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 12.0, 0.0),
-                                  child: SvgPicture.asset(
-                                    'assets/images/Component_3.svg',
-                                    width: 24.0,
-                                    height: 24.0,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                                Text(
-                                  'Overview',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Roboto Condensed',
-                                        color: widget.iconOneColor,
-                                      ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ).animateOnPageLoad(
-                          animationsMap['containerOnPageLoadAnimation1']!),
-                    ),
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 20.0),
-                      child: Container(
-                        width: double.infinity,
-                        height: 40.0,
-                        decoration: BoxDecoration(
-                          color: widget.bGColor2,
-                          borderRadius: BorderRadius.circular(4.0),
-                        ),
-                        child: Padding(
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding:
+                      EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
-                              8.0, 4.0, 4.0, 4.0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 12.0, 0.0),
-                                child: SvgPicture.asset(
-                                  'assets/images/Component_3.svg',
-                                  width: 24.0,
-                                  height: 24.0,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                              Text(
-                                'Payments',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Roboto Condensed',
-                                      color: widget.iconTwoColor,
+                              0.0, 22.0, 0.0, 20.0),
+                          child: InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () async {
+                              if (!widget.p1State) {
+                                context.pushNamed(
+                                  'adminOverview',
+                                  extra: <String, dynamic>{
+                                    kTransitionInfoKey: TransitionInfo(
+                                      hasTransition: true,
+                                      transitionType: PageTransitionType.fade,
+                                      duration: Duration(milliseconds: 0),
                                     ),
+                                  },
+                                );
+                              }
+                            },
+                            child: Container(
+                              width: double.infinity,
+                              height: 40.0,
+                              decoration: BoxDecoration(
+                                color: valueOrDefault<Color>(
+                                  widget.bGColor1,
+                                  Color(0xFF009946),
+                                ),
+                                borderRadius: BorderRadius.circular(4.0),
                               ),
-                            ],
-                          ),
-                        ),
-                      ).animateOnPageLoad(
-                          animationsMap['containerOnPageLoadAnimation2']!),
-                    ),
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 20.0),
-                      child: InkWell(
-                        splashColor: Colors.transparent,
-                        focusColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onTap: () async {
-                          if (!widget.p3State!) {
-                            context.pushNamed(
-                              'adminProducts',
-                              extra: <String, dynamic>{
-                                kTransitionInfoKey: TransitionInfo(
-                                  hasTransition: true,
-                                  transitionType: PageTransitionType.fade,
-                                  duration: Duration(milliseconds: 0),
-                                ),
-                              },
-                            );
-                          }
-                        },
-                        child: Container(
-                          width: double.infinity,
-                          height: 40.0,
-                          decoration: BoxDecoration(
-                            color: widget.bGColor3,
-                            borderRadius: BorderRadius.circular(4.0),
-                          ),
-                          child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                8.0, 4.0, 4.0, 4.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 12.0, 0.0),
-                                  child: SvgPicture.asset(
-                                    'assets/images/Component_3.svg',
-                                    width: 24.0,
-                                    height: 24.0,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                                Text(
-                                  'Products',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Roboto Condensed',
-                                        color: widget.iconThreeColor,
+                              child: Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    8.0, 4.0, 4.0, 4.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 12.0, 0.0),
+                                      child: SvgPicture.asset(
+                                        'assets/images/Component_3.svg',
+                                        width: 24.0,
+                                        height: 24.0,
+                                        fit: BoxFit.cover,
                                       ),
+                                    ),
+                                    Text(
+                                      'Overview',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Roboto Condensed',
+                                            color: widget.iconOneColor,
+                                          ),
+                                    ),
+                                  ],
                                 ),
-                              ],
+                              ),
                             ),
-                          ),
+                          ).animateOnPageLoad(
+                              animationsMap['containerOnPageLoadAnimation1']!),
                         ),
-                      ).animateOnPageLoad(
-                          animationsMap['containerOnPageLoadAnimation3']!),
-                    ),
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 20.0),
-                      child: InkWell(
-                        splashColor: Colors.transparent,
-                        focusColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onTap: () async {
-                          if (!widget.p4State!) {
-                            context.pushNamed(
-                              'adminUsers',
-                              extra: <String, dynamic>{
-                                kTransitionInfoKey: TransitionInfo(
-                                  hasTransition: true,
-                                  transitionType: PageTransitionType.fade,
-                                  duration: Duration(milliseconds: 0),
-                                ),
-                              },
-                            );
-                          }
-                        },
-                        child: Container(
-                          width: double.infinity,
-                          height: 40.0,
-                          decoration: BoxDecoration(
-                            color: widget.bGColor4,
-                            borderRadius: BorderRadius.circular(4.0),
-                          ),
-                          child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                8.0, 4.0, 4.0, 4.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 12.0, 0.0),
-                                  child: SvgPicture.asset(
-                                    'assets/images/Component_3.svg',
-                                    width: 24.0,
-                                    height: 24.0,
-                                    fit: BoxFit.cover,
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 8.0, 0.0, 20.0),
+                          child: Container(
+                            width: double.infinity,
+                            height: 40.0,
+                            decoration: BoxDecoration(
+                              color: widget.bGColor2,
+                              borderRadius: BorderRadius.circular(4.0),
+                            ),
+                            child: Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  8.0, 4.0, 4.0, 4.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 12.0, 0.0),
+                                    child: SvgPicture.asset(
+                                      'assets/images/Component_3.svg',
+                                      width: 24.0,
+                                      height: 24.0,
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
-                                ),
-                                Text(
-                                  'Users',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Roboto Condensed',
-                                        color: widget.iconFourColor,
-                                      ),
-                                ),
-                              ],
+                                  Text(
+                                    'Payments',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Roboto Condensed',
+                                          color: widget.iconTwoColor,
+                                        ),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
+                          ).animateOnPageLoad(
+                              animationsMap['containerOnPageLoadAnimation2']!),
                         ),
-                      ).animateOnPageLoad(
-                          animationsMap['containerOnPageLoadAnimation4']!),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 8.0, 0.0, 20.0),
+                          child: InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () async {
+                              if (!widget.p3State!) {
+                                context.pushNamed(
+                                  'adminProducts',
+                                  extra: <String, dynamic>{
+                                    kTransitionInfoKey: TransitionInfo(
+                                      hasTransition: true,
+                                      transitionType: PageTransitionType.fade,
+                                      duration: Duration(milliseconds: 0),
+                                    ),
+                                  },
+                                );
+                              }
+                            },
+                            child: Container(
+                              width: double.infinity,
+                              height: 40.0,
+                              decoration: BoxDecoration(
+                                color: widget.bGColor3,
+                                borderRadius: BorderRadius.circular(4.0),
+                              ),
+                              child: Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    8.0, 4.0, 4.0, 4.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 12.0, 0.0),
+                                      child: SvgPicture.asset(
+                                        'assets/images/Component_3.svg',
+                                        width: 24.0,
+                                        height: 24.0,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                    Text(
+                                      'Products',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Roboto Condensed',
+                                            color: widget.iconThreeColor,
+                                          ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ).animateOnPageLoad(
+                              animationsMap['containerOnPageLoadAnimation3']!),
+                        ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 8.0, 0.0, 20.0),
+                          child: InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () async {
+                              if (!widget.p4State!) {
+                                context.pushNamed(
+                                  'adminUsersList',
+                                  extra: <String, dynamic>{
+                                    kTransitionInfoKey: TransitionInfo(
+                                      hasTransition: true,
+                                      transitionType: PageTransitionType.fade,
+                                      duration: Duration(milliseconds: 0),
+                                    ),
+                                  },
+                                );
+                              }
+                            },
+                            child: Container(
+                              width: double.infinity,
+                              height: 40.0,
+                              decoration: BoxDecoration(
+                                color: widget.bGColor4,
+                                borderRadius: BorderRadius.circular(4.0),
+                              ),
+                              child: Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    8.0, 4.0, 4.0, 4.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 12.0, 0.0),
+                                      child: SvgPicture.asset(
+                                        'assets/images/Component_3.svg',
+                                        width: 24.0,
+                                        height: 24.0,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                    Text(
+                                      'Users',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Roboto Condensed',
+                                            color: widget.iconFourColor,
+                                          ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ).animateOnPageLoad(
+                              animationsMap['containerOnPageLoadAnimation4']!),
+                        ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 8.0, 0.0, 20.0),
+                          child: InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () async {
+                              if (!widget.p5State) {
+                                context.pushNamed(
+                                  'adminUsersList',
+                                  extra: <String, dynamic>{
+                                    kTransitionInfoKey: TransitionInfo(
+                                      hasTransition: true,
+                                      transitionType: PageTransitionType.fade,
+                                      duration: Duration(milliseconds: 0),
+                                    ),
+                                  },
+                                );
+                              }
+                            },
+                            child: Container(
+                              width: double.infinity,
+                              height: 40.0,
+                              decoration: BoxDecoration(
+                                color: widget.bGColor5,
+                                borderRadius: BorderRadius.circular(4.0),
+                              ),
+                              child: Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    8.0, 4.0, 4.0, 4.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 12.0, 0.0),
+                                      child: SvgPicture.asset(
+                                        'assets/images/Component_3.svg',
+                                        width: 24.0,
+                                        height: 24.0,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                    Text(
+                                      'Admins',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Roboto Condensed',
+                                            color: widget.iconFiveColor,
+                                          ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ).animateOnPageLoad(
+                              animationsMap['containerOnPageLoadAnimation5']!),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
-              ),
+                Padding(
+                  padding:
+                      EdgeInsetsDirectional.fromSTEB(16.0, 8.0, 16.0, 70.0),
+                  child: InkWell(
+                    splashColor: Colors.transparent,
+                    focusColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () async {
+                      var confirmDialogResponse = await showDialog<bool>(
+                            context: context,
+                            builder: (alertDialogContext) {
+                              return AlertDialog(
+                                content: Text('Do you want to Logout?'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () => Navigator.pop(
+                                        alertDialogContext, false),
+                                    child: Text('Cancel'),
+                                  ),
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(alertDialogContext, true),
+                                    child: Text('Confirm'),
+                                  ),
+                                ],
+                              );
+                            },
+                          ) ??
+                          false;
+                      if (confirmDialogResponse) {
+                        GoRouter.of(context).prepareAuthEvent();
+                        await authManager.signOut();
+                        GoRouter.of(context).clearRedirectLocation();
+                      }
+
+                      context.goNamedAuth('landingPageBuyers', context.mounted);
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      height: 40.0,
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).error,
+                        borderRadius: BorderRadius.circular(4.0),
+                      ),
+                      child: Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(8.0, 4.0, 4.0, 4.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 12.0, 0.0),
+                              child: Icon(
+                                Icons.logout,
+                                color:
+                                    FlutterFlowTheme.of(context).secondaryText,
+                                size: 24.0,
+                              ),
+                            ),
+                            Text(
+                              'Logout',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Roboto Condensed',
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                    letterSpacing: 1.2,
+                                  ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ).animateOnPageLoad(
+                      animationsMap['containerOnPageLoadAnimation6']!),
+                ),
+              ],
             ),
           ),
         ],

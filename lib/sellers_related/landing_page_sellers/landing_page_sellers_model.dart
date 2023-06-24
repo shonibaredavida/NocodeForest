@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 class LandingPageSellersModel extends FlutterFlowModel {
   ///  State fields for stateful widgets in this page.
 
+  final unfocusNode = FocusNode();
   // Model for footerComponent component.
   late FooterComponentModel footerComponentModel;
 
@@ -22,9 +23,11 @@ class LandingPageSellersModel extends FlutterFlowModel {
   }
 
   void dispose() {
+    unfocusNode.dispose();
     footerComponentModel.dispose();
   }
 
-  /// Additional helper methods are added here.
+  /// Action blocks are added here.
 
+  /// Additional helper methods are added here.
 }

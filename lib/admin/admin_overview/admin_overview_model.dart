@@ -4,10 +4,12 @@ import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_charts.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/main_components/header/header_widget.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
+import '/main_components/create_account_modal/create_account_modal_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -15,23 +17,22 @@ import 'package:provider/provider.dart';
 class AdminOverviewModel extends FlutterFlowModel {
   ///  State fields for stateful widgets in this page.
 
-  // Model for header component.
-  late HeaderModel headerModel;
+  final unfocusNode = FocusNode();
   // Model for sidebar_admin component.
   late SidebarAdminModel sidebarAdminModel;
 
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
-    headerModel = createModel(context, () => HeaderModel());
     sidebarAdminModel = createModel(context, () => SidebarAdminModel());
   }
 
   void dispose() {
-    headerModel.dispose();
+    unfocusNode.dispose();
     sidebarAdminModel.dispose();
   }
 
-  /// Additional helper methods are added here.
+  /// Action blocks are added here.
 
+  /// Additional helper methods are added here.
 }

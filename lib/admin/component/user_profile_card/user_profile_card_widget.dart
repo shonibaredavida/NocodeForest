@@ -251,28 +251,25 @@ class _UserProfileCardWidgetState extends State<UserProfileCardWidget> {
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                if (columnUsersRecord.status == 'activated'
+                                if (columnUsersRecord.status == 'active'
                                     ? true
                                     : false)
                                   FFButtonWidget(
                                     onPressed: () async {
                                       Navigator.pop(context);
 
-                                      final usersUpdateData =
-                                          createUsersRecordData(
-                                        status: 'deactivated',
-                                      );
                                       await columnUsersRecord.reference
-                                          .update(usersUpdateData);
+                                          .update(createUsersRecordData(
+                                        status: 'deactivated',
+                                      ));
                                       await showModalBottomSheet(
                                         isScrollControlled: true,
                                         backgroundColor: Colors.transparent,
                                         enableDrag: false,
                                         context: context,
-                                        builder: (bottomSheetContext) {
+                                        builder: (context) {
                                           return Padding(
-                                            padding: MediaQuery.of(
-                                                    bottomSheetContext)
+                                            padding: MediaQuery.of(context)
                                                 .viewInsets,
                                             child: Success2Widget(
                                               subtitle: 'User Deactivated',
@@ -307,28 +304,25 @@ class _UserProfileCardWidgetState extends State<UserProfileCardWidget> {
                                       borderRadius: BorderRadius.circular(4.0),
                                     ),
                                   ),
-                                if (columnUsersRecord.status != 'activated'
+                                if (columnUsersRecord.status != 'active'
                                     ? true
                                     : false)
                                   FFButtonWidget(
                                     onPressed: () async {
                                       Navigator.pop(context);
 
-                                      final usersUpdateData =
-                                          createUsersRecordData(
-                                        status: 'active',
-                                      );
                                       await columnUsersRecord.reference
-                                          .update(usersUpdateData);
+                                          .update(createUsersRecordData(
+                                        status: 'active',
+                                      ));
                                       await showModalBottomSheet(
                                         isScrollControlled: true,
                                         backgroundColor: Colors.transparent,
                                         enableDrag: false,
                                         context: context,
-                                        builder: (bottomSheetContext) {
+                                        builder: (context) {
                                           return Padding(
-                                            padding: MediaQuery.of(
-                                                    bottomSheetContext)
+                                            padding: MediaQuery.of(context)
                                                 .viewInsets,
                                             child: Success2Widget(
                                               subtitle: 'User  Activated',

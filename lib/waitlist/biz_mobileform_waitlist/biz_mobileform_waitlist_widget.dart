@@ -30,7 +30,6 @@ class _BizMobileformWaitlistWidgetState
   late BizMobileformWaitlistModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  final _unfocusNode = FocusNode();
 
   @override
   void initState() {
@@ -47,7 +46,6 @@ class _BizMobileformWaitlistWidgetState
   void dispose() {
     _model.dispose();
 
-    _unfocusNode.dispose();
     super.dispose();
   }
 
@@ -56,7 +54,7 @@ class _BizMobileformWaitlistWidgetState
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Color(0xFFF3F3F5),
@@ -106,14 +104,13 @@ class _BizMobileformWaitlistWidgetState
                                     isScrollControlled: true,
                                     backgroundColor: Colors.transparent,
                                     context: context,
-                                    builder: (bottomSheetContext) {
+                                    builder: (context) {
                                       return GestureDetector(
                                         onTap: () => FocusScope.of(context)
-                                            .requestFocus(_unfocusNode),
+                                            .requestFocus(_model.unfocusNode),
                                         child: Padding(
                                           padding:
-                                              MediaQuery.of(bottomSheetContext)
-                                                  .viewInsets,
+                                              MediaQuery.of(context).viewInsets,
                                           child: WaitlistMenuWidget(),
                                         ),
                                       );
@@ -560,17 +557,6 @@ class _BizMobileformWaitlistWidgetState
                                                       val),
                                               width: 279.0,
                                               height: 48.0,
-                                              searchHintTextStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyLarge
-                                                      .override(
-                                                        fontFamily:
-                                                            'Roboto Condensed',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .secondaryText,
-                                                      ),
                                               textStyle:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
@@ -585,7 +571,6 @@ class _BizMobileformWaitlistWidgetState
                                                         lineHeight: 1.5,
                                                       ),
                                               hintText: 'Select Option',
-                                              searchHintText: '',
                                               fillColor: Color(0xFF3F3F3F),
                                               elevation: 2.0,
                                               borderColor: Colors.transparent,
@@ -660,17 +645,6 @@ class _BizMobileformWaitlistWidgetState
                                                       val),
                                               width: 279.0,
                                               height: 48.0,
-                                              searchHintTextStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyLarge
-                                                      .override(
-                                                        fontFamily:
-                                                            'Roboto Condensed',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .secondaryText,
-                                                      ),
                                               textStyle:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
@@ -685,7 +659,6 @@ class _BizMobileformWaitlistWidgetState
                                                         lineHeight: 1.5,
                                                       ),
                                               hintText: 'Select Option',
-                                              searchHintText: '',
                                               fillColor: Color(0xFF3F3F3F),
                                               elevation: 2.0,
                                               borderColor: Colors.transparent,
@@ -755,17 +728,6 @@ class _BizMobileformWaitlistWidgetState
                                                       val),
                                               width: 279.0,
                                               height: 48.0,
-                                              searchHintTextStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyLarge
-                                                      .override(
-                                                        fontFamily:
-                                                            'Roboto Condensed',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .secondaryText,
-                                                      ),
                                               textStyle:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
@@ -780,7 +742,6 @@ class _BizMobileformWaitlistWidgetState
                                                         lineHeight: 1.5,
                                                       ),
                                               hintText: 'Select Option',
-                                              searchHintText: '',
                                               fillColor: Color(0xFF3F3F3F),
                                               elevation: 2.0,
                                               borderColor: Colors.transparent,
@@ -845,17 +806,6 @@ class _BizMobileformWaitlistWidgetState
                                                       val),
                                               width: 279.0,
                                               height: 48.0,
-                                              searchHintTextStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyLarge
-                                                      .override(
-                                                        fontFamily:
-                                                            'Roboto Condensed',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .secondaryText,
-                                                      ),
                                               textStyle:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
@@ -870,7 +820,6 @@ class _BizMobileformWaitlistWidgetState
                                                         lineHeight: 1.5,
                                                       ),
                                               hintText: 'Select Option',
-                                              searchHintText: '',
                                               fillColor: Color(0xFF3F3F3F),
                                               elevation: 2.0,
                                               borderColor: Colors.transparent,
@@ -923,17 +872,6 @@ class _BizMobileformWaitlistWidgetState
                                                       val),
                                               width: 279.0,
                                               height: 48.0,
-                                              searchHintTextStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyLarge
-                                                      .override(
-                                                        fontFamily:
-                                                            'Roboto Condensed',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .secondaryText,
-                                                      ),
                                               textStyle:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
@@ -948,7 +886,6 @@ class _BizMobileformWaitlistWidgetState
                                                         lineHeight: 1.5,
                                                       ),
                                               hintText: 'Select Option',
-                                              searchHintText: '',
                                               fillColor: Color(0xFF3F3F3F),
                                               elevation: 2.0,
                                               borderColor: Colors.transparent,
@@ -1009,8 +946,10 @@ class _BizMobileformWaitlistWidgetState
                                                       null &&
                                                   _model.maintenanceDropDownValue !=
                                                       '')) {
-                                            final waitlistBusinessOwnerCreateData =
-                                                {
+                                            await WaitlistBusinessOwnerRecord
+                                                .collection
+                                                .doc()
+                                                .set({
                                               ...createWaitlistBusinessOwnerRecordData(
                                                 country: _model
                                                     .locationnDropDownValue,
@@ -1034,12 +973,7 @@ class _BizMobileformWaitlistWidgetState
                                               ),
                                               'created_time':
                                                   FieldValue.serverTimestamp(),
-                                            };
-                                            await WaitlistBusinessOwnerRecord
-                                                .collection
-                                                .doc()
-                                                .set(
-                                                    waitlistBusinessOwnerCreateData);
+                                            });
                                             setState(() {
                                               _model
                                                   .locationnDropDownValueController

@@ -11,6 +11,7 @@ import 'package:provider/provider.dart';
 class AdminAllUsersModel extends FlutterFlowModel {
   ///  State fields for stateful widgets in this page.
 
+  final unfocusNode = FocusNode();
   // Model for headerAdmin component.
   late HeaderAdminModel headerAdminModel;
   // Model for sidebar_admin component.
@@ -24,10 +25,12 @@ class AdminAllUsersModel extends FlutterFlowModel {
   }
 
   void dispose() {
+    unfocusNode.dispose();
     headerAdminModel.dispose();
     sidebarAdminModel.dispose();
   }
 
-  /// Additional helper methods are added here.
+  /// Action blocks are added here.
 
+  /// Additional helper methods are added here.
 }

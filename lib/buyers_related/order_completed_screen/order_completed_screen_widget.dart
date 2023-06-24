@@ -11,7 +11,12 @@ import 'order_completed_screen_model.dart';
 export 'order_completed_screen_model.dart';
 
 class OrderCompletedScreenWidget extends StatefulWidget {
-  const OrderCompletedScreenWidget({Key? key}) : super(key: key);
+  const OrderCompletedScreenWidget({
+    Key? key,
+    required this.orderId,
+  }) : super(key: key);
+
+  final String? orderId;
 
   @override
   _OrderCompletedScreenWidgetState createState() =>
@@ -23,7 +28,6 @@ class _OrderCompletedScreenWidgetState
   late OrderCompletedScreenModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  final _unfocusNode = FocusNode();
 
   @override
   void initState() {
@@ -37,7 +41,6 @@ class _OrderCompletedScreenWidgetState
   void dispose() {
     _model.dispose();
 
-    _unfocusNode.dispose();
     super.dispose();
   }
 
@@ -46,7 +49,7 @@ class _OrderCompletedScreenWidgetState
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,

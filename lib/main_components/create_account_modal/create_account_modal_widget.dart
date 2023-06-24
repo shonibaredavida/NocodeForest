@@ -54,12 +54,13 @@ class _CreateAccountModalWidgetState extends State<CreateAccountModalWidget> {
 
     return Align(
       alignment: AlignmentDirectional(0.0, 0.0),
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Padding(
+            padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
+            child: Container(
               width: 428.0,
               height: 924.0,
               constraints: BoxConstraints(
@@ -531,7 +532,9 @@ class _CreateAccountModalWidgetState extends State<CreateAccountModalWidget> {
                                           return;
                                         }
 
-                                        final usersCreateData = {
+                                        await UsersRecord.collection
+                                            .doc(user.uid)
+                                            .update({
                                           ...createUsersRecordData(
                                             status: 'active',
                                             becomeASeller: false,
@@ -539,10 +542,7 @@ class _CreateAccountModalWidgetState extends State<CreateAccountModalWidget> {
                                           ),
                                           'created_time':
                                               FieldValue.serverTimestamp(),
-                                        };
-                                        await UsersRecord.collection
-                                            .doc(user.uid)
-                                            .update(usersCreateData);
+                                        });
 
                                         _navigate = () => context.goNamedAuth(
                                             'dashboardBuyer', context.mounted);
@@ -560,10 +560,9 @@ class _CreateAccountModalWidgetState extends State<CreateAccountModalWidget> {
                                           isDismissible: false,
                                           enableDrag: false,
                                           context: context,
-                                          builder: (bottomSheetContext) {
+                                          builder: (context) {
                                             return Padding(
-                                              padding: MediaQuery.of(
-                                                      bottomSheetContext)
+                                              padding: MediaQuery.of(context)
                                                   .viewInsets,
                                               child: DialogComponentWidget(
                                                 subtitle:
@@ -573,20 +572,6 @@ class _CreateAccountModalWidgetState extends State<CreateAccountModalWidget> {
                                                 requiresYesNo: false,
                                                 nextRoute: () async {},
                                               ),
-                                            );
-                                          },
-                                        ).then((value) => setState(() {}));
-
-                                        await showModalBottomSheet(
-                                          isScrollControlled: true,
-                                          backgroundColor: Colors.transparent,
-                                          context: context,
-                                          builder: (bottomSheetContext) {
-                                            return Padding(
-                                              padding: MediaQuery.of(
-                                                      bottomSheetContext)
-                                                  .viewInsets,
-                                              child: SigninModalWidget(),
                                             );
                                           },
                                         ).then((value) => setState(() {}));
@@ -602,10 +587,9 @@ class _CreateAccountModalWidgetState extends State<CreateAccountModalWidget> {
                                           backgroundColor: Colors.transparent,
                                           enableDrag: false,
                                           context: context,
-                                          builder: (bottomSheetContext) {
+                                          builder: (context) {
                                             return Padding(
-                                              padding: MediaQuery.of(
-                                                      bottomSheetContext)
+                                              padding: MediaQuery.of(context)
                                                   .viewInsets,
                                               child: DialogComponentWidget(
                                                 successDialog: false,
@@ -684,10 +668,9 @@ class _CreateAccountModalWidgetState extends State<CreateAccountModalWidget> {
                                         backgroundColor: Colors.transparent,
                                         enableDrag: false,
                                         context: context,
-                                        builder: (bottomSheetContext) {
+                                        builder: (context) {
                                           return Padding(
-                                            padding: MediaQuery.of(
-                                                    bottomSheetContext)
+                                            padding: MediaQuery.of(context)
                                                 .viewInsets,
                                             child: SigninModalWidget(),
                                           );
@@ -766,17 +749,35 @@ class _CreateAccountModalWidgetState extends State<CreateAccountModalWidget> {
                                     color: FlutterFlowTheme.of(context).accent4,
                                     borderRadius: BorderRadius.circular(5.0),
                                   ),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      SvgPicture.asset(
-                                        'assets/images/Group.svg',
-                                        width: 102.3,
-                                        height: 32.0,
-                                        fit: BoxFit.scaleDown,
-                                      ),
-                                    ],
+                                  child: InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      GoRouter.of(context).prepareAuthEvent();
+                                      final user = await authManager
+                                          .signInWithGoogle(context);
+                                      if (user == null) {
+                                        return;
+                                      }
+
+                                      context.goNamedAuth(
+                                          'dashboardBuyer', context.mounted);
+                                    },
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        SvgPicture.asset(
+                                          'assets/images/Group.svg',
+                                          width: 102.3,
+                                          height: 32.0,
+                                          fit: BoxFit.scaleDown,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
@@ -867,8 +868,8 @@ class _CreateAccountModalWidgetState extends State<CreateAccountModalWidget> {
                 ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

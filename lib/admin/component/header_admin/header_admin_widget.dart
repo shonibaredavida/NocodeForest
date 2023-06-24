@@ -91,11 +91,10 @@ class _HeaderAdminWidgetState extends State<HeaderAdminWidget> {
                                     backgroundColor: Colors.transparent,
                                     enableDrag: false,
                                     context: context,
-                                    builder: (bottomSheetContext) {
+                                    builder: (context) {
                                       return Padding(
                                         padding:
-                                            MediaQuery.of(bottomSheetContext)
-                                                .viewInsets,
+                                            MediaQuery.of(context).viewInsets,
                                         child: CreateAccountModalWidget(),
                                       );
                                     },
@@ -439,11 +438,10 @@ class _HeaderAdminWidgetState extends State<HeaderAdminWidget> {
                                     isDismissible: false,
                                     enableDrag: false,
                                     context: context,
-                                    builder: (bottomSheetContext) {
+                                    builder: (context) {
                                       return Padding(
                                         padding:
-                                            MediaQuery.of(bottomSheetContext)
-                                                .viewInsets,
+                                            MediaQuery.of(context).viewInsets,
                                         child: AddProductWidget(),
                                       );
                                     },

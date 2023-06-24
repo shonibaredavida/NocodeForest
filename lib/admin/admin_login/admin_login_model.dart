@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 class AdminLoginModel extends FlutterFlowModel {
   ///  State fields for stateful widgets in this page.
 
+  final unfocusNode = FocusNode();
   // State field(s) for emailTextField widget.
   TextEditingController? emailTextFieldController;
   String? Function(BuildContext, String?)? emailTextFieldControllerValidator;
@@ -27,10 +28,12 @@ class AdminLoginModel extends FlutterFlowModel {
   }
 
   void dispose() {
+    unfocusNode.dispose();
     emailTextFieldController?.dispose();
     passwordTextFieldController?.dispose();
   }
 
-  /// Additional helper methods are added here.
+  /// Action blocks are added here.
 
+  /// Additional helper methods are added here.
 }

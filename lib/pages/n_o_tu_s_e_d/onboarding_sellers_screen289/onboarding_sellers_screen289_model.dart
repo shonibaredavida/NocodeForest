@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 class OnboardingSellersScreen289Model extends FlutterFlowModel {
   ///  State fields for stateful widgets in this page.
 
+  final unfocusNode = FocusNode();
   // State field(s) for email widget.
   TextEditingController? emailController;
   String? Function(BuildContext, String?)? emailControllerValidator;
@@ -27,10 +28,12 @@ class OnboardingSellersScreen289Model extends FlutterFlowModel {
   }
 
   void dispose() {
+    unfocusNode.dispose();
     emailController?.dispose();
     passwordController?.dispose();
   }
 
-  /// Additional helper methods are added here.
+  /// Action blocks are added here.
 
+  /// Additional helper methods are added here.
 }

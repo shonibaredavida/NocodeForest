@@ -27,7 +27,6 @@ class _OnboardingSellersScreen2WidgetState
   late OnboardingSellersScreen2Model _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  final _unfocusNode = FocusNode();
 
   @override
   void initState() {
@@ -42,7 +41,6 @@ class _OnboardingSellersScreen2WidgetState
   void dispose() {
     _model.dispose();
 
-    _unfocusNode.dispose();
     super.dispose();
   }
 
@@ -51,7 +49,7 @@ class _OnboardingSellersScreen2WidgetState
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -344,18 +342,6 @@ class _OnboardingSellersScreen2WidgetState
                                                           val),
                                                   width: 180.0,
                                                   height: 48.0,
-                                                  searchHintTextStyle:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyLarge
-                                                          .override(
-                                                            fontFamily:
-                                                                'Roboto Condensed',
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .primaryBackground,
-                                                            lineHeight: 1.5,
-                                                          ),
                                                   textStyle:
                                                       FlutterFlowTheme.of(
                                                               context)
@@ -370,8 +356,6 @@ class _OnboardingSellersScreen2WidgetState
                                                             lineHeight: 1.5,
                                                           ),
                                                   hintText: 'Select an option',
-                                                  searchHintText:
-                                                      'Search for an item...',
                                                   icon: Icon(
                                                     Icons.keyboard_arrow_down,
                                                     color: FlutterFlowTheme.of(
@@ -445,18 +429,6 @@ class _OnboardingSellersScreen2WidgetState
                                                           val),
                                                   width: 180.0,
                                                   height: 48.0,
-                                                  searchHintTextStyle:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyLarge
-                                                          .override(
-                                                            fontFamily:
-                                                                'Roboto Condensed',
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .primaryBackground,
-                                                            lineHeight: 1.5,
-                                                          ),
                                                   textStyle:
                                                       FlutterFlowTheme.of(
                                                               context)
@@ -471,8 +443,6 @@ class _OnboardingSellersScreen2WidgetState
                                                             lineHeight: 1.5,
                                                           ),
                                                   hintText: 'Select an option',
-                                                  searchHintText:
-                                                      'Search for an item...',
                                                   icon: Icon(
                                                     Icons.keyboard_arrow_down,
                                                     color: FlutterFlowTheme.of(
@@ -502,17 +472,15 @@ class _OnboardingSellersScreen2WidgetState
                                           ),
                                           FFButtonWidget(
                                             onPressed: () async {
-                                              final usersUpdateData =
-                                                  createUsersRecordData(
+                                              await currentUserReference!
+                                                  .update(createUsersRecordData(
                                                 profession:
                                                     _model.focusDropDownValue,
                                                 interest:
                                                     _model.nocodeDropDownValue,
                                                 username: _model
                                                     .usernmeController.text,
-                                              );
-                                              await currentUserReference!
-                                                  .update(usersUpdateData);
+                                              ));
                                               if (_model.usernmeController
                                                           .text !=
                                                       null &&

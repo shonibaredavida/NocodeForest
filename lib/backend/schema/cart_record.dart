@@ -14,41 +14,42 @@ class CartRecord extends FirestoreRecord {
     _initializeFields();
   }
 
-  // "user_id" field.
-  String? _userId;
-  String get userId => _userId ?? '';
-  bool hasUserId() => _userId != null;
+  // "product_info" field.
+  List<DocumentReference>? _productInfo;
+  List<DocumentReference> get productInfo => _productInfo ?? const [];
+  bool hasProductInfo() => _productInfo != null;
 
-  // "product_id" field.
-  DocumentReference? _productId;
-  DocumentReference? get productId => _productId;
-  bool hasProductId() => _productId != null;
+  // "seller_id" field.
+  String? _sellerId;
+  String get sellerId => _sellerId ?? '';
+  bool hasSellerId() => _sellerId != null;
 
-  // "product_name" field.
-  String? _productName;
-  String get productName => _productName ?? '';
-  bool hasProductName() => _productName != null;
+  // "buyer_id" field.
+  String? _buyerId;
+  String get buyerId => _buyerId ?? '';
+  bool hasBuyerId() => _buyerId != null;
 
-  // "image" field.
-  String? _image;
-  String get image => _image ?? '';
-  bool hasImage() => _image != null;
+  // "price" field.
+  double? _price;
+  double get price => _price ?? 0.0;
+  bool hasPrice() => _price != null;
 
-  // "total_price" field.
-  double? _totalPrice;
-  double get totalPrice => _totalPrice ?? 0.0;
-  bool hasTotalPrice() => _totalPrice != null;
+  DocumentReference get parentReference => reference.parent.parent!;
 
   void _initializeFields() {
-    _userId = snapshotData['user_id'] as String?;
-    _productId = snapshotData['product_id'] as DocumentReference?;
-    _productName = snapshotData['product_name'] as String?;
-    _image = snapshotData['image'] as String?;
-    _totalPrice = castToType<double>(snapshotData['total_price']);
+    _productInfo = getDataList(snapshotData['product_info']);
+    _sellerId = snapshotData['seller_id'] as String?;
+    _buyerId = snapshotData['buyer_id'] as String?;
+    _price = castToType<double>(snapshotData['price']);
   }
 
-  static CollectionReference get collection =>
-      FirebaseFirestore.instance.collection('cart');
+  static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
+      parent != null
+          ? parent.collection('cart')
+          : FirebaseFirestore.instance.collectionGroup('cart');
+
+  static DocumentReference createDoc(DocumentReference parent) =>
+      parent.collection('cart').doc();
 
   static Stream<CartRecord> getDocument(DocumentReference ref) =>
       ref.snapshots().map((s) => CartRecord.fromSnapshot(s));
@@ -70,22 +71,26 @@ class CartRecord extends FirestoreRecord {
   @override
   String toString() =>
       'CartRecord(reference: ${reference.path}, data: $snapshotData)';
+
+  @override
+  int get hashCode => reference.path.hashCode;
+
+  @override
+  bool operator ==(other) =>
+      other is CartRecord &&
+      reference.path.hashCode == other.reference.path.hashCode;
 }
 
 Map<String, dynamic> createCartRecordData({
-  String? userId,
-  DocumentReference? productId,
-  String? productName,
-  String? image,
-  double? totalPrice,
+  String? sellerId,
+  String? buyerId,
+  double? price,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
-      'user_id': userId,
-      'product_id': productId,
-      'product_name': productName,
-      'image': image,
-      'total_price': totalPrice,
+      'seller_id': sellerId,
+      'buyer_id': buyerId,
+      'price': price,
     }.withoutNulls,
   );
 

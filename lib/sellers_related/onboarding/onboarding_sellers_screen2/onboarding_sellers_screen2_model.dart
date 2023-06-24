@@ -15,6 +15,7 @@ import 'package:provider/provider.dart';
 class OnboardingSellersScreen2Model extends FlutterFlowModel {
   ///  State fields for stateful widgets in this page.
 
+  final unfocusNode = FocusNode();
   final formKey = GlobalKey<FormState>();
   // State field(s) for usernme widget.
   TextEditingController? usernmeController;
@@ -44,9 +45,11 @@ class OnboardingSellersScreen2Model extends FlutterFlowModel {
   }
 
   void dispose() {
+    unfocusNode.dispose();
     usernmeController?.dispose();
   }
 
-  /// Additional helper methods are added here.
+  /// Action blocks are added here.
 
+  /// Additional helper methods are added here.
 }

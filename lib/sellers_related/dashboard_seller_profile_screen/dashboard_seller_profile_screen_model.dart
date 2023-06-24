@@ -21,6 +21,7 @@ import 'package:provider/provider.dart';
 class DashboardSellerProfileScreenModel extends FlutterFlowModel {
   ///  State fields for stateful widgets in this page.
 
+  final unfocusNode = FocusNode();
   final formKey = GlobalKey<FormState>();
   // Model for header component.
   late HeaderModel headerModel;
@@ -61,6 +62,7 @@ class DashboardSellerProfileScreenModel extends FlutterFlowModel {
   }
 
   void dispose() {
+    unfocusNode.dispose();
     headerModel.dispose();
     sidebarSellerModel.dispose();
     textController1?.dispose();
@@ -71,6 +73,7 @@ class DashboardSellerProfileScreenModel extends FlutterFlowModel {
     textController6?.dispose();
   }
 
-  /// Additional helper methods are added here.
+  /// Action blocks are added here.
 
+  /// Additional helper methods are added here.
 }

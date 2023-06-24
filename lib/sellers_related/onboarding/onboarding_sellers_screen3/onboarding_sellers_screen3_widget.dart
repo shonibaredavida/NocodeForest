@@ -24,7 +24,6 @@ class _OnboardingSellersScreen3WidgetState
   late OnboardingSellersScreen3Model _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  final _unfocusNode = FocusNode();
 
   @override
   void initState() {
@@ -38,7 +37,6 @@ class _OnboardingSellersScreen3WidgetState
   void dispose() {
     _model.dispose();
 
-    _unfocusNode.dispose();
     super.dispose();
   }
 
@@ -47,7 +45,7 @@ class _OnboardingSellersScreen3WidgetState
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -313,12 +311,10 @@ class _OnboardingSellersScreen3WidgetState
                                       ),
                                       FFButtonWidget(
                                         onPressed: () async {
-                                          final usersUpdateData =
-                                              createUsersRecordData(
-                                            becomeASeller: true,
-                                          );
                                           await currentUserReference!
-                                              .update(usersUpdateData);
+                                              .update(createUsersRecordData(
+                                            becomeASeller: true,
+                                          ));
 
                                           context.pushNamed(
                                             'dashboardSeller',

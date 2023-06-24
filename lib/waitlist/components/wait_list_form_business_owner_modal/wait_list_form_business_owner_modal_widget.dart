@@ -478,17 +478,6 @@ class _WaitListFormBusinessOwnerModalWidgetState
                                                                 val),
                                                         width: 180.0,
                                                         height: 48.0,
-                                                        searchHintTextStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyLarge
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Roboto Condensed',
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .secondaryText,
-                                                                ),
                                                         textStyle:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -505,8 +494,6 @@ class _WaitListFormBusinessOwnerModalWidgetState
                                                                 ),
                                                         hintText:
                                                             'Select Option',
-                                                        searchHintText:
-                                                            'Search for an item...',
                                                         fillColor: widget
                                                             .textboxBgColor,
                                                         elevation: 2.0,
@@ -596,17 +583,6 @@ class _WaitListFormBusinessOwnerModalWidgetState
                                                                 val),
                                                         width: 180.0,
                                                         height: 48.0,
-                                                        searchHintTextStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyLarge
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Roboto Condensed',
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .secondaryText,
-                                                                ),
                                                         textStyle:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -623,8 +599,6 @@ class _WaitListFormBusinessOwnerModalWidgetState
                                                                 ),
                                                         hintText:
                                                             'Select Option',
-                                                        searchHintText:
-                                                            'Search for an item...',
                                                         fillColor: widget
                                                             .textboxBgColor,
                                                         elevation: 2.0,
@@ -828,17 +802,6 @@ class _WaitListFormBusinessOwnerModalWidgetState
                                                             val),
                                                     width: 180.0,
                                                     height: 48.0,
-                                                    searchHintTextStyle:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyLarge
-                                                            .override(
-                                                              fontFamily:
-                                                                  'Roboto Condensed',
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .secondaryText,
-                                                            ),
                                                     textStyle: FlutterFlowTheme
                                                             .of(context)
                                                         .bodyMedium
@@ -852,8 +815,6 @@ class _WaitListFormBusinessOwnerModalWidgetState
                                                         ),
                                                     hintText:
                                                         'Select your Country',
-                                                    searchHintText:
-                                                        'Search for an item...',
                                                     fillColor:
                                                         widget.textboxBgColor,
                                                     elevation: 2.0,
@@ -934,17 +895,6 @@ class _WaitListFormBusinessOwnerModalWidgetState
                                                             val),
                                                     width: 180.0,
                                                     height: 48.0,
-                                                    searchHintTextStyle:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyLarge
-                                                            .override(
-                                                              fontFamily:
-                                                                  'Roboto Condensed',
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .secondaryText,
-                                                            ),
                                                     textStyle: FlutterFlowTheme
                                                             .of(context)
                                                         .bodyMedium
@@ -957,8 +907,6 @@ class _WaitListFormBusinessOwnerModalWidgetState
                                                           lineHeight: 1.5,
                                                         ),
                                                     hintText: 'Select Option',
-                                                    searchHintText:
-                                                        'Search for an item...',
                                                     fillColor:
                                                         widget.textboxBgColor,
                                                     elevation: 2.0,
@@ -1022,17 +970,6 @@ class _WaitListFormBusinessOwnerModalWidgetState
                                                             val),
                                                     width: 180.0,
                                                     height: 48.0,
-                                                    searchHintTextStyle:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyLarge
-                                                            .override(
-                                                              fontFamily:
-                                                                  'Roboto Condensed',
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .secondaryText,
-                                                            ),
                                                     textStyle: FlutterFlowTheme
                                                             .of(context)
                                                         .bodyMedium
@@ -1045,8 +982,6 @@ class _WaitListFormBusinessOwnerModalWidgetState
                                                           lineHeight: 1.5,
                                                         ),
                                                     hintText: 'Select Option',
-                                                    searchHintText:
-                                                        'Search for an item...',
                                                     fillColor:
                                                         widget.textboxBgColor,
                                                     elevation: 2.0,
@@ -1146,8 +1081,10 @@ class _WaitListFormBusinessOwnerModalWidgetState
                                           (_model.budgetDropDownValue != null &&
                                               _model.budgetDropDownValue !=
                                                   '')) {
-                                        final waitlistBusinessOwnerCreateData =
-                                            {
+                                        await WaitlistBusinessOwnerRecord
+                                            .collection
+                                            .doc()
+                                            .set({
                                           ...createWaitlistBusinessOwnerRecordData(
                                             country:
                                                 _model.locationDropDownValue,
@@ -1166,12 +1103,7 @@ class _WaitListFormBusinessOwnerModalWidgetState
                                           ),
                                           'created_time':
                                               FieldValue.serverTimestamp(),
-                                        };
-                                        await WaitlistBusinessOwnerRecord
-                                            .collection
-                                            .doc()
-                                            .set(
-                                                waitlistBusinessOwnerCreateData);
+                                        });
                                         setState(() {
                                           _model.industryDropDownValueController
                                               ?.reset();
@@ -1198,10 +1130,9 @@ class _WaitListFormBusinessOwnerModalWidgetState
                                           backgroundColor: Colors.transparent,
                                           enableDrag: false,
                                           context: context,
-                                          builder: (bottomSheetContext) {
+                                          builder: (context) {
                                             return Padding(
-                                              padding: MediaQuery.of(
-                                                      bottomSheetContext)
+                                              padding: MediaQuery.of(context)
                                                   .viewInsets,
                                               child: SuccessPageWidget(),
                                             );

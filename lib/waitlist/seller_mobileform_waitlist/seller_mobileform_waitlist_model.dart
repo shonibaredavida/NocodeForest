@@ -18,6 +18,7 @@ import 'package:provider/provider.dart';
 class SellerMobileformWaitlistModel extends FlutterFlowModel {
   ///  State fields for stateful widgets in this page.
 
+  final unfocusNode = FocusNode();
   final formKey = GlobalKey<FormState>();
   // State field(s) for nameTextField widget.
   TextEditingController? nameTextFieldController;
@@ -54,6 +55,7 @@ class SellerMobileformWaitlistModel extends FlutterFlowModel {
   }
 
   void dispose() {
+    unfocusNode.dispose();
     nameTextFieldController?.dispose();
     emailTextFieldController?.dispose();
     phoneTextFieldController?.dispose();
@@ -62,6 +64,7 @@ class SellerMobileformWaitlistModel extends FlutterFlowModel {
     footerMobilewaitlistModel.dispose();
   }
 
-  /// Additional helper methods are added here.
+  /// Action blocks are added here.
 
+  /// Additional helper methods are added here.
 }
