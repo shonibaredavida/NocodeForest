@@ -79,14 +79,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       errorBuilder: (context, state) => appStateNotifier.loggedIn
-          ? DashboardBuyerWidget()
+          ? WaitingPageWidget()
           : LandingPageBuyersWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) => appStateNotifier.loggedIn
-              ? DashboardBuyerWidget()
+              ? WaitingPageWidget()
               : LandingPageBuyersWidget(),
         ),
         FFRoute(
@@ -102,9 +102,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'orderCompletedScreen',
           path: '/orderCompleted',
-          builder: (context, params) => OrderCompletedScreenWidget(
-            orderId: params.getParam('orderId', ParamType.String),
-          ),
+          builder: (context, params) => OrderCompletedScreenWidget(),
         ),
         FFRoute(
           name: 'landingPageBuyers',
@@ -124,7 +122,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'onboardingSellersScreen3',
           path: '/onboardingSellersScreen3',
-          builder: (context, params) => OnboardingSellersScreen3Widget(),
+          builder: (context, params) => OnboardingSellersScreen3Widget(
+            username: params.getParam('username', ParamType.String),
+            prof: params.getParam('prof', ParamType.String),
+            interest: params.getParam('interest', ParamType.String),
+          ),
         ),
         FFRoute(
           name: 'onboardingSellersScreen2',
@@ -142,12 +144,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => ProductDetailScreenWidget(
             productRef: params.getParam(
                 'productRef', ParamType.DocumentReference, false, ['products']),
+            userInfo: params.getParam(
+                'userInfo', ParamType.DocumentReference, false, ['users']),
+            sellerInfo: params.getParam(
+                'sellerInfo', ParamType.DocumentReference, false, ['users']),
           ),
         ),
         FFRoute(
-          name: 'buyerCartScreen',
+          name: 'buyerCartScreenNU',
           path: '/buyerCart',
-          builder: (context, params) => BuyerCartScreenWidget(),
+          builder: (context, params) => BuyerCartScreenNUWidget(),
         ),
         FFRoute(
           name: 'testing2',
@@ -167,12 +173,18 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'dashboardBuyerDownloadScreen',
           path: '/dashboardBuyerDownloadScreen',
-          builder: (context, params) => DashboardBuyerDownloadScreenWidget(),
+          builder: (context, params) => DashboardBuyerDownloadScreenWidget(
+            downloadedProducts: params.getParam<DocumentReference>(
+                'downloadedProducts',
+                ParamType.DocumentReference,
+                true,
+                ['products']),
+          ),
         ),
         FFRoute(
-          name: 'dashboardBuyer',
-          path: '/dashboardBuyer',
-          builder: (context, params) => DashboardBuyerWidget(),
+          name: 'dashboardOrderScreen',
+          path: '/dashboardOrderScreen',
+          builder: (context, params) => DashboardOrderScreenWidget(),
         ),
         FFRoute(
           name: 'landingWaitlistCoppp',
@@ -220,9 +232,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => DashboardSellerLogoutWidget(),
         ),
         FFRoute(
-          name: 'dashboardSellerProfileScreen',
-          path: '/dashboardSellerProfileScreen',
-          builder: (context, params) => DashboardSellerProfileScreenWidget(),
+          name: 'dashboardProfileScreen',
+          path: '/dashboardProfileScreen',
+          builder: (context, params) => DashboardProfileScreenWidget(),
         ),
         FFRoute(
           name: 'dashboardSellerOrder',
@@ -285,9 +297,29 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => AdminsListWidget(),
         ),
         FFRoute(
-          name: 'buyerPreviousViewsScreen',
+          name: 'buyerPreviousViewsScreenNU',
           path: '/buyerPreviousViews',
-          builder: (context, params) => BuyerPreviousViewsScreenWidget(),
+          builder: (context, params) => BuyerPreviousViewsScreenNUWidget(),
+        ),
+        FFRoute(
+          name: 'waitingPage',
+          path: '/waitingPage',
+          builder: (context, params) => WaitingPageWidget(),
+        ),
+        FFRoute(
+          name: 'paymentOptionsScreen',
+          path: '/payment',
+          asyncParams: {
+            'product': getDoc(['products'], ProductsRecord.fromSnapshot),
+          },
+          builder: (context, params) => PaymentOptionsScreenWidget(
+            product: params.getParam('product', ParamType.Document),
+          ),
+        ),
+        FFRoute(
+          name: 'landingPageBuyersCopy',
+          path: '/landingPageBuyersCopy',
+          builder: (context, params) => LandingPageBuyersCopyWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -471,7 +503,7 @@ class FFRoute {
                   child: SizedBox(
                     width: 50.0,
                     height: 50.0,
-                    child: SpinKitCubeGrid(
+                    child: SpinKitPulse(
                       color: FlutterFlowTheme.of(context).primary,
                       size: 50.0,
                     ),

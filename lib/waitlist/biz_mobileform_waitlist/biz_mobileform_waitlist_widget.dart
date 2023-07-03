@@ -110,7 +110,7 @@ class _BizMobileformWaitlistWidgetState
                                             .requestFocus(_model.unfocusNode),
                                         child: Padding(
                                           padding:
-                                              MediaQuery.of(context).viewInsets,
+                                              MediaQuery.viewInsetsOf(context),
                                           child: WaitlistMenuWidget(),
                                         ),
                                       );
@@ -195,7 +195,7 @@ class _BizMobileformWaitlistWidgetState
                               child: SizedBox(
                                 width: 50.0,
                                 height: 50.0,
-                                child: SpinKitCubeGrid(
+                                child: SpinKitPulse(
                                   color: FlutterFlowTheme.of(context).primary,
                                   size: 50.0,
                                 ),

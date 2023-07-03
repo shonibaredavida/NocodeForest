@@ -106,8 +106,8 @@ class _BizMobileSuccessWaitlistWidgetState
                                                 .requestFocus(
                                                     _model.unfocusNode),
                                             child: Padding(
-                                              padding: MediaQuery.of(context)
-                                                  .viewInsets,
+                                              padding: MediaQuery.viewInsetsOf(
+                                                  context),
                                               child: WaitlistMenuWidget(),
                                             ),
                                           );

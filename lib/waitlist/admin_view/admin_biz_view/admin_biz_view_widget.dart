@@ -551,7 +551,7 @@ class _AdminBizViewWidgetState extends State<AdminBizViewWidget> {
                                         child: SizedBox(
                                           width: 50.0,
                                           height: 50.0,
-                                          child: SpinKitCubeGrid(
+                                          child: SpinKitPulse(
                                             color: FlutterFlowTheme.of(context)
                                                 .primary,
                                             size: 50.0,
@@ -664,7 +664,7 @@ class _AdminBizViewWidgetState extends State<AdminBizViewWidget> {
                                       ),
                                       Expanded(
                                         child: Text(
-                                          MediaQuery.of(context).size.width <
+                                          MediaQuery.sizeOf(context).width <
                                                   500.0
                                               ? 'Email'
                                               : 'Email Address',
@@ -828,7 +828,7 @@ class _AdminBizViewWidgetState extends State<AdminBizViewWidget> {
                                     child: SizedBox(
                                       width: 50.0,
                                       height: 50.0,
-                                      child: SpinKitCubeGrid(
+                                      child: SpinKitPulse(
                                         color: FlutterFlowTheme.of(context)
                                             .primary,
                                         size: 50.0,
@@ -1088,9 +1088,9 @@ class _AdminBizViewWidgetState extends State<AdminBizViewWidget> {
                                                                         _model
                                                                             .unfocusNode),
                                                                 child: Padding(
-                                                                  padding: MediaQuery.of(
-                                                                          context)
-                                                                      .viewInsets,
+                                                                  padding: MediaQuery
+                                                                      .viewInsetsOf(
+                                                                          context),
                                                                   child:
                                                                       DialogComponentWidget(
                                                                     bizRef:

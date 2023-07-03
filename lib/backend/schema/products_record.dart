@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
+
 import '/backend/schema/util/firestore_util.dart';
 import '/backend/schema/util/schema_util.dart';
 
@@ -169,6 +171,21 @@ class ProductsRecord extends FirestoreRecord {
   String get paymentLink => _paymentLink ?? '';
   bool hasPaymentLink() => _paymentLink != null;
 
+  // "seller_name" field.
+  String? _sellerName;
+  String get sellerName => _sellerName ?? '';
+  bool hasSellerName() => _sellerName != null;
+
+  // "numOfReviews" field.
+  double? _numOfReviews;
+  double get numOfReviews => _numOfReviews ?? 0.0;
+  bool hasNumOfReviews() => _numOfReviews != null;
+
+  // "list_of_reviewer" field.
+  List<String>? _listOfReviewer;
+  List<String> get listOfReviewer => _listOfReviewer ?? const [];
+  bool hasListOfReviewer() => _listOfReviewer != null;
+
   void _initializeFields() {
     _name = snapshotData['name'] as String?;
     _price = castToType<double>(snapshotData['price']);
@@ -204,6 +221,9 @@ class ProductsRecord extends FirestoreRecord {
       ProductReviewsStruct.fromMap,
     );
     _paymentLink = snapshotData['payment_link'] as String?;
+    _sellerName = snapshotData['seller_name'] as String?;
+    _numOfReviews = castToType<double>(snapshotData['numOfReviews']);
+    _listOfReviewer = getDataList(snapshotData['list_of_reviewer']);
   }
 
   static CollectionReference get collection =>
@@ -266,6 +286,8 @@ Map<String, dynamic> createProductsRecordData({
   bool? customCode,
   double? rating,
   String? paymentLink,
+  String? sellerName,
+  double? numOfReviews,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -294,8 +316,94 @@ Map<String, dynamic> createProductsRecordData({
       'custom_code': customCode,
       'rating': rating,
       'payment_link': paymentLink,
+      'seller_name': sellerName,
+      'numOfReviews': numOfReviews,
     }.withoutNulls,
   );
 
   return firestoreData;
+}
+
+class ProductsRecordDocumentEquality implements Equality<ProductsRecord> {
+  const ProductsRecordDocumentEquality();
+
+  @override
+  bool equals(ProductsRecord? e1, ProductsRecord? e2) {
+    const listEquality = ListEquality();
+    return e1?.name == e2?.name &&
+        e1?.price == e2?.price &&
+        listEquality.equals(e1?.tags, e2?.tags) &&
+        e1?.nocodeSoftware == e2?.nocodeSoftware &&
+        e1?.status == e2?.status &&
+        e1?.sellerId == e2?.sellerId &&
+        e1?.platform == e2?.platform &&
+        e1?.category == e2?.category &&
+        e1?.numOfClicks == e2?.numOfClicks &&
+        e1?.numOfSales == e2?.numOfSales &&
+        listEquality.equals(e1?.compartibleBrowsers, e2?.compartibleBrowsers) &&
+        listEquality.equals(e1?.includeFiles, e2?.includeFiles) &&
+        e1?.description == e2?.description &&
+        e1?.productId == e2?.productId &&
+        e1?.liveLink == e2?.liveLink &&
+        e1?.cloneLink == e2?.cloneLink &&
+        e1?.dateCreated == e2?.dateCreated &&
+        e1?.dateModified == e2?.dateModified &&
+        e1?.image == e2?.image &&
+        listEquality.equals(e1?.productImages, e2?.productImages) &&
+        e1?.sellerInfo == e2?.sellerInfo &&
+        e1?.highResolution == e2?.highResolution &&
+        e1?.updates == e2?.updates &&
+        e1?.documentation == e2?.documentation &&
+        e1?.responsiveLayout == e2?.responsiveLayout &&
+        e1?.support == e2?.support &&
+        e1?.customCode == e2?.customCode &&
+        listEquality.equals(e1?.likedBy, e2?.likedBy) &&
+        e1?.rating == e2?.rating &&
+        listEquality.equals(e1?.reviews, e2?.reviews) &&
+        e1?.paymentLink == e2?.paymentLink &&
+        e1?.sellerName == e2?.sellerName &&
+        e1?.numOfReviews == e2?.numOfReviews &&
+        listEquality.equals(e1?.listOfReviewer, e2?.listOfReviewer);
+  }
+
+  @override
+  int hash(ProductsRecord? e) => const ListEquality().hash([
+        e?.name,
+        e?.price,
+        e?.tags,
+        e?.nocodeSoftware,
+        e?.status,
+        e?.sellerId,
+        e?.platform,
+        e?.category,
+        e?.numOfClicks,
+        e?.numOfSales,
+        e?.compartibleBrowsers,
+        e?.includeFiles,
+        e?.description,
+        e?.productId,
+        e?.liveLink,
+        e?.cloneLink,
+        e?.dateCreated,
+        e?.dateModified,
+        e?.image,
+        e?.productImages,
+        e?.sellerInfo,
+        e?.highResolution,
+        e?.updates,
+        e?.documentation,
+        e?.responsiveLayout,
+        e?.support,
+        e?.customCode,
+        e?.likedBy,
+        e?.rating,
+        e?.reviews,
+        e?.paymentLink,
+        e?.sellerName,
+        e?.numOfReviews,
+        e?.listOfReviewer
+      ]);
+
+  @override
+  bool isValidKey(Object? o) => o is ProductsRecord;
 }

@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
+
 import '/backend/schema/util/firestore_util.dart';
 import '/backend/schema/util/schema_util.dart';
 
@@ -73,4 +75,23 @@ Map<String, dynamic> createPreviousViewRecordData({
   );
 
   return firestoreData;
+}
+
+class PreviousViewRecordDocumentEquality
+    implements Equality<PreviousViewRecord> {
+  const PreviousViewRecordDocumentEquality();
+
+  @override
+  bool equals(PreviousViewRecord? e1, PreviousViewRecord? e2) {
+    const listEquality = ListEquality();
+    return e1?.userId == e2?.userId &&
+        listEquality.equals(e1?.products, e2?.products);
+  }
+
+  @override
+  int hash(PreviousViewRecord? e) =>
+      const ListEquality().hash([e?.userId, e?.products]);
+
+  @override
+  bool isValidKey(Object? o) => o is PreviousViewRecord;
 }

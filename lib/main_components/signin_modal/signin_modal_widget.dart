@@ -418,75 +418,53 @@ class _SigninModalWidgetState extends State<SigninModalWidget> {
                                         return;
                                       }
 
-                                      if (valueOrDefault<bool>(
-                                          currentUserDocument?.admin, false)) {
-                                        GoRouter.of(context).prepareAuthEvent();
-                                        await authManager.signOut();
-                                        GoRouter.of(context)
-                                            .clearRedirectLocation();
-
+                                      if (currentUserEmailVerified) {
                                         setState(() {
                                           _model.emailAddressController
                                               ?.clear();
                                           _model.passwordController?.clear();
                                         });
+
+                                        context.goNamedAuth('landingPageBuyers',
+                                            context.mounted);
+
                                         Navigator.pop(context);
-                                        await showModalBottomSheet(
-                                          isScrollControlled: true,
-                                          backgroundColor: Colors.transparent,
-                                          enableDrag: false,
-                                          context: context,
-                                          builder: (context) {
-                                            return Padding(
-                                              padding: MediaQuery.of(context)
-                                                  .viewInsets,
-                                              child: DialogComponentWidget(
-                                                subtitle:
-                                                    'Kindly Login with a User Account',
-                                                requiresYesNo: false,
-                                                nextRoute: () async {},
-                                              ),
-                                            );
-                                          },
-                                        ).then((value) => setState(() {}));
                                       } else {
-                                        if (valueOrDefault(
-                                                currentUserDocument?.status,
-                                                '') !=
-                                            'deactivated') {
-                                          if (!valueOrDefault<bool>(
-                                              currentUserDocument
-                                                  ?.becomeASeller,
-                                              false)) {
-                                            Navigator.pop(context);
+                                        if (valueOrDefault<bool>(
+                                            currentUserDocument?.admin,
+                                            false)) {
+                                          GoRouter.of(context)
+                                              .prepareAuthEvent();
+                                          await authManager.signOut();
+                                          GoRouter.of(context)
+                                              .clearRedirectLocation();
 
-                                            context.pushNamedAuth(
-                                                'dashboardBuyer',
-                                                context.mounted);
-                                          } else {
-                                            Navigator.pop(context);
-
-                                            context.pushNamedAuth(
-                                                'dashboardSeller',
-                                                context.mounted);
-                                          }
+                                          context.goNamedAuth(
+                                              'adminLogin', context.mounted);
                                         } else {
-                                          Navigator.pop(context);
+                                          await authManager
+                                              .sendEmailVerification();
+                                          GoRouter.of(context)
+                                              .prepareAuthEvent();
+                                          await authManager.signOut();
+                                          GoRouter.of(context)
+                                              .clearRedirectLocation();
+
                                           await showModalBottomSheet(
                                             isScrollControlled: true,
                                             backgroundColor: Colors.transparent,
-                                            isDismissible: false,
                                             enableDrag: false,
                                             context: context,
                                             builder: (context) {
                                               return Padding(
-                                                padding: MediaQuery.of(context)
-                                                    .viewInsets,
+                                                padding:
+                                                    MediaQuery.viewInsetsOf(
+                                                        context),
                                                 child: DialogComponentWidget(
-                                                  subtitle:
-                                                      'Your  account is deactivated. Kindly  send a mail to admin@nocode.com.',
-                                                  deleteDialog: true,
                                                   successDialog: false,
+                                                  subtitle:
+                                                      'Kindly verify your email. A link has been sent to ${_model.emailAddressController.text}',
+                                                  deleteDialog: false,
                                                   requiresYesNo: false,
                                                   nextRoute: () async {},
                                                 ),
@@ -494,11 +472,11 @@ class _SigninModalWidgetState extends State<SigninModalWidget> {
                                             },
                                           ).then((value) => setState(() {}));
 
-                                          GoRouter.of(context)
-                                              .prepareAuthEvent();
-                                          await authManager.signOut();
-                                          GoRouter.of(context)
-                                              .clearRedirectLocation();
+                                          setState(() {
+                                            _model.passwordController?.clear();
+                                            _model.emailAddressController
+                                                ?.clear();
+                                          });
                                         }
                                       }
                                     },
@@ -554,8 +532,8 @@ class _SigninModalWidgetState extends State<SigninModalWidget> {
                                           context: context,
                                           builder: (context) {
                                             return Padding(
-                                              padding: MediaQuery.of(context)
-                                                  .viewInsets,
+                                              padding: MediaQuery.viewInsetsOf(
+                                                  context),
                                               child:
                                                   ForgotPasswordModalWidget(),
                                             );
@@ -595,7 +573,7 @@ class _SigninModalWidgetState extends State<SigninModalWidget> {
                                   ),
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        3.0, 0.0, 0.0, 0.0),
+                                        3.0, 0.0, 0.0, 2.0),
                                     child: InkWell(
                                       splashColor: Colors.transparent,
                                       focusColor: Colors.transparent,
@@ -609,8 +587,8 @@ class _SigninModalWidgetState extends State<SigninModalWidget> {
                                           context: context,
                                           builder: (context) {
                                             return Padding(
-                                              padding: MediaQuery.of(context)
-                                                  .viewInsets,
+                                              padding: MediaQuery.viewInsetsOf(
+                                                  context),
                                               child: CreateAccountModalWidget(),
                                             );
                                           },
@@ -637,8 +615,7 @@ class _SigninModalWidgetState extends State<SigninModalWidget> {
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 32.0, 0.0, 32.0),
                                 child: Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 1.0,
+                                  width: MediaQuery.sizeOf(context).width * 1.0,
                                   height: 2.0,
                                   decoration: BoxDecoration(
                                     color: FlutterFlowTheme.of(context).accent1,
@@ -705,7 +682,7 @@ class _SigninModalWidgetState extends State<SigninModalWidget> {
                                         }
 
                                         context.goNamedAuth(
-                                            'dashboardBuyer', context.mounted);
+                                            'waitingPage', context.mounted);
                                       },
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
@@ -728,8 +705,7 @@ class _SigninModalWidgetState extends State<SigninModalWidget> {
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 32.0),
                                 child: Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 1.0,
+                                  width: MediaQuery.sizeOf(context).width * 1.0,
                                   height: 2.0,
                                   decoration: BoxDecoration(
                                     color: FlutterFlowTheme.of(context).accent1,

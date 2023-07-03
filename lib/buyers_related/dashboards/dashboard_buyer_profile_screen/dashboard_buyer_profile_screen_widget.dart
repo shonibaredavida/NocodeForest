@@ -2,7 +2,6 @@ import '/auth/firebase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
-import '/buyers_related/component/sidebar_buyer/sidebar_buyer_widget.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -11,6 +10,7 @@ import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/upload_data.dart';
 import '/main_components/dialog_component/dialog_component_widget.dart';
 import '/main_components/header/header_widget.dart';
+import '/sellers_related/componnents/sidebar_seller/sidebar_seller_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -100,7 +100,9 @@ class _DashboardBuyerProfileScreenWidgetState
                       child: wrapWithModel(
                         model: _model.headerModel,
                         updateCallback: () => setState(() {}),
-                        child: HeaderWidget(),
+                        child: HeaderWidget(
+                          dashboard: true,
+                        ),
                       ),
                     ),
                   ),
@@ -117,22 +119,26 @@ class _DashboardBuyerProfileScreenWidgetState
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           wrapWithModel(
-                            model: _model.sidebarBuyerModel,
+                            model: _model.sidebarSellerModel,
                             updateCallback: () => setState(() {}),
-                            child: SidebarBuyerWidget(
-                              iconThreeColor:
-                                  FlutterFlowTheme.of(context).lineColor,
-                              bGColor3: FlutterFlowTheme.of(context).primary,
-                              page1IsActive: false,
-                              page2IsActive: false,
-                              pageThreeIsActive: true,
+                            child: SidebarSellerWidget(
+                              iconProfileColor:
+                                  FlutterFlowTheme.of(context).primaryText,
+                              bGProfile: FlutterFlowTheme.of(context).primary,
+                              p1State: false,
+                              p2State: false,
+                              p4State: false,
+                              p5State: false,
+                              profileState: true,
                               logoutState: false,
+                              p6State: false,
+                              p7State: false,
                             ),
                           ),
                           Expanded(
                             child: Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  32.0, 32.0, 32.0, 32.0),
+                                  16.0, 16.0, 16.0, 16.0),
                               child: FutureBuilder<ApiCallResponse>(
                                 future: CountryListCall.call(),
                                 builder: (context, snapshot) {
@@ -142,7 +148,7 @@ class _DashboardBuyerProfileScreenWidgetState
                                       child: SizedBox(
                                         width: 50.0,
                                         height: 50.0,
-                                        child: SpinKitCubeGrid(
+                                        child: SpinKitPulse(
                                           color: FlutterFlowTheme.of(context)
                                               .primary,
                                           size: 50.0,
@@ -155,6 +161,7 @@ class _DashboardBuyerProfileScreenWidgetState
                                   return Container(
                                     decoration: BoxDecoration(
                                       color: Colors.white,
+                                      borderRadius: BorderRadius.circular(16.0),
                                     ),
                                     child: Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
@@ -164,19 +171,6 @@ class _DashboardBuyerProfileScreenWidgetState
                                         crossAxisAlignment:
                                             CrossAxisAlignment.stretch,
                                         children: [
-                                          Text(
-                                            'Profile',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Roboto',
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primaryBackground,
-                                                  fontSize: 32.0,
-                                                  lineHeight: 1.2,
-                                                ),
-                                          ),
                                           Row(
                                             mainAxisSize: MainAxisSize.max,
                                             mainAxisAlignment:
@@ -228,6 +222,7 @@ class _DashboardBuyerProfileScreenWidgetState
                                                                       true);
                                                               var selectedUploadedFiles =
                                                                   <FFUploadedFile>[];
+
                                                               var downloadUrls =
                                                                   <String>[];
                                                               try {
@@ -1327,10 +1322,9 @@ class _DashboardBuyerProfileScreenWidgetState
                                                               .requestFocus(_model
                                                                   .unfocusNode),
                                                           child: Padding(
-                                                            padding:
-                                                                MediaQuery.of(
-                                                                        context)
-                                                                    .viewInsets,
+                                                            padding: MediaQuery
+                                                                .viewInsetsOf(
+                                                                    context),
                                                             child:
                                                                 DialogComponentWidget(
                                                               subtitle:

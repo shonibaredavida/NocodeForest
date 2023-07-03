@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 class ForgotPasswordModalModel extends FlutterFlowModel {
   ///  State fields for stateful widgets in this component.
 
+  final formKey = GlobalKey<FormState>();
   // State field(s) for email widget.
   TextEditingController? emailController;
   String? Function(BuildContext, String?)? emailControllerValidator;

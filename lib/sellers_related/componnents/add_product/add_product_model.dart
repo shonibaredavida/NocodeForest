@@ -62,17 +62,13 @@ class AddProductModel extends FlutterFlowModel {
   // State field(s) for TagsField widget.
   TextEditingController? tagsFieldController;
   String? Function(BuildContext, String?)? tagsFieldControllerValidator;
-  bool isDataUploading1 = false;
-  List<FFUploadedFile> uploadedLocalFiles1 = [];
-  List<String> uploadedFileUrls1 = [];
-
-  bool isDataUploading2 = false;
-  FFUploadedFile uploadedLocalFile2 =
+  bool isDataUploading = false;
+  FFUploadedFile uploadedLocalFile =
       FFUploadedFile(bytes: Uint8List.fromList([]));
-  String uploadedFileUrl2 = '';
+  String uploadedFileUrl = '';
 
   // Stores action output result for [Backend Call - Create Document] action in Button widget.
-  ProductsRecord? productCreated;
+  ProductsRecord? newProductCreatedCopy;
 
   /// Initialization and disposal methods.
 

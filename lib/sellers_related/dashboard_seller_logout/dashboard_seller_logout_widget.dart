@@ -70,7 +70,9 @@ class _DashboardSellerLogoutWidgetState
                       child: wrapWithModel(
                         model: _model.headerModel,
                         updateCallback: () => setState(() {}),
-                        child: HeaderWidget(),
+                        child: HeaderWidget(
+                          dashboard: true,
+                        ),
                       ),
                     ),
                   ),
@@ -144,6 +146,13 @@ class _DashboardSellerLogoutWidgetState
                                                       0.0, 44.0, 0.0, 0.0),
                                               child: FFButtonWidget(
                                                 onPressed: () async {
+                                                  setState(() {
+                                                    FFAppState().reviewAdded =
+                                                        false;
+                                                  });
+                                                  setState(() {
+                                                    FFAppState().userCart = [];
+                                                  });
                                                   GoRouter.of(context)
                                                       .prepareAuthEvent();
                                                   await authManager.signOut();

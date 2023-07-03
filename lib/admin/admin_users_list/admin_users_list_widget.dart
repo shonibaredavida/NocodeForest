@@ -1,14 +1,16 @@
 import '/admin/component/sidebar_admin/sidebar_admin_widget.dart';
 import '/admin/component/user_profile_card/user_profile_card_widget.dart';
+import '/auth/base_auth_user_provider.dart';
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
-import '/main_components/create_account_modal/create_account_modal_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -32,6 +34,25 @@ class _AdminUsersListWidgetState extends State<AdminUsersListWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => AdminUsersListModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      if (loggedIn) {
+        if (!valueOrDefault<bool>(currentUserDocument?.admin, false)) {
+          GoRouter.of(context).prepareAuthEvent();
+          await authManager.signOut();
+          GoRouter.of(context).clearRedirectLocation();
+        } else {
+          return;
+        }
+      } else {
+        GoRouter.of(context).prepareAuthEvent();
+        await authManager.signOut();
+        GoRouter.of(context).clearRedirectLocation();
+      }
+
+      context.goNamedAuth('landingPageBuyers', context.mounted);
+    });
 
     _model.allUsersTextFieldController ??= TextEditingController();
     _model.buyerTextFieldController ??= TextEditingController();
@@ -65,7 +86,7 @@ class _AdminUsersListWidgetState extends State<AdminUsersListWidget> {
               child: SizedBox(
                 width: 50.0,
                 height: 50.0,
-                child: SpinKitCubeGrid(
+                child: SpinKitPulse(
                   color: FlutterFlowTheme.of(context).primary,
                   size: 50.0,
                 ),
@@ -91,8 +112,8 @@ class _AdminUsersListWidgetState extends State<AdminUsersListWidget> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Container(
-                      width: 1512.0,
-                      height: 123.1,
+                      width: double.infinity,
+                      height: 132.1,
                       decoration: BoxDecoration(
                         color: FlutterFlowTheme.of(context).secondaryBackground,
                       ),
@@ -128,28 +149,15 @@ class _AdminUsersListWidgetState extends State<AdminUsersListWidget> {
                                             0.0, 4.0, 32.0, 0.0),
                                         child: FFButtonWidget(
                                           onPressed: () async {
-                                            await showModalBottomSheet(
-                                              isScrollControlled: true,
-                                              backgroundColor:
-                                                  Colors.transparent,
-                                              enableDrag: false,
-                                              context: context,
-                                              builder: (context) {
-                                                return GestureDetector(
-                                                  onTap: () => FocusScope.of(
-                                                          context)
-                                                      .requestFocus(
-                                                          _model.unfocusNode),
-                                                  child: Padding(
-                                                    padding:
-                                                        MediaQuery.of(context)
-                                                            .viewInsets,
-                                                    child:
-                                                        CreateAccountModalWidget(),
-                                                  ),
-                                                );
-                                              },
-                                            ).then((value) => setState(() {}));
+                                            GoRouter.of(context)
+                                                .prepareAuthEvent();
+                                            await authManager.signOut();
+                                            GoRouter.of(context)
+                                                .clearRedirectLocation();
+
+                                            context.goNamedAuth(
+                                                'landingPageBuyers',
+                                                context.mounted);
                                           },
                                           text: 'Logout',
                                           options: FFButtonOptions(
@@ -652,7 +660,7 @@ class _AdminUsersListWidgetState extends State<AdminUsersListWidget> {
                                                                                                 return GestureDetector(
                                                                                                   onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
                                                                                                   child: Padding(
-                                                                                                    padding: MediaQuery.of(context).viewInsets,
+                                                                                                    padding: MediaQuery.viewInsetsOf(context),
                                                                                                     child: UserProfileCardWidget(
                                                                                                       userRef: individualUsersItem.reference,
                                                                                                     ),
@@ -675,7 +683,7 @@ class _AdminUsersListWidgetState extends State<AdminUsersListWidget> {
                                                                                                         child: SizedBox(
                                                                                                           width: 50.0,
                                                                                                           height: 50.0,
-                                                                                                          child: SpinKitCubeGrid(
+                                                                                                          child: SpinKitPulse(
                                                                                                             color: FlutterFlowTheme.of(context).primary,
                                                                                                             size: 50.0,
                                                                                                           ),
@@ -860,7 +868,7 @@ class _AdminUsersListWidgetState extends State<AdminUsersListWidget> {
                                                                                                                         return GestureDetector(
                                                                                                                           onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
                                                                                                                           child: Padding(
-                                                                                                                            padding: MediaQuery.of(context).viewInsets,
+                                                                                                                            padding: MediaQuery.viewInsetsOf(context),
                                                                                                                             child: UserProfileCardWidget(
                                                                                                                               userRef: individualUsersItem.reference,
                                                                                                                             ),
@@ -1343,7 +1351,7 @@ class _AdminUsersListWidgetState extends State<AdminUsersListWidget> {
                                                                                                 return GestureDetector(
                                                                                                   onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
                                                                                                   child: Padding(
-                                                                                                    padding: MediaQuery.of(context).viewInsets,
+                                                                                                    padding: MediaQuery.viewInsetsOf(context),
                                                                                                     child: UserProfileCardWidget(
                                                                                                       userRef: individualUsersItem.reference,
                                                                                                     ),
@@ -1366,7 +1374,7 @@ class _AdminUsersListWidgetState extends State<AdminUsersListWidget> {
                                                                                                         child: SizedBox(
                                                                                                           width: 50.0,
                                                                                                           height: 50.0,
-                                                                                                          child: SpinKitCubeGrid(
+                                                                                                          child: SpinKitPulse(
                                                                                                             color: FlutterFlowTheme.of(context).primary,
                                                                                                             size: 50.0,
                                                                                                           ),
@@ -1551,7 +1559,7 @@ class _AdminUsersListWidgetState extends State<AdminUsersListWidget> {
                                                                                                                         return GestureDetector(
                                                                                                                           onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
                                                                                                                           child: Padding(
-                                                                                                                            padding: MediaQuery.of(context).viewInsets,
+                                                                                                                            padding: MediaQuery.viewInsetsOf(context),
                                                                                                                             child: UserProfileCardWidget(
                                                                                                                               userRef: individualUsersItem.reference,
                                                                                                                             ),
@@ -2042,7 +2050,7 @@ class _AdminUsersListWidgetState extends State<AdminUsersListWidget> {
                                                                                               return GestureDetector(
                                                                                                 onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
                                                                                                 child: Padding(
-                                                                                                  padding: MediaQuery.of(context).viewInsets,
+                                                                                                  padding: MediaQuery.viewInsetsOf(context),
                                                                                                   child: UserProfileCardWidget(
                                                                                                     userRef: individualUsersItem.reference,
                                                                                                   ),
@@ -2065,7 +2073,7 @@ class _AdminUsersListWidgetState extends State<AdminUsersListWidget> {
                                                                                                       child: SizedBox(
                                                                                                         width: 50.0,
                                                                                                         height: 50.0,
-                                                                                                        child: SpinKitCubeGrid(
+                                                                                                        child: SpinKitPulse(
                                                                                                           color: FlutterFlowTheme.of(context).primary,
                                                                                                           size: 50.0,
                                                                                                         ),
@@ -2250,7 +2258,7 @@ class _AdminUsersListWidgetState extends State<AdminUsersListWidget> {
                                                                                                                       return GestureDetector(
                                                                                                                         onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
                                                                                                                         child: Padding(
-                                                                                                                          padding: MediaQuery.of(context).viewInsets,
+                                                                                                                          padding: MediaQuery.viewInsetsOf(context),
                                                                                                                           child: UserProfileCardWidget(
                                                                                                                             userRef: individualUsersItem.reference,
                                                                                                                           ),
@@ -2731,7 +2739,7 @@ class _AdminUsersListWidgetState extends State<AdminUsersListWidget> {
                                                                                                 return GestureDetector(
                                                                                                   onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
                                                                                                   child: Padding(
-                                                                                                    padding: MediaQuery.of(context).viewInsets,
+                                                                                                    padding: MediaQuery.viewInsetsOf(context),
                                                                                                     child: UserProfileCardWidget(
                                                                                                       userRef: individualUsersItem.reference,
                                                                                                     ),
@@ -2754,7 +2762,7 @@ class _AdminUsersListWidgetState extends State<AdminUsersListWidget> {
                                                                                                         child: SizedBox(
                                                                                                           width: 50.0,
                                                                                                           height: 50.0,
-                                                                                                          child: SpinKitCubeGrid(
+                                                                                                          child: SpinKitPulse(
                                                                                                             color: FlutterFlowTheme.of(context).primary,
                                                                                                             size: 50.0,
                                                                                                           ),
@@ -2902,7 +2910,7 @@ class _AdminUsersListWidgetState extends State<AdminUsersListWidget> {
                                                                                                                         return GestureDetector(
                                                                                                                           onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
                                                                                                                           child: Padding(
-                                                                                                                            padding: MediaQuery.of(context).viewInsets,
+                                                                                                                            padding: MediaQuery.viewInsetsOf(context),
                                                                                                                             child: UserProfileCardWidget(
                                                                                                                               userRef: individualUsersItem.reference,
                                                                                                                             ),

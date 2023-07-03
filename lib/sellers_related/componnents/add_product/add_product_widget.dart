@@ -2012,566 +2012,195 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                 height: 40.0,
                                 decoration: BoxDecoration(),
                               ),
-                              Expanded(
+                              Container(
+                                width: 500.0,
+                                decoration: BoxDecoration(),
                                 child: Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 20.0, 0.0, 0.0),
+                                      0.0, 32.0, 0.0, 0.0),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
-                                      Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          ClipRRect(
-                                            child: Container(
-                                              width: double.infinity,
-                                              height: 80.0,
-                                              decoration: BoxDecoration(),
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  if (_model.uploadedFileUrls1
-                                                          .length ==
-                                                      5)
-                                                    FFButtonWidget(
-                                                      onPressed: () {
-                                                        print(
-                                                            'Button pressed ...');
-                                                      },
-                                                      text:
-                                                          'Maximum pictures uploaded',
-                                                      options: FFButtonOptions(
-                                                        width: 450.0,
-                                                        height: 80.0,
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0),
-                                                        iconPadding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0),
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primaryText,
-                                                        textStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .titleSmall
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Roboto Condensed',
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primaryBackground,
-                                                                  fontSize:
-                                                                      16.0,
-                                                                  lineHeight:
-                                                                      1.5,
-                                                                ),
-                                                        borderSide: BorderSide(
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primary,
-                                                          width: 1.0,
-                                                        ),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(8.0),
-                                                      ),
-                                                    ),
-                                                  if (_model.uploadedFileUrls1
-                                                          .length <
-                                                      5)
-                                                    FFButtonWidget(
-                                                      onPressed: () async {
-                                                        final selectedMedia =
-                                                            await selectMedia(
-                                                          maxWidth: 616.00,
-                                                          mediaSource:
-                                                              MediaSource
-                                                                  .photoGallery,
-                                                          multiImage: true,
-                                                        );
-                                                        if (selectedMedia !=
-                                                                null &&
-                                                            selectedMedia.every((m) =>
-                                                                validateFileFormat(
-                                                                    m.storagePath,
-                                                                    context))) {
-                                                          setState(() => _model
-                                                                  .isDataUploading1 =
-                                                              true);
-                                                          var selectedUploadedFiles =
-                                                              <FFUploadedFile>[];
-                                                          var downloadUrls =
-                                                              <String>[];
-                                                          try {
-                                                            selectedUploadedFiles =
-                                                                selectedMedia
-                                                                    .map((m) =>
-                                                                        FFUploadedFile(
-                                                                          name: m
-                                                                              .storagePath
-                                                                              .split('/')
-                                                                              .last,
-                                                                          bytes:
-                                                                              m.bytes,
-                                                                          height: m
-                                                                              .dimensions
-                                                                              ?.height,
-                                                                          width: m
-                                                                              .dimensions
-                                                                              ?.width,
-                                                                          blurHash:
-                                                                              m.blurHash,
-                                                                        ))
-                                                                    .toList();
+                                      FFButtonWidget(
+                                        onPressed: () async {
+                                          if (_model.uploadedFileUrl == null ||
+                                              _model.uploadedFileUrl == '') {
+                                            if (!_model.isDataUploading) {
+                                              final selectedMedia =
+                                                  await selectMedia(
+                                                mediaSource:
+                                                    MediaSource.photoGallery,
+                                                multiImage: false,
+                                              );
+                                              if (selectedMedia != null &&
+                                                  selectedMedia.every((m) =>
+                                                      validateFileFormat(
+                                                          m.storagePath,
+                                                          context))) {
+                                                setState(() => _model
+                                                    .isDataUploading = true);
+                                                var selectedUploadedFiles =
+                                                    <FFUploadedFile>[];
 
-                                                            downloadUrls =
-                                                                (await Future
-                                                                        .wait(
-                                                              selectedMedia.map(
-                                                                (m) async =>
-                                                                    await uploadData(
-                                                                        m.storagePath,
-                                                                        m.bytes),
-                                                              ),
-                                                            ))
-                                                                    .where((u) =>
-                                                                        u !=
-                                                                        null)
-                                                                    .map((u) =>
-                                                                        u!)
-                                                                    .toList();
-                                                          } finally {
-                                                            _model.isDataUploading1 =
-                                                                false;
-                                                          }
-                                                          if (selectedUploadedFiles
-                                                                      .length ==
-                                                                  selectedMedia
-                                                                      .length &&
-                                                              downloadUrls
-                                                                      .length ==
-                                                                  selectedMedia
-                                                                      .length) {
-                                                            setState(() {
-                                                              _model.uploadedLocalFiles1 =
-                                                                  selectedUploadedFiles;
-                                                              _model.uploadedFileUrls1 =
-                                                                  downloadUrls;
-                                                            });
-                                                          } else {
-                                                            setState(() {});
-                                                            return;
-                                                          }
-                                                        }
-                                                      },
-                                                      text: 'Click to Browse',
-                                                      options: FFButtonOptions(
-                                                        width: 450.0,
-                                                        height: 80.0,
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0),
-                                                        iconPadding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0),
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primaryText,
-                                                        textStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .titleSmall
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Roboto Condensed',
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primaryBackground,
-                                                                  fontSize:
-                                                                      16.0,
-                                                                  lineHeight:
-                                                                      1.5,
-                                                                ),
-                                                        borderSide: BorderSide(
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primary,
-                                                          width: 1.0,
-                                                        ),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(8.0),
-                                                      ),
-                                                    ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 17.0, 0.0, 52.0),
-                                            child: RichText(
-                                              text: TextSpan(
-                                                children: [
-                                                  TextSpan(
-                                                    text: '* ',
-                                                    style: TextStyle(
-                                                      color: Color(0xFFFF0000),
-                                                      fontSize: 14.0,
-                                                      height: 1.4,
-                                                    ),
-                                                  ),
-                                                  TextSpan(
-                                                    text: '',
-                                                    style: TextStyle(
-                                                      color: FlutterFlowTheme
-                                                              .of(context)
-                                                          .primaryBackground,
-                                                      fontSize:
-                                                          _model.uploadedFileUrls1
-                                                                      .length ==
-                                                                  5
-                                                              ? 16.0
-                                                              : 14.0,
-                                                    ),
-                                                  ),
-                                                  TextSpan(
-                                                    text:
-                                                        'Maximum of 5 images. Make sure they are clear.',
-                                                    style: TextStyle(
-                                                      color:
-                                                          valueOrDefault<Color>(
-                                                        _model.uploadedFileUrls1
-                                                                    .length ==
-                                                                5
-                                                            ? Color(0xFFE21C3D)
-                                                            : FlutterFlowTheme
-                                                                    .of(context)
-                                                                .primaryBackground,
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .primaryBackground,
-                                                      ),
-                                                      fontSize:
-                                                          _model.uploadedFileUrls1
-                                                                      .length ==
-                                                                  5
-                                                              ? 16.0
-                                                              : 14.0,
-                                                    ),
-                                                  )
-                                                ],
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              'Roboto Condensed',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primaryBackground,
-                                                        ),
-                                              ),
-                                            ),
-                                          ),
-                                          ClipRRect(
-                                            child: Container(
-                                              width: double.infinity,
-                                              decoration: BoxDecoration(),
-                                              child: Visibility(
-                                                visible: _model
-                                                        .uploadedFileUrls1
-                                                        .length >
-                                                    1,
-                                                child: Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          0.0, 0.0, 0.0, 20.0),
-                                                  child: Builder(
-                                                    builder: (context) {
-                                                      final uploadedPix = _model
-                                                          .uploadedFileUrls1
-                                                          .toList()
-                                                          .take(5)
+                                                var downloadUrls = <String>[];
+                                                try {
+                                                  selectedUploadedFiles =
+                                                      selectedMedia
+                                                          .map((m) =>
+                                                              FFUploadedFile(
+                                                                name: m
+                                                                    .storagePath
+                                                                    .split('/')
+                                                                    .last,
+                                                                bytes: m.bytes,
+                                                                height: m
+                                                                    .dimensions
+                                                                    ?.height,
+                                                                width: m
+                                                                    .dimensions
+                                                                    ?.width,
+                                                                blurHash:
+                                                                    m.blurHash,
+                                                              ))
                                                           .toList();
-                                                      return SingleChildScrollView(
-                                                        scrollDirection:
-                                                            Axis.horizontal,
-                                                        child: Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          children: List.generate(
-                                                              uploadedPix
-                                                                  .length,
-                                                              (uploadedPixIndex) {
-                                                            final uploadedPixItem =
-                                                                uploadedPix[
-                                                                    uploadedPixIndex];
-                                                            return Visibility(
-                                                              visible: _model
-                                                                      .uploadedFileUrls1
-                                                                      .length >
-                                                                  1,
-                                                              child: ClipRRect(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            30.0),
-                                                                child:
-                                                                    Container(
-                                                                  width: 200.0,
-                                                                  height: 200.0,
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            30.0),
-                                                                  ),
-                                                                  child:
-                                                                      Padding(
-                                                                    padding: EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0.0,
-                                                                            0.0,
-                                                                            5.0,
-                                                                            0.0),
-                                                                    child:
-                                                                        ClipRRect(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              20.0),
-                                                                      child: Image
-                                                                          .network(
-                                                                        uploadedPixItem,
-                                                                        width:
-                                                                            100.0,
-                                                                        height:
-                                                                            100.0,
-                                                                        fit: BoxFit
-                                                                            .cover,
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            );
-                                                          }),
-                                                        ),
-                                                      );
-                                                    },
+
+                                                  downloadUrls =
+                                                      (await Future.wait(
+                                                    selectedMedia.map(
+                                                      (m) async =>
+                                                          await uploadData(
+                                                              m.storagePath,
+                                                              m.bytes),
+                                                    ),
+                                                  ))
+                                                          .where(
+                                                              (u) => u != null)
+                                                          .map((u) => u!)
+                                                          .toList();
+                                                } finally {
+                                                  _model.isDataUploading =
+                                                      false;
+                                                }
+                                                if (selectedUploadedFiles
+                                                            .length ==
+                                                        selectedMedia.length &&
+                                                    downloadUrls.length ==
+                                                        selectedMedia.length) {
+                                                  setState(() {
+                                                    _model.uploadedLocalFile =
+                                                        selectedUploadedFiles
+                                                            .first;
+                                                    _model.uploadedFileUrl =
+                                                        downloadUrls.first;
+                                                  });
+                                                } else {
+                                                  setState(() {});
+                                                  return;
+                                                }
+                                              }
+                                            }
+                                          }
+                                        },
+                                        text: 'Click to Browse',
+                                        options: FFButtonOptions(
+                                          width: 450.0,
+                                          height: 80.0,
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 0.0, 0.0),
+                                          iconPadding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 0.0, 0.0),
+                                          color: Colors.white,
+                                          textStyle: FlutterFlowTheme.of(
+                                                  context)
+                                              .titleSmall
+                                              .override(
+                                                fontFamily: 'Roboto Condensed',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryBackground,
+                                                fontSize: 16.0,
+                                                lineHeight: 1.5,
+                                              ),
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .primary,
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                        ),
+                                      ),
+                                      if (FFAppState().NotNeedNow)
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 17.0, 0.0, 52.0),
+                                          child: RichText(
+                                            text: TextSpan(
+                                              children: [
+                                                TextSpan(
+                                                  text: '* ',
+                                                  style: TextStyle(
+                                                    color: Color(0xFFFF0000),
+                                                    fontSize: 14.0,
+                                                    height: 1.4,
+                                                  ),
+                                                ),
+                                                TextSpan(
+                                                  text:
+                                                      ' Recommended thumbnail size is 1080px by 674px',
+                                                  style: TextStyle(
+                                                    color: Color(0xFF858585),
+                                                  ),
+                                                )
+                                              ],
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium,
+                                            ),
+                                          ),
+                                        ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 30.0, 0.0, 0.0),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            if (_model.uploadedFileUrl !=
+                                                    null &&
+                                                _model.uploadedFileUrl != '')
+                                              Container(
+                                                height: 200.0,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          0.0),
+                                                ),
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          20.0),
+                                                  child: Image.network(
+                                                    _model.uploadedFileUrl,
+                                                    fit: BoxFit.scaleDown,
                                                   ),
                                                 ),
                                               ),
-                                            ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 32.0, 0.0, 0.0),
-                                        child: Column(
+                                            0.0, 30.0, 0.0, 0.0),
+                                        child: Row(
                                           mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            FFButtonWidget(
-                                              onPressed: () async {
-                                                if (_model.uploadedFileUrl2 ==
-                                                        null ||
-                                                    _model.uploadedFileUrl2 ==
-                                                        '') {
-                                                  final selectedMedia =
-                                                      await selectMedia(
-                                                    mediaSource: MediaSource
-                                                        .photoGallery,
-                                                    multiImage: false,
-                                                  );
-                                                  if (selectedMedia != null &&
-                                                      selectedMedia.every((m) =>
-                                                          validateFileFormat(
-                                                              m.storagePath,
-                                                              context))) {
-                                                    setState(() => _model
-                                                            .isDataUploading2 =
-                                                        true);
-                                                    var selectedUploadedFiles =
-                                                        <FFUploadedFile>[];
-                                                    var downloadUrls =
-                                                        <String>[];
-                                                    try {
-                                                      selectedUploadedFiles =
-                                                          selectedMedia
-                                                              .map((m) =>
-                                                                  FFUploadedFile(
-                                                                    name: m
-                                                                        .storagePath
-                                                                        .split(
-                                                                            '/')
-                                                                        .last,
-                                                                    bytes:
-                                                                        m.bytes,
-                                                                    height: m
-                                                                        .dimensions
-                                                                        ?.height,
-                                                                    width: m
-                                                                        .dimensions
-                                                                        ?.width,
-                                                                    blurHash: m
-                                                                        .blurHash,
-                                                                  ))
-                                                              .toList();
-
-                                                      downloadUrls =
-                                                          (await Future.wait(
-                                                        selectedMedia.map(
-                                                          (m) async =>
-                                                              await uploadData(
-                                                                  m.storagePath,
-                                                                  m.bytes),
-                                                        ),
-                                                      ))
-                                                              .where((u) =>
-                                                                  u != null)
-                                                              .map((u) => u!)
-                                                              .toList();
-                                                    } finally {
-                                                      _model.isDataUploading2 =
-                                                          false;
-                                                    }
-                                                    if (selectedUploadedFiles
-                                                                .length ==
-                                                            selectedMedia
-                                                                .length &&
-                                                        downloadUrls.length ==
-                                                            selectedMedia
-                                                                .length) {
-                                                      setState(() {
-                                                        _model.uploadedLocalFile2 =
-                                                            selectedUploadedFiles
-                                                                .first;
-                                                        _model.uploadedFileUrl2 =
-                                                            downloadUrls.first;
-                                                      });
-                                                    } else {
-                                                      setState(() {});
-                                                      return;
-                                                    }
-                                                  }
-                                                }
-                                              },
-                                              text: 'Click to Browse',
-                                              options: FFButtonOptions(
-                                                width: 450.0,
-                                                height: 80.0,
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 0.0, 0.0, 0.0),
-                                                iconPadding:
-                                                    EdgeInsetsDirectional
-                                                        .fromSTEB(
-                                                            0.0, 0.0, 0.0, 0.0),
-                                                color: Colors.white,
-                                                textStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .titleSmall
-                                                        .override(
-                                                          fontFamily:
-                                                              'Roboto Condensed',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primaryBackground,
-                                                          fontSize: 16.0,
-                                                          lineHeight: 1.5,
-                                                        ),
-                                                borderSide: BorderSide(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primary,
-                                                  width: 1.0,
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.circular(8.0),
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      0.0, 17.0, 0.0, 52.0),
-                                              child: RichText(
-                                                text: TextSpan(
-                                                  children: [
-                                                    TextSpan(
-                                                      text: '* ',
-                                                      style: TextStyle(
-                                                        color:
-                                                            Color(0xFFFF0000),
-                                                        fontSize: 14.0,
-                                                        height: 1.4,
-                                                      ),
-                                                    ),
-                                                    TextSpan(
-                                                      text:
-                                                          ' Recommended thumbnail size is 1080px by 674px',
-                                                      style: TextStyle(
-                                                        color:
-                                                            Color(0xFF858585),
-                                                      ),
-                                                    )
-                                                  ],
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium,
-                                                ),
-                                              ),
-                                            ),
-                                            Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                if (_model.uploadedFileUrl2 !=
-                                                        null &&
-                                                    _model.uploadedFileUrl2 !=
-                                                        '')
-                                                  Container(
-                                                    height: 200.0,
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              0.0),
-                                                    ),
-                                                    child: ClipRRect(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              20.0),
-                                                      child: Image.network(
-                                                        _model.uploadedFileUrl2,
-                                                        fit: BoxFit.fitHeight,
-                                                      ),
-                                                    ),
-                                                  ),
-                                              ],
-                                            ),
-                                          ],
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [],
                                         ),
                                       ),
                                     ],
@@ -2592,94 +2221,105 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                               0.0, 36.0, 0.0, 0.0),
                           child: FFButtonWidget(
                             onPressed: () async {
-                              var productsRecordReference =
-                                  ProductsRecord.collection.doc();
-                              await productsRecordReference.set({
-                                ...createProductsRecordData(
-                                  name: _model.productNameFieldController.text,
-                                  price: double.tryParse(
-                                      _model.priceFieldController.text),
-                                  status: 'approved',
-                                  category: _model.catergoryDropDownValue,
-                                  description:
-                                      _model.descriptionFieldController.text,
-                                  nocodeSoftware:
-                                      _model.nocodeSoftwareFieldController.text,
-                                  liveLink:
-                                      _model.livePreviewFieldController.text,
-                                  cloneLink:
-                                      _model.cloneLinkFieldController.text,
-                                  image: _model.uploadedFileUrl2,
-                                  platform: 'web',
-                                  numOfClicks: 0,
-                                  numOfSales: 0,
-                                  productId:
-                                      '${getCurrentTimestamp.microsecondsSinceEpoch.toString()}${currentUserEmail}',
-                                  sellerInfo: currentUserReference,
-                                  highResolution: _model.hDSwitchValue,
-                                  updates: _model.updatesSwitchValue,
-                                  documentation: _model.wellDocSwitchValue,
-                                  responsiveLayout:
-                                      _model.responsiveSwitchValue,
-                                  support: _model.ongoingSupportSwitchValue,
-                                  customCode: _model.customCodeSwitchValue,
-                                  rating: 0.0,
-                                  paymentLink: 'NA',
-                                  sellerId: currentUserUid,
-                                ),
-                                'tags': functions.sentenceToList(
-                                    _model.tagsFieldController.text),
-                                'date_created': FieldValue.serverTimestamp(),
-                                'product_images': _model.uploadedFileUrls1,
-                                'compartible_browsers': ['NA'],
-                                'include_files': ['NA'],
-                                'date_modified': FieldValue.serverTimestamp(),
-                              });
-                              _model.productCreated =
-                                  ProductsRecord.getDocumentFromData({
-                                ...createProductsRecordData(
-                                  name: _model.productNameFieldController.text,
-                                  price: double.tryParse(
-                                      _model.priceFieldController.text),
-                                  status: 'approved',
-                                  category: _model.catergoryDropDownValue,
-                                  description:
-                                      _model.descriptionFieldController.text,
-                                  nocodeSoftware:
-                                      _model.nocodeSoftwareFieldController.text,
-                                  liveLink:
-                                      _model.livePreviewFieldController.text,
-                                  cloneLink:
-                                      _model.cloneLinkFieldController.text,
-                                  image: _model.uploadedFileUrl2,
-                                  platform: 'web',
-                                  numOfClicks: 0,
-                                  numOfSales: 0,
-                                  productId:
-                                      '${getCurrentTimestamp.microsecondsSinceEpoch.toString()}${currentUserEmail}',
-                                  sellerInfo: currentUserReference,
-                                  highResolution: _model.hDSwitchValue,
-                                  updates: _model.updatesSwitchValue,
-                                  documentation: _model.wellDocSwitchValue,
-                                  responsiveLayout:
-                                      _model.responsiveSwitchValue,
-                                  support: _model.ongoingSupportSwitchValue,
-                                  customCode: _model.customCodeSwitchValue,
-                                  rating: 0.0,
-                                  paymentLink: 'NA',
-                                  sellerId: currentUserUid,
-                                ),
-                                'tags': functions.sentenceToList(
-                                    _model.tagsFieldController.text),
-                                'date_created': DateTime.now(),
-                                'product_images': _model.uploadedFileUrls1,
-                                'compartible_browsers': ['NA'],
-                                'include_files': ['NA'],
-                                'date_modified': DateTime.now(),
-                              }, productsRecordReference);
-                              await Future.delayed(
-                                  const Duration(milliseconds: 500));
-                              Navigator.pop(context);
+                              if (!_model.isDataUploading) {
+                                if (!(_model.uploadedFileUrl == null ||
+                                    _model.uploadedFileUrl == '')) {
+                                  var productsRecordReference =
+                                      ProductsRecord.collection.doc();
+                                  await productsRecordReference.set({
+                                    ...createProductsRecordData(
+                                      name: _model
+                                          .productNameFieldController.text,
+                                      price: double.tryParse(
+                                          _model.priceFieldController.text),
+                                      status: 'approved',
+                                      category: _model.catergoryDropDownValue,
+                                      description: _model
+                                          .descriptionFieldController.text,
+                                      nocodeSoftware: _model
+                                          .nocodeSoftwareFieldController.text,
+                                      liveLink: _model
+                                          .livePreviewFieldController.text,
+                                      cloneLink:
+                                          _model.cloneLinkFieldController.text,
+                                      platform: 'web',
+                                      numOfClicks: 0,
+                                      numOfSales: 0,
+                                      productId:
+                                          '${getCurrentTimestamp.microsecondsSinceEpoch.toString()}${currentUserEmail}',
+                                      sellerInfo: currentUserReference,
+                                      highResolution: _model.hDSwitchValue,
+                                      updates: _model.updatesSwitchValue,
+                                      documentation: _model.wellDocSwitchValue,
+                                      responsiveLayout:
+                                          _model.responsiveSwitchValue,
+                                      support: _model.ongoingSupportSwitchValue,
+                                      customCode: _model.customCodeSwitchValue,
+                                      rating: 0.0,
+                                      paymentLink: 'NA',
+                                      sellerId: currentUserUid,
+                                      sellerName: valueOrDefault(
+                                          currentUserDocument?.username, ''),
+                                      image: _model.uploadedFileUrl,
+                                    ),
+                                    'tags': functions.sentenceToList(
+                                        _model.tagsFieldController.text),
+                                    'date_created':
+                                        FieldValue.serverTimestamp(),
+                                    'compartible_browsers': ['NA'],
+                                    'include_files': ['NA'],
+                                    'date_modified':
+                                        FieldValue.serverTimestamp(),
+                                  });
+                                  _model.newProductCreatedCopy =
+                                      ProductsRecord.getDocumentFromData({
+                                    ...createProductsRecordData(
+                                      name: _model
+                                          .productNameFieldController.text,
+                                      price: double.tryParse(
+                                          _model.priceFieldController.text),
+                                      status: 'approved',
+                                      category: _model.catergoryDropDownValue,
+                                      description: _model
+                                          .descriptionFieldController.text,
+                                      nocodeSoftware: _model
+                                          .nocodeSoftwareFieldController.text,
+                                      liveLink: _model
+                                          .livePreviewFieldController.text,
+                                      cloneLink:
+                                          _model.cloneLinkFieldController.text,
+                                      platform: 'web',
+                                      numOfClicks: 0,
+                                      numOfSales: 0,
+                                      productId:
+                                          '${getCurrentTimestamp.microsecondsSinceEpoch.toString()}${currentUserEmail}',
+                                      sellerInfo: currentUserReference,
+                                      highResolution: _model.hDSwitchValue,
+                                      updates: _model.updatesSwitchValue,
+                                      documentation: _model.wellDocSwitchValue,
+                                      responsiveLayout:
+                                          _model.responsiveSwitchValue,
+                                      support: _model.ongoingSupportSwitchValue,
+                                      customCode: _model.customCodeSwitchValue,
+                                      rating: 0.0,
+                                      paymentLink: 'NA',
+                                      sellerId: currentUserUid,
+                                      sellerName: valueOrDefault(
+                                          currentUserDocument?.username, ''),
+                                      image: _model.uploadedFileUrl,
+                                    ),
+                                    'tags': functions.sentenceToList(
+                                        _model.tagsFieldController.text),
+                                    'date_created': DateTime.now(),
+                                    'compartible_browsers': ['NA'],
+                                    'include_files': ['NA'],
+                                    'date_modified': DateTime.now(),
+                                  }, productsRecordReference);
+                                  await Future.delayed(
+                                      const Duration(milliseconds: 500));
+                                  Navigator.pop(context);
+                                }
+                              }
 
                               setState(() {});
                             },

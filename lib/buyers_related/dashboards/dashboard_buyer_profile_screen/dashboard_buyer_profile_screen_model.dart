@@ -2,7 +2,6 @@ import '/auth/firebase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
-import '/buyers_related/component/sidebar_buyer/sidebar_buyer_widget.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -11,6 +10,7 @@ import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/upload_data.dart';
 import '/main_components/dialog_component/dialog_component_widget.dart';
 import '/main_components/header/header_widget.dart';
+import '/sellers_related/componnents/sidebar_seller/sidebar_seller_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -25,8 +25,8 @@ class DashboardBuyerProfileScreenModel extends FlutterFlowModel {
   final formKey = GlobalKey<FormState>();
   // Model for header component.
   late HeaderModel headerModel;
-  // Model for sidebar_buyer component.
-  late SidebarBuyerModel sidebarBuyerModel;
+  // Model for sidebar_seller component.
+  late SidebarSellerModel sidebarSellerModel;
   bool isDataUploading = false;
   FFUploadedFile uploadedLocalFile =
       FFUploadedFile(bytes: Uint8List.fromList([]));
@@ -56,13 +56,13 @@ class DashboardBuyerProfileScreenModel extends FlutterFlowModel {
 
   void initState(BuildContext context) {
     headerModel = createModel(context, () => HeaderModel());
-    sidebarBuyerModel = createModel(context, () => SidebarBuyerModel());
+    sidebarSellerModel = createModel(context, () => SidebarSellerModel());
   }
 
   void dispose() {
     unfocusNode.dispose();
     headerModel.dispose();
-    sidebarBuyerModel.dispose();
+    sidebarSellerModel.dispose();
     fNameTextFieldController?.dispose();
     emailTextFieldController?.dispose();
     proffessionTextFieldController?.dispose();

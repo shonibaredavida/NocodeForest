@@ -59,18 +59,6 @@ class FFAppState extends ChangeNotifier {
     _promoState = _value;
   }
 
-  int _well = 12;
-  int get well => _well;
-  set well(int _value) {
-    _well = _value;
-  }
-
-  int _wellless = 33;
-  int get wellless => _wellless;
-  set wellless(int _value) {
-    _wellless = _value;
-  }
-
   List<DocumentReference> _userCart = [];
   List<DocumentReference> get userCart => _userCart;
   set userCart(List<DocumentReference> _value) {
@@ -106,6 +94,49 @@ class FFAppState extends ChangeNotifier {
   set NotNeedNow(bool _value) {
     _NotNeedNow = _value;
     prefs.setBool('ff_NotNeedNow', _value);
+  }
+
+  bool _reviewAdded = false;
+  bool get reviewAdded => _reviewAdded;
+  set reviewAdded(bool _value) {
+    _reviewAdded = _value;
+  }
+
+  bool _showNotification = false;
+  bool get showNotification => _showNotification;
+  set showNotification(bool _value) {
+    _showNotification = _value;
+  }
+
+  bool _showAccountPanel = false;
+  bool get showAccountPanel => _showAccountPanel;
+  set showAccountPanel(bool _value) {
+    _showAccountPanel = _value;
+  }
+
+  List<NotificationFormatStruct> _notification = [];
+  List<NotificationFormatStruct> get notification => _notification;
+  set notification(List<NotificationFormatStruct> _value) {
+    _notification = _value;
+  }
+
+  void addToNotification(NotificationFormatStruct _value) {
+    _notification.add(_value);
+  }
+
+  void removeFromNotification(NotificationFormatStruct _value) {
+    _notification.remove(_value);
+  }
+
+  void removeAtIndexFromNotification(int _index) {
+    _notification.removeAt(_index);
+  }
+
+  void updateNotificationAtIndex(
+    int _index,
+    NotificationFormatStruct Function(NotificationFormatStruct) updateFn,
+  ) {
+    _notification[_index] = updateFn(_notification[_index]);
   }
 }
 

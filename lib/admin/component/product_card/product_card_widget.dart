@@ -61,7 +61,7 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
             child: SizedBox(
               width: 50.0,
               height: 50.0,
-              child: SpinKitCubeGrid(
+              child: SpinKitPulse(
                 color: FlutterFlowTheme.of(context).primary,
                 size: 50.0,
               ),
@@ -83,7 +83,7 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                     child: SizedBox(
                       width: 50.0,
                       height: 50.0,
-                      child: SpinKitCubeGrid(
+                      child: SpinKitPulse(
                         color: FlutterFlowTheme.of(context).primary,
                         size: 50.0,
                       ),
@@ -268,84 +268,97 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 0.0, 0.0, 8.0),
-                                                child: Text(
-                                                  columnProductsRecord.name,
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Roboto Condensed',
-                                                        color:
-                                                            Color(0xFF009946),
-                                                        lineHeight: 1.4,
-                                                      ),
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 0.0, 0.0, 8.0),
-                                                child: Text(
-                                                  formatNumber(
-                                                    columnProductsRecord.price,
-                                                    formatType:
-                                                        FormatType.custom,
-                                                    currency: '\$ ',
-                                                    format: '',
-                                                    locale: '',
+                                              ClipRRect(
+                                                child: Container(
+                                                  constraints: BoxConstraints(
+                                                    maxWidth: 300.0,
                                                   ),
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Roboto Condensed',
-                                                        color: Colors.black,
-                                                        lineHeight: 1.4,
-                                                      ),
+                                                  decoration: BoxDecoration(),
+                                                  child: Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 0.0,
+                                                                0.0, 8.0),
+                                                    child: Text(
+                                                      columnProductsRecord.name,
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Roboto Condensed',
+                                                                color: Color(
+                                                                    0xFF009946),
+                                                                lineHeight: 1.4,
+                                                              ),
+                                                    ),
+                                                  ),
                                                 ),
                                               ),
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 0.0, 0.0, 8.0),
-                                                child: Text(
-                                                  '${dateTimeFormat(
-                                                    'yMMMd',
-                                                    columnProductsRecord
-                                                        .dateCreated,
-                                                    locale: FFLocalizations.of(
-                                                            context)
-                                                        .languageCode,
-                                                  )} | ${dateTimeFormat(
-                                                    'Hm',
-                                                    columnProductsRecord
-                                                        .dateCreated,
-                                                    locale: FFLocalizations.of(
-                                                            context)
-                                                        .languageCode,
-                                                  )}',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Roboto Condensed',
-                                                        color: Colors.black,
-                                                        lineHeight: 1.4,
+                                              ClipRRect(
+                                                child: Container(
+                                                  constraints: BoxConstraints(
+                                                    maxWidth: 300.0,
+                                                  ),
+                                                  decoration: BoxDecoration(),
+                                                  child: Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 0.0,
+                                                                0.0, 8.0),
+                                                    child: Text(
+                                                      formatNumber(
+                                                        columnProductsRecord
+                                                            .price,
+                                                        formatType:
+                                                            FormatType.custom,
+                                                        currency: '\$ ',
+                                                        format: '',
+                                                        locale: '',
                                                       ),
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily:
+                                                                'Roboto Condensed',
+                                                            color: Colors.black,
+                                                            lineHeight: 1.4,
+                                                          ),
+                                                    ),
+                                                  ),
                                                 ),
                                               ),
-                                              Text(
-                                                columnProductsRecord
-                                                    .nocodeSoftware,
-                                                style:
-                                                    FlutterFlowTheme.of(context)
+                                              Container(
+                                                constraints: BoxConstraints(
+                                                  maxWidth: 300.0,
+                                                ),
+                                                decoration: BoxDecoration(),
+                                                child: Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 0.0, 0.0, 8.0),
+                                                  child: Text(
+                                                    '${dateTimeFormat(
+                                                      'yMMMd',
+                                                      columnProductsRecord
+                                                          .dateCreated,
+                                                      locale:
+                                                          FFLocalizations.of(
+                                                                  context)
+                                                              .languageCode,
+                                                    )} | ${dateTimeFormat(
+                                                      'Hm',
+                                                      columnProductsRecord
+                                                          .dateCreated,
+                                                      locale:
+                                                          FFLocalizations.of(
+                                                                  context)
+                                                              .languageCode,
+                                                    )}',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
                                                         .bodyMedium
                                                         .override(
                                                           fontFamily:
@@ -353,6 +366,24 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                                                           color: Colors.black,
                                                           lineHeight: 1.4,
                                                         ),
+                                                  ),
+                                                ),
+                                              ),
+                                              Container(
+                                                decoration: BoxDecoration(),
+                                                child: Text(
+                                                  columnProductsRecord
+                                                      .nocodeSoftware,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            'Roboto Condensed',
+                                                        color: Colors.black,
+                                                        lineHeight: 1.4,
+                                                      ),
+                                                ),
                                               ),
                                             ],
                                           ),
@@ -465,12 +496,58 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 0.0, 0.0, 8.0),
+                                            Container(
+                                              decoration: BoxDecoration(),
+                                              child: Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 0.0, 0.0, 8.0),
+                                                child: Text(
+                                                  containerUsersRecord
+                                                      .displayName,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            'Roboto Condensed',
+                                                        color: Colors.black,
+                                                        lineHeight: 1.4,
+                                                      ),
+                                                ),
+                                              ),
+                                            ),
+                                            Container(
+                                              constraints: BoxConstraints(
+                                                maxWidth: 300.0,
+                                              ),
+                                              decoration: BoxDecoration(),
+                                              child: Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 0.0, 0.0, 8.0),
+                                                child: Text(
+                                                  containerUsersRecord.email,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            'Roboto Condensed',
+                                                        color:
+                                                            Color(0xFF009946),
+                                                        lineHeight: 1.4,
+                                                      ),
+                                                ),
+                                              ),
+                                            ),
+                                            Container(
+                                              constraints: BoxConstraints(
+                                                maxWidth: 300.0,
+                                              ),
+                                              decoration: BoxDecoration(),
                                               child: Text(
-                                                containerUsersRecord
-                                                    .displayName,
+                                                containerUsersRecord.location,
                                                 style:
                                                     FlutterFlowTheme.of(context)
                                                         .bodyMedium
@@ -481,35 +558,6 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                                                           lineHeight: 1.4,
                                                         ),
                                               ),
-                                            ),
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 0.0, 0.0, 8.0),
-                                              child: Text(
-                                                containerUsersRecord.email,
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              'Roboto Condensed',
-                                                          color:
-                                                              Color(0xFF009946),
-                                                          lineHeight: 1.4,
-                                                        ),
-                                              ),
-                                            ),
-                                            Text(
-                                              containerUsersRecord.location,
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Roboto Condensed',
-                                                        color: Colors.black,
-                                                        lineHeight: 1.4,
-                                                      ),
                                             ),
                                           ],
                                         ),
@@ -544,8 +592,8 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                                         context: context,
                                         builder: (context) {
                                           return Padding(
-                                            padding: MediaQuery.of(context)
-                                                .viewInsets,
+                                            padding: MediaQuery.viewInsetsOf(
+                                                context),
                                             child: Success2Widget(
                                               subtitle: 'Product Disapproved',
                                               buttonText: 'Okay',
@@ -555,6 +603,10 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                                       ).then((value) => setState(() {}));
                                     },
                                     text: 'Disapprove',
+                                    icon: Icon(
+                                      Icons.thumb_down_off_alt,
+                                      size: 16.0,
+                                    ),
                                     options: FFButtonOptions(
                                       width: 113.0,
                                       height: 40.0,
@@ -599,8 +651,8 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                                         context: context,
                                         builder: (context) {
                                           return Padding(
-                                            padding: MediaQuery.of(context)
-                                                .viewInsets,
+                                            padding: MediaQuery.viewInsetsOf(
+                                                context),
                                             child: Success2Widget(
                                               subtitle: 'Product Approved',
                                               buttonText: 'Okay',
@@ -610,6 +662,10 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                                       ).then((value) => setState(() {}));
                                     },
                                     text: 'Approve',
+                                    icon: Icon(
+                                      Icons.thumb_up_off_alt,
+                                      size: 16.0,
+                                    ),
                                     options: FFButtonOptions(
                                       width: 113.0,
                                       height: 40.0,

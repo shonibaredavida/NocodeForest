@@ -74,7 +74,9 @@ class _DashboardSellerProductScreenWidgetState
                       child: wrapWithModel(
                         model: _model.headerModel,
                         updateCallback: () => setState(() {}),
-                        child: HeaderWidget(),
+                        child: HeaderWidget(
+                          dashboard: true,
+                        ),
                       ),
                     ),
                   ),
@@ -511,7 +513,7 @@ class _DashboardSellerProductScreenWidgetState
                                                 child: SizedBox(
                                                   width: 50.0,
                                                   height: 50.0,
-                                                  child: SpinKitCubeGrid(
+                                                  child: SpinKitPulse(
                                                     color: FlutterFlowTheme.of(
                                                             context)
                                                         .primary,
@@ -571,118 +573,133 @@ class _DashboardSellerProductScreenWidgetState
                                                                   .start,
                                                           children: [
                                                             Expanded(
-                                                              child: ClipRRect(
-                                                                child:
-                                                                    Container(
-                                                                  decoration:
-                                                                      BoxDecoration(),
-                                                                  child:
-                                                                      Padding(
-                                                                    padding: EdgeInsetsDirectional
+                                                              child: Padding(
+                                                                padding:
+                                                                    EdgeInsetsDirectional
                                                                         .fromSTEB(
-                                                                            6.0,
+                                                                            0.0,
                                                                             0.0,
                                                                             10.0,
                                                                             0.0),
-                                                                    child: Row(
-                                                                      mainAxisSize:
-                                                                          MainAxisSize
-                                                                              .max,
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .spaceBetween,
-                                                                      children: [
-                                                                        Container(
-                                                                          decoration:
-                                                                              BoxDecoration(),
-                                                                          child:
-                                                                              Row(
-                                                                            mainAxisSize:
-                                                                                MainAxisSize.max,
-                                                                            children: [
-                                                                              Padding(
-                                                                                padding: EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 8.0, 8.0),
-                                                                                child: ClipRRect(
-                                                                                  borderRadius: BorderRadius.circular(4.0),
-                                                                                  child: Image.network(
-                                                                                    listViewProductsRecord.image,
-                                                                                    width: 48.0,
-                                                                                    height: 40.0,
-                                                                                    fit: BoxFit.cover,
-                                                                                  ),
-                                                                                ),
-                                                                              ),
-                                                                              ClipRRect(
-                                                                                child: Container(
-                                                                                  decoration: BoxDecoration(),
-                                                                                  child: Padding(
-                                                                                    padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
-                                                                                    child: Text(
-                                                                                      listViewProductsRecord.name,
-                                                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                            fontFamily: 'Roboto Condensed',
-                                                                                            color: FlutterFlowTheme.of(context).primaryBackground,
-                                                                                            fontSize: 16.0,
-                                                                                            lineHeight: 1.5,
-                                                                                          ),
+                                                                child:
+                                                                    ClipRRect(
+                                                                  child:
+                                                                      Container(
+                                                                    decoration:
+                                                                        BoxDecoration(),
+                                                                    child:
+                                                                        Padding(
+                                                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                                                          6.0,
+                                                                          0.0,
+                                                                          10.0,
+                                                                          0.0),
+                                                                      child:
+                                                                          Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.spaceBetween,
+                                                                        children: [
+                                                                          Container(
+                                                                            decoration:
+                                                                                BoxDecoration(),
+                                                                            child:
+                                                                                Row(
+                                                                              mainAxisSize: MainAxisSize.max,
+                                                                              children: [
+                                                                                Padding(
+                                                                                  padding: EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 8.0, 8.0),
+                                                                                  child: ClipRRect(
+                                                                                    borderRadius: BorderRadius.circular(4.0),
+                                                                                    child: Image.network(
+                                                                                      listViewProductsRecord.image,
+                                                                                      width: 48.0,
+                                                                                      height: 40.0,
+                                                                                      fit: BoxFit.cover,
                                                                                     ),
                                                                                   ),
                                                                                 ),
-                                                                              ),
-                                                                            ],
+                                                                                ClipRRect(
+                                                                                  child: Container(
+                                                                                    decoration: BoxDecoration(),
+                                                                                    child: Padding(
+                                                                                      padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
+                                                                                      child: Text(
+                                                                                        listViewProductsRecord.name,
+                                                                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                              fontFamily: 'Roboto Condensed',
+                                                                                              color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                                              fontSize: 16.0,
+                                                                                              lineHeight: 1.5,
+                                                                                            ),
+                                                                                      ),
+                                                                                    ),
+                                                                                  ),
+                                                                                ),
+                                                                              ],
+                                                                            ),
                                                                           ),
-                                                                        ),
-                                                                      ],
+                                                                        ],
+                                                                      ),
                                                                     ),
                                                                   ),
                                                                 ),
                                                               ),
                                                             ),
                                                             Expanded(
-                                                              child: Container(
-                                                                width: 210.0,
-                                                                decoration:
-                                                                    BoxDecoration(),
+                                                              child: Padding(
+                                                                padding:
+                                                                    EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0.0,
+                                                                            0.0,
+                                                                            10.0,
+                                                                            0.0),
                                                                 child:
-                                                                    Visibility(
-                                                                  visible:
-                                                                      responsiveVisibility(
-                                                                    context:
-                                                                        context,
-                                                                    phone:
-                                                                        false,
-                                                                    tablet:
-                                                                        false,
-                                                                  ),
-                                                                  child: Text(
-                                                                    '${dateTimeFormat(
-                                                                      'yMMMd',
-                                                                      listViewProductsRecord
-                                                                          .dateCreated,
-                                                                      locale: FFLocalizations.of(
-                                                                              context)
-                                                                          .languageCode,
-                                                                    )}-${dateTimeFormat(
-                                                                      'jm',
-                                                                      listViewProductsRecord
-                                                                          .dateCreated,
-                                                                      locale: FFLocalizations.of(
-                                                                              context)
-                                                                          .languageCode,
-                                                                    )}',
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'Roboto Condensed',
-                                                                          color:
-                                                                              Colors.black,
-                                                                          fontSize:
-                                                                              16.0,
-                                                                          lineHeight:
-                                                                              1.5,
-                                                                        ),
+                                                                    ClipRRect(
+                                                                  child:
+                                                                      Container(
+                                                                    width:
+                                                                        210.0,
+                                                                    decoration:
+                                                                        BoxDecoration(),
+                                                                    child:
+                                                                        Visibility(
+                                                                      visible:
+                                                                          responsiveVisibility(
+                                                                        context:
+                                                                            context,
+                                                                        phone:
+                                                                            false,
+                                                                        tablet:
+                                                                            false,
+                                                                      ),
+                                                                      child:
+                                                                          Text(
+                                                                        '${dateTimeFormat(
+                                                                          'yMMMd',
+                                                                          listViewProductsRecord
+                                                                              .dateCreated,
+                                                                          locale:
+                                                                              FFLocalizations.of(context).languageCode,
+                                                                        )}-${dateTimeFormat(
+                                                                          'jm',
+                                                                          listViewProductsRecord
+                                                                              .dateCreated,
+                                                                          locale:
+                                                                              FFLocalizations.of(context).languageCode,
+                                                                        )}',
+                                                                        style: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .override(
+                                                                              fontFamily: 'Roboto Condensed',
+                                                                              color: Colors.black,
+                                                                              fontSize: 16.0,
+                                                                              lineHeight: 1.5,
+                                                                            ),
+                                                                      ),
+                                                                    ),
                                                                   ),
                                                                 ),
                                                               ),

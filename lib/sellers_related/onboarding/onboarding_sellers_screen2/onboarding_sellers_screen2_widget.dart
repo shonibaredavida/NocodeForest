@@ -1,13 +1,13 @@
+import '/auth/base_auth_user_provider.dart';
 import '/auth/firebase_auth/auth_util.dart';
-import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -33,6 +33,25 @@ class _OnboardingSellersScreen2WidgetState
     super.initState();
     _model = createModel(context, () => OnboardingSellersScreen2Model());
 
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      if (loggedIn) {
+        if (valueOrDefault<bool>(currentUserDocument?.admin, false)) {
+          GoRouter.of(context).prepareAuthEvent();
+          await authManager.signOut();
+          GoRouter.of(context).clearRedirectLocation();
+        } else {
+          if (valueOrDefault<bool>(currentUserDocument?.becomeASeller, false)) {
+            context.goNamedAuth('dashboardSeller', context.mounted);
+          }
+        }
+      } else {
+        GoRouter.of(context).prepareAuthEvent();
+        await authManager.signOut();
+        GoRouter.of(context).clearRedirectLocation();
+      }
+    });
+
     _model.usernmeController ??= TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -55,53 +74,60 @@ class _OnboardingSellersScreen2WidgetState
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         body: SafeArea(
           top: true,
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                width: 1512.0,
-                height: 982.0,
-                decoration: BoxDecoration(
-                  color: FlutterFlowTheme.of(context).primaryText,
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: Container(
-                        height: 982.0,
-                        decoration: BoxDecoration(
-                          color:
-                              FlutterFlowTheme.of(context).secondaryBackground,
-                        ),
-                        child: Image.asset(
-                          'assets/images/Rectangle_66_(1).png',
-                          width: 100.0,
-                          height: 100.0,
-                          fit: BoxFit.cover,
-                        ),
+          child: ClipRRect(
+            child: Container(
+              width: double.infinity,
+              height: double.infinity,
+              constraints: BoxConstraints(
+                maxWidth: 1728.0,
+                maxHeight: 1117.0,
+              ),
+              decoration: BoxDecoration(
+                color: FlutterFlowTheme.of(context).primaryText,
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      width: double.infinity,
+                      height: double.infinity,
+                      constraints: BoxConstraints(
+                        maxHeight: 1117.0,
+                      ),
+                      decoration: BoxDecoration(),
+                      child: Image.asset(
+                        'assets/images/Rectangle_66_(1).png',
+                        width: double.infinity,
+                        height: double.infinity,
+                        fit: BoxFit.cover,
                       ),
                     ),
-                    Expanded(
-                      flex: 1,
-                      child: Stack(
-                        children: [
-                          Container(
-                            height: 982.0,
-                            decoration: BoxDecoration(),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Row(
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Stack(
+                      children: [
+                        Container(
+                          constraints: BoxConstraints(
+                            maxHeight: 1117.0,
+                          ),
+                          decoration: BoxDecoration(),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 40.0, 0.0, 0.0),
+                                child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 24.0, 123.0),
+                                          0.0, 40.0, 24.0, 80.0),
                                       child: Image.asset(
                                         'assets/images/Rectangle_80.png',
                                         width: 106.5,
@@ -111,9 +137,9 @@ class _OnboardingSellersScreen2WidgetState
                                     ),
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 24.0, 123.0),
+                                          0.0, 40.0, 24.0, 80.0),
                                       child: Image.asset(
-                                        'assets/images/Rectangle_80.png',
+                                        'assets/images/Rectangle_81.png',
                                         width: 106.5,
                                         height: 8.0,
                                         fit: BoxFit.cover,
@@ -121,7 +147,7 @@ class _OnboardingSellersScreen2WidgetState
                                     ),
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 24.0, 123.0),
+                                          0.0, 40.0, 24.0, 80.0),
                                       child: Image.asset(
                                         'assets/images/Rectangle_81.png',
                                         width: 106.5,
@@ -131,7 +157,11 @@ class _OnboardingSellersScreen2WidgetState
                                     ),
                                   ],
                                 ),
-                                Container(
+                              ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 20.0),
+                                child: Container(
                                   width: 428.0,
                                   decoration: BoxDecoration(
                                     color: FlutterFlowTheme.of(context)
@@ -472,15 +502,6 @@ class _OnboardingSellersScreen2WidgetState
                                           ),
                                           FFButtonWidget(
                                             onPressed: () async {
-                                              await currentUserReference!
-                                                  .update(createUsersRecordData(
-                                                profession:
-                                                    _model.focusDropDownValue,
-                                                interest:
-                                                    _model.nocodeDropDownValue,
-                                                username: _model
-                                                    .usernmeController.text,
-                                              ));
                                               if (_model.usernmeController
                                                           .text !=
                                                       null &&
@@ -489,6 +510,22 @@ class _OnboardingSellersScreen2WidgetState
                                                       '') {
                                                 context.pushNamed(
                                                   'onboardingSellersScreen3',
+                                                  queryParameters: {
+                                                    'username': serializeParam(
+                                                      _model.usernmeController
+                                                          .text,
+                                                      ParamType.String,
+                                                    ),
+                                                    'prof': serializeParam(
+                                                      _model.focusDropDownValue,
+                                                      ParamType.String,
+                                                    ),
+                                                    'interest': serializeParam(
+                                                      _model
+                                                          .nocodeDropDownValue,
+                                                      ParamType.String,
+                                                    ),
+                                                  }.withoutNulls,
                                                   extra: <String, dynamic>{
                                                     kTransitionInfoKey:
                                                         TransitionInfo(
@@ -555,53 +592,43 @@ class _OnboardingSellersScreen2WidgetState
                                     ),
                                   ),
                                 ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 95.0, 0.0, 0.0),
-                                  child: InkWell(
-                                    splashColor: Colors.transparent,
-                                    focusColor: Colors.transparent,
-                                    hoverColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    onTap: () async {
-                                      context.pushNamed(
-                                          'onboardingSellersScreen3');
-                                    },
-                                    child: Image.asset(
-                                      'assets/images/NF_Logo.png',
-                                      width: 134.0,
-                                      height: 52.0,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Align(
-                            alignment: AlignmentDirectional(0.9, -0.9),
-                            child: InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                context.goNamed('landingPageBuyers');
-                              },
-                              child: Icon(
-                                Icons.close_fullscreen,
-                                color: Colors.black,
-                                size: 24.0,
                               ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 70.0),
+                                child: Image.asset(
+                                  'assets/images/NF_Logo.png',
+                                  width: 134.0,
+                                  height: 52.0,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Align(
+                          alignment: AlignmentDirectional(0.9, -0.9),
+                          child: InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () async {
+                              context.goNamed('landingPageBuyers');
+                            },
+                            child: Icon(
+                              Icons.close_fullscreen,
+                              color: Colors.black,
+                              size: 24.0,
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
       ),

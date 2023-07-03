@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
+
 import '/backend/schema/util/firestore_util.dart';
 import '/backend/schema/util/schema_util.dart';
 
@@ -115,4 +117,34 @@ Map<String, dynamic> createPromoRecordsRecordData({
   );
 
   return firestoreData;
+}
+
+class PromoRecordsRecordDocumentEquality
+    implements Equality<PromoRecordsRecord> {
+  const PromoRecordsRecordDocumentEquality();
+
+  @override
+  bool equals(PromoRecordsRecord? e1, PromoRecordsRecord? e2) {
+    return e1?.name == e2?.name &&
+        e1?.phone == e2?.phone &&
+        e1?.email == e2?.email &&
+        e1?.companyInfo == e2?.companyInfo &&
+        e1?.offerChoice == e2?.offerChoice &&
+        e1?.industry == e2?.industry &&
+        e1?.timeCreated == e2?.timeCreated;
+  }
+
+  @override
+  int hash(PromoRecordsRecord? e) => const ListEquality().hash([
+        e?.name,
+        e?.phone,
+        e?.email,
+        e?.companyInfo,
+        e?.offerChoice,
+        e?.industry,
+        e?.timeCreated
+      ]);
+
+  @override
+  bool isValidKey(Object? o) => o is PromoRecordsRecord;
 }

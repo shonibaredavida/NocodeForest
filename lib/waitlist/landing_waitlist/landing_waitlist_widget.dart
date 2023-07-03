@@ -136,8 +136,8 @@ class _LandingWaitlistWidgetState extends State<LandingWaitlistWidget> {
                                                           _model.unfocusNode),
                                                   child: Padding(
                                                     padding:
-                                                        MediaQuery.of(context)
-                                                            .viewInsets,
+                                                        MediaQuery.viewInsetsOf(
+                                                            context),
                                                     child:
                                                         SigninModalWaitlistWidget(),
                                                   ),
@@ -170,8 +170,8 @@ class _LandingWaitlistWidgetState extends State<LandingWaitlistWidget> {
                                                           _model.unfocusNode),
                                                   child: Padding(
                                                     padding:
-                                                        MediaQuery.of(context)
-                                                            .viewInsets,
+                                                        MediaQuery.viewInsetsOf(
+                                                            context),
                                                     child:
                                                         WaitListFormTalentModalWidget(
                                                       textboxBgColor:
@@ -294,9 +294,8 @@ class _LandingWaitlistWidgetState extends State<LandingWaitlistWidget> {
                                                         tabletLandscape: false,
                                                       ))
                                                         Container(
-                                                          width: MediaQuery.of(
+                                                          width: MediaQuery.sizeOf(
                                                                           context)
-                                                                      .size
                                                                       .width <
                                                                   900.0
                                                               ? 48.0
@@ -345,10 +344,9 @@ class _LandingWaitlistWidgetState extends State<LandingWaitlistWidget> {
                                                                 color: FlutterFlowTheme.of(
                                                                         context)
                                                                     .primary,
-                                                                fontSize: MediaQuery.of(context)
-                                                                            .size
+                                                                fontSize: MediaQuery.sizeOf(context)
                                                                             .width <
-                                                                        (MediaQuery.of(context).size.width *
+                                                                        (MediaQuery.sizeOf(context).width *
                                                                             0.7)
                                                                     ? 48.0
                                                                     : 64.0,
@@ -697,9 +695,9 @@ class _LandingWaitlistWidgetState extends State<LandingWaitlistWidget> {
                                                                               .unfocusNode),
                                                                   child:
                                                                       Padding(
-                                                                    padding: MediaQuery.of(
-                                                                            context)
-                                                                        .viewInsets,
+                                                                    padding: MediaQuery
+                                                                        .viewInsetsOf(
+                                                                            context),
                                                                     child:
                                                                         WaitListFormTalentModalWidget(
                                                                       textboxBgColor:
@@ -1278,7 +1276,7 @@ class _LandingWaitlistWidgetState extends State<LandingWaitlistWidget> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       if (valueOrDefault<bool>(
-                                        MediaQuery.of(context).size.width <
+                                        MediaQuery.sizeOf(context).width <
                                                 1512.0
                                             ? false
                                             : true,
@@ -2377,8 +2375,7 @@ class _LandingWaitlistWidgetState extends State<LandingWaitlistWidget> {
                                                   ),
                                                 ),
                                               if (valueOrDefault<bool>(
-                                                    MediaQuery.of(context)
-                                                                .size
+                                                    MediaQuery.sizeOf(context)
                                                                 .width <
                                                             1512.0
                                                         ? true
@@ -2464,10 +2461,9 @@ class _LandingWaitlistWidgetState extends State<LandingWaitlistWidget> {
                                                               .requestFocus(_model
                                                                   .unfocusNode),
                                                           child: Padding(
-                                                            padding:
-                                                                MediaQuery.of(
-                                                                        context)
-                                                                    .viewInsets,
+                                                            padding: MediaQuery
+                                                                .viewInsetsOf(
+                                                                    context),
                                                             child:
                                                                 WaitListFormTalentModalWidget(
                                                               textboxBgColor:
@@ -2536,8 +2532,7 @@ class _LandingWaitlistWidgetState extends State<LandingWaitlistWidget> {
                                           ),
                                         ),
                                         Visibility(
-                                          visible: (MediaQuery.of(context)
-                                                      .size
+                                          visible: (MediaQuery.sizeOf(context)
                                                       .width >
                                                   1030.0) &&
                                               responsiveVisibility(
@@ -2685,9 +2680,9 @@ class _LandingWaitlistWidgetState extends State<LandingWaitlistWidget> {
                                                                         _model
                                                                             .unfocusNode),
                                                                 child: Padding(
-                                                                  padding: MediaQuery.of(
-                                                                          context)
-                                                                      .viewInsets,
+                                                                  padding: MediaQuery
+                                                                      .viewInsetsOf(
+                                                                          context),
                                                                   child:
                                                                       WaitListFormBusinessOwnerModalWidget(),
                                                                 ),
@@ -2846,10 +2841,9 @@ class _LandingWaitlistWidgetState extends State<LandingWaitlistWidget> {
                                                               .requestFocus(_model
                                                                   .unfocusNode),
                                                           child: Padding(
-                                                            padding:
-                                                                MediaQuery.of(
-                                                                        context)
-                                                                    .viewInsets,
+                                                            padding: MediaQuery
+                                                                .viewInsetsOf(
+                                                                    context),
                                                             child:
                                                                 WaitListFormBusinessOwnerModalWidget(),
                                                           ),
@@ -2997,12 +2991,11 @@ class _LandingWaitlistWidgetState extends State<LandingWaitlistWidget> {
                                                               .override(
                                                                 fontFamily:
                                                                     'millik',
-                                                                fontSize: MediaQuery.of(context)
-                                                                            .size
-                                                                            .width <
-                                                                        900.0
-                                                                    ? 24.0
-                                                                    : 32.0,
+                                                                fontSize:
+                                                                    MediaQuery.sizeOf(context).width <
+                                                                            900.0
+                                                                        ? 24.0
+                                                                        : 32.0,
                                                                 useGoogleFonts:
                                                                     false,
                                                                 lineHeight:
@@ -3026,8 +3019,8 @@ class _LandingWaitlistWidgetState extends State<LandingWaitlistWidget> {
                                                                     .unfocusNode),
                                                             child: Padding(
                                                               padding: MediaQuery
-                                                                      .of(context)
-                                                                  .viewInsets,
+                                                                  .viewInsetsOf(
+                                                                      context),
                                                               child:
                                                                   WaitListFormTalentModalWidget(
                                                                 textboxBgColor:
@@ -3247,9 +3240,9 @@ class _LandingWaitlistWidgetState extends State<LandingWaitlistWidget> {
                                                         .requestFocus(
                                                             _model.unfocusNode),
                                                     child: Padding(
-                                                      padding:
-                                                          MediaQuery.of(context)
-                                                              .viewInsets,
+                                                      padding: MediaQuery
+                                                          .viewInsetsOf(
+                                                              context),
                                                       child:
                                                           WaitlistMenuWidget(),
                                                     ),

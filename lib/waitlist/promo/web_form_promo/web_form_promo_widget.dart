@@ -1199,9 +1199,9 @@ class _WebFormPromoWidgetState extends State<WebFormPromoWidget> {
                                                   context: context,
                                                   builder: (context) {
                                                     return Padding(
-                                                      padding:
-                                                          MediaQuery.of(context)
-                                                              .viewInsets,
+                                                      padding: MediaQuery
+                                                          .viewInsetsOf(
+                                                              context),
                                                       child:
                                                           WebPromoSuccessWidget(),
                                                     );

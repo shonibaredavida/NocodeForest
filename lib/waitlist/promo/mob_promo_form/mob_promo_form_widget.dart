@@ -72,7 +72,7 @@ class _MobPromoFormWidgetState extends State<MobPromoFormWidget> {
               ),
             ),
             child: Container(
-              height: MediaQuery.of(context).size.height * 0.75,
+              height: MediaQuery.sizeOf(context).height * 0.75,
               decoration: BoxDecoration(
                 color: FlutterFlowTheme.of(context).secondaryBackground,
                 borderRadius: BorderRadius.only(
@@ -781,8 +781,8 @@ class _MobPromoFormWidgetState extends State<MobPromoFormWidget> {
                                           context: context,
                                           builder: (context) {
                                             return Padding(
-                                              padding: MediaQuery.of(context)
-                                                  .viewInsets,
+                                              padding: MediaQuery.viewInsetsOf(
+                                                  context),
                                               child:
                                                   MobilepromoSuccess2Widget(),
                                             );

@@ -94,7 +94,7 @@ class _HeaderAdminWidgetState extends State<HeaderAdminWidget> {
                                     builder: (context) {
                                       return Padding(
                                         padding:
-                                            MediaQuery.of(context).viewInsets,
+                                            MediaQuery.viewInsetsOf(context),
                                         child: CreateAccountModalWidget(),
                                       );
                                     },
@@ -335,7 +335,7 @@ class _HeaderAdminWidgetState extends State<HeaderAdminWidget> {
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
-                                context.pushNamed('buyerCartScreen');
+                                context.pushNamed('buyerCartScreenNU');
                               },
                               child: Container(
                                 width: 48.0,
@@ -441,7 +441,7 @@ class _HeaderAdminWidgetState extends State<HeaderAdminWidget> {
                                     builder: (context) {
                                       return Padding(
                                         padding:
-                                            MediaQuery.of(context).viewInsets,
+                                            MediaQuery.viewInsetsOf(context),
                                         child: AddProductWidget(),
                                       );
                                     },
@@ -548,7 +548,7 @@ class _HeaderAdminWidgetState extends State<HeaderAdminWidget> {
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
-                                context.pushNamed('buyerCartScreen');
+                                context.pushNamed('buyerCartScreenNU');
                               },
                               child: Container(
                                 width: 48.0,

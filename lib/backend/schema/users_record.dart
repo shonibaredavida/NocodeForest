@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
+
 import '/backend/schema/util/firestore_util.dart';
 import '/backend/schema/util/schema_util.dart';
 
@@ -119,6 +121,11 @@ class UsersRecord extends FirestoreRecord {
   List<EarningsStruct> get earnings => _earnings ?? const [];
   bool hasEarnings() => _earnings != null;
 
+  // "downloads" field.
+  List<DocumentReference>? _downloads;
+  List<DocumentReference> get downloads => _downloads ?? const [];
+  bool hasDownloads() => _downloads != null;
+
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _displayName = snapshotData['display_name'] as String?;
@@ -147,6 +154,7 @@ class UsersRecord extends FirestoreRecord {
       snapshotData['earnings'],
       EarningsStruct.fromMap,
     );
+    _downloads = getDataList(snapshotData['downloads']);
   }
 
   static CollectionReference get collection =>
@@ -222,4 +230,64 @@ Map<String, dynamic> createUsersRecordData({
   );
 
   return firestoreData;
+}
+
+class UsersRecordDocumentEquality implements Equality<UsersRecord> {
+  const UsersRecordDocumentEquality();
+
+  @override
+  bool equals(UsersRecord? e1, UsersRecord? e2) {
+    const listEquality = ListEquality();
+    return e1?.email == e2?.email &&
+        e1?.displayName == e2?.displayName &&
+        e1?.photoUrl == e2?.photoUrl &&
+        e1?.uid == e2?.uid &&
+        e1?.createdTime == e2?.createdTime &&
+        e1?.phoneNumber == e2?.phoneNumber &&
+        e1?.becomeASeller == e2?.becomeASeller &&
+        e1?.status == e2?.status &&
+        listEquality.equals(e1?.wishlist, e2?.wishlist) &&
+        e1?.profession == e2?.profession &&
+        e1?.username == e2?.username &&
+        e1?.interest == e2?.interest &&
+        e1?.lastName == e2?.lastName &&
+        e1?.firstName == e2?.firstName &&
+        e1?.location == e2?.location &&
+        e1?.bio == e2?.bio &&
+        listEquality.equals(e1?.cart, e2?.cart) &&
+        listEquality.equals(e1?.modifiedTime, e2?.modifiedTime) &&
+        e1?.admin == e2?.admin &&
+        listEquality.equals(e1?.withdrawals, e2?.withdrawals) &&
+        listEquality.equals(e1?.earnings, e2?.earnings) &&
+        listEquality.equals(e1?.downloads, e2?.downloads);
+  }
+
+  @override
+  int hash(UsersRecord? e) => const ListEquality().hash([
+        e?.email,
+        e?.displayName,
+        e?.photoUrl,
+        e?.uid,
+        e?.createdTime,
+        e?.phoneNumber,
+        e?.becomeASeller,
+        e?.status,
+        e?.wishlist,
+        e?.profession,
+        e?.username,
+        e?.interest,
+        e?.lastName,
+        e?.firstName,
+        e?.location,
+        e?.bio,
+        e?.cart,
+        e?.modifiedTime,
+        e?.admin,
+        e?.withdrawals,
+        e?.earnings,
+        e?.downloads
+      ]);
+
+  @override
+  bool isValidKey(Object? o) => o is UsersRecord;
 }

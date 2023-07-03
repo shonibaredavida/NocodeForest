@@ -1,9 +1,9 @@
 import '/auth/firebase_auth/auth_util.dart';
-import '/buyers_related/component/sidebar_buyer/sidebar_buyer_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/main_components/header/header_widget.dart';
+import '/sellers_related/componnents/sidebar_seller/sidebar_seller_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -70,7 +70,9 @@ class _DashboardBuyerLogoutWidgetState
                       child: wrapWithModel(
                         model: _model.headerModel,
                         updateCallback: () => setState(() {}),
-                        child: HeaderWidget(),
+                        child: HeaderWidget(
+                          dashboard: true,
+                        ),
                       ),
                     ),
                   ),
@@ -87,16 +89,20 @@ class _DashboardBuyerLogoutWidgetState
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           wrapWithModel(
-                            model: _model.sidebarBuyerModel,
+                            model: _model.sidebarSellerModel,
                             updateCallback: () => setState(() {}),
-                            child: SidebarBuyerWidget(
+                            child: SidebarSellerWidget(
                               logoutColor: Color(0xFFF34335),
                               logoutIconColor:
-                                  FlutterFlowTheme.of(context).lineColor,
-                              page1IsActive: false,
-                              page2IsActive: false,
-                              pageThreeIsActive: false,
+                                  FlutterFlowTheme.of(context).primaryText,
+                              p1State: false,
+                              p2State: false,
+                              p4State: false,
+                              p5State: false,
+                              profileState: false,
                               logoutState: true,
+                              p6State: false,
+                              p7State: false,
                             ),
                           ),
                           Expanded(

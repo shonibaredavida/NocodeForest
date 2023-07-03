@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
+
 import '/backend/schema/util/firestore_util.dart';
 import '/backend/schema/util/schema_util.dart';
 
@@ -75,4 +77,20 @@ Map<String, dynamic> createChartDataRecordData({
   );
 
   return firestoreData;
+}
+
+class ChartDataRecordDocumentEquality implements Equality<ChartDataRecord> {
+  const ChartDataRecordDocumentEquality();
+
+  @override
+  bool equals(ChartDataRecord? e1, ChartDataRecord? e2) {
+    return e1?.xAxis == e2?.xAxis && e1?.yAxis == e2?.yAxis;
+  }
+
+  @override
+  int hash(ChartDataRecord? e) =>
+      const ListEquality().hash([e?.xAxis, e?.yAxis]);
+
+  @override
+  bool isValidKey(Object? o) => o is ChartDataRecord;
 }

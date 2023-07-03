@@ -378,6 +378,16 @@ List<int>? getDataForLineGraph(List<OrdersRecord>? orders) {
   return order;
 }
 
+double getTotalRating(ProductsRecord productReviews) {
+  double count = 0;
+  double totalRate = 0;
+  for (var review in productReviews.reviews) {
+    count = count + 1;
+    totalRate = totalRate + review.rating;
+  }
+  return totalRate / count;
+}
+
 bool isSellerInCart(
   List<DocumentReference> cartItems,
   String authSellerId,
@@ -523,4 +533,17 @@ List<String> listOfProductIDInCart(List<DocumentReference> cartItems) {
   }
 
   return getList(cartItems);
+}
+
+bool isUserIdInReview(
+  ProductsRecord productReviews,
+  String userId,
+) {
+  // check whether userid is in the review in the productReviews
+  for (var review in productReviews.reviews) {
+    if (review.buyerIid == userId) {
+      return true;
+    }
+  }
+  return false;
 }

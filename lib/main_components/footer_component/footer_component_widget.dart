@@ -60,7 +60,7 @@ class _FooterComponentWidgetState extends State<FooterComponentWidget> {
               padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 96.0),
               child: Container(
                 width: double.infinity,
-                height: 164.0,
+                height: 170.0,
                 decoration: BoxDecoration(),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
@@ -178,21 +178,16 @@ class _FooterComponentWidgetState extends State<FooterComponentWidget> {
                                             ),
                                       ),
                                     ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 0.0, 16.0),
-                                      child: Text(
-                                        'Become an affiliate',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Roboto Condensed',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
-                                              lineHeight: 1.4,
-                                            ),
-                                      ),
+                                    Text(
+                                      'Become an affiliate',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Roboto Condensed',
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                            lineHeight: 1.4,
+                                          ),
                                     ),
                                   ],
                                 ),
@@ -414,21 +409,16 @@ class _FooterComponentWidgetState extends State<FooterComponentWidget> {
                                             ),
                                       ),
                                     ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 0.0, 16.0),
-                                      child: Text(
-                                        'Privacy Policy',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Roboto Condensed',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
-                                              lineHeight: 1.4,
-                                            ),
-                                      ),
+                                    Text(
+                                      'Privacy Policy',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Roboto Condensed',
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                            lineHeight: 1.4,
+                                          ),
                                     ),
                                   ],
                                 ),

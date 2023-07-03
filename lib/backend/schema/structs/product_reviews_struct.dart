@@ -9,20 +9,14 @@ import '/flutter_flow/flutter_flow_util.dart';
 
 class ProductReviewsStruct extends FFFirebaseStruct {
   ProductReviewsStruct({
-    DocumentReference? buyerInfo,
     double? rating,
     String? comment,
+    String? buyerIid,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
-  })  : _buyerInfo = buyerInfo,
-        _rating = rating,
+  })  : _rating = rating,
         _comment = comment,
+        _buyerIid = buyerIid,
         super(firestoreUtilData);
-
-  // "buyer_info" field.
-  DocumentReference? _buyerInfo;
-  DocumentReference? get buyerInfo => _buyerInfo;
-  set buyerInfo(DocumentReference? val) => _buyerInfo = val;
-  bool hasBuyerInfo() => _buyerInfo != null;
 
   // "rating" field.
   double? _rating;
@@ -37,28 +31,30 @@ class ProductReviewsStruct extends FFFirebaseStruct {
   set comment(String? val) => _comment = val;
   bool hasComment() => _comment != null;
 
+  // "buyer_Iid" field.
+  String? _buyerIid;
+  String get buyerIid => _buyerIid ?? '';
+  set buyerIid(String? val) => _buyerIid = val;
+  bool hasBuyerIid() => _buyerIid != null;
+
   static ProductReviewsStruct fromMap(Map<String, dynamic> data) =>
       ProductReviewsStruct(
-        buyerInfo: data['buyer_info'] as DocumentReference?,
         rating: castToType<double>(data['rating']),
         comment: data['comment'] as String?,
+        buyerIid: data['buyer_Iid'] as String?,
       );
 
   static ProductReviewsStruct? maybeFromMap(dynamic data) =>
       data is Map<String, dynamic> ? ProductReviewsStruct.fromMap(data) : null;
 
   Map<String, dynamic> toMap() => {
-        'buyer_info': _buyerInfo,
         'rating': _rating,
         'comment': _comment,
+        'buyer_Iid': _buyerIid,
       }.withoutNulls;
 
   @override
   Map<String, dynamic> toSerializableMap() => {
-        'buyer_info': serializeParam(
-          _buyerInfo,
-          ParamType.DocumentReference,
-        ),
         'rating': serializeParam(
           _rating,
           ParamType.double,
@@ -67,16 +63,14 @@ class ProductReviewsStruct extends FFFirebaseStruct {
           _comment,
           ParamType.String,
         ),
+        'buyer_Iid': serializeParam(
+          _buyerIid,
+          ParamType.String,
+        ),
       }.withoutNulls;
 
   static ProductReviewsStruct fromSerializableMap(Map<String, dynamic> data) =>
       ProductReviewsStruct(
-        buyerInfo: deserializeParam(
-          data['buyer_info'],
-          ParamType.DocumentReference,
-          false,
-          collectionNamePath: ['users'],
-        ),
         rating: deserializeParam(
           data['rating'],
           ParamType.double,
@@ -84,6 +78,11 @@ class ProductReviewsStruct extends FFFirebaseStruct {
         ),
         comment: deserializeParam(
           data['comment'],
+          ParamType.String,
+          false,
+        ),
+        buyerIid: deserializeParam(
+          data['buyer_Iid'],
           ParamType.String,
           false,
         ),
@@ -95,28 +94,28 @@ class ProductReviewsStruct extends FFFirebaseStruct {
   @override
   bool operator ==(Object other) {
     return other is ProductReviewsStruct &&
-        buyerInfo == other.buyerInfo &&
         rating == other.rating &&
-        comment == other.comment;
+        comment == other.comment &&
+        buyerIid == other.buyerIid;
   }
 
   @override
-  int get hashCode => const ListEquality().hash([buyerInfo, rating, comment]);
+  int get hashCode => const ListEquality().hash([rating, comment, buyerIid]);
 }
 
 ProductReviewsStruct createProductReviewsStruct({
-  DocumentReference? buyerInfo,
   double? rating,
   String? comment,
+  String? buyerIid,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
   bool delete = false,
 }) =>
     ProductReviewsStruct(
-      buyerInfo: buyerInfo,
       rating: rating,
       comment: comment,
+      buyerIid: buyerIid,
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,

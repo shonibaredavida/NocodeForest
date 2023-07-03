@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
+
 import '/backend/schema/util/firestore_util.dart';
 import '/backend/schema/util/schema_util.dart';
 
@@ -133,4 +135,39 @@ Map<String, dynamic> createWaitlistBusinessOwnerRecordData({
   );
 
   return firestoreData;
+}
+
+class WaitlistBusinessOwnerRecordDocumentEquality
+    implements Equality<WaitlistBusinessOwnerRecord> {
+  const WaitlistBusinessOwnerRecordDocumentEquality();
+
+  @override
+  bool equals(
+      WaitlistBusinessOwnerRecord? e1, WaitlistBusinessOwnerRecord? e2) {
+    return e1?.country == e2?.country &&
+        e1?.email == e2?.email &&
+        e1?.phone == e2?.phone &&
+        e1?.createdTime == e2?.createdTime &&
+        e1?.fullName == e2?.fullName &&
+        e1?.websiteType == e2?.websiteType &&
+        e1?.industry == e2?.industry &&
+        e1?.postMaintenance == e2?.postMaintenance &&
+        e1?.budget == e2?.budget;
+  }
+
+  @override
+  int hash(WaitlistBusinessOwnerRecord? e) => const ListEquality().hash([
+        e?.country,
+        e?.email,
+        e?.phone,
+        e?.createdTime,
+        e?.fullName,
+        e?.websiteType,
+        e?.industry,
+        e?.postMaintenance,
+        e?.budget
+      ]);
+
+  @override
+  bool isValidKey(Object? o) => o is WaitlistBusinessOwnerRecord;
 }

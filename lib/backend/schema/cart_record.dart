@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
+
 import '/backend/schema/util/firestore_util.dart';
 import '/backend/schema/util/schema_util.dart';
 
@@ -95,4 +97,24 @@ Map<String, dynamic> createCartRecordData({
   );
 
   return firestoreData;
+}
+
+class CartRecordDocumentEquality implements Equality<CartRecord> {
+  const CartRecordDocumentEquality();
+
+  @override
+  bool equals(CartRecord? e1, CartRecord? e2) {
+    const listEquality = ListEquality();
+    return listEquality.equals(e1?.productInfo, e2?.productInfo) &&
+        e1?.sellerId == e2?.sellerId &&
+        e1?.buyerId == e2?.buyerId &&
+        e1?.price == e2?.price;
+  }
+
+  @override
+  int hash(CartRecord? e) => const ListEquality()
+      .hash([e?.productInfo, e?.sellerId, e?.buyerId, e?.price]);
+
+  @override
+  bool isValidKey(Object? o) => o is CartRecord;
 }

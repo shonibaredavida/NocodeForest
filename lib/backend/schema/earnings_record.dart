@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
+
 import '/backend/schema/util/firestore_util.dart';
 import '/backend/schema/util/schema_util.dart';
 
@@ -117,4 +119,34 @@ Map<String, dynamic> createEarningsRecordData({
   );
 
   return firestoreData;
+}
+
+class EarningsRecordDocumentEquality implements Equality<EarningsRecord> {
+  const EarningsRecordDocumentEquality();
+
+  @override
+  bool equals(EarningsRecord? e1, EarningsRecord? e2) {
+    const listEquality = ListEquality();
+    return e1?.totalEarnings == e2?.totalEarnings &&
+        e1?.lastWithdrawal == e2?.lastWithdrawal &&
+        e1?.currentEarning == e2?.currentEarning &&
+        e1?.currentBalance == e2?.currentBalance &&
+        e1?.sellerId == e2?.sellerId &&
+        listEquality.equals(e1?.specificArnings, e2?.specificArnings) &&
+        listEquality.equals(e1?.specificEarnings, e2?.specificEarnings);
+  }
+
+  @override
+  int hash(EarningsRecord? e) => const ListEquality().hash([
+        e?.totalEarnings,
+        e?.lastWithdrawal,
+        e?.currentEarning,
+        e?.currentBalance,
+        e?.sellerId,
+        e?.specificArnings,
+        e?.specificEarnings
+      ]);
+
+  @override
+  bool isValidKey(Object? o) => o is EarningsRecord;
 }

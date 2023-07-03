@@ -66,7 +66,7 @@ class _SellerMobileformWaitlistWidgetState
               child: SizedBox(
                 width: 50.0,
                 height: 50.0,
-                child: SpinKitCubeGrid(
+                child: SpinKitPulse(
                   color: FlutterFlowTheme.of(context).primary,
                   size: 50.0,
                 ),
@@ -132,8 +132,8 @@ class _SellerMobileformWaitlistWidgetState
                                                 .requestFocus(
                                                     _model.unfocusNode),
                                             child: Padding(
-                                              padding: MediaQuery.of(context)
-                                                  .viewInsets,
+                                              padding: MediaQuery.viewInsetsOf(
+                                                  context),
                                               child: WaitlistMenuWidget(),
                                             ),
                                           );

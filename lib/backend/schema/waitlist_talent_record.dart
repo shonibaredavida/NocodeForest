@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
+
 import '/backend/schema/util/firestore_util.dart';
 import '/backend/schema/util/schema_util.dart';
 
@@ -131,4 +133,38 @@ Map<String, dynamic> createWaitlistTalentRecordData({
   );
 
   return firestoreData;
+}
+
+class WaitlistTalentRecordDocumentEquality
+    implements Equality<WaitlistTalentRecord> {
+  const WaitlistTalentRecordDocumentEquality();
+
+  @override
+  bool equals(WaitlistTalentRecord? e1, WaitlistTalentRecord? e2) {
+    return e1?.country == e2?.country &&
+        e1?.email == e2?.email &&
+        e1?.phone == e2?.phone &&
+        e1?.createdTime == e2?.createdTime &&
+        e1?.nocodeTools == e2?.nocodeTools &&
+        e1?.fullName == e2?.fullName &&
+        e1?.webAppLink == e2?.webAppLink &&
+        e1?.mobileAppLink == e2?.mobileAppLink &&
+        e1?.nocoderStatus == e2?.nocoderStatus;
+  }
+
+  @override
+  int hash(WaitlistTalentRecord? e) => const ListEquality().hash([
+        e?.country,
+        e?.email,
+        e?.phone,
+        e?.createdTime,
+        e?.nocodeTools,
+        e?.fullName,
+        e?.webAppLink,
+        e?.mobileAppLink,
+        e?.nocoderStatus
+      ]);
+
+  @override
+  bool isValidKey(Object? o) => o is WaitlistTalentRecord;
 }

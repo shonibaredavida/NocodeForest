@@ -1,13 +1,15 @@
 import '/admin/component/product_card/product_card_widget.dart';
 import '/admin/component/sidebar_admin/sidebar_admin_widget.dart';
+import '/auth/base_auth_user_provider.dart';
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/main_components/create_account_modal/create_account_modal_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -31,6 +33,25 @@ class _AdminProductsWidgetState extends State<AdminProductsWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => AdminProductsModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      if (loggedIn) {
+        if (!valueOrDefault<bool>(currentUserDocument?.admin, false)) {
+          GoRouter.of(context).prepareAuthEvent();
+          await authManager.signOut();
+          GoRouter.of(context).clearRedirectLocation();
+        } else {
+          return;
+        }
+      } else {
+        GoRouter.of(context).prepareAuthEvent();
+        await authManager.signOut();
+        GoRouter.of(context).clearRedirectLocation();
+      }
+
+      context.goNamedAuth('landingPageBuyers', context.mounted);
+    });
 
     _model.allProdTextFieldController ??= TextEditingController();
     _model.approvedTextFieldController ??= TextEditingController();
@@ -67,8 +88,8 @@ class _AdminProductsWidgetState extends State<AdminProductsWidget> {
               mainAxisSize: MainAxisSize.max,
               children: [
                 Container(
-                  width: 1512.0,
-                  height: 123.1,
+                  width: double.infinity,
+                  height: 132.1,
                   decoration: BoxDecoration(
                     color: FlutterFlowTheme.of(context).secondaryBackground,
                   ),
@@ -104,26 +125,13 @@ class _AdminProductsWidgetState extends State<AdminProductsWidget> {
                                         0.0, 4.0, 32.0, 0.0),
                                     child: FFButtonWidget(
                                       onPressed: () async {
-                                        await showModalBottomSheet(
-                                          isScrollControlled: true,
-                                          backgroundColor: Colors.transparent,
-                                          enableDrag: false,
-                                          context: context,
-                                          builder: (context) {
-                                            return GestureDetector(
-                                              onTap: () =>
-                                                  FocusScope.of(context)
-                                                      .requestFocus(
-                                                          _model.unfocusNode),
-                                              child: Padding(
-                                                padding: MediaQuery.of(context)
-                                                    .viewInsets,
-                                                child:
-                                                    CreateAccountModalWidget(),
-                                              ),
-                                            );
-                                          },
-                                        ).then((value) => setState(() {}));
+                                        GoRouter.of(context).prepareAuthEvent();
+                                        await authManager.signOut();
+                                        GoRouter.of(context)
+                                            .clearRedirectLocation();
+
+                                        context.goNamedAuth('landingPageBuyers',
+                                            context.mounted);
                                       },
                                       text: 'Logout',
                                       options: FFButtonOptions(
@@ -208,7 +216,7 @@ class _AdminProductsWidgetState extends State<AdminProductsWidget> {
                                       child: SizedBox(
                                         width: 50.0,
                                         height: 50.0,
-                                        child: SpinKitCubeGrid(
+                                        child: SpinKitPulse(
                                           color: FlutterFlowTheme.of(context)
                                               .primary,
                                           size: 50.0,
@@ -625,7 +633,7 @@ class _AdminProductsWidgetState extends State<AdminProductsWidget> {
                                                                                               return GestureDetector(
                                                                                                 onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
                                                                                                 child: Padding(
-                                                                                                  padding: MediaQuery.of(context).viewInsets,
+                                                                                                  padding: MediaQuery.viewInsetsOf(context),
                                                                                                   child: ProductCardWidget(
                                                                                                     productRef: individualProductsItem.reference,
                                                                                                   ),
@@ -648,7 +656,7 @@ class _AdminProductsWidgetState extends State<AdminProductsWidget> {
                                                                                                       child: SizedBox(
                                                                                                         width: 50.0,
                                                                                                         height: 50.0,
-                                                                                                        child: SpinKitCubeGrid(
+                                                                                                        child: SpinKitPulse(
                                                                                                           color: FlutterFlowTheme.of(context).primary,
                                                                                                           size: 50.0,
                                                                                                         ),
@@ -794,7 +802,7 @@ class _AdminProductsWidgetState extends State<AdminProductsWidget> {
                                                                                                                       return GestureDetector(
                                                                                                                         onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
                                                                                                                         child: Padding(
-                                                                                                                          padding: MediaQuery.of(context).viewInsets,
+                                                                                                                          padding: MediaQuery.viewInsetsOf(context),
                                                                                                                           child: ProductCardWidget(
                                                                                                                             productRef: individualProductsItem.reference,
                                                                                                                           ),
@@ -1276,7 +1284,7 @@ class _AdminProductsWidgetState extends State<AdminProductsWidget> {
                                                                                                     child: SizedBox(
                                                                                                       width: 50.0,
                                                                                                       height: 50.0,
-                                                                                                      child: SpinKitCubeGrid(
+                                                                                                      child: SpinKitPulse(
                                                                                                         color: FlutterFlowTheme.of(context).primary,
                                                                                                         size: 50.0,
                                                                                                       ),
@@ -1417,7 +1425,7 @@ class _AdminProductsWidgetState extends State<AdminProductsWidget> {
                                                                                                                     return GestureDetector(
                                                                                                                       onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
                                                                                                                       child: Padding(
-                                                                                                                        padding: MediaQuery.of(context).viewInsets,
+                                                                                                                        padding: MediaQuery.viewInsetsOf(context),
                                                                                                                         child: ProductCardWidget(
                                                                                                                           productRef: individualProductsItem.reference,
                                                                                                                         ),
@@ -1893,7 +1901,7 @@ class _AdminProductsWidgetState extends State<AdminProductsWidget> {
                                                                                                     child: SizedBox(
                                                                                                       width: 50.0,
                                                                                                       height: 50.0,
-                                                                                                      child: SpinKitCubeGrid(
+                                                                                                      child: SpinKitPulse(
                                                                                                         color: FlutterFlowTheme.of(context).primary,
                                                                                                         size: 50.0,
                                                                                                       ),
@@ -2034,7 +2042,7 @@ class _AdminProductsWidgetState extends State<AdminProductsWidget> {
                                                                                                                     return GestureDetector(
                                                                                                                       onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
                                                                                                                       child: Padding(
-                                                                                                                        padding: MediaQuery.of(context).viewInsets,
+                                                                                                                        padding: MediaQuery.viewInsetsOf(context),
                                                                                                                         child: ProductCardWidget(
                                                                                                                           productRef: individualProductsItem.reference,
                                                                                                                         ),
@@ -2510,7 +2518,7 @@ class _AdminProductsWidgetState extends State<AdminProductsWidget> {
                                                                                                     child: SizedBox(
                                                                                                       width: 50.0,
                                                                                                       height: 50.0,
-                                                                                                      child: SpinKitCubeGrid(
+                                                                                                      child: SpinKitPulse(
                                                                                                         color: FlutterFlowTheme.of(context).primary,
                                                                                                         size: 50.0,
                                                                                                       ),
@@ -2651,7 +2659,7 @@ class _AdminProductsWidgetState extends State<AdminProductsWidget> {
                                                                                                                     return GestureDetector(
                                                                                                                       onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
                                                                                                                       child: Padding(
-                                                                                                                        padding: MediaQuery.of(context).viewInsets,
+                                                                                                                        padding: MediaQuery.viewInsetsOf(context),
                                                                                                                         child: ProductCardWidget(
                                                                                                                           productRef: individualProductsItem.reference,
                                                                                                                         ),

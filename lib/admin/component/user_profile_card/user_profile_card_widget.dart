@@ -62,7 +62,7 @@ class _UserProfileCardWidgetState extends State<UserProfileCardWidget> {
             child: SizedBox(
               width: 50.0,
               height: 50.0,
-              child: SpinKitCubeGrid(
+              child: SpinKitPulse(
                 color: FlutterFlowTheme.of(context).primary,
                 size: 50.0,
               ),
@@ -103,9 +103,10 @@ class _UserProfileCardWidgetState extends State<UserProfileCardWidget> {
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
-                                    fontFamily: 'Roboto',
+                                    fontFamily: 'millik',
                                     color: Colors.black,
                                     fontSize: 32.0,
+                                    useGoogleFonts: false,
                                     lineHeight: 1.25,
                                   ),
                             ),
@@ -150,33 +151,51 @@ class _UserProfileCardWidgetState extends State<UserProfileCardWidget> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Text(
-                                          columnUsersRecord.displayName,
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Roboto Condensed',
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryBackground,
-                                                fontSize: 16.0,
-                                                lineHeight: 1.5,
-                                              ),
+                                        ClipRRect(
+                                          child: Container(
+                                            constraints: BoxConstraints(
+                                              maxWidth: 350.0,
+                                            ),
+                                            decoration: BoxDecoration(),
+                                            child: Text(
+                                              columnUsersRecord.displayName,
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            'Roboto Condensed',
+                                                        color: FlutterFlowTheme
+                                                                .of(context)
+                                                            .primaryBackground,
+                                                        fontSize: 16.0,
+                                                        lineHeight: 1.5,
+                                                      ),
+                                            ),
+                                          ),
                                         ),
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 0.0, 12.0),
-                                          child: Text(
-                                            columnUsersRecord.email,
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily:
-                                                      'Roboto Condensed',
-                                                  color: Color(0xFF99969E),
-                                                  lineHeight: 1.25,
-                                                ),
+                                        Container(
+                                          constraints: BoxConstraints(
+                                            maxWidth: 350.0,
+                                          ),
+                                          decoration: BoxDecoration(),
+                                          child: Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 0.0, 12.0),
+                                            child: Text(
+                                              columnUsersRecord.email,
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            'Roboto Condensed',
+                                                        color:
+                                                            Color(0xFF99969E),
+                                                        lineHeight: 1.25,
+                                                      ),
+                                            ),
                                           ),
                                         ),
                                         Row(
@@ -256,12 +275,11 @@ class _UserProfileCardWidgetState extends State<UserProfileCardWidget> {
                                     : false)
                                   FFButtonWidget(
                                     onPressed: () async {
-                                      Navigator.pop(context);
-
                                       await columnUsersRecord.reference
                                           .update(createUsersRecordData(
                                         status: 'deactivated',
                                       ));
+                                      Navigator.pop(context);
                                       await showModalBottomSheet(
                                         isScrollControlled: true,
                                         backgroundColor: Colors.transparent,
@@ -269,8 +287,8 @@ class _UserProfileCardWidgetState extends State<UserProfileCardWidget> {
                                         context: context,
                                         builder: (context) {
                                           return Padding(
-                                            padding: MediaQuery.of(context)
-                                                .viewInsets,
+                                            padding: MediaQuery.viewInsetsOf(
+                                                context),
                                             child: Success2Widget(
                                               subtitle: 'User Deactivated',
                                               buttonText: 'Okay',
@@ -280,8 +298,12 @@ class _UserProfileCardWidgetState extends State<UserProfileCardWidget> {
                                       ).then((value) => setState(() {}));
                                     },
                                     text: 'Deactivate',
+                                    icon: Icon(
+                                      Icons.close,
+                                      size: 20.0,
+                                    ),
                                     options: FFButtonOptions(
-                                      width: 113.0,
+                                      width: 120.0,
                                       height: 40.0,
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 0.0, 0.0),
@@ -309,12 +331,11 @@ class _UserProfileCardWidgetState extends State<UserProfileCardWidget> {
                                     : false)
                                   FFButtonWidget(
                                     onPressed: () async {
-                                      Navigator.pop(context);
-
                                       await columnUsersRecord.reference
                                           .update(createUsersRecordData(
                                         status: 'active',
                                       ));
+                                      Navigator.pop(context);
                                       await showModalBottomSheet(
                                         isScrollControlled: true,
                                         backgroundColor: Colors.transparent,
@@ -322,8 +343,8 @@ class _UserProfileCardWidgetState extends State<UserProfileCardWidget> {
                                         context: context,
                                         builder: (context) {
                                           return Padding(
-                                            padding: MediaQuery.of(context)
-                                                .viewInsets,
+                                            padding: MediaQuery.viewInsetsOf(
+                                                context),
                                             child: Success2Widget(
                                               subtitle: 'User  Activated',
                                               buttonText: 'Okay',
@@ -333,8 +354,12 @@ class _UserProfileCardWidgetState extends State<UserProfileCardWidget> {
                                       ).then((value) => setState(() {}));
                                     },
                                     text: 'Reactivate',
+                                    icon: Icon(
+                                      Icons.check,
+                                      size: 20.0,
+                                    ),
                                     options: FFButtonOptions(
-                                      width: 113.0,
+                                      width: 120.0,
                                       height: 40.0,
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 0.0, 0.0),

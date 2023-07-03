@@ -1,13 +1,15 @@
 import '/admin/component/sidebar_admin/sidebar_admin_widget.dart';
 import '/admin/component/user_profile_card/user_profile_card_widget.dart';
+import '/auth/base_auth_user_provider.dart';
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_charts.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/main_components/create_account_modal/create_account_modal_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -32,6 +34,25 @@ class _AdminOverviewWidgetState extends State<AdminOverviewWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => AdminOverviewModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      if (loggedIn) {
+        if (!valueOrDefault<bool>(currentUserDocument?.admin, false)) {
+          GoRouter.of(context).prepareAuthEvent();
+          await authManager.signOut();
+          GoRouter.of(context).clearRedirectLocation();
+        } else {
+          return;
+        }
+      } else {
+        GoRouter.of(context).prepareAuthEvent();
+        await authManager.signOut();
+        GoRouter.of(context).clearRedirectLocation();
+      }
+
+      context.goNamedAuth('landingPageBuyers', context.mounted);
+    });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -72,7 +93,7 @@ class _AdminOverviewWidgetState extends State<AdminOverviewWidget> {
                   children: [
                     Container(
                       width: double.infinity,
-                      height: 123.1,
+                      height: 132.1,
                       decoration: BoxDecoration(
                         color: FlutterFlowTheme.of(context).secondaryBackground,
                       ),
@@ -108,28 +129,15 @@ class _AdminOverviewWidgetState extends State<AdminOverviewWidget> {
                                             0.0, 4.0, 32.0, 0.0),
                                         child: FFButtonWidget(
                                           onPressed: () async {
-                                            await showModalBottomSheet(
-                                              isScrollControlled: true,
-                                              backgroundColor:
-                                                  Colors.transparent,
-                                              enableDrag: false,
-                                              context: context,
-                                              builder: (context) {
-                                                return GestureDetector(
-                                                  onTap: () => FocusScope.of(
-                                                          context)
-                                                      .requestFocus(
-                                                          _model.unfocusNode),
-                                                  child: Padding(
-                                                    padding:
-                                                        MediaQuery.of(context)
-                                                            .viewInsets,
-                                                    child:
-                                                        CreateAccountModalWidget(),
-                                                  ),
-                                                );
-                                              },
-                                            ).then((value) => setState(() {}));
+                                            GoRouter.of(context)
+                                                .prepareAuthEvent();
+                                            await authManager.signOut();
+                                            GoRouter.of(context)
+                                                .clearRedirectLocation();
+
+                                            context.goNamedAuth(
+                                                'landingPageBuyers',
+                                                context.mounted);
                                           },
                                           text: 'Logout',
                                           options: FFButtonOptions(
@@ -209,7 +217,7 @@ class _AdminOverviewWidgetState extends State<AdminOverviewWidget> {
                                       child: SizedBox(
                                         width: 50.0,
                                         height: 50.0,
-                                        child: SpinKitCubeGrid(
+                                        child: SpinKitPulse(
                                           color: FlutterFlowTheme.of(context)
                                               .primary,
                                           size: 50.0,
@@ -534,7 +542,7 @@ class _AdminOverviewWidgetState extends State<AdminOverviewWidget> {
                                                                   width: 50.0,
                                                                   height: 50.0,
                                                                   child:
-                                                                      SpinKitCubeGrid(
+                                                                      SpinKitPulse(
                                                                     color: FlutterFlowTheme.of(
                                                                             context)
                                                                         .primary,
@@ -624,49 +632,66 @@ class _AdminOverviewWidgetState extends State<AdminOverviewWidget> {
                                                                     ),
                                                                     Expanded(
                                                                       child:
-                                                                          Row(
-                                                                        mainAxisSize:
-                                                                            MainAxisSize.max,
+                                                                          Stack(
                                                                         children: [
-                                                                          Expanded(
-                                                                            child:
-                                                                                Container(
-                                                                              width: 370.0,
-                                                                              height: 230.0,
-                                                                              child: FlutterFlowLineChart(
-                                                                                data: [
-                                                                                  FFLineChartData(
-                                                                                    xData: functions.getLabelLineChart(),
-                                                                                    yData: functions.getAYearAgoDataForLineGraph(containerOrdersRecordList.toList())!,
-                                                                                    settings: LineChartBarData(
-                                                                                      color: FlutterFlowTheme.of(context).primary,
-                                                                                      barWidth: 2.0,
+                                                                          Row(
+                                                                            mainAxisSize:
+                                                                                MainAxisSize.max,
+                                                                            children: [
+                                                                              if (FFAppState().NotNeedNow)
+                                                                                Expanded(
+                                                                                  child: Container(
+                                                                                    width: 370.0,
+                                                                                    height: 230.0,
+                                                                                    child: FlutterFlowLineChart(
+                                                                                      data: [
+                                                                                        FFLineChartData(
+                                                                                          xData: functions.getLabelLineChart(),
+                                                                                          yData: functions.getAYearAgoDataForLineGraph(containerOrdersRecordList.toList())!,
+                                                                                          settings: LineChartBarData(
+                                                                                            color: FlutterFlowTheme.of(context).primary,
+                                                                                            barWidth: 2.0,
+                                                                                          ),
+                                                                                        )
+                                                                                      ],
+                                                                                      chartStylingInfo: ChartStylingInfo(
+                                                                                        enableTooltip: true,
+                                                                                        tooltipBackgroundColor: Colors.transparent,
+                                                                                        backgroundColor: FlutterFlowTheme.of(context).primaryText,
+                                                                                        showGrid: true,
+                                                                                        borderColor: FlutterFlowTheme.of(context).secondaryText,
+                                                                                        borderWidth: 1.0,
+                                                                                      ),
+                                                                                      axisBounds: AxisBounds(),
+                                                                                      xAxisLabelInfo: AxisLabelInfo(),
+                                                                                      yAxisLabelInfo: AxisLabelInfo(
+                                                                                        title: 'Quantity',
+                                                                                        titleTextStyle: GoogleFonts.getFont(
+                                                                                          'Roboto Condensed',
+                                                                                          fontSize: 16.0,
+                                                                                        ),
+                                                                                        showLabels: true,
+                                                                                        labelTextStyle: GoogleFonts.getFont(
+                                                                                          'Roboto',
+                                                                                        ),
+                                                                                        labelInterval: 10.0,
+                                                                                      ),
                                                                                     ),
-                                                                                  )
-                                                                                ],
-                                                                                chartStylingInfo: ChartStylingInfo(
-                                                                                  enableTooltip: true,
-                                                                                  tooltipBackgroundColor: Colors.transparent,
-                                                                                  backgroundColor: FlutterFlowTheme.of(context).primaryText,
-                                                                                  showGrid: true,
-                                                                                  borderColor: FlutterFlowTheme.of(context).secondaryText,
-                                                                                  borderWidth: 1.0,
-                                                                                ),
-                                                                                axisBounds: AxisBounds(),
-                                                                                xAxisLabelInfo: AxisLabelInfo(),
-                                                                                yAxisLabelInfo: AxisLabelInfo(
-                                                                                  title: 'Quantity',
-                                                                                  titleTextStyle: GoogleFonts.getFont(
-                                                                                    'Roboto Condensed',
-                                                                                    fontSize: 16.0,
                                                                                   ),
-                                                                                  showLabels: true,
-                                                                                  labelTextStyle: GoogleFonts.getFont(
-                                                                                    'Roboto',
-                                                                                  ),
-                                                                                  labelInterval: 10.0,
                                                                                 ),
-                                                                              ),
+                                                                            ],
+                                                                          ),
+                                                                          Align(
+                                                                            alignment:
+                                                                                AlignmentDirectional(0.0, 0.0),
+                                                                            child:
+                                                                                Text(
+                                                                              'Coming Soon',
+                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                    fontFamily: 'Roboto Condensed',
+                                                                                    color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                    fontSize: 56.0,
+                                                                                  ),
                                                                             ),
                                                                           ),
                                                                         ],
@@ -680,16 +705,15 @@ class _AdminOverviewWidgetState extends State<AdminOverviewWidget> {
                                                                           MainAxisAlignment
                                                                               .end,
                                                                       children: [
-                                                                        Text(
-                                                                          functions
-                                                                              .getCurrentMonthInWord()!,
-                                                                          style: FlutterFlowTheme.of(context)
-                                                                              .bodyMedium
-                                                                              .override(
-                                                                                fontFamily: 'Roboto Condensed',
-                                                                                color: FlutterFlowTheme.of(context).primaryBackground,
-                                                                              ),
-                                                                        ),
+                                                                        if (FFAppState()
+                                                                            .NotNeedNow)
+                                                                          Text(
+                                                                            functions.getCurrentMonthInWord()!,
+                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                  fontFamily: 'Roboto Condensed',
+                                                                                  color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                                ),
+                                                                          ),
                                                                       ],
                                                                     ),
                                                                   ],
@@ -838,7 +862,7 @@ class _AdminOverviewWidgetState extends State<AdminOverviewWidget> {
                                                                       height:
                                                                           50.0,
                                                                       child:
-                                                                          SpinKitCubeGrid(
+                                                                          SpinKitPulse(
                                                                         color: FlutterFlowTheme.of(context)
                                                                             .primary,
                                                                         size:
@@ -1458,7 +1482,7 @@ class _AdminOverviewWidgetState extends State<AdminOverviewWidget> {
                                                                                                         return GestureDetector(
                                                                                                           onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
                                                                                                           child: Padding(
-                                                                                                            padding: MediaQuery.of(context).viewInsets,
+                                                                                                            padding: MediaQuery.viewInsetsOf(context),
                                                                                                             child: UserProfileCardWidget(
                                                                                                               userRef: individualUserItem.reference,
                                                                                                             ),

@@ -10,14 +10,13 @@ import 'schema/products_record.dart';
 import 'schema/orders_record.dart';
 import 'schema/earnings_record.dart';
 import 'schema/reviews_record.dart';
-import 'schema/seller_info_record.dart';
 import 'schema/waitlist_talent_record.dart';
 import 'schema/waitlist_business_owner_record.dart';
 import 'schema/promo_records_record.dart';
 import 'schema/chart_data_record.dart';
 import 'schema/cart_record.dart';
-import 'schema/downloaded_items_record.dart';
 import 'schema/previous_view_record.dart';
+import 'schema/notfication_record.dart';
 
 export 'dart:async' show StreamSubscription;
 export 'package:cloud_firestore/cloud_firestore.dart';
@@ -30,14 +29,13 @@ export 'schema/products_record.dart';
 export 'schema/orders_record.dart';
 export 'schema/earnings_record.dart';
 export 'schema/reviews_record.dart';
-export 'schema/seller_info_record.dart';
 export 'schema/waitlist_talent_record.dart';
 export 'schema/waitlist_business_owner_record.dart';
 export 'schema/promo_records_record.dart';
 export 'schema/chart_data_record.dart';
 export 'schema/cart_record.dart';
-export 'schema/downloaded_items_record.dart';
 export 'schema/previous_view_record.dart';
+export 'schema/notfication_record.dart';
 
 /// Functions to query UsersRecords (as a Stream and as a Future).
 Future<int> queryUsersRecordCount({
@@ -293,62 +291,6 @@ Future<FFFirestorePage<ReviewsRecord>> queryReviewsRecordPage({
     queryCollectionPage(
       ReviewsRecord.collection,
       ReviewsRecord.fromSnapshot,
-      queryBuilder: queryBuilder,
-      nextPageMarker: nextPageMarker,
-      pageSize: pageSize,
-      isStream: isStream,
-    );
-
-/// Functions to query SellerInfoRecords (as a Stream and as a Future).
-Future<int> querySellerInfoRecordCount({
-  DocumentReference? parent,
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-}) =>
-    queryCollectionCount(
-      SellerInfoRecord.collection(parent),
-      queryBuilder: queryBuilder,
-      limit: limit,
-    );
-
-Stream<List<SellerInfoRecord>> querySellerInfoRecord({
-  DocumentReference? parent,
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-  bool singleRecord = false,
-}) =>
-    queryCollection(
-      SellerInfoRecord.collection(parent),
-      SellerInfoRecord.fromSnapshot,
-      queryBuilder: queryBuilder,
-      limit: limit,
-      singleRecord: singleRecord,
-    );
-
-Future<List<SellerInfoRecord>> querySellerInfoRecordOnce({
-  DocumentReference? parent,
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-  bool singleRecord = false,
-}) =>
-    queryCollectionOnce(
-      SellerInfoRecord.collection(parent),
-      SellerInfoRecord.fromSnapshot,
-      queryBuilder: queryBuilder,
-      limit: limit,
-      singleRecord: singleRecord,
-    );
-
-Future<FFFirestorePage<SellerInfoRecord>> querySellerInfoRecordPage({
-  DocumentReference? parent,
-  Query Function(Query)? queryBuilder,
-  DocumentSnapshot? nextPageMarker,
-  required int pageSize,
-  required bool isStream,
-}) =>
-    queryCollectionPage(
-      SellerInfoRecord.collection(parent),
-      SellerInfoRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       nextPageMarker: nextPageMarker,
       pageSize: pageSize,
@@ -620,58 +562,6 @@ Future<FFFirestorePage<CartRecord>> queryCartRecordPage({
       isStream: isStream,
     );
 
-/// Functions to query DownloadedItemsRecords (as a Stream and as a Future).
-Future<int> queryDownloadedItemsRecordCount({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-}) =>
-    queryCollectionCount(
-      DownloadedItemsRecord.collection,
-      queryBuilder: queryBuilder,
-      limit: limit,
-    );
-
-Stream<List<DownloadedItemsRecord>> queryDownloadedItemsRecord({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-  bool singleRecord = false,
-}) =>
-    queryCollection(
-      DownloadedItemsRecord.collection,
-      DownloadedItemsRecord.fromSnapshot,
-      queryBuilder: queryBuilder,
-      limit: limit,
-      singleRecord: singleRecord,
-    );
-
-Future<List<DownloadedItemsRecord>> queryDownloadedItemsRecordOnce({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-  bool singleRecord = false,
-}) =>
-    queryCollectionOnce(
-      DownloadedItemsRecord.collection,
-      DownloadedItemsRecord.fromSnapshot,
-      queryBuilder: queryBuilder,
-      limit: limit,
-      singleRecord: singleRecord,
-    );
-
-Future<FFFirestorePage<DownloadedItemsRecord>> queryDownloadedItemsRecordPage({
-  Query Function(Query)? queryBuilder,
-  DocumentSnapshot? nextPageMarker,
-  required int pageSize,
-  required bool isStream,
-}) =>
-    queryCollectionPage(
-      DownloadedItemsRecord.collection,
-      DownloadedItemsRecord.fromSnapshot,
-      queryBuilder: queryBuilder,
-      nextPageMarker: nextPageMarker,
-      pageSize: pageSize,
-      isStream: isStream,
-    );
-
 /// Functions to query PreviousViewRecords (as a Stream and as a Future).
 Future<int> queryPreviousViewRecordCount({
   Query Function(Query)? queryBuilder,
@@ -718,6 +608,58 @@ Future<FFFirestorePage<PreviousViewRecord>> queryPreviousViewRecordPage({
     queryCollectionPage(
       PreviousViewRecord.collection,
       PreviousViewRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      nextPageMarker: nextPageMarker,
+      pageSize: pageSize,
+      isStream: isStream,
+    );
+
+/// Functions to query NotficationRecords (as a Stream and as a Future).
+Future<int> queryNotficationRecordCount({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+}) =>
+    queryCollectionCount(
+      NotficationRecord.collection,
+      queryBuilder: queryBuilder,
+      limit: limit,
+    );
+
+Stream<List<NotficationRecord>> queryNotficationRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      NotficationRecord.collection,
+      NotficationRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<NotficationRecord>> queryNotficationRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      NotficationRecord.collection,
+      NotficationRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<FFFirestorePage<NotficationRecord>> queryNotficationRecordPage({
+  Query Function(Query)? queryBuilder,
+  DocumentSnapshot? nextPageMarker,
+  required int pageSize,
+  required bool isStream,
+}) =>
+    queryCollectionPage(
+      NotficationRecord.collection,
+      NotficationRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       nextPageMarker: nextPageMarker,
       pageSize: pageSize,

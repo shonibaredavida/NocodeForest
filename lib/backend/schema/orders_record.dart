@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
+
 import '/backend/schema/util/firestore_util.dart';
 import '/backend/schema/util/schema_util.dart';
 
@@ -172,4 +174,50 @@ Map<String, dynamic> createOrdersRecordData({
   );
 
   return firestoreData;
+}
+
+class OrdersRecordDocumentEquality implements Equality<OrdersRecord> {
+  const OrdersRecordDocumentEquality();
+
+  @override
+  bool equals(OrdersRecord? e1, OrdersRecord? e2) {
+    const listEquality = ListEquality();
+    return e1?.buyerId == e2?.buyerId &&
+        e1?.productId == e2?.productId &&
+        e1?.orderStatus == e2?.orderStatus &&
+        e1?.paymentStatus == e2?.paymentStatus &&
+        e1?.orderDate == e2?.orderDate &&
+        e1?.orderId == e2?.orderId &&
+        e1?.sellerInfo == e2?.sellerInfo &&
+        e1?.productInfo == e2?.productInfo &&
+        e1?.totalPrice == e2?.totalPrice &&
+        e1?.buyerInfo == e2?.buyerInfo &&
+        e1?.buyerName == e2?.buyerName &&
+        e1?.sellerId == e2?.sellerId &&
+        listEquality.equals(e1?.cartItems, e2?.cartItems) &&
+        listEquality.equals(e1?.sellerIds, e2?.sellerIds) &&
+        listEquality.equals(e1?.productIds, e2?.productIds);
+  }
+
+  @override
+  int hash(OrdersRecord? e) => const ListEquality().hash([
+        e?.buyerId,
+        e?.productId,
+        e?.orderStatus,
+        e?.paymentStatus,
+        e?.orderDate,
+        e?.orderId,
+        e?.sellerInfo,
+        e?.productInfo,
+        e?.totalPrice,
+        e?.buyerInfo,
+        e?.buyerName,
+        e?.sellerId,
+        e?.cartItems,
+        e?.sellerIds,
+        e?.productIds
+      ]);
+
+  @override
+  bool isValidKey(Object? o) => o is OrdersRecord;
 }
