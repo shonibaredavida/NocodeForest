@@ -2,11 +2,11 @@
 export '/waitlist/reset_password_modal/reset_password_modal_widget.dart'
     show ResetPasswordModalWidget;
 export '/n_o_tu_s_e_d/modal/modal_widget.dart' show ModalWidget;
-export '/main_components/order_completed_screen/order_completed_screen_widget.dart'
+export '/buyers_related/order_completed_screen/order_completed_screen_widget.dart'
     show OrderCompletedScreenWidget;
 export '/buyers_related/landing_page_buyers/landing_page_buyers_widget.dart'
     show LandingPageBuyersWidget;
-export '/sellers_related/onboarding/onboarding_sellers_screen1/onboarding_sellers_screen1_widget.dart'
+export '/sellers_related/onboarding_sellers_screen1/onboarding_sellers_screen1_widget.dart'
     show OnboardingSellersScreen1Widget;
 export '/n_o_tu_s_e_d/onboarding_sellers_screen289/onboarding_sellers_screen289_widget.dart'
     show OnboardingSellersScreen289Widget;
@@ -54,8 +54,6 @@ export '/sellers_related/dashboard_seller_product_screen/dashboard_seller_produc
     show DashboardSellerProductScreenWidget;
 export '/sellers_related/dashboard_seller_analytics_screen/dashboard_seller_analytics_screen_widget.dart'
     show DashboardSellerAnalyticsScreenWidget;
-export '/sellers_related/dashboard_seller/dashboard_seller_widget.dart'
-    show DashboardSellerWidget;
 export '/waitlist/admin_view/admin_promo_view/admin_promo_view_widget.dart'
     show AdminPromoViewWidget;
 export '/admin/admin_login/admin_login_widget.dart' show AdminLoginWidget;
@@ -76,5 +74,7 @@ export '/buyers_related/waiting_page/waiting_page_widget.dart'
     show WaitingPageWidget;
 export '/buyers_related/payment_options_screen/payment_options_screen_widget.dart'
     show PaymentOptionsScreenWidget;
-export '/buyers_related/landing_page_buyers_copy/landing_page_buyers_copy_widget.dart'
-    show LandingPageBuyersCopyWidget;
+export '/buyers_related/landing_page_buyers_copy_n_u/landing_page_buyers_copy_n_u_widget.dart'
+    show LandingPageBuyersCopyNUWidget;
+export '/sellers_related/dashboard_seller/dashboard_seller_widget.dart'
+    show DashboardSellerWidget;

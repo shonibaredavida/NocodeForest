@@ -5,6 +5,8 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/main_components/create_account_modal/create_account_modal_widget.dart';
 import '/main_components/dialog_component/dialog_component_widget.dart';
+import '/main_components/feddback_form/feddback_form_widget.dart';
+import '/main_components/request_form/request_form_widget.dart';
 import '/main_components/signin_modal/signin_modal_widget.dart';
 import '/sellers_related/componnents/add_product/add_product_widget.dart';
 import 'package:flutter/material.dart';
@@ -64,7 +66,7 @@ class _HeaderWidgetState extends State<HeaderWidget> {
           children: [
             if (!loggedIn)
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 36.0, 0.0, 36.0),
+                padding: EdgeInsetsDirectional.fromSTEB(20.0, 36.0, 20.0, 36.0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -91,66 +93,78 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                         Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            FFButtonWidget(
-                              onPressed: () {
-                                print('Button pressed ...');
-                              },
-                              text: 'Categories',
-                              options: FFButtonOptions(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    32.0, 24.0, 32.0, 24.0),
-                                iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 0.0),
-                                color: Color(0x000D0D0D),
-                                textStyle: FlutterFlowTheme.of(context)
-                                    .titleSmall
-                                    .override(
-                                      fontFamily: 'Roboto Condensed',
-                                      color: Colors.white,
-                                      fontSize: 16.0,
-                                      lineHeight: 1.5,
-                                    ),
-                                borderSide: BorderSide(
-                                  color: Colors.transparent,
+                            if (FFAppState().NotNeedNow)
+                              FFButtonWidget(
+                                onPressed: () {
+                                  print('Button pressed ...');
+                                },
+                                text: 'Categories',
+                                options: FFButtonOptions(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      32.0, 24.0, 32.0, 24.0),
+                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 0.0),
+                                  color: Color(0x000D0D0D),
+                                  textStyle: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .override(
+                                        fontFamily: 'Roboto Condensed',
+                                        color: Colors.white,
+                                        fontSize: 16.0,
+                                        lineHeight: 1.5,
+                                      ),
+                                  borderSide: BorderSide(
+                                    color: Colors.transparent,
+                                  ),
+                                  borderRadius: BorderRadius.circular(4.0),
+                                  hoverColor:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                  hoverTextColor:
+                                      FlutterFlowTheme.of(context).primary,
                                 ),
-                                borderRadius: BorderRadius.circular(4.0),
-                                hoverColor:
-                                    FlutterFlowTheme.of(context).primaryText,
-                                hoverTextColor:
-                                    FlutterFlowTheme.of(context).primary,
                               ),
-                            ),
                           ],
                         ),
-                        FFButtonWidget(
-                          onPressed: () async {
-                            context.pushNamed('Modal');
-                          },
-                          text: 'Request a Template',
-                          options: FFButtonOptions(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                32.0, 24.0, 32.0, 24.0),
-                            iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 0.0),
-                            color: Color(0x00FFFFFF),
-                            textStyle: FlutterFlowTheme.of(context)
-                                .titleSmall
-                                .override(
-                                  fontFamily: 'Roboto Condensed',
-                                  color: Colors.white,
-                                  fontSize: 16.0,
-                                  lineHeight: 1.5,
-                                ),
-                            borderSide: BorderSide(
-                              color: Colors.transparent,
+                        if (FFAppState().NotNeedNow)
+                          FFButtonWidget(
+                            onPressed: () async {
+                              showModalBottomSheet(
+                                isScrollControlled: true,
+                                backgroundColor: Colors.transparent,
+                                context: context,
+                                builder: (context) {
+                                  return Padding(
+                                    padding: MediaQuery.viewInsetsOf(context),
+                                    child: RequestFormWidget(),
+                                  );
+                                },
+                              ).then((value) => setState(() {}));
+                            },
+                            text: 'Request a Template',
+                            options: FFButtonOptions(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  32.0, 24.0, 32.0, 24.0),
+                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 0.0),
+                              color: Color(0x00FFFFFF),
+                              textStyle: FlutterFlowTheme.of(context)
+                                  .titleSmall
+                                  .override(
+                                    fontFamily: 'Roboto Condensed',
+                                    color: Colors.white,
+                                    fontSize: 16.0,
+                                    lineHeight: 1.5,
+                                  ),
+                              borderSide: BorderSide(
+                                color: Colors.transparent,
+                              ),
+                              borderRadius: BorderRadius.circular(4.0),
+                              hoverColor:
+                                  FlutterFlowTheme.of(context).primaryText,
+                              hoverTextColor:
+                                  FlutterFlowTheme.of(context).primary,
                             ),
-                            borderRadius: BorderRadius.circular(4.0),
-                            hoverColor:
-                                FlutterFlowTheme.of(context).primaryText,
-                            hoverTextColor:
-                                FlutterFlowTheme.of(context).primary,
                           ),
-                        ),
                       ],
                     ),
                     Column(
@@ -163,6 +177,60 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 4.0, 24.0, 0.0),
+                                child: FFButtonWidget(
+                                  onPressed: () async {
+                                    showModalBottomSheet(
+                                      isScrollControlled: true,
+                                      backgroundColor: Colors.transparent,
+                                      context: context,
+                                      builder: (context) {
+                                        return Padding(
+                                          padding:
+                                              MediaQuery.viewInsetsOf(context),
+                                          child: FeddbackFormWidget(),
+                                        );
+                                      },
+                                    ).then((value) => setState(() {}));
+                                  },
+                                  text: 'Feedback',
+                                  icon: Icon(
+                                    Icons.feedback,
+                                    size: 15.0,
+                                  ),
+                                  options: FFButtonOptions(
+                                    height: 48.0,
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        32.0, 0.0, 32.0, 0.0),
+                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 0.0),
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                    textStyle: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .override(
+                                          fontFamily: 'Roboto Condensed',
+                                          color: Color(0xFF9C0C0C),
+                                          fontSize: 16.0,
+                                          lineHeight: 1.5,
+                                        ),
+                                    borderSide: BorderSide(
+                                      color: Color(0xFF9C0C0C),
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(5.0),
+                                    hoverColor: Color(0xFF99969E),
+                                    hoverBorderSide: BorderSide(
+                                      color: Color(0xFF99969E),
+                                      width: 1.0,
+                                    ),
+                                    hoverTextColor:
+                                        FlutterFlowTheme.of(context).accent4,
+                                  ),
+                                ),
+                              ),
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 4.0, 24.0, 0.0),
@@ -381,7 +449,7 @@ class _HeaderWidgetState extends State<HeaderWidget> {
             if (loggedIn &&
                 !valueOrDefault<bool>(currentUserDocument?.admin, false))
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 36.0, 0.0, 36.0),
+                padding: EdgeInsetsDirectional.fromSTEB(20.0, 36.0, 20.0, 36.0),
                 child: AuthUserStreamWidget(
                   builder: (context) => Row(
                     mainAxisSize: MainAxisSize.max,
@@ -457,12 +525,24 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                               ),
                             ],
                           ),
-                          if (valueOrDefault<bool>(
-                                  currentUserDocument?.becomeASeller, false) ==
-                              false)
+                          if ((valueOrDefault<bool>(
+                                      currentUserDocument?.becomeASeller,
+                                      false) ==
+                                  false) &&
+                              FFAppState().NotNeedNow)
                             FFButtonWidget(
                               onPressed: () async {
-                                context.pushNamed('Modal');
+                                showModalBottomSheet(
+                                  isScrollControlled: true,
+                                  backgroundColor: Colors.transparent,
+                                  context: context,
+                                  builder: (context) {
+                                    return Padding(
+                                      padding: MediaQuery.viewInsetsOf(context),
+                                      child: RequestFormWidget(),
+                                    );
+                                  },
+                                ).then((value) => setState(() {}));
                               },
                               text: 'Request a Template',
                               options: FFButtonOptions(
@@ -569,6 +649,7 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                                 hoverTextColor:
                                     FlutterFlowTheme.of(context).primary,
                               ),
+                              showLoadingIndicator: false,
                             ),
                         ],
                       ),
@@ -580,6 +661,60 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    14.0, 4.0, 14.0, 0.0),
+                                child: FFButtonWidget(
+                                  onPressed: () async {
+                                    showModalBottomSheet(
+                                      isScrollControlled: true,
+                                      backgroundColor: Colors.transparent,
+                                      context: context,
+                                      builder: (context) {
+                                        return Padding(
+                                          padding:
+                                              MediaQuery.viewInsetsOf(context),
+                                          child: SigninModalWidget(),
+                                        );
+                                      },
+                                    ).then((value) => setState(() {}));
+                                  },
+                                  text: 'Feedback',
+                                  icon: Icon(
+                                    Icons.feedback,
+                                    size: 15.0,
+                                  ),
+                                  options: FFButtonOptions(
+                                    height: 48.0,
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        32.0, 0.0, 32.0, 0.0),
+                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 0.0),
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                    textStyle: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .override(
+                                          fontFamily: 'Roboto Condensed',
+                                          color: Color(0xFF9C0C0C),
+                                          fontSize: 16.0,
+                                          lineHeight: 1.5,
+                                        ),
+                                    borderSide: BorderSide(
+                                      color: Color(0xFF9C0C0C),
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(5.0),
+                                    hoverColor: Color(0xFF99969E),
+                                    hoverBorderSide: BorderSide(
+                                      color: Color(0xFF99969E),
+                                      width: 1.0,
+                                    ),
+                                    hoverTextColor:
+                                        FlutterFlowTheme.of(context).accent4,
+                                  ),
+                                ),
+                              ),
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 3.0, 12.0, 0.0),

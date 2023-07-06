@@ -5,6 +5,8 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/main_components/create_account_modal/create_account_modal_widget.dart';
 import '/main_components/dialog_component/dialog_component_widget.dart';
+import '/main_components/feddback_form/feddback_form_widget.dart';
+import '/main_components/request_form/request_form_widget.dart';
 import '/main_components/signin_modal/signin_modal_widget.dart';
 import '/sellers_related/componnents/add_product/add_product_widget.dart';
 import 'package:flutter/material.dart';

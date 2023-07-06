@@ -83,10 +83,12 @@ class _DialogComponentWidgetState extends State<DialogComponentWidget> {
                 width: 600.0,
                 constraints: BoxConstraints(
                   maxWidth: 700.0,
-                  maxHeight: 600.0,
                 ),
                 decoration: BoxDecoration(
                   color: Colors.black,
+                  border: Border.all(
+                    color: FlutterFlowTheme.of(context).secondaryText,
+                  ),
                 ),
                 child: InkWell(
                   splashColor: Colors.transparent,
@@ -179,7 +181,7 @@ class _DialogComponentWidgetState extends State<DialogComponentWidget> {
                                 decoration: BoxDecoration(),
                                 child: Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 20.0),
+                                      0.0, 0.0, 0.0, 10.0),
                                   child: Text(
                                     widget.subtitle,
                                     textAlign: TextAlign.center,
@@ -221,8 +223,8 @@ class _DialogComponentWidgetState extends State<DialogComponentWidget> {
                                   },
                                   text: 'No',
                                   options: FFButtonOptions(
-                                    width: 153.0,
-                                    height: 48.0,
+                                    width: 120.0,
+                                    height: 40.0,
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 0.0),
                                     iconPadding: EdgeInsetsDirectional.fromSTEB(
@@ -273,8 +275,8 @@ class _DialogComponentWidgetState extends State<DialogComponentWidget> {
                                   },
                                   text: 'Yes',
                                   options: FFButtonOptions(
-                                    width: 153.0,
-                                    height: 48.0,
+                                    width: 120.0,
+                                    height: 40.0,
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 0.0),
                                     iconPadding: EdgeInsetsDirectional.fromSTEB(
@@ -322,8 +324,8 @@ class _DialogComponentWidgetState extends State<DialogComponentWidget> {
                                   },
                                   text: 'Ok',
                                   options: FFButtonOptions(
-                                    width: 180.0,
-                                    height: 48.0,
+                                    width: 130.0,
+                                    height: 40.0,
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 0.0),
                                     iconPadding: EdgeInsetsDirectional.fromSTEB(

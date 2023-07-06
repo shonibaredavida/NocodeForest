@@ -252,11 +252,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => DashboardSellerAnalyticsScreenWidget(),
         ),
         FFRoute(
-          name: 'dashboardSeller',
-          path: '/dashboardSeller',
-          builder: (context, params) => DashboardSellerWidget(),
-        ),
-        FFRoute(
           name: 'adminPromoView',
           path: '/adminPromoView',
           builder: (context, params) => AdminPromoViewWidget(),
@@ -317,9 +312,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           ),
         ),
         FFRoute(
-          name: 'landingPageBuyersCopy',
-          path: '/landingPageBuyersCopy',
-          builder: (context, params) => LandingPageBuyersCopyWidget(),
+          name: 'landingPageBuyersCopyNU',
+          path: '/landingPageBuyersCopyNU',
+          builder: (context, params) => LandingPageBuyersCopyNUWidget(),
+        ),
+        FFRoute(
+          name: 'dashboardSeller',
+          path: '/dashboardSeller',
+          builder: (context, params) => DashboardSellerWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

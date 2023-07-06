@@ -1,3 +1,4 @@
+import '/auth/base_auth_user_provider.dart';
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_choice_chips.dart';
@@ -10,6 +11,7 @@ import '/main_components/account_panel/account_panel_widget.dart';
 import '/main_components/footer_component/footer_component_widget.dart';
 import '/main_components/header/header_widget.dart';
 import '/main_components/notification_panel/notification_panel_widget.dart';
+import '/main_components/signin_modal/signin_modal_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:easy_debounce/easy_debounce.dart';
@@ -27,12 +29,12 @@ class LandingPageBuyersModel extends FlutterFlowModel {
   final unfocusNode = FocusNode();
   // Model for header component.
   late HeaderModel headerModel;
-  // State field(s) for ChoiceChips widget.
-  String? choiceChipsValue;
-  FormFieldController<List<String>>? choiceChipsValueController;
   // State field(s) for TextField widget.
   TextEditingController? textController;
   String? Function(BuildContext, String?)? textControllerValidator;
+  // State field(s) for ChoiceChips widget.
+  String? choiceChipsValue;
+  FormFieldController<List<String>>? choiceChipsValueController;
   // Model for footerComponent component.
   late FooterComponentModel footerComponentModel;
   // Model for accountPanel component.

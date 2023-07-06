@@ -74,125 +74,129 @@ class _OnboardingSellersScreen2WidgetState
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         body: SafeArea(
           top: true,
-          child: ClipRRect(
-            child: Container(
-              width: double.infinity,
-              height: double.infinity,
-              constraints: BoxConstraints(
-                maxWidth: 1728.0,
-                maxHeight: 1117.0,
-              ),
-              decoration: BoxDecoration(
-                color: FlutterFlowTheme.of(context).primaryText,
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Expanded(
-                    flex: 1,
-                    child: Container(
-                      width: double.infinity,
-                      height: double.infinity,
-                      constraints: BoxConstraints(
-                        maxHeight: 1117.0,
-                      ),
-                      decoration: BoxDecoration(),
-                      child: Image.asset(
-                        'assets/images/Rectangle_66_(1).png',
+          child: Align(
+            alignment: AlignmentDirectional(0.0, -1.0),
+            child: ClipRRect(
+              child: Container(
+                width: double.infinity,
+                height: double.infinity,
+                constraints: BoxConstraints(
+                  maxWidth: 1728.0,
+                  maxHeight: 1117.0,
+                ),
+                decoration: BoxDecoration(
+                  color: FlutterFlowTheme.of(context).primaryText,
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: Container(
                         width: double.infinity,
                         height: double.infinity,
-                        fit: BoxFit.cover,
+                        constraints: BoxConstraints(
+                          maxHeight: 1117.0,
+                        ),
+                        decoration: BoxDecoration(),
+                        child: Image.asset(
+                          'assets/images/Rectangle_66_(1).png',
+                          width: double.infinity,
+                          height: double.infinity,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: Stack(
-                      children: [
-                        Container(
-                          constraints: BoxConstraints(
-                            maxHeight: 1117.0,
-                          ),
-                          decoration: BoxDecoration(),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 40.0, 0.0, 0.0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 40.0, 24.0, 80.0),
-                                      child: Image.asset(
-                                        'assets/images/Rectangle_80.png',
-                                        width: 106.5,
-                                        height: 8.0,
-                                        fit: BoxFit.cover,
+                    Expanded(
+                      flex: 1,
+                      child: Stack(
+                        children: [
+                          Container(
+                            constraints: BoxConstraints(
+                              maxHeight: 1117.0,
+                            ),
+                            decoration: BoxDecoration(),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 40.0, 0.0, 0.0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 40.0, 24.0, 80.0),
+                                        child: Image.asset(
+                                          'assets/images/Rectangle_80.png',
+                                          width: 106.5,
+                                          height: 8.0,
+                                          fit: BoxFit.cover,
+                                        ),
                                       ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 40.0, 24.0, 80.0),
-                                      child: Image.asset(
-                                        'assets/images/Rectangle_81.png',
-                                        width: 106.5,
-                                        height: 8.0,
-                                        fit: BoxFit.cover,
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 40.0, 24.0, 80.0),
+                                        child: Image.asset(
+                                          'assets/images/Rectangle_80.png',
+                                          width: 106.5,
+                                          height: 8.0,
+                                          fit: BoxFit.cover,
+                                        ),
                                       ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 40.0, 24.0, 80.0),
-                                      child: Image.asset(
-                                        'assets/images/Rectangle_81.png',
-                                        width: 106.5,
-                                        height: 8.0,
-                                        fit: BoxFit.cover,
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 40.0, 24.0, 80.0),
+                                        child: Image.asset(
+                                          'assets/images/Rectangle_81.png',
+                                          width: 106.5,
+                                          height: 8.0,
+                                          fit: BoxFit.cover,
+                                        ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 20.0),
-                                child: Container(
-                                  width: 428.0,
-                                  decoration: BoxDecoration(
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                    boxShadow: [
-                                      BoxShadow(
-                                        blurRadius: 60.0,
-                                        color: Color(0x19000000),
-                                        offset: Offset(40.0, 40.0),
-                                      )
                                     ],
                                   ),
-                                  child: Form(
-                                    key: _model.formKey,
-                                    autovalidateMode: AutovalidateMode.disabled,
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          32.0, 32.0, 32.0, 32.0),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.stretch,
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 16.0),
-                                            child: Text(
-                                              'Let’s Get To Know You',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
+                                ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 20.0),
+                                  child: Container(
+                                    width: 428.0,
+                                    decoration: BoxDecoration(
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          blurRadius: 60.0,
+                                          color: Color(0x19000000),
+                                          offset: Offset(40.0, 40.0),
+                                        )
+                                      ],
+                                    ),
+                                    child: Form(
+                                      key: _model.formKey,
+                                      autovalidateMode:
+                                          AutovalidateMode.disabled,
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            32.0, 32.0, 32.0, 32.0),
+                                        child: SingleChildScrollView(
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.stretch,
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 0.0, 0.0, 16.0),
+                                                child: Text(
+                                                  'Let’s Get To Know You',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
                                                       .bodyMedium
                                                       .override(
                                                         fontFamily: 'millik',
@@ -203,430 +207,482 @@ class _OnboardingSellersScreen2WidgetState
                                                         useGoogleFonts: false,
                                                         lineHeight: 1.33,
                                                       ),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 8.0),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.stretch,
-                                              children: [
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          0.0, 0.0, 0.0, 10.0),
-                                                  child: Text(
-                                                    'How do you want to be reffered ?',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              'Roboto Condensed',
-                                                          color: Colors.black,
-                                                          fontSize: 20.0,
-                                                          lineHeight: 1.4,
-                                                        ),
-                                                  ),
                                                 ),
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          0.0, 0.0, 0.0, 8.0),
-                                                  child: TextFormField(
-                                                    controller: _model
-                                                        .usernmeController,
-                                                    onChanged: (_) =>
-                                                        EasyDebounce.debounce(
-                                                      '_model.usernmeController',
-                                                      Duration(
-                                                          milliseconds: 100),
-                                                      () => setState(() {}),
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 0.0, 0.0, 8.0),
+                                                child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment
+                                                          .stretch,
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0,
+                                                                  10.0),
+                                                      child: Text(
+                                                        'How do you want to be reffered ?',
+                                                        style: FlutterFlowTheme
+                                                                .of(context)
+                                                            .bodyMedium
+                                                            .override(
+                                                              fontFamily:
+                                                                  'Roboto Condensed',
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 20.0,
+                                                              lineHeight: 1.4,
+                                                            ),
+                                                      ),
                                                     ),
-                                                    autofocus: true,
-                                                    obscureText: false,
-                                                    decoration: InputDecoration(
-                                                      hintText:
-                                                          'Enter a Username',
-                                                      hintStyle:
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0,
+                                                                  8.0),
+                                                      child: TextFormField(
+                                                        controller: _model
+                                                            .usernmeController,
+                                                        onChanged: (_) =>
+                                                            EasyDebounce
+                                                                .debounce(
+                                                          '_model.usernmeController',
+                                                          Duration(
+                                                              milliseconds:
+                                                                  100),
+                                                          () => setState(() {}),
+                                                        ),
+                                                        autofocus: true,
+                                                        obscureText: false,
+                                                        decoration:
+                                                            InputDecoration(
+                                                          hintText:
+                                                              'Enter a Username',
+                                                          hintStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodySmall
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Roboto Condensed',
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .accent3,
+                                                                    fontSize:
+                                                                        14.0,
+                                                                  ),
+                                                          enabledBorder:
+                                                              OutlineInputBorder(
+                                                            borderSide:
+                                                                BorderSide(
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .accent3,
+                                                              width: 1.0,
+                                                            ),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        8.0),
+                                                          ),
+                                                          focusedBorder:
+                                                              OutlineInputBorder(
+                                                            borderSide:
+                                                                BorderSide(
+                                                              color: Color(
+                                                                  0x00000000),
+                                                              width: 1.0,
+                                                            ),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        8.0),
+                                                          ),
+                                                          errorBorder:
+                                                              OutlineInputBorder(
+                                                            borderSide:
+                                                                BorderSide(
+                                                              color: Color(
+                                                                  0x00000000),
+                                                              width: 1.0,
+                                                            ),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        8.0),
+                                                          ),
+                                                          focusedErrorBorder:
+                                                              OutlineInputBorder(
+                                                            borderSide:
+                                                                BorderSide(
+                                                              color: Color(
+                                                                  0x00000000),
+                                                              width: 1.0,
+                                                            ),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        8.0),
+                                                          ),
+                                                        ),
+                                                        style: FlutterFlowTheme
+                                                                .of(context)
+                                                            .bodyMedium
+                                                            .override(
+                                                              fontFamily:
+                                                                  'Roboto Condensed',
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 17.0,
+                                                            ),
+                                                        validator: _model
+                                                            .usernmeControllerValidator
+                                                            .asValidator(
+                                                                context),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.stretch,
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 0.0,
+                                                                0.0, 16.0),
+                                                    child: Text(
+                                                      'Who do you identify as?',
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily:
+                                                                'Roboto Condensed',
+                                                            color: Colors.black,
+                                                            fontSize: 20.0,
+                                                            lineHeight: 1.4,
+                                                          ),
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 0.0,
+                                                                0.0, 16.0),
+                                                    child: FlutterFlowDropDown<
+                                                        String>(
+                                                      controller: _model
+                                                              .focusDropDownValueController ??=
+                                                          FormFieldController<
+                                                              String>(null),
+                                                      options: [
+                                                        'Software Designer',
+                                                        'Software Developer',
+                                                        'Freelancers',
+                                                        'Graphic Designer',
+                                                        'Hobbyists'
+                                                      ],
+                                                      onChanged: (val) =>
+                                                          setState(() => _model
+                                                                  .focusDropDownValue =
+                                                              val),
+                                                      width: 180.0,
+                                                      height: 48.0,
+                                                      textStyle:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .bodySmall
+                                                              .bodyMedium
                                                               .override(
                                                                 fontFamily:
                                                                     'Roboto Condensed',
                                                                 color: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .accent3,
-                                                                fontSize: 14.0,
+                                                                    .primaryBackground,
+                                                                fontSize: 16.0,
+                                                                lineHeight: 1.5,
                                                               ),
-                                                      enabledBorder:
-                                                          OutlineInputBorder(
-                                                        borderSide: BorderSide(
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
+                                                      hintText:
+                                                          'Select an option',
+                                                      icon: Icon(
+                                                        Icons
+                                                            .keyboard_arrow_down,
+                                                        color: FlutterFlowTheme
+                                                                .of(context)
+                                                            .primaryBackground,
+                                                        size: 15.0,
+                                                      ),
+                                                      fillColor:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primaryText,
+                                                      elevation: 2.0,
+                                                      borderColor:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
                                                               .accent3,
-                                                          width: 1.0,
-                                                        ),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(8.0),
-                                                      ),
-                                                      focusedBorder:
-                                                          OutlineInputBorder(
-                                                        borderSide: BorderSide(
-                                                          color:
-                                                              Color(0x00000000),
-                                                          width: 1.0,
-                                                        ),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(8.0),
-                                                      ),
-                                                      errorBorder:
-                                                          OutlineInputBorder(
-                                                        borderSide: BorderSide(
-                                                          color:
-                                                              Color(0x00000000),
-                                                          width: 1.0,
-                                                        ),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(8.0),
-                                                      ),
-                                                      focusedErrorBorder:
-                                                          OutlineInputBorder(
-                                                        borderSide: BorderSide(
-                                                          color:
-                                                              Color(0x00000000),
-                                                          width: 1.0,
-                                                        ),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(8.0),
-                                                      ),
+                                                      borderWidth: 0.0,
+                                                      borderRadius: 4.0,
+                                                      margin:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  12.0,
+                                                                  4.0,
+                                                                  12.0,
+                                                                  4.0),
+                                                      hidesUnderline: true,
+                                                      isSearchable: false,
                                                     ),
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              'Roboto Condensed',
-                                                          color: Colors.black,
-                                                          fontSize: 17.0,
-                                                        ),
-                                                    validator: _model
-                                                        .usernmeControllerValidator
-                                                        .asValidator(context),
                                                   ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.stretch,
-                                            children: [
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 0.0, 0.0, 16.0),
-                                                child: Text(
-                                                  'Who do you identify as?',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Roboto Condensed',
-                                                        color: Colors.black,
-                                                        fontSize: 20.0,
-                                                        lineHeight: 1.4,
-                                                      ),
-                                                ),
+                                                ],
                                               ),
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 0.0, 0.0, 16.0),
-                                                child:
-                                                    FlutterFlowDropDown<String>(
-                                                  controller: _model
-                                                          .focusDropDownValueController ??=
-                                                      FormFieldController<
-                                                          String>(null),
-                                                  options: [
-                                                    'Software Designer',
-                                                    'Software Developer',
-                                                    'Freelancers',
-                                                    'Graphic Designer',
-                                                    'Hobbyists'
-                                                  ],
-                                                  onChanged: (val) => setState(
-                                                      () => _model
-                                                              .focusDropDownValue =
-                                                          val),
-                                                  width: 180.0,
-                                                  height: 48.0,
-                                                  textStyle:
-                                                      FlutterFlowTheme.of(
-                                                              context)
+                                              Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.stretch,
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 0.0,
+                                                                0.0, 16.0),
+                                                    child: Text(
+                                                      'What is your Nocode Specialty',
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
                                                           .bodyMedium
                                                           .override(
                                                             fontFamily:
                                                                 'Roboto Condensed',
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .primaryBackground,
-                                                            fontSize: 16.0,
-                                                            lineHeight: 1.5,
+                                                            color: Colors.black,
+                                                            fontSize: 20.0,
+                                                            lineHeight: 1.4,
                                                           ),
-                                                  hintText: 'Select an option',
-                                                  icon: Icon(
-                                                    Icons.keyboard_arrow_down,
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primaryBackground,
-                                                    size: 15.0,
+                                                    ),
                                                   ),
-                                                  fillColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .primaryText,
-                                                  elevation: 2.0,
-                                                  borderColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .accent3,
-                                                  borderWidth: 0.0,
-                                                  borderRadius: 4.0,
-                                                  margin: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          12.0, 4.0, 12.0, 4.0),
-                                                  hidesUnderline: true,
-                                                  isSearchable: false,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.stretch,
-                                            children: [
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 0.0, 0.0, 16.0),
-                                                child: Text(
-                                                  'What is your Nocode Specialty',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Roboto Condensed',
-                                                        color: Colors.black,
-                                                        fontSize: 20.0,
-                                                        lineHeight: 1.4,
-                                                      ),
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 0.0, 0.0, 16.0),
-                                                child:
-                                                    FlutterFlowDropDown<String>(
-                                                  controller: _model
-                                                          .nocodeDropDownValueController ??=
-                                                      FormFieldController<
-                                                          String>(null),
-                                                  options: [
-                                                    'FlutterFlow',
-                                                    'Bubble',
-                                                    'Webflow',
-                                                    'Figma',
-                                                    'Adalo'
-                                                  ],
-                                                  onChanged: (val) => setState(
-                                                      () => _model
-                                                              .nocodeDropDownValue =
-                                                          val),
-                                                  width: 180.0,
-                                                  height: 48.0,
-                                                  textStyle:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMedium
-                                                          .override(
-                                                            fontFamily:
-                                                                'Roboto Condensed',
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .primaryBackground,
-                                                            fontSize: 16.0,
-                                                            lineHeight: 1.5,
-                                                          ),
-                                                  hintText: 'Select an option',
-                                                  icon: Icon(
-                                                    Icons.keyboard_arrow_down,
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primaryBackground,
-                                                    size: 15.0,
-                                                  ),
-                                                  fillColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .primaryText,
-                                                  elevation: 2.0,
-                                                  borderColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .accent3,
-                                                  borderWidth: 0.0,
-                                                  borderRadius: 4.0,
-                                                  margin: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          12.0, 4.0, 12.0, 4.0),
-                                                  hidesUnderline: true,
-                                                  isSearchable: false,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          FFButtonWidget(
-                                            onPressed: () async {
-                                              if (_model.usernmeController
-                                                          .text !=
-                                                      null &&
-                                                  _model.usernmeController
-                                                          .text !=
-                                                      '') {
-                                                context.pushNamed(
-                                                  'onboardingSellersScreen3',
-                                                  queryParameters: {
-                                                    'username': serializeParam(
-                                                      _model.usernmeController
-                                                          .text,
-                                                      ParamType.String,
-                                                    ),
-                                                    'prof': serializeParam(
-                                                      _model.focusDropDownValue,
-                                                      ParamType.String,
-                                                    ),
-                                                    'interest': serializeParam(
-                                                      _model
-                                                          .nocodeDropDownValue,
-                                                      ParamType.String,
-                                                    ),
-                                                  }.withoutNulls,
-                                                  extra: <String, dynamic>{
-                                                    kTransitionInfoKey:
-                                                        TransitionInfo(
-                                                      hasTransition: true,
-                                                      transitionType:
-                                                          PageTransitionType
-                                                              .fade,
-                                                      duration: Duration(
-                                                          milliseconds: 0),
-                                                    ),
-                                                  },
-                                                );
-                                              } else {
-                                                await showDialog(
-                                                  context: context,
-                                                  builder:
-                                                      (alertDialogContext) {
-                                                    return AlertDialog(
-                                                      content: Text(
-                                                          'Kindly fill all fields'),
-                                                      actions: [
-                                                        TextButton(
-                                                          onPressed: () =>
-                                                              Navigator.pop(
-                                                                  alertDialogContext),
-                                                          child: Text('Ok'),
-                                                        ),
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 0.0,
+                                                                0.0, 16.0),
+                                                    child: FlutterFlowDropDown<
+                                                        String>(
+                                                      controller: _model
+                                                              .nocodeDropDownValueController ??=
+                                                          FormFieldController<
+                                                              String>(null),
+                                                      options: [
+                                                        'FlutterFlow',
+                                                        'Bubble',
+                                                        'Webflow',
+                                                        'Figma',
+                                                        'Adalo'
                                                       ],
-                                                    );
-                                                  },
-                                                );
-                                              }
-                                            },
-                                            text: 'Continue',
-                                            options: FFButtonOptions(
-                                              width: 130.0,
-                                              height: 48.0,
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                              iconPadding: EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
-                                              textStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleSmall
-                                                      .override(
-                                                        fontFamily:
-                                                            'Roboto Condensed',
-                                                        color: Colors.white,
-                                                        lineHeight: 1.5,
+                                                      onChanged: (val) =>
+                                                          setState(() => _model
+                                                                  .nocodeDropDownValue =
+                                                              val),
+                                                      width: 180.0,
+                                                      height: 48.0,
+                                                      textStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Roboto Condensed',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryBackground,
+                                                                fontSize: 16.0,
+                                                                lineHeight: 1.5,
+                                                              ),
+                                                      hintText:
+                                                          'Select an option',
+                                                      icon: Icon(
+                                                        Icons
+                                                            .keyboard_arrow_down,
+                                                        color: FlutterFlowTheme
+                                                                .of(context)
+                                                            .primaryBackground,
+                                                        size: 15.0,
                                                       ),
-                                              borderSide: BorderSide(
-                                                color: Colors.transparent,
-                                                width: 1.0,
+                                                      fillColor:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primaryText,
+                                                      elevation: 2.0,
+                                                      borderColor:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .accent3,
+                                                      borderWidth: 0.0,
+                                                      borderRadius: 4.0,
+                                                      margin:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  12.0,
+                                                                  4.0,
+                                                                  12.0,
+                                                                  4.0),
+                                                      hidesUnderline: true,
+                                                      isSearchable: false,
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
-                                              borderRadius:
-                                                  BorderRadius.circular(4.0),
-                                            ),
+                                              FFButtonWidget(
+                                                onPressed: () async {
+                                                  if (_model.usernmeController
+                                                              .text !=
+                                                          null &&
+                                                      _model.usernmeController
+                                                              .text !=
+                                                          '') {
+                                                    context.goNamed(
+                                                      'onboardingSellersScreen3',
+                                                      queryParameters: {
+                                                        'username':
+                                                            serializeParam(
+                                                          _model
+                                                              .usernmeController
+                                                              .text,
+                                                          ParamType.String,
+                                                        ),
+                                                        'prof': serializeParam(
+                                                          _model
+                                                              .focusDropDownValue,
+                                                          ParamType.String,
+                                                        ),
+                                                        'interest':
+                                                            serializeParam(
+                                                          _model
+                                                              .nocodeDropDownValue,
+                                                          ParamType.String,
+                                                        ),
+                                                      }.withoutNulls,
+                                                      extra: <String, dynamic>{
+                                                        kTransitionInfoKey:
+                                                            TransitionInfo(
+                                                          hasTransition: true,
+                                                          transitionType:
+                                                              PageTransitionType
+                                                                  .fade,
+                                                          duration: Duration(
+                                                              milliseconds: 0),
+                                                        ),
+                                                      },
+                                                    );
+                                                  } else {
+                                                    await showDialog(
+                                                      context: context,
+                                                      builder:
+                                                          (alertDialogContext) {
+                                                        return AlertDialog(
+                                                          content: Text(
+                                                              'Kindly fill all fields'),
+                                                          actions: [
+                                                            TextButton(
+                                                              onPressed: () =>
+                                                                  Navigator.pop(
+                                                                      alertDialogContext),
+                                                              child: Text('Ok'),
+                                                            ),
+                                                          ],
+                                                        );
+                                                      },
+                                                    );
+                                                  }
+                                                },
+                                                text: 'Continue',
+                                                options: FFButtonOptions(
+                                                  width: 130.0,
+                                                  height: 48.0,
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 0.0, 0.0, 0.0),
+                                                  iconPadding:
+                                                      EdgeInsetsDirectional
+                                                          .fromSTEB(0.0, 0.0,
+                                                              0.0, 0.0),
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primary,
+                                                  textStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .titleSmall
+                                                          .override(
+                                                            fontFamily:
+                                                                'Roboto Condensed',
+                                                            color: Colors.white,
+                                                            lineHeight: 1.5,
+                                                          ),
+                                                  borderSide: BorderSide(
+                                                    color: Colors.transparent,
+                                                    width: 1.0,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          4.0),
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                        ],
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
-                              ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 70.0),
-                                child: Image.asset(
-                                  'assets/images/NF_Logo.png',
-                                  width: 134.0,
-                                  height: 52.0,
-                                  fit: BoxFit.cover,
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 70.0),
+                                  child: Image.asset(
+                                    'assets/images/NF_Logo.png',
+                                    width: 134.0,
+                                    height: 52.0,
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Align(
-                          alignment: AlignmentDirectional(0.9, -0.9),
-                          child: InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              context.goNamed('landingPageBuyers');
-                            },
-                            child: Icon(
-                              Icons.close_fullscreen,
-                              color: Colors.black,
-                              size: 24.0,
+                              ],
                             ),
                           ),
-                        ),
-                      ],
+                          Align(
+                            alignment: AlignmentDirectional(0.9, -0.9),
+                            child: InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                context.goNamed('landingPageBuyers');
+                              },
+                              child: Icon(
+                                Icons.close_fullscreen,
+                                color: Colors.black,
+                                size: 24.0,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),

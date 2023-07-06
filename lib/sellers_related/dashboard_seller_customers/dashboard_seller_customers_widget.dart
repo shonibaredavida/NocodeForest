@@ -1,6 +1,9 @@
+import '/auth/base_auth_user_provider.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/main_components/account_panel/account_panel_widget.dart';
 import '/main_components/header/header_widget.dart';
+import '/main_components/notification_panel/notification_panel_widget.dart';
 import '/sellers_related/componnents/sidebar_seller/sidebar_seller_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -49,66 +52,89 @@ class _DashboardSellerCustomersWidgetState
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         body: SafeArea(
           top: true,
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Column(
-                mainAxisSize: MainAxisSize.max,
+          child: Align(
+            alignment: AlignmentDirectional(0.0, -1.0),
+            child: Container(
+              constraints: BoxConstraints(
+                maxWidth: 1728.0,
+                maxHeight: 1117.0,
+              ),
+              decoration: BoxDecoration(),
+              child: Stack(
                 children: [
-                  Container(
-                    width: 1512.0,
-                    height: 123.0,
-                    decoration: BoxDecoration(
-                      color: Color(0xFF0D0D0D),
-                    ),
-                    child: Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(32.0, 0.0, 32.0, 0.0),
-                      child: wrapWithModel(
-                        model: _model.headerModel,
-                        updateCallback: () => setState(() {}),
-                        child: HeaderWidget(
-                          dashboard: true,
+                  Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Container(
+                        width: 1512.0,
+                        height: 123.0,
+                        decoration: BoxDecoration(
+                          color: Color(0xFF0D0D0D),
+                        ),
+                        child: wrapWithModel(
+                          model: _model.headerModel,
+                          updateCallback: () => setState(() {}),
+                          child: HeaderWidget(
+                            dashboard: true,
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      width: 1512.0,
-                      height: 900.0,
-                      decoration: BoxDecoration(
-                        color: Color(0xFFF3F3F5),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          wrapWithModel(
-                            model: _model.sidebarSellerModel,
-                            updateCallback: () => setState(() {}),
-                            child: SidebarSellerWidget(
-                              iconSixColor:
-                                  FlutterFlowTheme.of(context).primaryText,
-                              bGColor6: FlutterFlowTheme.of(context).primary,
-                              p1State: false,
-                              p2State: false,
-                              p4State: false,
-                              p5State: false,
-                              profileState: false,
-                              logoutState: false,
-                              p6State: true,
-                            ),
+                      Expanded(
+                        child: Container(
+                          width: 1512.0,
+                          height: 900.0,
+                          decoration: BoxDecoration(
+                            color: Color(0xFFF3F3F5),
                           ),
-                        ],
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              wrapWithModel(
+                                model: _model.sidebarSellerModel,
+                                updateCallback: () => setState(() {}),
+                                child: SidebarSellerWidget(
+                                  iconSixColor:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                  bGColor6:
+                                      FlutterFlowTheme.of(context).primary,
+                                  p1State: false,
+                                  p2State: false,
+                                  p4State: false,
+                                  p5State: false,
+                                  profileState: false,
+                                  logoutState: false,
+                                  p6State: true,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  if (FFAppState().showNotification && loggedIn)
+                    Align(
+                      alignment: AlignmentDirectional(0.97, 1.0),
+                      child: wrapWithModel(
+                        model: _model.notificationPanelModel,
+                        updateCallback: () => setState(() {}),
+                        child: NotificationPanelWidget(),
                       ),
                     ),
-                  ),
+                  if (FFAppState().showAccountPanel && loggedIn)
+                    Align(
+                      alignment: AlignmentDirectional(0.97, 1.0),
+                      child: wrapWithModel(
+                        model: _model.accountPanelModel,
+                        updateCallback: () => setState(() {}),
+                        child: AccountPanelWidget(),
+                      ),
+                    ),
                 ],
               ),
-            ],
+            ),
           ),
         ),
       ),

@@ -138,6 +138,12 @@ class FFAppState extends ChangeNotifier {
   ) {
     _notification[_index] = updateFn(_notification[_index]);
   }
+
+  bool _feedbackAdded = false;
+  bool get feedbackAdded => _feedbackAdded;
+  set feedbackAdded(bool _value) {
+    _feedbackAdded = _value;
+  }
 }
 
 LatLng? _latLngFromString(String? val) {

@@ -1,14 +1,17 @@
+import '/auth/base_auth_user_provider.dart';
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
-import '/buyers_related/component/upload_dp/upload_dp_widget.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/main_components/account_panel/account_panel_widget.dart';
 import '/main_components/dialog_component/dialog_component_widget.dart';
 import '/main_components/header/header_widget.dart';
+import '/main_components/notification_panel/notification_panel_widget.dart';
+import '/main_components/upload_dp/upload_dp_widget.dart';
 import '/sellers_related/componnents/sidebar_seller/sidebar_seller_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/gestures.dart';
@@ -49,12 +52,19 @@ class DashboardProfileScreenModel extends FlutterFlowModel {
   // State field(s) for TextField widget.
   TextEditingController? textController6;
   String? Function(BuildContext, String?)? textController6Validator;
+  // Model for accountPanel component.
+  late AccountPanelModel accountPanelModel;
+  // Model for notificationPanel component.
+  late NotificationPanelModel notificationPanelModel;
 
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
     headerModel = createModel(context, () => HeaderModel());
     sidebarSellerModel = createModel(context, () => SidebarSellerModel());
+    accountPanelModel = createModel(context, () => AccountPanelModel());
+    notificationPanelModel =
+        createModel(context, () => NotificationPanelModel());
   }
 
   void dispose() {
@@ -67,6 +77,8 @@ class DashboardProfileScreenModel extends FlutterFlowModel {
     textController4?.dispose();
     textController5?.dispose();
     textController6?.dispose();
+    accountPanelModel.dispose();
+    notificationPanelModel.dispose();
   }
 
   /// Action blocks are added here.

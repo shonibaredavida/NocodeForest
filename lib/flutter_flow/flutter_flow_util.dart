@@ -187,8 +187,8 @@ bool get isiOS => !kIsWeb && Platform.isIOS;
 bool get isWeb => kIsWeb;
 
 const kBreakpointSmall = 1023.0;
-const kBreakpointMedium = 1023.0;
-const kBreakpointLarge = 1024.0;
+const kBreakpointMedium = 1280.0;
+const kBreakpointLarge = 1512.0;
 bool isMobileWidth(BuildContext context) =>
     MediaQuery.sizeOf(context).width < kBreakpointSmall;
 bool responsiveVisibility({

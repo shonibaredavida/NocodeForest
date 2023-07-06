@@ -6,8 +6,10 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_toggle_icon.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/main_components/account_panel/account_panel_widget.dart';
 import '/main_components/footer_component/footer_component_widget.dart';
 import '/main_components/header/header_widget.dart';
+import '/main_components/notification_panel/notification_panel_widget.dart';
 import '/main_components/signin_modal/signin_modal_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -28,18 +30,27 @@ class ProductDetailScreenModel extends FlutterFlowModel {
   OrdersRecord? createdOrder;
   // Model for footerComponent component.
   late FooterComponentModel footerComponentModel;
+  // Model for notificationPanel component.
+  late NotificationPanelModel notificationPanelModel;
+  // Model for accountPanel component.
+  late AccountPanelModel accountPanelModel;
 
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
     headerModel = createModel(context, () => HeaderModel());
     footerComponentModel = createModel(context, () => FooterComponentModel());
+    notificationPanelModel =
+        createModel(context, () => NotificationPanelModel());
+    accountPanelModel = createModel(context, () => AccountPanelModel());
   }
 
   void dispose() {
     unfocusNode.dispose();
     headerModel.dispose();
     footerComponentModel.dispose();
+    notificationPanelModel.dispose();
+    accountPanelModel.dispose();
   }
 
   /// Action blocks are added here.

@@ -1,6 +1,7 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/main_components/create_account_modal/create_account_modal_widget.dart';
 import '/main_components/dialog_component/dialog_component_widget.dart';
 import '/main_components/forgot_password_modal/forgot_password_modal_widget.dart';

@@ -260,10 +260,19 @@ class _AccountPanelWidgetState extends State<AccountPanelWidget> {
                           GoRouter.of(context).clearRedirectLocation();
 
                           await Future.delayed(
-                              const Duration(milliseconds: 300));
+                              const Duration(milliseconds: 100));
 
                           context.goNamedAuth(
-                              'landingPageBuyers', context.mounted);
+                            'landingPageBuyers',
+                            context.mounted,
+                            extra: <String, dynamic>{
+                              kTransitionInfoKey: TransitionInfo(
+                                hasTransition: true,
+                                transitionType: PageTransitionType.fade,
+                                duration: Duration(milliseconds: 0),
+                              ),
+                            },
+                          );
                         },
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
