@@ -6,9 +6,9 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/main_components/account_panel/account_panel_widget.dart';
+import '/main_components/dashboard_sidebar/dashboard_sidebar_widget.dart';
 import '/main_components/header/header_widget.dart';
 import '/main_components/notification_panel/notification_panel_widget.dart';
-import '/sellers_related/componnents/sidebar_seller/sidebar_seller_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -22,8 +22,8 @@ class DashboardBuyerDownloadScreenModel extends FlutterFlowModel {
   final unfocusNode = FocusNode();
   // Model for header component.
   late HeaderModel headerModel;
-  // Model for sidebar_seller component.
-  late SidebarSellerModel sidebarSellerModel;
+  // Model for dashboard_sidebar component.
+  late DashboardSidebarModel dashboardSidebarModel;
   // Model for accountPanel component.
   late AccountPanelModel accountPanelModel;
   // Model for notificationPanel component.
@@ -33,7 +33,7 @@ class DashboardBuyerDownloadScreenModel extends FlutterFlowModel {
 
   void initState(BuildContext context) {
     headerModel = createModel(context, () => HeaderModel());
-    sidebarSellerModel = createModel(context, () => SidebarSellerModel());
+    dashboardSidebarModel = createModel(context, () => DashboardSidebarModel());
     accountPanelModel = createModel(context, () => AccountPanelModel());
     notificationPanelModel =
         createModel(context, () => NotificationPanelModel());
@@ -42,7 +42,7 @@ class DashboardBuyerDownloadScreenModel extends FlutterFlowModel {
   void dispose() {
     unfocusNode.dispose();
     headerModel.dispose();
-    sidebarSellerModel.dispose();
+    dashboardSidebarModel.dispose();
     accountPanelModel.dispose();
     notificationPanelModel.dispose();
   }

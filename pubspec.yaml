@@ -145,6 +145,16 @@ flutter:
         - asset: assets/fonts/Millik_Regular.otf
 
 
+    - family: Icomoon3
+      fonts:
+        - asset: assets/fonts/icomoon3.ttf
+    - family: Icomoon121
+      fonts:
+        - asset: assets/fonts/icomoon121.ttf
+    - family: Icomoon121b
+      fonts:
+        - asset: assets/fonts/icomoon121b.ttf
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

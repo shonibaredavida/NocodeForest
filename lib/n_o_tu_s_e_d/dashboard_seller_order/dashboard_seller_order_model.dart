@@ -2,8 +2,8 @@ import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/main_components/dashboard_sidebar/dashboard_sidebar_widget.dart';
 import '/main_components/header/header_widget.dart';
-import '/sellers_related/componnents/sidebar_seller/sidebar_seller_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
@@ -18,8 +18,8 @@ class DashboardSellerOrderModel extends FlutterFlowModel {
   final unfocusNode = FocusNode();
   // Model for header component.
   late HeaderModel headerModel;
-  // Model for sidebar_seller component.
-  late SidebarSellerModel sidebarSellerModel;
+  // Model for dashboard_sidebar component.
+  late DashboardSidebarModel dashboardSidebarModel;
   // State field(s) for TextField widget.
   TextEditingController? textController;
   String? Function(BuildContext, String?)? textControllerValidator;
@@ -28,13 +28,13 @@ class DashboardSellerOrderModel extends FlutterFlowModel {
 
   void initState(BuildContext context) {
     headerModel = createModel(context, () => HeaderModel());
-    sidebarSellerModel = createModel(context, () => SidebarSellerModel());
+    dashboardSidebarModel = createModel(context, () => DashboardSidebarModel());
   }
 
   void dispose() {
     unfocusNode.dispose();
     headerModel.dispose();
-    sidebarSellerModel.dispose();
+    dashboardSidebarModel.dispose();
     textController?.dispose();
   }
 

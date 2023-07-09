@@ -362,6 +362,11 @@ class _ResetPasswordModalWidgetState extends State<ResetPasswordModalWidget> {
                                   ],
                                 ),
                               ),
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: Color(0xFFFAF9F6),
+                                ),
+                              ),
                               Column(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [

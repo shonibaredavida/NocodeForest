@@ -4,9 +4,9 @@ import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/main_components/account_panel/account_panel_widget.dart';
+import '/main_components/dashboard_sidebar/dashboard_sidebar_widget.dart';
 import '/main_components/header/header_widget.dart';
 import '/main_components/notification_panel/notification_panel_widget.dart';
-import '/sellers_related/componnents/sidebar_seller/sidebar_seller_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
@@ -102,9 +102,9 @@ class _DashboardSellerProductScreenWidgetState
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     wrapWithModel(
-                                      model: _model.sidebarSellerModel,
+                                      model: _model.dashboardSidebarModel,
                                       updateCallback: () => setState(() {}),
-                                      child: SidebarSellerWidget(
+                                      child: DashboardSidebarWidget(
                                         iconFourColor:
                                             FlutterFlowTheme.of(context)
                                                 .primaryText,

@@ -1,25 +1,34 @@
 import '/auth/base_auth_user_provider.dart';
 import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
+import '/flutter_flow/flutter_flow_charts.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import '/main_components/account_panel/account_panel_widget.dart';
+import '/main_components/dashboard_sidebar/dashboard_sidebar_widget.dart';
 import '/main_components/header/header_widget.dart';
 import '/main_components/notification_panel/notification_panel_widget.dart';
-import '/sellers_related/componnents/sidebar_seller/sidebar_seller_widget.dart';
+import '/custom_code/widgets/index.dart' as custom_widgets;
+import '/flutter_flow/custom_functions.dart' as functions;
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class DashboardSellerLogoutModel extends FlutterFlowModel {
+class DashboardSellerModel extends FlutterFlowModel {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
   // Model for header component.
   late HeaderModel headerModel;
-  // Model for sidebar_seller component.
-  late SidebarSellerModel sidebarSellerModel;
+  // Model for dashboard_sidebar component.
+  late DashboardSidebarModel dashboardSidebarModel;
+  // State field(s) for TextField widget.
+  TextEditingController? textController;
+  String? Function(BuildContext, String?)? textControllerValidator;
   // Model for accountPanel component.
   late AccountPanelModel accountPanelModel;
   // Model for notificationPanel component.
@@ -29,7 +38,7 @@ class DashboardSellerLogoutModel extends FlutterFlowModel {
 
   void initState(BuildContext context) {
     headerModel = createModel(context, () => HeaderModel());
-    sidebarSellerModel = createModel(context, () => SidebarSellerModel());
+    dashboardSidebarModel = createModel(context, () => DashboardSidebarModel());
     accountPanelModel = createModel(context, () => AccountPanelModel());
     notificationPanelModel =
         createModel(context, () => NotificationPanelModel());
@@ -38,7 +47,8 @@ class DashboardSellerLogoutModel extends FlutterFlowModel {
   void dispose() {
     unfocusNode.dispose();
     headerModel.dispose();
-    sidebarSellerModel.dispose();
+    dashboardSidebarModel.dispose();
+    textController?.dispose();
     accountPanelModel.dispose();
     notificationPanelModel.dispose();
   }

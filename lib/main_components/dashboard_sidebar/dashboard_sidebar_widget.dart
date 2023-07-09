@@ -6,14 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'sidebar_seller_model.dart';
-export 'sidebar_seller_model.dart';
+import 'dashboard_sidebar_model.dart';
+export 'dashboard_sidebar_model.dart';
 
-class SidebarSellerWidget extends StatefulWidget {
-  const SidebarSellerWidget({
+class DashboardSidebarWidget extends StatefulWidget {
+  const DashboardSidebarWidget({
     Key? key,
     Color? iconOneColor,
     Color? iconTwoColor,
@@ -102,12 +101,12 @@ class SidebarSellerWidget extends StatefulWidget {
   final bool? p7State;
 
   @override
-  _SidebarSellerWidgetState createState() => _SidebarSellerWidgetState();
+  _DashboardSidebarWidgetState createState() => _DashboardSidebarWidgetState();
 }
 
-class _SidebarSellerWidgetState extends State<SidebarSellerWidget>
+class _DashboardSidebarWidgetState extends State<DashboardSidebarWidget>
     with TickerProviderStateMixin {
-  late SidebarSellerModel _model;
+  late DashboardSidebarModel _model;
 
   final animationsMap = {
     'containerOnPageLoadAnimation1': AnimationInfo(
@@ -341,7 +340,7 @@ class _SidebarSellerWidgetState extends State<SidebarSellerWidget>
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => SidebarSellerModel());
+    _model = createModel(context, () => DashboardSidebarModel());
 
     setupAnimations(
       animationsMap.values.where((anim) =>
@@ -405,7 +404,7 @@ class _SidebarSellerWidgetState extends State<SidebarSellerWidget>
                                   .override(
                                     fontFamily: 'Oswald',
                                     color: FlutterFlowTheme.of(context).accent1,
-                                    fontSize: 14.0,
+                                    fontSize: 16.0,
                                     fontWeight: FontWeight.normal,
                                     lineHeight: 1.4,
                                   ),
@@ -452,7 +451,7 @@ class _SidebarSellerWidgetState extends State<SidebarSellerWidget>
                         currentUserDocument?.becomeASeller, false))
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
-                            0.0, 22.0, 0.0, 20.0),
+                            0.0, 18.0, 0.0, 16.0),
                         child: AuthUserStreamWidget(
                           builder: (context) => InkWell(
                             splashColor: Colors.transparent,
@@ -479,12 +478,11 @@ class _SidebarSellerWidgetState extends State<SidebarSellerWidget>
                                   children: [
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 12.0, 0.0),
-                                      child: SvgPicture.asset(
-                                        'assets/images/Component_3.svg',
-                                        width: 24.0,
-                                        height: 24.0,
-                                        fit: BoxFit.cover,
+                                          5.0, 0.0, 12.0, 0.0),
+                                      child: Icon(
+                                        FFIcons.kmeter,
+                                        color: widget.iconOneColor,
+                                        size: 24.0,
                                       ),
                                     ),
                                     Text(
@@ -494,6 +492,7 @@ class _SidebarSellerWidgetState extends State<SidebarSellerWidget>
                                           .override(
                                             fontFamily: 'Roboto Condensed',
                                             color: widget.iconOneColor,
+                                            fontSize: 16.0,
                                           ),
                                     ),
                                   ],
@@ -508,7 +507,7 @@ class _SidebarSellerWidgetState extends State<SidebarSellerWidget>
                         currentUserDocument?.becomeASeller, false))
                       Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 20.0),
+                            EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 16.0),
                         child: AuthUserStreamWidget(
                           builder: (context) => InkWell(
                             splashColor: Colors.transparent,
@@ -544,12 +543,11 @@ class _SidebarSellerWidgetState extends State<SidebarSellerWidget>
                                   children: [
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 12.0, 0.0),
-                                      child: SvgPicture.asset(
-                                        'assets/images/Component_3.svg',
-                                        width: 24.0,
-                                        height: 24.0,
-                                        fit: BoxFit.cover,
+                                          5.0, 0.0, 12.0, 0.0),
+                                      child: Icon(
+                                        FFIcons.kstatsDots,
+                                        color: widget.iconTwoColor,
+                                        size: 24.0,
                                       ),
                                     ),
                                     Text(
@@ -559,6 +557,7 @@ class _SidebarSellerWidgetState extends State<SidebarSellerWidget>
                                           .override(
                                             fontFamily: 'Roboto Condensed',
                                             color: widget.iconTwoColor,
+                                            fontSize: 16.0,
                                           ),
                                     ),
                                   ],
@@ -573,7 +572,7 @@ class _SidebarSellerWidgetState extends State<SidebarSellerWidget>
                         currentUserDocument?.becomeASeller, false))
                       Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 20.0),
+                            EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 16.0),
                         child: AuthUserStreamWidget(
                           builder: (context) => Container(
                             width: double.infinity,
@@ -590,12 +589,11 @@ class _SidebarSellerWidgetState extends State<SidebarSellerWidget>
                                 children: [
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 12.0, 0.0),
-                                    child: SvgPicture.asset(
-                                      'assets/images/Component_3.svg',
-                                      width: 24.0,
-                                      height: 24.0,
-                                      fit: BoxFit.cover,
+                                        5.0, 0.0, 12.0, 0.0),
+                                    child: Icon(
+                                      FFIcons.kfinance1,
+                                      color: widget.iconThreeColor,
+                                      size: 24.0,
                                     ),
                                   ),
                                   Text(
@@ -605,6 +603,7 @@ class _SidebarSellerWidgetState extends State<SidebarSellerWidget>
                                         .override(
                                           fontFamily: 'Roboto Condensed',
                                           color: widget.iconThreeColor,
+                                          fontSize: 16.0,
                                         ),
                                   ),
                                 ],
@@ -618,7 +617,7 @@ class _SidebarSellerWidgetState extends State<SidebarSellerWidget>
                         currentUserDocument?.becomeASeller, false))
                       Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 20.0),
+                            EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 16.0),
                         child: AuthUserStreamWidget(
                           builder: (context) => InkWell(
                             splashColor: Colors.transparent,
@@ -654,12 +653,11 @@ class _SidebarSellerWidgetState extends State<SidebarSellerWidget>
                                   children: [
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 12.0, 0.0),
-                                      child: SvgPicture.asset(
-                                        'assets/images/Component_3.svg',
-                                        width: 24.0,
-                                        height: 24.0,
-                                        fit: BoxFit.cover,
+                                          5.0, 0.0, 12.0, 0.0),
+                                      child: Icon(
+                                        FFIcons.kgift,
+                                        color: widget.iconFourColor,
+                                        size: 24.0,
                                       ),
                                     ),
                                     Text(
@@ -669,6 +667,7 @@ class _SidebarSellerWidgetState extends State<SidebarSellerWidget>
                                           .override(
                                             fontFamily: 'Roboto Condensed',
                                             color: widget.iconFourColor,
+                                            fontSize: 16.0,
                                           ),
                                     ),
                                   ],
@@ -681,7 +680,7 @@ class _SidebarSellerWidgetState extends State<SidebarSellerWidget>
                       ),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 20.0),
+                          EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 16.0),
                       child: InkWell(
                         splashColor: Colors.transparent,
                         focusColor: Colors.transparent,
@@ -721,12 +720,11 @@ class _SidebarSellerWidgetState extends State<SidebarSellerWidget>
                               children: [
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 12.0, 0.0),
-                                  child: SvgPicture.asset(
-                                    'assets/images/Component_3.svg',
-                                    width: 24.0,
-                                    height: 24.0,
-                                    fit: BoxFit.cover,
+                                      5.0, 0.0, 12.0, 0.0),
+                                  child: Icon(
+                                    FFIcons.kvan,
+                                    color: widget.iconFiveColor,
+                                    size: 24.0,
                                   ),
                                 ),
                                 Text(
@@ -736,6 +734,7 @@ class _SidebarSellerWidgetState extends State<SidebarSellerWidget>
                                       .override(
                                         fontFamily: 'Roboto Condensed',
                                         color: widget.iconFiveColor,
+                                        fontSize: 16.0,
                                       ),
                                 ),
                               ],
@@ -749,7 +748,7 @@ class _SidebarSellerWidgetState extends State<SidebarSellerWidget>
                         currentUserDocument?.becomeASeller, false))
                       Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 20.0),
+                            EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 16.0),
                         child: AuthUserStreamWidget(
                           builder: (context) => InkWell(
                             splashColor: Colors.transparent,
@@ -785,12 +784,11 @@ class _SidebarSellerWidgetState extends State<SidebarSellerWidget>
                                   children: [
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 12.0, 0.0),
-                                      child: SvgPicture.asset(
-                                        'assets/images/Vector.svg',
-                                        width: 24.0,
-                                        height: 24.0,
-                                        fit: BoxFit.cover,
+                                          5.0, 0.0, 12.0, 0.0),
+                                      child: Icon(
+                                        FFIcons.kcustomers,
+                                        color: widget.iconSixColor,
+                                        size: 24.0,
                                       ),
                                     ),
                                     Text(
@@ -800,6 +798,7 @@ class _SidebarSellerWidgetState extends State<SidebarSellerWidget>
                                           .override(
                                             fontFamily: 'Roboto Condensed',
                                             color: widget.iconSixColor,
+                                            fontSize: 16.0,
                                           ),
                                     ),
                                   ],
@@ -869,12 +868,11 @@ class _SidebarSellerWidgetState extends State<SidebarSellerWidget>
                               children: [
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 12.0, 0.0),
-                                  child: SvgPicture.asset(
-                                    'assets/images/Vector.svg',
-                                    width: 24.0,
-                                    height: 24.0,
-                                    fit: BoxFit.cover,
+                                      5.0, 0.0, 12.0, 0.0),
+                                  child: Icon(
+                                    FFIcons.kdownload,
+                                    color: widget.iconSevenColor,
+                                    size: 24.0,
                                   ),
                                 ),
                                 Text(
@@ -884,6 +882,7 @@ class _SidebarSellerWidgetState extends State<SidebarSellerWidget>
                                       .override(
                                         fontFamily: 'Roboto Condensed',
                                         color: widget.iconSevenColor,
+                                        fontSize: 16.0,
                                       ),
                                 ),
                               ],
@@ -943,12 +942,11 @@ class _SidebarSellerWidgetState extends State<SidebarSellerWidget>
                               children: [
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 12.0, 0.0),
-                                  child: SvgPicture.asset(
-                                    'assets/images/Component_3_(1).svg',
-                                    width: 24.0,
-                                    height: 24.0,
-                                    fit: BoxFit.cover,
+                                      5.0, 0.0, 12.0, 0.0),
+                                  child: Icon(
+                                    Icons.person_outline_sharp,
+                                    color: widget.iconProfileColor,
+                                    size: 28.0,
                                   ),
                                 ),
                                 Text(
@@ -958,6 +956,7 @@ class _SidebarSellerWidgetState extends State<SidebarSellerWidget>
                                       .override(
                                         fontFamily: 'Roboto Condensed',
                                         color: widget.iconProfileColor,
+                                        fontSize: 16.0,
                                       ),
                                 ),
                               ],
@@ -988,9 +987,9 @@ class _SidebarSellerWidgetState extends State<SidebarSellerWidget>
                                 children: [
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 12.0, 0.0),
+                                        5.0, 0.0, 12.0, 0.0),
                                     child: Icon(
-                                      Icons.settings_outlined,
+                                      FFIcons.kcogs,
                                       color: widget.iconSettingColor,
                                       size: 24.0,
                                     ),
@@ -1002,6 +1001,7 @@ class _SidebarSellerWidgetState extends State<SidebarSellerWidget>
                                         .override(
                                           fontFamily: 'Roboto Condensed',
                                           color: widget.iconSettingColor,
+                                          fontSize: 16.0,
                                         ),
                                   ),
                                 ],
@@ -1048,12 +1048,11 @@ class _SidebarSellerWidgetState extends State<SidebarSellerWidget>
                               children: [
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 12.0, 0.0),
-                                  child: SvgPicture.asset(
-                                    'assets/images/Component_3_(2).svg',
-                                    width: 24.0,
-                                    height: 24.0,
-                                    fit: BoxFit.cover,
+                                      5.0, 0.0, 12.0, 0.0),
+                                  child: Icon(
+                                    FFIcons.kexit,
+                                    color: widget.logoutIconColor,
+                                    size: 24.0,
                                   ),
                                 ),
                                 Text(
@@ -1063,6 +1062,7 @@ class _SidebarSellerWidgetState extends State<SidebarSellerWidget>
                                       .override(
                                         fontFamily: 'Roboto Condensed',
                                         color: widget.logoutIconColor,
+                                        fontSize: 16.0,
                                       ),
                                 ),
                               ],

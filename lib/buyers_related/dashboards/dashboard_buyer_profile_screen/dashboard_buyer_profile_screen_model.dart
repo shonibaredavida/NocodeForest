@@ -10,10 +10,10 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/upload_data.dart';
 import '/main_components/account_panel/account_panel_widget.dart';
+import '/main_components/dashboard_sidebar/dashboard_sidebar_widget.dart';
 import '/main_components/dialog_component/dialog_component_widget.dart';
 import '/main_components/header/header_widget.dart';
 import '/main_components/notification_panel/notification_panel_widget.dart';
-import '/sellers_related/componnents/sidebar_seller/sidebar_seller_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -28,8 +28,8 @@ class DashboardBuyerProfileScreenModel extends FlutterFlowModel {
   final formKey = GlobalKey<FormState>();
   // Model for header component.
   late HeaderModel headerModel;
-  // Model for sidebar_seller component.
-  late SidebarSellerModel sidebarSellerModel;
+  // Model for dashboard_sidebar component.
+  late DashboardSidebarModel dashboardSidebarModel;
   bool isDataUploading = false;
   FFUploadedFile uploadedLocalFile =
       FFUploadedFile(bytes: Uint8List.fromList([]));
@@ -63,7 +63,7 @@ class DashboardBuyerProfileScreenModel extends FlutterFlowModel {
 
   void initState(BuildContext context) {
     headerModel = createModel(context, () => HeaderModel());
-    sidebarSellerModel = createModel(context, () => SidebarSellerModel());
+    dashboardSidebarModel = createModel(context, () => DashboardSidebarModel());
     accountPanelModel = createModel(context, () => AccountPanelModel());
     notificationPanelModel =
         createModel(context, () => NotificationPanelModel());
@@ -72,7 +72,7 @@ class DashboardBuyerProfileScreenModel extends FlutterFlowModel {
   void dispose() {
     unfocusNode.dispose();
     headerModel.dispose();
-    sidebarSellerModel.dispose();
+    dashboardSidebarModel.dispose();
     fNameTextFieldController?.dispose();
     emailTextFieldController?.dispose();
     proffessionTextFieldController?.dispose();
