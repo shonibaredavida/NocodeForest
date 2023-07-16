@@ -5,19 +5,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'change_password_modal_model.dart';
-export 'change_password_modal_model.dart';
+import 'change_password_modal_n_u_model.dart';
+export 'change_password_modal_n_u_model.dart';
 
-class ChangePasswordModalWidget extends StatefulWidget {
-  const ChangePasswordModalWidget({Key? key}) : super(key: key);
+class ChangePasswordModalNUWidget extends StatefulWidget {
+  const ChangePasswordModalNUWidget({Key? key}) : super(key: key);
 
   @override
-  _ChangePasswordModalWidgetState createState() =>
-      _ChangePasswordModalWidgetState();
+  _ChangePasswordModalNUWidgetState createState() =>
+      _ChangePasswordModalNUWidgetState();
 }
 
-class _ChangePasswordModalWidgetState extends State<ChangePasswordModalWidget> {
-  late ChangePasswordModalModel _model;
+class _ChangePasswordModalNUWidgetState
+    extends State<ChangePasswordModalNUWidget> {
+  late ChangePasswordModalNUModel _model;
 
   @override
   void setState(VoidCallback callback) {
@@ -28,7 +29,7 @@ class _ChangePasswordModalWidgetState extends State<ChangePasswordModalWidget> {
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => ChangePasswordModalModel());
+    _model = createModel(context, () => ChangePasswordModalNUModel());
 
     _model.oldPasswordController ??= TextEditingController();
     _model.newPasswordController ??= TextEditingController();

@@ -11,12 +11,18 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class FeddbackFormModel extends FlutterFlowModel {
+  ///  Local state fields for this component.
+
+  bool feedbackSent = false;
+
   ///  State fields for stateful widgets in this component.
 
   final formKey = GlobalKey<FormState>();
   // State field(s) for ReviewField widget.
   TextEditingController? reviewFieldController;
   String? Function(BuildContext, String?)? reviewFieldControllerValidator;
+  // Stores action output result for [Backend Call - Create Document] action in Button widget.
+  FeedbackRecord? feedbAckCreAted;
 
   /// Initialization and disposal methods.
 

@@ -664,7 +664,7 @@ class _PaymentDetailsWidgetState extends State<PaymentDetailsWidget> {
                                               locale:
                                                   FFLocalizations.of(context)
                                                       .languageCode,
-                                            )}product id: ${widget.product!.reference.id}',
+                                            )}product id: ${widget.product?.reference.id}',
                                           }
                                               .entries
                                               .map((MapEntry<String, String>

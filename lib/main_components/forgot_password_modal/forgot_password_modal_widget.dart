@@ -1,6 +1,7 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/main_components/dialog_component/dialog_component_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -9,7 +10,12 @@ import 'forgot_password_modal_model.dart';
 export 'forgot_password_modal_model.dart';
 
 class ForgotPasswordModalWidget extends StatefulWidget {
-  const ForgotPasswordModalWidget({Key? key}) : super(key: key);
+  const ForgotPasswordModalWidget({
+    Key? key,
+    required this.email,
+  }) : super(key: key);
+
+  final String? email;
 
   @override
   _ForgotPasswordModalWidgetState createState() =>
@@ -30,7 +36,7 @@ class _ForgotPasswordModalWidgetState extends State<ForgotPasswordModalWidget> {
     super.initState();
     _model = createModel(context, () => ForgotPasswordModalModel());
 
-    _model.emailController ??= TextEditingController();
+    _model.emailController ??= TextEditingController(text: widget.email);
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -225,8 +231,13 @@ class _ForgotPasswordModalWidgetState extends State<ForgotPasswordModalWidget> {
                                         EdgeInsetsDirectional.fromSTEB(
                                             20.0, 24.0, 0.0, 24.0),
                                   ),
-                                  style:
-                                      FlutterFlowTheme.of(context).bodyMedium,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Roboto Condensed',
+                                        fontSize: 16.0,
+                                        lineHeight: 1.4,
+                                      ),
                                   validator: _model.emailControllerValidator
                                       .asValidator(context),
                                 ),
@@ -271,23 +282,34 @@ class _ForgotPasswordModalWidgetState extends State<ForgotPasswordModalWidget> {
                                       email: _model.emailController.text,
                                       context: context,
                                     );
-                                    await showDialog(
+                                    await showModalBottomSheet(
+                                      isScrollControlled: true,
+                                      backgroundColor: Colors.transparent,
+                                      enableDrag: false,
                                       context: context,
-                                      builder: (alertDialogContext) {
-                                        return AlertDialog(
-                                          title: Text('Email Sent'),
-                                          content: Text(
-                                              'If your mail is in our system, your reset link has been sent to your mailbox. Kindly Check your mail. '),
-                                          actions: [
-                                            TextButton(
-                                              onPressed: () => Navigator.pop(
-                                                  alertDialogContext),
-                                              child: Text('Ok'),
-                                            ),
-                                          ],
+                                      builder: (context) {
+                                        return Padding(
+                                          padding:
+                                              MediaQuery.viewInsetsOf(context),
+                                          child: DialogComponentWidget(
+                                            subtitle:
+                                                'If your mail is in our system, your reset link has been sent to your mailbox. Kindly Check your mail. ',
+                                            dialogTitle: 'Link Sent',
+                                            requiresYesNo: false,
+                                            successDialog: true,
+                                            deleteDialog: false,
+                                            emailToSendLink:
+                                                _model.emailController.text,
+                                            toSendReconfirmationNotResetPassword:
+                                                false,
+                                            toResendALink: true,
+                                            nextRoute: () async {},
+                                          ),
                                         );
                                       },
-                                    );
+                                    ).then((value) => setState(() {}));
+
+                                    Navigator.pop(context);
 
                                     context.goNamed('landingPageBuyers');
                                   },

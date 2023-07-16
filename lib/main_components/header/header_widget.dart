@@ -8,7 +8,7 @@ import '/main_components/dialog_component/dialog_component_widget.dart';
 import '/main_components/feddback_form/feddback_form_widget.dart';
 import '/main_components/request_form/request_form_widget.dart';
 import '/main_components/signin_modal/signin_modal_widget.dart';
-import '/sellers_related/componnents/add_product/add_product_widget.dart';
+import '/sellers_related/components/add_product/add_product_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -101,7 +101,7 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                                 text: 'Categories',
                                 options: FFButtonOptions(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      32.0, 24.0, 32.0, 24.0),
+                                      28.0, 24.0, 28.0, 24.0),
                                   iconPadding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 0.0),
                                   color: Color(0x000D0D0D),
@@ -143,7 +143,7 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                             text: 'Request a Template',
                             options: FFButtonOptions(
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  32.0, 24.0, 32.0, 24.0),
+                                  28.0, 24.0, 28.0, 24.0),
                               iconPadding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
                               color: Color(0x00FFFFFF),
@@ -203,7 +203,7 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                                   options: FFButtonOptions(
                                     height: 48.0,
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        32.0, 0.0, 32.0, 0.0),
+                                        28.0, 0.0, 28.0, 0.0),
                                     iconPadding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 0.0),
                                     color: FlutterFlowTheme.of(context)
@@ -220,7 +220,7 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                                       color: Color(0xFF9C0C0C),
                                       width: 1.0,
                                     ),
-                                    borderRadius: BorderRadius.circular(5.0),
+                                    borderRadius: BorderRadius.circular(7.0),
                                     hoverColor: Color(0xFF99969E),
                                     hoverBorderSide: BorderSide(
                                       color: Color(0xFF99969E),
@@ -303,7 +303,7 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                                   options: FFButtonOptions(
                                     height: 48.0,
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        32.0, 0.0, 32.0, 0.0),
+                                        28.0, 0.0, 28.0, 0.0),
                                     iconPadding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 0.0),
                                     color: FlutterFlowTheme.of(context).primary,
@@ -501,7 +501,7 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                                     : 'Dashboard',
                                 options: FFButtonOptions(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      32.0, 24.0, 32.0, 24.0),
+                                      28.0, 24.0, 28.0, 24.0),
                                   iconPadding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 0.0),
                                   color: Color(0x00FFFFFF),
@@ -547,7 +547,7 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                               text: 'Request a Template',
                               options: FFButtonOptions(
                                 padding: EdgeInsetsDirectional.fromSTEB(
-                                    32.0, 24.0, 32.0, 24.0),
+                                    28.0, 24.0, 28.0, 24.0),
                                 iconPadding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 0.0),
                                 color: Color(0x00FFFFFF),
@@ -579,7 +579,7 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                               text: 'Become a Seller',
                               options: FFButtonOptions(
                                 padding: EdgeInsetsDirectional.fromSTEB(
-                                    32.0, 24.0, 32.0, 24.0),
+                                    28.0, 24.0, 28.0, 24.0),
                                 iconPadding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 0.0),
                                 color: Color(0x00FFFFFF),
@@ -627,7 +627,7 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                               ),
                               options: FFButtonOptions(
                                 padding: EdgeInsetsDirectional.fromSTEB(
-                                    32.0, 24.0, 32.0, 24.0),
+                                    28.0, 24.0, 28.0, 24.0),
                                 iconPadding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 2.0),
                                 color: FlutterFlowTheme.of(context).primary,
@@ -657,292 +657,247 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    14.0, 4.0, 14.0, 0.0),
-                                child: FFButtonWidget(
-                                  onPressed: () async {
-                                    showModalBottomSheet(
-                                      isScrollControlled: true,
-                                      backgroundColor: Colors.transparent,
-                                      context: context,
-                                      builder: (context) {
-                                        return Padding(
-                                          padding:
-                                              MediaQuery.viewInsetsOf(context),
-                                          child: SigninModalWidget(),
-                                        );
-                                      },
-                                    ).then((value) => setState(() {}));
-                                  },
-                                  text: 'Feedback',
-                                  icon: Icon(
-                                    Icons.feedback,
-                                    size: 15.0,
-                                  ),
-                                  options: FFButtonOptions(
-                                    height: 48.0,
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        32.0, 0.0, 32.0, 0.0),
-                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 0.0),
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                    textStyle: FlutterFlowTheme.of(context)
-                                        .titleSmall
-                                        .override(
-                                          fontFamily: 'Roboto Condensed',
-                                          color: Color(0xFF9C0C0C),
-                                          fontSize: 16.0,
-                                          lineHeight: 1.5,
-                                        ),
-                                    borderSide: BorderSide(
-                                      color: Color(0xFF9C0C0C),
-                                      width: 1.0,
-                                    ),
-                                    borderRadius: BorderRadius.circular(5.0),
-                                    hoverColor: Color(0xFF99969E),
-                                    hoverBorderSide: BorderSide(
-                                      color: Color(0xFF99969E),
-                                      width: 1.0,
-                                    ),
-                                    hoverTextColor:
-                                        FlutterFlowTheme.of(context).accent4,
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 3.0, 12.0, 0.0),
-                                child: InkWell(
-                                  splashColor: Colors.transparent,
-                                  focusColor: Colors.transparent,
-                                  hoverColor: Colors.transparent,
-                                  highlightColor: Colors.transparent,
-                                  onTap: () async {
-                                    if (FFAppState().showNotification) {
-                                      _model.updatePage(() {
-                                        FFAppState().showNotification = false;
-                                      });
-                                    } else {
-                                      _model.updatePage(() {
-                                        FFAppState().showNotification = true;
-                                        FFAppState().showAccountPanel = false;
-                                      });
-                                    }
-                                  },
-                                  child: Icon(
-                                    Icons.notifications_none,
-                                    color: Color(0xFFBABDB9),
-                                    size: 27.0,
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 27.0, 0.0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 14.0, 0.0),
-                                      child: InkWell(
-                                        splashColor: Colors.transparent,
-                                        focusColor: Colors.transparent,
-                                        hoverColor: Colors.transparent,
-                                        highlightColor: Colors.transparent,
-                                        onTap: () async {
-                                          FFAppState().showNotification = false;
-                                          _model.updatePage(() {
-                                            FFAppState().showAccountPanel =
-                                                true;
-                                          });
-                                          setState(() {
-                                            _model.accountPanelOpened = true;
-                                          });
-                                        },
-                                        child: ClipOval(
-                                          child: Container(
-                                            width: 40.0,
-                                            height: 40.0,
-                                            decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              border: Border.all(
-                                                color: Color(0x44FFFFFF),
-                                              ),
-                                            ),
-                                            child: Image.network(
-                                              currentUserPhoto,
-                                              width: 48.0,
-                                              height: 48.0,
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    if (!_model.accountPanelOpened! ||
-                                        !FFAppState().showAccountPanel)
-                                      InkWell(
-                                        splashColor: Colors.transparent,
-                                        focusColor: Colors.transparent,
-                                        hoverColor: Colors.transparent,
-                                        highlightColor: Colors.transparent,
-                                        onTap: () async {
-                                          FFAppState().showNotification = false;
-                                          _model.updatePage(() {
-                                            FFAppState().showAccountPanel =
-                                                true;
-                                          });
-                                          setState(() {
-                                            _model.accountPanelOpened = true;
-                                          });
-                                        },
-                                        child: Icon(
-                                          Icons.arrow_drop_down_sharp,
-                                          color: Color(0xFF5C5F62),
-                                          size: 24.0,
-                                        ),
-                                      ),
-                                    if ((_model.accountPanelOpened! &&
-                                            FFAppState().showNotification) ||
-                                        FFAppState().showAccountPanel)
-                                      InkWell(
-                                        splashColor: Colors.transparent,
-                                        focusColor: Colors.transparent,
-                                        hoverColor: Colors.transparent,
-                                        highlightColor: Colors.transparent,
-                                        onTap: () async {
-                                          _model.updatePage(() {
-                                            FFAppState().showAccountPanel =
-                                                false;
-                                          });
-                                          setState(() {
-                                            _model.accountPanelOpened = false;
-                                          });
-                                        },
-                                        child: Icon(
-                                          Icons.arrow_drop_up,
-                                          color: Color(0xFF5C5F62),
-                                          size: 24.0,
-                                        ),
-                                      ),
-                                    Container(
-                                      width: 50.0,
-                                      height: 50.0,
-                                      decoration: BoxDecoration(),
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            10.0, 0.0, 0.0, 0.0),
-                                        child: InkWell(
-                                          splashColor: Colors.transparent,
-                                          focusColor: Colors.transparent,
-                                          hoverColor: Colors.transparent,
-                                          highlightColor: Colors.transparent,
-                                          onTap: () async {
-                                            setState(() {
-                                              FFAppState().userCart = [];
-                                            });
-                                            setState(() {
-                                              FFAppState().reviewAdded = false;
-                                            });
-                                            GoRouter.of(context)
-                                                .prepareAuthEvent();
-                                            await authManager.signOut();
-                                            GoRouter.of(context)
-                                                .clearRedirectLocation();
-
-                                            await Future.delayed(const Duration(
-                                                milliseconds: 100));
-
-                                            context.pushNamedAuth(
-                                                'landingPageBuyers',
-                                                context.mounted);
-                                          },
-                                          child: Icon(
-                                            Icons.logout_sharp,
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                            size: 24.0,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              if (FFAppState().NotNeedNow)
+                          Align(
+                            alignment: AlignmentDirectional(0.0, 0.0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 2.0, 0.0),
+                                      14.0, 0.0, 14.0, 0.0),
+                                  child: FFButtonWidget(
+                                    onPressed: () async {
+                                      showModalBottomSheet(
+                                        isScrollControlled: true,
+                                        backgroundColor: Colors.transparent,
+                                        context: context,
+                                        builder: (context) {
+                                          return Padding(
+                                            padding: MediaQuery.viewInsetsOf(
+                                                context),
+                                            child: SigninModalWidget(),
+                                          );
+                                        },
+                                      ).then((value) => setState(() {}));
+                                    },
+                                    text: 'Feedback',
+                                    icon: Icon(
+                                      Icons.feedback,
+                                      size: 15.0,
+                                    ),
+                                    options: FFButtonOptions(
+                                      height: 48.0,
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          28.0, 0.0, 28.0, 0.0),
+                                      iconPadding:
+                                          EdgeInsetsDirectional.fromSTEB(
+                                              0.0, 0.0, 0.0, 0.0),
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                      textStyle: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .override(
+                                            fontFamily: 'Roboto Condensed',
+                                            color: Color(0xFF9C0C0C),
+                                            fontSize: 16.0,
+                                            lineHeight: 1.5,
+                                          ),
+                                      borderSide: BorderSide(
+                                        color: Color(0xFF9C0C0C),
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                      hoverColor: Color(0xFF99969E),
+                                      hoverBorderSide: BorderSide(
+                                        color: Color(0xFF99969E),
+                                        width: 1.0,
+                                      ),
+                                      hoverTextColor:
+                                          FlutterFlowTheme.of(context).accent4,
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 3.0, 12.0, 0.0),
                                   child: InkWell(
                                     splashColor: Colors.transparent,
                                     focusColor: Colors.transparent,
                                     hoverColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
-                                      if (loggedIn) {
-                                        if (FFAppState().userCart.length > 1) {
-                                          context
-                                              .pushNamed('buyerCartScreenNU');
-                                        } else {
-                                          await showModalBottomSheet(
-                                            isScrollControlled: true,
-                                            backgroundColor: Colors.transparent,
-                                            context: context,
-                                            builder: (context) {
-                                              return Padding(
-                                                padding:
-                                                    MediaQuery.viewInsetsOf(
-                                                        context),
-                                                child: DialogComponentWidget(
-                                                  subtitle: 'Cart is empty',
-                                                  requiresYesNo: false,
-                                                  nextRoute: () async {},
-                                                ),
-                                              );
-                                            },
-                                          ).then((value) => setState(() {}));
-                                        }
+                                      if (FFAppState().showNotification) {
+                                        _model.updatePage(() {
+                                          FFAppState().showNotification = false;
+                                        });
                                       } else {
-                                        await showModalBottomSheet(
-                                          isScrollControlled: true,
-                                          backgroundColor: Colors.transparent,
-                                          enableDrag: false,
-                                          context: context,
-                                          builder: (context) {
-                                            return Padding(
-                                              padding: MediaQuery.viewInsetsOf(
-                                                  context),
-                                              child: SigninModalWidget(),
-                                            );
-                                          },
-                                        ).then((value) => setState(() {}));
+                                        _model.updatePage(() {
+                                          FFAppState().showNotification = true;
+                                          FFAppState().showAccountPanel = false;
+                                        });
                                       }
                                     },
-                                    child: Container(
-                                      width: 48.0,
-                                      height: 48.0,
-                                      decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(4.0),
-                                        border: Border.all(
-                                          color: Color(0x47FFFFFF),
+                                    child: Icon(
+                                      Icons.notifications_none,
+                                      color: Color(0xFFBABDB9),
+                                      size: 27.0,
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 27.0, 0.0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 14.0, 0.0),
+                                        child: InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            FFAppState().showNotification =
+                                                false;
+                                            _model.updatePage(() {
+                                              FFAppState().showAccountPanel =
+                                                  true;
+                                            });
+                                            setState(() {
+                                              _model.accountPanelOpened = true;
+                                            });
+                                          },
+                                          child: ClipOval(
+                                            child: Container(
+                                              width: 40.0,
+                                              height: 40.0,
+                                              decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                border: Border.all(
+                                                  color: Color(0x44FFFFFF),
+                                                ),
+                                              ),
+                                              child: Image.network(
+                                                currentUserPhoto,
+                                                width: 48.0,
+                                                height: 48.0,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          ),
                                         ),
                                       ),
-                                      child: InkWell(
-                                        splashColor: Colors.transparent,
-                                        focusColor: Colors.transparent,
-                                        hoverColor: Colors.transparent,
-                                        highlightColor: Colors.transparent,
-                                        onTap: () async {
+                                      if (!_model.accountPanelOpened! ||
+                                          !FFAppState().showAccountPanel)
+                                        InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            FFAppState().showNotification =
+                                                false;
+                                            _model.updatePage(() {
+                                              FFAppState().showAccountPanel =
+                                                  true;
+                                            });
+                                            setState(() {
+                                              _model.accountPanelOpened = true;
+                                            });
+                                          },
+                                          child: Icon(
+                                            Icons.arrow_drop_down_sharp,
+                                            color: Color(0xFF5C5F62),
+                                            size: 24.0,
+                                          ),
+                                        ),
+                                      if ((_model.accountPanelOpened! &&
+                                              FFAppState().showNotification) ||
+                                          FFAppState().showAccountPanel)
+                                        InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            _model.updatePage(() {
+                                              FFAppState().showAccountPanel =
+                                                  false;
+                                            });
+                                            setState(() {
+                                              _model.accountPanelOpened = false;
+                                            });
+                                          },
+                                          child: Icon(
+                                            Icons.arrow_drop_up,
+                                            color: Color(0xFF5C5F62),
+                                            size: 24.0,
+                                          ),
+                                        ),
+                                      Container(
+                                        width: 50.0,
+                                        height: 50.0,
+                                        decoration: BoxDecoration(),
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  10.0, 0.0, 0.0, 0.0),
+                                          child: InkWell(
+                                            splashColor: Colors.transparent,
+                                            focusColor: Colors.transparent,
+                                            hoverColor: Colors.transparent,
+                                            highlightColor: Colors.transparent,
+                                            onTap: () async {
+                                              setState(() {
+                                                FFAppState().userCart = [];
+                                              });
+                                              setState(() {
+                                                FFAppState().reviewAdded =
+                                                    false;
+                                              });
+                                              GoRouter.of(context)
+                                                  .prepareAuthEvent();
+                                              await authManager.signOut();
+                                              GoRouter.of(context)
+                                                  .clearRedirectLocation();
+
+                                              await Future.delayed(
+                                                  const Duration(
+                                                      milliseconds: 100));
+
+                                              context.pushNamedAuth(
+                                                  'landingPageBuyers',
+                                                  context.mounted);
+                                            },
+                                            child: Icon(
+                                              Icons.logout_sharp,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryText,
+                                              size: 24.0,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                if (FFAppState().NotNeedNow)
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 2.0, 0.0),
+                                    child: InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        if (loggedIn) {
                                           if (FFAppState().userCart.length >
-                                              0) {
+                                              1) {
                                             context
                                                 .pushNamed('buyerCartScreenNU');
                                           } else {
@@ -950,7 +905,6 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                                               isScrollControlled: true,
                                               backgroundColor:
                                                   Colors.transparent,
-                                              enableDrag: false,
                                               context: context,
                                               builder: (context) {
                                                 return Padding(
@@ -958,49 +912,111 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                                                       MediaQuery.viewInsetsOf(
                                                           context),
                                                   child: DialogComponentWidget(
-                                                    subtitle: 'No item in cart',
+                                                    subtitle: 'Cart is empty',
                                                     requiresYesNo: false,
-                                                    deleteDialog: false,
-                                                    successDialog: false,
                                                     nextRoute: () async {},
                                                   ),
                                                 );
                                               },
                                             ).then((value) => setState(() {}));
                                           }
-                                        },
-                                        child: Container(
-                                          width: 40.0,
-                                          height: 40.0,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(4.0),
-                                            border: Border.all(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
-                                            ),
+                                        } else {
+                                          await showModalBottomSheet(
+                                            isScrollControlled: true,
+                                            backgroundColor: Colors.transparent,
+                                            enableDrag: false,
+                                            context: context,
+                                            builder: (context) {
+                                              return Padding(
+                                                padding:
+                                                    MediaQuery.viewInsetsOf(
+                                                        context),
+                                                child: SigninModalWidget(),
+                                              );
+                                            },
+                                          ).then((value) => setState(() {}));
+                                        }
+                                      },
+                                      child: Container(
+                                        width: 48.0,
+                                        height: 48.0,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(4.0),
+                                          border: Border.all(
+                                            color: Color(0x47FFFFFF),
                                           ),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Icon(
-                                                Icons.shopping_cart_outlined,
+                                        ),
+                                        child: InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            if (FFAppState().userCart.length >
+                                                0) {
+                                              context.pushNamed(
+                                                  'buyerCartScreenNU');
+                                            } else {
+                                              await showModalBottomSheet(
+                                                isScrollControlled: true,
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                                enableDrag: false,
+                                                context: context,
+                                                builder: (context) {
+                                                  return Padding(
+                                                    padding:
+                                                        MediaQuery.viewInsetsOf(
+                                                            context),
+                                                    child:
+                                                        DialogComponentWidget(
+                                                      subtitle:
+                                                          'No item in cart',
+                                                      requiresYesNo: false,
+                                                      deleteDialog: false,
+                                                      successDialog: false,
+                                                      nextRoute: () async {},
+                                                    ),
+                                                  );
+                                                },
+                                              ).then(
+                                                  (value) => setState(() {}));
+                                            }
+                                          },
+                                          child: Container(
+                                            width: 40.0,
+                                            height: 40.0,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(4.0),
+                                              border: Border.all(
                                                 color:
                                                     FlutterFlowTheme.of(context)
-                                                        .secondaryText,
-                                                size: 19.0,
+                                                        .primaryText,
                                               ),
-                                            ],
+                                            ),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Icon(
+                                                  Icons.shopping_cart_outlined,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondaryText,
+                                                  size: 19.0,
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       ),
                                     ),
                                   ),
-                                ),
-                            ],
+                              ],
+                            ),
                           ),
                         ],
                       ),

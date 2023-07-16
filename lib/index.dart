@@ -18,7 +18,7 @@ export '/sellers_related/landing_page_sellers/landing_page_sellers_widget.dart'
     show LandingPageSellersWidget;
 export '/buyers_related/product_detail_screen/product_detail_screen_widget.dart'
     show ProductDetailScreenWidget;
-export '/sellers_related/buyer_cart_screen_n_u/buyer_cart_screen_n_u_widget.dart'
+export '/n_o_tu_s_e_d/buyer_cart_screen_n_u/buyer_cart_screen_n_u_widget.dart'
     show BuyerCartScreenNUWidget;
 export '/n_o_tu_s_e_d/testing2/testing2_widget.dart' show Testing2Widget;
 export '/buyers_related/dashboards/dashboard_buyer_profile_screen/dashboard_buyer_profile_screen_widget.dart'

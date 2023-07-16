@@ -7,7 +7,6 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/main_components/footer_component/footer_component_widget.dart';
 import '/main_components/header/header_widget.dart';
 import '/custom_code/widgets/index.dart' as custom_widgets;
-import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -1063,29 +1062,14 @@ class _BuyerCartScreenNUWidgetState extends State<BuyerCartScreenNUWidget> {
                                                                   currentUserEmail,
                                                               buyerInfo:
                                                                   currentUserReference,
-                                                              totalPrice: functions
-                                                                  .getTotalCostFromCart(
-                                                                      FFAppState()
-                                                                          .userCart
-                                                                          .toList()),
                                                               orderId:
                                                                   'order_${getCurrentTimestamp.microsecondsSinceEpoch.toString()}',
                                                             ),
-                                                            'seller_ids': functions
-                                                                .listOfSellersInCart(
-                                                                    FFAppState()
-                                                                        .userCart
-                                                                        .toList()),
                                                             'order_date': FieldValue
                                                                 .serverTimestamp(),
                                                             'cart_items':
                                                                 FFAppState()
                                                                     .userCart,
-                                                            'product_ids': functions
-                                                                .listOfProductIDInCart(
-                                                                    FFAppState()
-                                                                        .userCart
-                                                                        .toList()),
                                                           });
                                                           _model.orderSent =
                                                               OrdersRecord
@@ -1100,29 +1084,14 @@ class _BuyerCartScreenNUWidgetState extends State<BuyerCartScreenNUWidget> {
                                                                   currentUserEmail,
                                                               buyerInfo:
                                                                   currentUserReference,
-                                                              totalPrice: functions
-                                                                  .getTotalCostFromCart(
-                                                                      FFAppState()
-                                                                          .userCart
-                                                                          .toList()),
                                                               orderId:
                                                                   'order_${getCurrentTimestamp.microsecondsSinceEpoch.toString()}',
                                                             ),
-                                                            'seller_ids': functions
-                                                                .listOfSellersInCart(
-                                                                    FFAppState()
-                                                                        .userCart
-                                                                        .toList()),
                                                             'order_date':
                                                                 DateTime.now(),
                                                             'cart_items':
                                                                 FFAppState()
                                                                     .userCart,
-                                                            'product_ids': functions
-                                                                .listOfProductIDInCart(
-                                                                    FFAppState()
-                                                                        .userCart
-                                                                        .toList()),
                                                           }, ordersRecordReference);
 
                                                           context.pushNamed(

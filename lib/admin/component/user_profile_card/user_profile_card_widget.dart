@@ -139,6 +139,10 @@ class _UserProfileCardWidgetState extends State<UserProfileCardWidget> {
                                             shape: BoxShape.circle,
                                           ),
                                           child: CachedNetworkImage(
+                                            fadeInDuration:
+                                                Duration(milliseconds: 500),
+                                            fadeOutDuration:
+                                                Duration(milliseconds: 500),
                                             imageUrl:
                                                 columnUsersRecord.photoUrl,
                                             fit: BoxFit.contain,

@@ -420,28 +420,35 @@ class _DashboardSidebarWidgetState extends State<DashboardSidebarWidget>
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          AuthUserStreamWidget(
-                            builder: (context) => Text(
-                              valueOrDefault(currentUserDocument?.username,
-                                              '') !=
-                                          null &&
-                                      valueOrDefault(
-                                              currentUserDocument?.username,
-                                              '') !=
-                                          ''
-                                  ? valueOrDefault(
-                                      currentUserDocument?.username, '')
-                                  : currentUserEmail,
-                              textAlign: TextAlign.center,
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Montserrat',
-                                    color: FlutterFlowTheme.of(context).primary,
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.normal,
-                                    lineHeight: 1.6,
-                                  ),
+                          ClipRRect(
+                            child: Container(
+                              decoration: BoxDecoration(),
+                              child: AuthUserStreamWidget(
+                                builder: (context) => Text(
+                                  valueOrDefault(currentUserDocument?.username,
+                                                  '') !=
+                                              null &&
+                                          valueOrDefault(
+                                                  currentUserDocument?.username,
+                                                  '') !=
+                                              ''
+                                      ? valueOrDefault(
+                                          currentUserDocument?.username, '')
+                                      : currentUserEmail,
+                                  textAlign: TextAlign.center,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Open Sans Condensed',
+                                        color: FlutterFlowTheme.of(context)
+                                            .primary,
+                                        fontSize: 13.0,
+                                        letterSpacing: 1.3,
+                                        fontWeight: FontWeight.normal,
+                                        lineHeight: 1.6,
+                                      ),
+                                ),
+                              ),
                             ),
                           ),
                         ],

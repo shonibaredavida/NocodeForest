@@ -36,11 +36,42 @@ class _WaitingPageWidgetState extends State<WaitingPageWidget> {
         } else {
           if (valueOrDefault(currentUserDocument?.status, '') !=
               'deactivated') {
-            if (!valueOrDefault<bool>(
-                currentUserDocument?.becomeASeller, false)) {
-              context.goNamedAuth('landingPageBuyers', context.mounted);
+            if (currentUserEmailVerified) {
+              if (!valueOrDefault<bool>(
+                  currentUserDocument?.becomeASeller, false)) {
+                context.goNamedAuth('landingPageBuyers', context.mounted);
+              } else {
+                context.goNamedAuth('dashboardSeller', context.mounted);
+              }
             } else {
-              context.goNamedAuth('dashboardSeller', context.mounted);
+              await authManager.sendEmailVerification();
+              GoRouter.of(context).prepareAuthEvent();
+              await authManager.signOut();
+              GoRouter.of(context).clearRedirectLocation();
+
+              await showModalBottomSheet(
+                isScrollControlled: true,
+                backgroundColor: Colors.transparent,
+                enableDrag: false,
+                context: context,
+                builder: (context) {
+                  return GestureDetector(
+                    onTap: () =>
+                        FocusScope.of(context).requestFocus(_model.unfocusNode),
+                    child: Padding(
+                      padding: MediaQuery.viewInsetsOf(context),
+                      child: DialogComponentWidget(
+                        requiresYesNo: false,
+                        subtitle:
+                            'A link has been sent to your mail. Verify your email ',
+                        nextRoute: () async {},
+                      ),
+                    ),
+                  );
+                },
+              ).then((value) => setState(() {}));
+
+              context.goNamedAuth('landingPageBuyers', context.mounted);
             }
           } else {
             GoRouter.of(context).prepareAuthEvent();

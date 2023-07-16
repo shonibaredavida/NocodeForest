@@ -102,6 +102,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'orderCompletedScreen',
           path: '/orderCompleted',
+          requireAuth: true,
           builder: (context, params) => OrderCompletedScreenWidget(),
         ),
         FFRoute(
@@ -141,6 +142,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'productDetailScreen',
           path: '/productDetail',
+          requireAuth: true,
           builder: (context, params) => ProductDetailScreenWidget(
             productRef: params.getParam(
                 'productRef', ParamType.DocumentReference, false, ['products']),
@@ -173,6 +175,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'dashboardBuyerDownloadScreen',
           path: '/dashboardBuyerDownloadScreen',
+          requireAuth: true,
           builder: (context, params) => DashboardBuyerDownloadScreenWidget(
             downloadedProducts: params.getParam<DocumentReference>(
                 'downloadedProducts',
@@ -304,6 +307,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'paymentOptionsScreen',
           path: '/payment',
+          requireAuth: true,
           asyncParams: {
             'product': getDoc(['products'], ProductsRecord.fromSnapshot),
           },

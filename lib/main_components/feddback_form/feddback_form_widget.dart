@@ -96,9 +96,9 @@ class _FeddbackFormWidgetState extends State<FeddbackFormWidget> {
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
-                                if (FFAppState().feedbackAdded) {
-                                  _model.updatePage(() {
-                                    FFAppState().feedbackAdded = false;
+                                if (_model.feedbackSent) {
+                                  setState(() {
+                                    _model.feedbackSent = false;
                                   });
                                   await Future.delayed(
                                       const Duration(milliseconds: 100));
@@ -372,7 +372,7 @@ class _FeddbackFormWidgetState extends State<FeddbackFormWidget> {
                       Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          if (FFAppState().feedbackAdded)
+                          if (_model.feedbackSent)
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 10.0, 0.0, 10.0),
@@ -396,9 +396,9 @@ class _FeddbackFormWidgetState extends State<FeddbackFormWidget> {
                                 0.0, 20.0, 0.0, 0.0),
                             child: FFButtonWidget(
                               onPressed: () async {
-                                if (FFAppState().feedbackAdded) {
-                                  _model.updatePage(() {
-                                    FFAppState().feedbackAdded = false;
+                                if (_model.feedbackSent) {
+                                  setState(() {
+                                    _model.feedbackSent = false;
                                   });
                                   await Future.delayed(
                                       const Duration(milliseconds: 100));
@@ -409,27 +409,45 @@ class _FeddbackFormWidgetState extends State<FeddbackFormWidget> {
                                       _model.reviewFieldController.text == '') {
                                     Navigator.pop(context);
                                   } else {
-                                    await FeedbackRecord.collection
-                                        .doc()
+                                    var feedbackRecordReference =
+                                        FeedbackRecord.collection.doc();
+                                    await feedbackRecordReference
                                         .set(createFeedbackRecordData(
-                                          comment:
-                                              _model.reviewFieldController.text,
-                                          isUser: loggedIn ? true : false,
-                                          dateCreated: getCurrentTimestamp,
-                                          userName: loggedIn
-                                              ? currentUserEmail
-                                              : 'Anonymous',
-                                        ));
+                                      comment:
+                                          _model.reviewFieldController.text,
+                                      isUser: loggedIn ? true : false,
+                                      dateCreated: getCurrentTimestamp,
+                                      userName: loggedIn
+                                          ? currentUserEmail
+                                          : 'Anonymous',
+                                    ));
+                                    _model.feedbAckCreAted =
+                                        FeedbackRecord.getDocumentFromData(
+                                            createFeedbackRecordData(
+                                              comment: _model
+                                                  .reviewFieldController.text,
+                                              isUser: loggedIn ? true : false,
+                                              dateCreated: getCurrentTimestamp,
+                                              userName: loggedIn
+                                                  ? currentUserEmail
+                                                  : 'Anonymous',
+                                            ),
+                                            feedbackRecordReference);
                                     await Future.delayed(
                                         const Duration(milliseconds: 100));
                                     setState(() {
-                                      FFAppState().feedbackAdded = true;
+                                      _model.feedbackSent = true;
                                     });
                                   }
                                 }
+
+                                setState(() {});
                               },
                               text:
-                                  FFAppState().feedbackAdded ? 'Done' : 'Exit',
+                                  (_model.feedbAckCreAted?.reference != null) ||
+                                          _model.feedbackSent
+                                      ? 'Exit'
+                                      : 'Submit Feedback',
                               options: FFButtonOptions(
                                 width: 297.0,
                                 height: 50.0,

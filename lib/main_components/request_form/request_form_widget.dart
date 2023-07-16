@@ -1004,7 +1004,7 @@ class _RequestFormWidgetState extends State<RequestFormWidget> {
                                 borderRadius: BorderRadius.circular(4.0),
                               ),
                             ),
-                            if (_model.requestSent!.reference == null)
+                            if (_model.requestSent?.reference == null)
                               FFButtonWidget(
                                 onPressed: () async {
                                   if ((_model.nameTextFieldController.text !=

@@ -14,10 +14,12 @@ import '/main_components/dashboard_sidebar/dashboard_sidebar_widget.dart';
 import '/main_components/dialog_component/dialog_component_widget.dart';
 import '/main_components/header/header_widget.dart';
 import '/main_components/notification_panel/notification_panel_widget.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 

@@ -1977,7 +1977,7 @@ class _ProductDetailScreenWidgetState extends State<ProductDetailScreenWidget> {
                                                                                     EarningsStruct(
                                                                                       date: getCurrentTimestamp,
                                                                                       amount: productDetailScreenProductsRecord.price,
-                                                                                      orderInfo: _model.createdOrder!.reference,
+                                                                                      orderInfo: _model.createdOrder?.reference,
                                                                                     ),
                                                                                     clearUnsetFields: false,
                                                                                   ),

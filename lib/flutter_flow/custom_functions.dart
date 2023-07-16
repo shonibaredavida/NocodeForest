@@ -226,7 +226,7 @@ List<int>? getAYearAgoDataForLineGraph(List<OrdersRecord>? orders) {
 
 String? listToSentence(List<String>? listedItems) {
   String newWord = listedItems![0];
-  for (var i = 1; i <= listedItems!.length - 1; i++) {
+  for (var i = 1; i <= listedItems.length - 1; i++) {
     newWord = newWord + ", " + listedItems[i];
   }
   return newWord;
@@ -388,26 +388,6 @@ double getTotalRating(ProductsRecord productReviews) {
   return totalRate / count;
 }
 
-bool isSellerInCart(
-  List<DocumentReference> cartItems,
-  String authSellerId,
-) {
-  List<String> sellerList = [];
-  List<String> getList(List<DocumentReference> productRefList) {
-    for (dynamic docRef in productRefList) {
-      docRef.get().then((DocumentSnapshot snapshot) {
-        if (snapshot.exists) {
-          // Access specific fields
-          sellerList.add(snapshot.get('seller_id'));
-        }
-      }).catchError((error) => print('Error getting document: $error'));
-    }
-    return sellerList;
-  }
-
-  return getList(cartItems).contains(authSellerId);
-}
-
 List<int> getLabelLineChart() {
   List<String> months = [
     "Jan",
@@ -472,69 +452,6 @@ double? test1(List<ProductsRecord>? products) {
   return getTotal(products!);
 }
 
-double? getTotalCostFromCart(List<DocumentReference>? productRefList) {
-  double total = 0.0;
-  /* for (dynamic docRef in productRefList!) {
-    docRef.get().then((DocumentSnapshot snapshot) {
-      if (snapshot.exists) {
-        // Access specific fields
-        lisst.add(snapshot.get('price'));
-      } else {
-        print('Document does not exist');
-      }
-    }).catchError((error) => print('Error getting document: $error'));
-  }*/
-  double getTotal(List<DocumentReference> productRefList) {
-    for (dynamic docRef in productRefList) {
-      docRef.get().then((DocumentSnapshot snapshot) {
-        if (snapshot.exists) {
-          // Access specific fields
-          total += double.parse(snapshot.get('price'));
-        } else {
-          total = total;
-        }
-      }).catchError((error) => print('Error getting document: $error'));
-    }
-    return total;
-  }
-
-  return total;
-}
-
-List<String> listOfSellersInCart(List<DocumentReference> cartItems) {
-  List<String> sellerList = [];
-  List<String> getList(List<DocumentReference> productRefList) {
-    for (dynamic docRef in productRefList) {
-      docRef.get().then((DocumentSnapshot snapshot) {
-        if (snapshot.exists) {
-          // Access specific fields
-          sellerList.add(snapshot.get('seller_id'));
-        }
-      }).catchError((error) => print('Error getting document: $error'));
-    }
-    return sellerList;
-  }
-
-  return getList(cartItems);
-}
-
-List<String> listOfProductIDInCart(List<DocumentReference> cartItems) {
-  List<String> productIdList = [];
-  List<String> getList(List<DocumentReference> productRefList) {
-    for (dynamic docRef in productRefList) {
-      docRef.get().then((DocumentSnapshot snapshot) {
-        if (snapshot.exists) {
-          // Access specific fields
-          productIdList.add(snapshot.get('product_id'));
-        }
-      }).catchError((error) => print('Error getting document: $error'));
-    }
-    return productIdList;
-  }
-
-  return getList(cartItems);
-}
-
 bool isUserIdInReview(
   ProductsRecord productReviews,
   String userId,
@@ -546,4 +463,42 @@ bool isUserIdInReview(
     }
   }
   return false;
+}
+
+String? passwordValidation(String currentPassword) {
+  String response = "";
+  int num = 0;
+  if (RegExp(r'^.{8,20}$', dotAll: true).hasMatch(currentPassword)) {
+    response = "Add the following: ";
+    if (currentPassword.contains(new RegExp(r'[0-9]'))) {
+    } else {
+      num++;
+      response += " Number,";
+    }
+    if (RegExp(r'[A-Z]').hasMatch(currentPassword) ||
+        RegExp(r'[a-z]').hasMatch(currentPassword)) {
+    } else {
+      num++;
+      response += " Alphabet,";
+    }
+    if (currentPassword
+        .contains(new RegExp(r'[`~!@#$%\^&*\(\)_+\\\-={}\[\]\/.,<>;]'))) {
+    } else {
+      num++;
+      response += " Special Character,";
+    }
+    if (num == 0) {
+      response = "NA";
+    }
+  } else {
+    response += "Password must be atleast 8 characters";
+  }
+
+  /* if(currentPassword!.contains(new RegExp(r'[a-z]') || currentPassword!.contains(new RegExp(r'[a-z]'))){
+
+  }else{
+    response+=" Alphabet,"
+  }*/
+
+  return response;
 }
